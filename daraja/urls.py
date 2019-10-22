@@ -12,14 +12,14 @@ urlpatterns = patterns(
     url(r'^$', Home.as_view(), name='home'),
     url(r'^for-businesses$', Home.as_view(), name='for_businesses'),
     url(r'^invitation/(?P<ikwen_name>[-\w]+)$', InviteDara.as_view(), name='invite_dara'),
-    url(r'^companies$', RegisteredCompanyList.as_view(), name='registered_company_list'),
+    url(r'^registeredCompanies$', RegisteredCompanyList.as_view(), name='registered_company_list'),
     url(r'^deploy$', login_required(DeployCloud.as_view()), name='deploy_cloud'),
     url(r'^successfulDeployment/(?P<ikwen_name>[-\w]+)$', login_required(SuccessfulDeployment.as_view()), name='successful_deployment'),
     url(r'^profile/(?P<dara_name>[-\w]+)/$', ViewProfile.as_view(), name='view_profile'),
 
-    url(r'^configuration$', permission_required('daraja.ik_manage_daraja')(Configuration.as_view()), name='configuration'),
-    url(r'^daraRequestList$', permission_required('daraja.ik_manage_daraja')(DaraRequestList.as_view()), name='dara_request_list'),
     url(r'^daraList$', permission_required('daraja.ik_manage_daraja')(DaraList.as_view()), name='dara_list'),
+    url(r'^daraRequestList$', permission_required('daraja.ik_manage_daraja')(DaraRequestList.as_view()), name='dara_request_list'),
+    url(r'^configuration$', permission_required('daraja.ik_manage_daraja')(Configuration.as_view()), name='configuration'),
 
     url(r'^login_router$', login_router, name='login_router'),
     url(r'^dashboard/$', login_required(Dashboard.as_view()), name='dashboard'),

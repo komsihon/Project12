@@ -3,22 +3,27 @@ from datetime import datetime
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.utils.translation import gettext as _
+
+from permission_backend_nonrel.models import UserPermissionList
 
 from ikwen.core.constants import REJECTED
 from ikwen.core.views import HybridListView, DashboardBase, ChangeObjectBase
 from ikwen.core.models import Service, Application
-from ikwen.core.utils import slice_watch_objects, rank_watch_objects, add_database, set_counters
+from ikwen.core.utils import slice_watch_objects, rank_watch_objects, add_database, set_counters, get_service_instance, \
+    get_model_admin_instance
 from ikwen.accesscontrol.utils import VerifiedEmailTemplateView
 from ikwen.accesscontrol.backends import UMBRELLA
 
 from ikwen_kakocase.shopping.models import Customer
 
 from daraja.models import DaraRequest, Dara, DarajaConfig, DARAJA
-from daraja.admin import DaraAdmin
+from daraja.admin import DaraAdmin, DarajaConfigAdmin
 from daraja.cloud_setup import deploy
 
 
@@ -35,7 +40,8 @@ class RegisteredCompanyList(HybridListView):
     Companies registered to ikwen Daraja program
     """
     template_name = 'daraja/registered_company_list.html'
-    model = Service
+    model = DarajaConfig
+    queryset = DarajaConfig.objects.select_related('service').filter(referrer_share_rate__gt=0, is_active=True)
 
     # def get_context_data(self, **kwargs):
     #     context = super(RegisteredCompanyList, self).get_context_data(**kwargs)
@@ -53,21 +59,23 @@ class RegisteredCompanyList(HybridListView):
             response = {'error': 'anonymous_user'}
             return HttpResponse(json.dumps(response), 'content-type: text/json')
         try:
-            daraja = Application.objects.get(slug='daraja')
-            Service.objects.get(member=request.user, app=daraja)
+            app = Application.objects.get(slug=DARAJA)
+            Service.objects.get(member=request.user, app=app)
         except Service.DoesNotExist:
             response = {'error': 'not_yet_dara'}
             return HttpResponse(json.dumps(response), 'content-type: text/json')
         now = datetime.now()
         service = Service.objects.get(pk=request.GET['service_id'])
+        db = service.database
+        add_database(db)
         try:
-            dara_request = DaraRequest.objects.get(service=service, member=request.user)
+            dara_request = DaraRequest.objects.using(db).get(service=service, member=request.user)
             diff = now - dara_request.created_on
             if dara_request.status == REJECTED and diff.days > 30:  # If previous request is older than 30 days, allow to request again
                 dara_request.delete()
                 raise DaraRequest.DoesNotExist()
         except DaraRequest.DoesNotExist:
-            DaraRequest.objects.create(service=service, member=request.user)
+            DaraRequest.objects.using(db).create(service=service, member=request.user)
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
@@ -136,6 +144,25 @@ class CompanyList(HybridListView):
         return context
 
 
+class FollowerList(HybridListView):
+    template_name = 'daraja/company_list.html'
+    html_results_template_name = 'daraja/snippets/company_list_results.html'
+    # queryset = Service.objects.exclude(pk=getattr(settings, 'IKWEN_SERVICE_ID'))
+    model = Service
+
+    def get_context_data(self, **kwargs):
+        app = Application.objects.get(slug=DARAJA)
+        dara_service = get_object_or_404(Service, app=app, member=self.request.user)
+        db = dara_service.database
+        add_database(db)
+        context = super(FollowerList, self).get_context_data(**kwargs)
+        queryset = Service.objects.using(db).exclude(pk=dara_service.id)
+        context_object_name = self.get_context_object_name(self.object_list)
+        context[context_object_name] = queryset.order_by(*self.ordering)[:self.page_size]
+        context['queryset'] = queryset
+        return context
+
+
 class ChangeProfile(ChangeObjectBase):
     """
     Profile page of the Dara. Run from ikwen website
@@ -147,8 +174,25 @@ class ChangeProfile(ChangeObjectBase):
     def get_object(self, **kwargs):
         app = Application.objects.get(slug=DARAJA)
         dara_service = get_object_or_404(Service, app=app, member=self.request.user)
-        dara, update = Dara.objects.get_or_create(member=self.request.user, uname=dara_service.ikwen_name)
+        dara, update = Dara.objects.using(UMBRELLA).get_or_create(member=self.request.user, uname=dara_service.ikwen_name)
         return dara
+
+    def post(self, request, *args, **kwargs):
+        model = self.get_model()
+        model_admin = self.get_model_admin()
+        object_admin = get_model_admin_instance(model, model_admin)
+        obj = self.get_object(**kwargs)
+        model_form = object_admin.get_form(request)
+        form = model_form(request.POST, request.FILES, instance=obj)
+        if form.is_valid():
+            obj = form.save()
+            next_url = self.get_change_object_url(request, obj, *args, **kwargs)
+            messages.success(request, _('Your profile was successfully updated.'))
+            return HttpResponseRedirect(next_url)
+        else:
+            context = self.get_context_data(**kwargs)
+            context['errors'] = form.errors
+            return render(request, self.template_name, context)
 
 
 class ViewProfile(TemplateView):
@@ -164,6 +208,7 @@ class ViewProfile(TemplateView):
 class Configuration(ChangeObjectBase):
     template_name = 'daraja/configuration.html'
     model = DarajaConfig
+    model_admin = DarajaConfigAdmin
 
     def get_object(self, **kwargs):
         service = get_service_instance()
@@ -182,38 +227,45 @@ class InviteDara(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(InviteDara, self).get_context_data(**kwargs)
         ikwen_name = kwargs['ikwen_name']
-        service = get_object_or_404(Service, project_name_slug=ikwen_name)
-        # daraja_config = DarajaConfig.objects.get(service=service)
-        context['company'] = service
-        # context['share_rate'] = daraja_config.referrer_share_rate
+        company = get_object_or_404(Service, project_name_slug=ikwen_name)
+        daraja_config = DarajaConfig.objects.get(service=company)
+        context['company'] = company
+        context['company_name'] = company.project_name
+        context['share_rate'] = daraja_config.referrer_share_rate
         return context
 
     def get(self, request, *args, **kwargs):
         ikwen_name = kwargs['ikwen_name']
-        company = get_object_or_404(Service, project_name_slug=ikwen_name)
-        app = Application.objects.get(slug=DARAJA)
         action = request.GET.get('action')
         if action == 'accept':
-            member = request.user
-            if member.is_anonymous():
-                response = {'error': "anonymous_user"}
-                return HttpResponse(json.dumps(response), 'content-type: text/json')
-            try:
-                dara_service = Service.objects.get(app=app, member=member)
-            except Service.DoesNotExist:
-                response = {'error': "not_yet_dara"}
-                return HttpResponse(json.dumps(response), 'content-type: text/json')
-            company_db = company.database
-            add_database(company_db)
-            member.save(using=company_db)
-            UserPermissionList.objects.using(company_db).get_or_create(user=member)
-            Dara.objects.using(company_db).get_or_create(member=member)
-            db = dara_service.database
-            add_database(db)
-            company.save(using=db)
-            response = {'success': True}
-            return HttpResponse(json.dumps(response), 'content-type: text/json')
+            return self.accept_invitation(request, ikwen_name)
         return super(InviteDara, self).get(request, *args, **kwargs)
+
+    def accept_invitation(self, request, ikwen_name):
+        member = request.user
+        company = get_object_or_404(Service, project_name_slug=ikwen_name)
+        app = Application.objects.get(slug=DARAJA)
+        if member.is_anonymous():
+            response = {'error': "anonymous_user"}
+            return HttpResponse(json.dumps(response), 'content-type: text/json')
+        try:
+            dara_service = Service.objects.get(app=app, member=member)
+        except Service.DoesNotExist:
+            response = {'error': "not_yet_dara"}
+            return HttpResponse(json.dumps(response), 'content-type: text/json')
+        company_db = company.database
+        add_database(company_db)
+        member.save(using=company_db)
+        daraja_config = DarajaConfig.objects.get(service=company)
+        UserPermissionList.objects.using(company_db).get_or_create(user=member)
+        dara, change = Dara.objects.using(company_db).get_or_create(member=member)
+        dara.share_rate = daraja_config.referrer_share_rate
+        dara.save()
+        db = dara_service.database
+        add_database(db)
+        company.save(using=db)
+        response = {'success': True}
+        return HttpResponse(json.dumps(response), 'content-type: text/json')
 
 
 class DaraRequestList(HybridListView):
@@ -255,6 +307,7 @@ class DaraRequestList(HybridListView):
 
 class DaraList(HybridListView):
     template_name = 'daraja/dara_list.html'
+    html_results_template_name = 'daraja/snippets/dara_list_results.html'
     model = Dara
 
     def get(self, request, *args, **kwargs):
@@ -285,11 +338,12 @@ class DeployCloud(VerifiedEmailTemplateView):
         app = Application.objects.get(slug=DARAJA)
         inviter = request.GET.get('inviter')
         try:
-            dara_service = Service.objects.get(app=app, member=member)
+            Service.objects.get(app=app, member=member)
         except:
             pass
         else:
-            return HttpResponseRedirect(reverse('daraja:login_router', args=(dara_service.ikwen_name, )))
+            next_url = 'http://daraja.ikwen.com' + reverse('daraja:login_router')
+            return HttpResponseRedirect(next_url)
         if getattr(settings, 'DEBUG', False):
             service = deploy(member)
         else:

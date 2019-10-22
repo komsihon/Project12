@@ -45,8 +45,8 @@
             {% if object_list %}
                 <div class="company-list">
                     <ul class="object-list" style="padding-left: 0">
-                        {% for company in object_list %}
-                            {% with config=company.config %}
+                        {% for obj in object_list %}
+                            {% with company=obj.service config=obj.service.config %}
                             <li id="{{ company.id }}" class="ik-li" data-id="{{ company.id }}">
                                 {% if config.logo.name %}
                                     <div class="image" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ company.photo.small_name }})"></div>

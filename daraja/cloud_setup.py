@@ -18,7 +18,7 @@ from ikwen.core.tools import generate_random_key
 from ikwen.core.utils import add_database_to_settings, add_event, get_mail_content, \
     get_service_instance
 
-from daraja.models import DARAJA, DARAJA_IKWEN_SHARE_RATE
+from daraja.models import DARAJA, DARAJA_IKWEN_SHARE_RATE, DarajaConfig, Dara
 
 import logging
 logger = logging.getLogger('ikwen')
@@ -108,10 +108,17 @@ def deploy(member):
                     company_name=ikwen_name, contact_email=member.email, contact_phone=member.phone,
                     sms_api_script_url=SMS_API_URL)
     config.save(using=UMBRELLA)
+    logger.debug("Dara config created for %s" % ikwen_name)
+
     service.save(using=database)
 
-    # Send notification and Invoice to customer
     vendor = get_service_instance()
+    daraja_config = DarajaConfig.objects.get(service=vendor)
+    dara, change = Dara.objects.get_or_create(member=member)
+    dara.share_rate = daraja_config.referrer_share_rate
+    dara.save()
+
+    # Send notification and Invoice to customer
     add_event(vendor, SERVICE_DEPLOYED, member=member)
     sender = 'ikwen Daraja <no-reply@ikwen.com>'
     sudo_group = Group.objects.using(UMBRELLA).get(name=SUDO)

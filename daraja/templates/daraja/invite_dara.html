@@ -33,12 +33,12 @@
         <div class="text-center">
             <img class="main-img" src="{% static 'foulassi/img/foulassi_splash.png' %}" />
             <h2 class="main-title text-center" style="padding-bottom: 4vh">
-                {% blocktrans with company_name=service.project_name %}Invitation from {{ company_name }}{% endblocktrans %}
+                {% blocktrans %}Invitation from {{ company_name }}{% endblocktrans %}
             </h2>
         </div>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
             <div>
-                <p>{% blocktrans with company_name=service.project_name %}
+                <p>{% blocktrans %}
                     <strong>{{ company_name }}</strong> is inviting you to become partner through Daraja program.
                     Get {{ share_rate }}% for online purchases made by people you refer.
                     You receive money immediately after transactions.
@@ -52,7 +52,7 @@
                 </button>
             </div>
             <div class="text-center get-started" style="display: none; font-size: .9em; margin-top: 5vh">
-                <p class="text-danger">{% blocktrans with company_name=service.project_name %}
+                <p class="text-danger">{% blocktrans %}
                     You're not yet on Daraja. You must join the program before you can
                     partnership with {{ company_name }}.
                 {% endblocktrans %}</p>
@@ -62,7 +62,7 @@
                 </a>
             </div>
             <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center invitation-accepted" style="display: none; font-size: .9em; margin-top: 5vh">
-                <p class="text-success">{% blocktrans with company_url=service.url company_name=service.project_name %}
+                <p class="text-success">{% blocktrans with company_url=company.url %}
                     Great! You are now partner with {{ company_name }}. Get {{ share_rate }}% for getting someone to buy
                     online on {{ company_url }}. You must invite them first by sharing your link below.
                 {% endblocktrans %}</p>
@@ -86,8 +86,8 @@
                 $.getJSON('', {action: 'accept'}, function(data) {
                     _$btn.removeClass('processing');
                     if (data.error) {
-                        //$('.accept, .get-started').toggle()
-                        $('.accept, .invitation-accepted').toggle()
+                        $('.accept, .get-started').toggle()
+                        //$('.accept, .invitation-accepted').toggle()
                     } else if (data.success) {
                         $('.accept, .invitation-accepted').toggle()
                     }

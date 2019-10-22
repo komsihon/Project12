@@ -2,8 +2,10 @@ from django.db import models
 from djangotoolbox.fields import ListField
 
 from ikwen.core.constants import PENDING
+from ikwen.core.utils import get_service_instance
 from ikwen.core.models import Model, Service, AbstractWatchModel
 from ikwen.accesscontrol.models import Member
+from ikwen.accesscontrol.backends import UMBRELLA
 
 
 DARAJA = "daraja"
@@ -13,12 +15,19 @@ REFEREE_JOINED_EVENT = "RefereeJoined"
 
 
 class DarajaConfig(Model):
-    service = models.ForeignKey(Service, unique=True, related_name='+')
+    service = models.ForeignKey(Service, unique=True, default=get_service_instance, related_name='+')
     description = models.TextField(blank=True)
     annual_turnover = models.IntegerField(default=0)
     number_of_employees = models.IntegerField(default=1)
     location = models.CharField(blank=True)
     referrer_share_rate = models.FloatField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    def save(self, **kwargs):
+        super(DarajaConfig, self).save(**kwargs)
+        using = kwargs.pop('using', None)
+        if using is None or using == 'default':
+            super(DarajaConfig, self).save(using=UMBRELLA, **kwargs)
 
 
 class DaraRequest(Model):
