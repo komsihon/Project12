@@ -1,8 +1,7 @@
 {% extends "core/base_admin.html" %}
-{% load i18n humanize staticfiles cache auth_tokens %}
+{% load i18n cache auth_tokens %}
 
 {% block admin_nav %}
-    {% cache 600 sidebar user.username %}
     <div id="admin-nav" class="edge-panel-left">
         <div class="wrapper">
             <div class="stage">
@@ -24,7 +23,8 @@
                     <div class="divider"></div>
                     <ul class="nav nav-pills nav-stacked">
                         <li role="presentation" class="registered-companies">
-                            <a href="{% url 'daraja:registered_company_list' %}">{% trans "Add new company" %}</a>
+                            {% url 'daraja:registered_company_list' as registered_company_list_url %}
+                            <a href="{{ registered_company_list_url|ikwenize }}">{% trans "Add new company" %}</a>
                         </li>
                     </ul>
                 </div>
@@ -32,5 +32,4 @@
             </div>
         </div>
     </div>
-    {% endcache %}
 {% endblock %}

@@ -16,7 +16,7 @@ from ikwen.accesscontrol.models import SUDO, Member
 from ikwen.core.models import Service, SERVICE_DEPLOYED, Application, Config
 from ikwen.core.tools import generate_random_key
 from ikwen.core.utils import add_database_to_settings, add_event, get_mail_content, \
-    get_service_instance
+    get_service_instance, clear_counters
 
 from daraja.models import DARAJA, DARAJA_IKWEN_SHARE_RATE, DarajaConfig, Dara
 
@@ -112,19 +112,22 @@ def deploy(member):
 
     service.save(using=database)
 
-    vendor = get_service_instance()
-    daraja_config = DarajaConfig.objects.get(service=vendor)
+    ikwen_service = get_service_instance()
+    daraja_config = DarajaConfig.objects.get(service=ikwen_service)
     dara, change = Dara.objects.get_or_create(member=member)
     dara.share_rate = daraja_config.referrer_share_rate
     dara.save()
+    ikwen_service.save(using=database)
+    ikwen_service_mirror = Service.objects.using(database).get(pk=ikwen_service.id)
+    clear_counters(ikwen_service_mirror)
 
     # Send notification and Invoice to customer
-    add_event(vendor, SERVICE_DEPLOYED, member=member)
+    add_event(ikwen_service, SERVICE_DEPLOYED, member=member)
     sender = 'ikwen Daraja <no-reply@ikwen.com>'
     sudo_group = Group.objects.using(UMBRELLA).get(name=SUDO)
-    add_event(vendor, SERVICE_DEPLOYED, group_id=sudo_group.id)
+    add_event(ikwen_service, SERVICE_DEPLOYED, group_id=sudo_group.id)
     subject = _("Welcome to the business network.")
-    registered_company_list_url = vendor.url + reverse('daraja:registered_company_list')
+    registered_company_list_url = ikwen_service.url + reverse('daraja:registered_company_list')
     html_content = get_mail_content(subject, template_name='daraja/mails/service_deployed.html',
                                     extra_context={'registered_company_list_url': registered_company_list_url, 'member': member})
     msg = EmailMessage(subject, html_content, sender, [member.email])

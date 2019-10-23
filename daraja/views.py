@@ -12,11 +12,11 @@ from django.utils.translation import gettext as _
 
 from permission_backend_nonrel.models import UserPermissionList
 
-from ikwen.core.constants import REJECTED
+from ikwen.core.constants import PENDING, REJECTED
 from ikwen.core.views import HybridListView, DashboardBase, ChangeObjectBase
 from ikwen.core.models import Service, Application
 from ikwen.core.utils import slice_watch_objects, rank_watch_objects, add_database, set_counters, get_service_instance, \
-    get_model_admin_instance
+    get_model_admin_instance, clear_counters
 from ikwen.accesscontrol.utils import VerifiedEmailTemplateView
 from ikwen.accesscontrol.backends import UMBRELLA
 
@@ -40,13 +40,7 @@ class RegisteredCompanyList(HybridListView):
     Companies registered to ikwen Daraja program
     """
     template_name = 'daraja/registered_company_list.html'
-    model = DarajaConfig
     queryset = DarajaConfig.objects.select_related('service').filter(referrer_share_rate__gt=0, is_active=True)
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(RegisteredCompanyList, self).get_context_data(**kwargs)
-    #     context['']
-    #     return context
 
     def get(self, request, *args, **kwargs):
         action = request.GET.get('action')
@@ -227,7 +221,15 @@ class InviteDara(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(InviteDara, self).get_context_data(**kwargs)
         ikwen_name = kwargs['ikwen_name']
+        member = self.request.user
         company = get_object_or_404(Service, project_name_slug=ikwen_name)
+        company_db = company.database
+        add_database(company_db)
+        try:
+            Dara.objects.using(company_db).get_or_create(member=member)
+            context['invitation_already_accepted'] = True
+        except Dara.DoesNotExist:
+            pass
         daraja_config = DarajaConfig.objects.get(service=company)
         context['company'] = company
         context['company_name'] = company.project_name
@@ -256,21 +258,29 @@ class InviteDara(TemplateView):
         company_db = company.database
         add_database(company_db)
         member.save(using=company_db)
+        try:
+            member_local = Member.objects.using(company_db).get(pk=member.id)
+        except Member.DoesNotExist:
+            member.save(using=company_db)
+            member_local = Member.objects.using(company_db).get(pk=member.id)
+            UserPermissionList.objects.using(company_db).get_or_create(user=member_local)
+        dara_service.save(using=company_db)
         daraja_config = DarajaConfig.objects.get(service=company)
-        UserPermissionList.objects.using(company_db).get_or_create(user=member)
-        dara, change = Dara.objects.using(company_db).get_or_create(member=member)
+        dara, change = Dara.objects.using(company_db).get_or_create(member=member_local)
         dara.share_rate = daraja_config.referrer_share_rate
         dara.save()
         db = dara_service.database
         add_database(db)
         company.save(using=db)
+        company_mirror = Service.objects.using(db).get(pk=company.id)
+        clear_counters(company_mirror)
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
 
 class DaraRequestList(HybridListView):
     template_name = 'daraja/dara_request_list.html'
-    queryset = DaraRequest.objects.using(UMBRELLA).filter(service=getattr(settings, 'IKWEN_SERVICE_ID'))
+    queryset = DaraRequest.objects.using(UMBRELLA).filter(service=getattr(settings, 'IKWEN_SERVICE_ID'), status=PENDING)
 
     def get(self, request, *args, **kwargs):
         action = request.GET.get('action')
@@ -283,17 +293,25 @@ class DaraRequestList(HybridListView):
     def accept_application(self, request):
         dara_request = DaraRequest.objects.using(UMBRELLA).get(pk=request.GET['request_id'])
         member = dara_request.member
-        member.save(using='default')
-        UserPermissionList.objects.get_or_create(user=member)
-        Dara.objects.get_or_create(member=member)
+        try:
+            member_local = Member.objects.get(pk=member.id)
+        except Member.DoesNotExist:
+            member.save(using='default')
+            member_local = Member.objects.get(pk=member.id)
+            UserPermissionList.objects.get_or_create(user=member_local)
+
+        Dara.objects.get_or_create(member=member_local)
         dara_request.status = ACCEPTED
         dara_request.save()
         app = Application.objects.get(slug=DARAJA)
         dara_service = Service.objects.using(UMBRELLA).get(app=app, member=member)
+        dara_service.save(using='default')
         db = dara_service.database
         add_database(db)
         service = get_service_instance()
         service.save(using=db)
+        service_mirror = Service.objects.using(db).get(pk=service.id)
+        clear_counters(service_mirror)
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 

@@ -1,20 +1,14 @@
-{% extends "core/object_list_base.html" %}
+{% extends "core/app_base_admin.html" %}
 {% load i18n static cache %}
 
-{% block page_title %}<title>{% trans "Your companies" %} - ikwen</title>{% endblock %}
+{% block page_title %}<title>{% trans "Requests" context 'Daras requests' %} - ikwen</title>{% endblock %}
 
 {% block head_style %}
     {{ block.super }}
-    <link rel='stylesheet' href="{% static 'foulassi/css/foulassi-kids.css' %}" />
     <style>
         #admin-tools .btn.add {display: none}
-        @media (max-width: 767px) {
-            #navbar .menu-button {display: none}
-            #navbar .navbar-brand {margin-left: 20px}
-            .school-list .main-title {display: none}
-        }
     </style>
-{% endblock %}{% load i18n humanize staticfiles admin_list %}
+{% endblock %}
 
 {% block breadcrumb_location %}
     <li>{{ verbose_name_plural|capfirst }}</li>
@@ -25,90 +19,46 @@
         <div class="container-fluid stage">
             {% include 'core/snippets/admin_tools.html' %}
             <div id="results">
-                {% include 'core/snippets/spinner.html' %}
                 {% if object_list %}
-                    {% include 'daraja/snippets/company_list_results.html' %}
-                    <div style="border-top: 1px solid #ddd; margin-top: 3vh; padding-top: 2vh">
-                        <p class="notice">{% blocktrans %}Invite a company on Daraja.{% endblocktrans %}</p>
-                        <button class="btn btn-green visible-xs" data-toggle="modal" data-target="#whatsapp-share">
-                            <i class="glyphicon glyphicon-plus"></i>
-                            {% trans "Invite a company" %}
-                        </button>
-                    </div>
+                    {% include 'daraja/snippets/dara_request_list_results.html' %}
                 {% else %}
-                    <div id="stage" class="empty-list">
-                        <p class="notice">{% blocktrans %}
-                            You can start add levels only after you have added subjects.
-                        {% endblocktrans %}</p>
-                        <div class="search-school">
-                            <form class="col-sm-8 col-sm-offset-2" action="{% url 'daraja:search_company' %}">
-                                <label for="school-name" class="sr-only">{% trans "Search for a company" %}</label>
-                                <div class="input-group">
-                                    <input id="school-name" class="form-control" type="text" name="q"
-                                           placeholder="{% trans "Company name" %}" autofocus autocomplete="off"/>
-                                    <div class="do-search input-group-addon">
-                                        <i class="fa fa-search" style="color: #555"></i>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div>
-                            <button class="btn btn-green visible-xs" data-toggle="modal" data-target="#whatsapp-share">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                {% trans "Invite a company" %}
-                            </button>
-                            <div class="clearfix"></div>
+                    <div id="stage" class="empty-list" style="padding: 5vh 15px">
+                        <p class="notice">{% blocktrans %}Invite Daras now.{% endblocktrans %}</p>
+                        <div class="row">
+                            <div class="col-xs-4">
+
+                            </div>
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4">
+                                <button class="btn btn-green btn-block visible-xs" data-toggle="modal" data-target="#whatsapp-share" style="min-width: auto">
+                                    <i class="fab fa-whatsapp"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 {% endif %}
             </div>
-        </div>
-    </div>
-{% endblock %}
-
-{% block content %}
-    <div id="content" class="container">
-        <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
             {% if object_list %}
-                <div class="suggestion-list school-list">
-                    <h3 class="main-title">{% trans "Schools" %}</h3>
-                    <ul class="object-list" style="padding-left: 0">
-                        {% for school in object_list %}
-                            {% with config=school.config %}
-                            <li id="{{ school.id }}" class="ik-li" data-id="{{ school.id }}">
-                                {% if config.logo.name %}
-                                    <div class="image" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ school.photo.small_name }})"></div>
-                                {% else %}
-                                    <div class="image" style="background-image: url({% static 'ikwen/img/login-avatar.jpg' %})"></div>
-                                {% endif %}
-                                <div class="info">
-                                    <p class="full_name">{{ config.company_name }}</p>
-                                    {% if config.contact_email or config.contact_phone %}
-                                    <p class="text-muted" style="font-size: .9em">
-                                        {% if config.contact_email %}{{ config.contact_email }}{% endif %}
-                                        {% if config.contact_email and config.contact_phone %}, {% endif %}
-                                        {% if config.contact_phone %}{{ config.contac_phone }}{% endif %}
-                                    </p>
-                                    {% endif %}
-                                </div>
-                                <div class="actions">
-                                    <button class="btn btn-sm btn-green show-modal-invite">{% trans "Invite" %}</button>
-                                </div>
-                            </li>
-                            {% endwith %}
-                        {% endfor %}
-                    </ul>
+            <div>
+                <div style="border-top: 1px solid #ddd; clear: both; margin: 6vh auto 0; width: 40%"></div>
+                <div class="text-center" style="clear: both; margin: 2vh 15px; padding-top: 2vh">
+                    <p class="notice">{% blocktrans %}Invite other Daras now.{% endblocktrans %}</p>
+                    <div class="row">
+                        <div class="col-xs-4">
+
+                        </div>
+                        <div class="col-xs-4"></div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-green btn-block visible-xs" data-toggle="modal" data-target="#whatsapp-share" style="min-width: auto">
+                                <i class="fab fa-whatsapp"></i>
+                            </button>
+                        </div>
+                    </div>
                     <div class="clearfix"></div>
                 </div>
-            {% else %}
-                <div style="margin-top: 6vh; text-align: center">
-                    <h4>{{ request.GET.q }}</h4>
-                    <p class="text-muted">{% trans "Sorry! No result found." %}</p>
-                </div>
+            </div>
             {% endif %}
         </div>
-        <div class="clearfix"></div>
     </div>
     {#    Modal declaration : BEGIN #}
     <div class="modal fade" id="whatsapp-share" tabindex="-1" role="dialog">
@@ -150,9 +100,10 @@
     {{ block.super }}
     <script>
         (() => {
+            $('div#admin-nav .dara-requests').addClass('active');
             $('body').on('click', '#whatsapp-share .btn.ok', () => {
                 let msg = $('#whatsapp-share-msg').val(),
-                    url = 'https://ikwen.com/tsunami/{{ service.project_name_slug }}/?invite%3Dyes%26group%3Dteachers';
+                    url = 'https://ikwen.com/daraja/invitation/{{ service.project_name_slug }}';
                 window.location = 'https://api.whatsapp.com/send?text=' + url + '%0A%0A' + msg;
             });
         })()

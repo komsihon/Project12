@@ -8,15 +8,15 @@
             {% if config.logo.name %}
                 <div class="image rounded" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ company.photo.small_name }})"></div>
             {% else %}
-                <div class="image rounded" style="background-image: url({% static 'ikwen/img/login-avatar.jpg' %})"></div>
+                <div class="image rounded" style="background-image: url({% static 'ikwen/img/logo-placeholder.jpg' %})"></div>
             {% endif %}
             <div class="info">
                 <a href="{{ company.url }}">{{ company.project_name }}</a>
-                <p class="about">{{ config.currency_symbol }} {{ company.total_earnings|intcomma }}</p>
+                <p class="about">{{ company.total_community|intcomma }} Followers - {{ config.currency_symbol }} {{ company.total_earnings|intcomma }} {% trans "earned" %}</p>
             </div>
-            <div class="actions">
-                <button class="btn btn-sm btn-danger show-modal-leave">{% trans "Leave" %}</button>
-            </div>
+{#            <div class="actions">#}
+{#                <button class="btn btn-sm btn-danger show-modal-leave">{% trans "Leave" %}</button>#}
+{#            </div>#}
         </li>
         {% endwith %}
     {% endfor %}

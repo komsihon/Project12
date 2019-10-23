@@ -8,7 +8,7 @@
     <style>
         #admin-tools .btn.add {display: none}
     </style>
-{% endblock %}{% load i18n humanize staticfiles admin_list %}
+{% endblock %}
 
 {% block breadcrumb_location %}
     <li>{{ verbose_name_plural|capfirst }}</li>
@@ -22,14 +22,18 @@
                 {% if object_list %}
                     {% include 'daraja/snippets/dara_list_results.html' %}
                 {% else %}
-                    <div id="stage" class="empty-list">
+                    <div id="stage" class="empty-list" style="padding: 5vh 15px">
                         <p class="notice">{% blocktrans %}Invite Daras now.{% endblocktrans %}</p>
-                        <div>
-                            <button class="btn btn-green visible-xs" data-toggle="modal" data-target="#whatsapp-share">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                {% trans "Send invitation" %}
-                            </button>
-                            <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+
+                            </div>
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4">
+                                <button class="btn btn-green btn-block visible-xs" data-toggle="modal" data-target="#whatsapp-share" style="min-width: auto">
+                                    <i class="fab fa-whatsapp"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 {% endif %}
@@ -45,7 +49,7 @@
                         </div>
                         <div class="col-xs-4"></div>
                         <div class="col-xs-4">
-                            <button class="btn btn-green visible-xs" data-toggle="modal" data-target="#whatsapp-share" style="margin: auto; width: 100%">
+                            <button class="btn btn-green btn-block visible-xs" data-toggle="modal" data-target="#whatsapp-share" style="min-width: auto">
                                 <i class="fab fa-whatsapp"></i>
                             </button>
                         </div>
@@ -96,6 +100,7 @@
     {{ block.super }}
     <script>
         (() => {
+            $('div#admin-nav .daras').addClass('active');
             $('body').on('click', '#whatsapp-share .btn.ok', () => {
                 let msg = $('#whatsapp-share-msg').val(),
                     url = 'https://ikwen.com/daraja/invitation/{{ service.project_name_slug }}';
