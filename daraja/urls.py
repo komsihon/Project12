@@ -5,12 +5,13 @@ from django.contrib.auth.decorators import login_required, permission_required, 
 from ikwen.cashout.views import Payments, manage_payment_address, request_cash_out
 
 from daraja.views import Home, RegisteredCompanyList, DeployCloud, ChangeProfile, Dashboard, CompanyList, \
-    SuccessfulDeployment, ViewProfile, login_router, DaraList, DaraRequestList, Configuration, InviteDara
+    SuccessfulDeployment, ViewProfile, login_router, DaraList, DaraRequestList, Configuration, InviteDara, \
+    HomeForBusinesses
 
 urlpatterns = patterns(
     '',
     url(r'^$', Home.as_view(), name='home'),
-    url(r'^for-businesses$', Home.as_view(), name='for_businesses'),
+    url(r'^for-businesses$', HomeForBusinesses.as_view(), name='for_businesses'),
     url(r'^invitation/(?P<ikwen_name>[-\w]+)$', InviteDara.as_view(), name='invite_dara'),
     url(r'^registeredCompanies$', RegisteredCompanyList.as_view(), name='registered_company_list'),
     url(r'^deploy$', login_required(DeployCloud.as_view()), name='deploy_cloud'),

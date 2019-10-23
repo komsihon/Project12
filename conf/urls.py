@@ -21,5 +21,4 @@ urlpatterns = patterns(
     url(r'^echo/', include('echo.urls', namespace='echo')),
 
     url(r'^', include('daraja.urls', namespace='daraja')),
-    url(r'^', include('ikwen.core.urls', namespace='ikwen')),
 )
