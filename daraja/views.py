@@ -19,6 +19,7 @@ from ikwen.core.utils import slice_watch_objects, rank_watch_objects, add_databa
     get_model_admin_instance, clear_counters
 from ikwen.accesscontrol.utils import VerifiedEmailTemplateView
 from ikwen.accesscontrol.backends import UMBRELLA
+from ikwen.accesscontrol.models import Member
 
 from ikwen_kakocase.shopping.models import Customer
 

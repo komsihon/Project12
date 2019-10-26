@@ -3,7 +3,7 @@
 
 {% block meta %}
     {{ block.super }}
-    <link rel="shortcut icon" type="image/png" href="{% static "tsunami/img/favicon_Tsunami.ico" %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'daraja/img/logo-daraja.png' %}">
     <meta name="theme-color" content="#233682">
     <meta name="msapplication-navbutton-color" content="#233682">
     <meta name="apple-mobile-web-app-status-bar-style" content="#233682">
@@ -31,17 +31,18 @@
 {% block content %}
     <div class="container">
         <div class="text-center">
-            <img class="main-img" src="{% static 'foulassi/img/foulassi_splash.png' %}" />
-            <h2 class="main-title text-center" style="padding-bottom: 4vh">
+<!--            style="background: #f7f7f7"-->
+            <img class="main-img" src="{% static 'daraja/img/logo-daraja.png' %}" />
+            <h2 class="main-title text-center" style="padding: 4vh 0; font-weight: bold;">
                 {% blocktrans %}Invitation from {{ company_name }}{% endblocktrans %}
             </h2>
         </div>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
             <div>
-                <p>{% blocktrans %}
+                <p style="text-align: center;">{% blocktrans %}
                     <strong>{{ company_name }}</strong> is inviting you to become partner through Daraja program.
-                    Get {{ share_rate }}% for online purchases made by people you refer.
-                    You receive money immediately after transactions.
+                    <br>Get {{ share_rate }}% for online purchases made by people you refer.
+                    <br>You receive money immediately after transactions.
                 {% endblocktrans %}</p>
                 <div class="clearfix"></div>
             </div>
@@ -70,6 +71,14 @@
                     {% include 'core/snippets/button_spinner.html' %}
                     <strong>{% trans "Invite someone now" %}</strong>
                 </a>
+{#                <a href="{% url 'ikwen:company_profile' ikwen_name %}?referrer={{ user.id }}" class="btn btn-green">#}
+{#                    {% include 'core/snippets/button_spinner.html' %}#}
+{#                    <strong>{% trans "Invite someone now" %}</strong>#}
+{#                </a>#}
+{#                <a href="{% url 'ikwen:company_profile' ikwen_name %}?referrer={{ user.id }}" class="btn btn-green">#}
+{#                    {% include 'core/snippets/button_spinner.html' %}#}
+{#                    <strong>{% trans "Invite someone now" %}</strong>#}
+{#                </a>#}
             </div>
             <div class="clearfix"></div>
         </div>

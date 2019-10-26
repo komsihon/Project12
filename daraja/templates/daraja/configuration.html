@@ -1,6 +1,14 @@
 {% extends "core/change_object_base.html" %}
 {% load i18n humanize static auth_tokens admin_list %}
 
+{% block meta %}
+    {{ block.super }}
+    <link rel="shortcut icon" type="image/png" href="{% static 'daraja/img/logo-daraja_grey.png' %}">
+    <meta name="theme-color" content="#233682">
+    <meta name="msapplication-navbutton-color" content="#233682">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#233682">
+{% endblock %}
+
 {% block page_title %}
 <title> {% trans "Daraja Configuration" %} - ikwen </title>
 {% endblock %}
@@ -31,7 +39,7 @@
                     <input type="hidden" name="object_id" value="{{ config.id }}" />
                     <input type="hidden" name="company_name_slug" value="{{ config.company_name_slug }}" />
                     {% include 'core/snippets/model_admin_form.html' %}
-                    <div class="form-group col-xs-12 col-sm-4 col-md-3" style="padding-top: 15px">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 15px 0 0 0">
                         <button class="btn btn-md btn-primary btn-block">{% trans "Save" %}</button>
                     </div>
                 </form>
