@@ -1,0 +1,62 @@
+- model: core.application
+  pk: 58a8b4fc0c25ddbeca23c961
+  fields:
+    name: Daraja
+    slug: daraja
+    logo: app_logos/kakocase_logo.png
+    url: ''
+    base_monthly_cost: 0
+
+- model: core.service
+  pk: 58aab5ca4fc0c21cb231e581
+  fields:
+    member: 56eb6d04b37b3379b531e011
+    app: 58a8b4fc0c25ddbeca23c961
+    project_name: Daraja
+    project_name_slug: daraja
+    domain: daraja.ikwen.com
+    url: http://daraja.ikwen.com
+    database: test_ikwen_umbrella
+    api_signature: daraja-api-signature1
+    monthly_cost: 0
+    version: Full
+    status: Active
+    expiry: 2035-01-01T00:00:00.120Z
+
+- model: accesscontrol.member
+  pk: 56eb6d04b37b3379b531eda1
+  fields:
+    username: armelsikati
+    email: member8@ikwen.com
+    password: pbkdf2_sha256$12000$nNK3SeCKYSvl$CuoviZNeie9YzaWhukVCi9iQtNmpu3QBbK2yHGHEUxc=  # admin
+    phone: 677000008
+    first_name: Armel
+    last_name: Sikati
+    gender: Male
+
+- model: core.service
+  pk: 58aab5ca4fc0c21cb231e582
+  fields:
+    member: 56eb6d04b37b3379b531eda1
+    app: 58a8b4fc0c25ddbeca23c961
+    project_name: ArmelSikati
+    project_name_slug: armelsikati
+    domain: armelsikati.daraja.ikwen.com
+    url: http://daraja.ikwen.com/armelsikati
+    database: test_kc_referrer
+    api_signature: api-signature8
+    monthly_cost: 0
+    version: Full
+    status: Active
+    expiry: 2035-01-01T00:00:00.120Z
+
+- model: daraja.dara
+  pk: 58a9658b4fc0c25ddbeca241
+  fields:
+    member: 56eb6d04b37b3379b531eda1
+    uname: armelsikati
+    share_rate: 10
+    items_traded_history: [18, 9, 57, 23, 46]
+    turnover_history: [33800, 22700, 204150, 40890, 70235]
+    earnings_history: [33800, 22700, 204150, 40890, 70235]
+    orders_count_history: [11, 4, 41, 15, 27]

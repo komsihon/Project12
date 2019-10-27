@@ -19,7 +19,7 @@ class DarajaConfig(Model):
     description = models.TextField(blank=True)
     annual_turnover = models.IntegerField(default=0)
     number_of_employees = models.IntegerField(default=1)
-    location = models.CharField(blank=True)
+    location = models.CharField(max_length=255, blank=True)
     referrer_share_rate = models.FloatField(default=0)
     is_active = models.BooleanField(default=True)
 

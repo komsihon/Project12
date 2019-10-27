@@ -39,7 +39,7 @@ SMS_API_URL = 'http://websms.mobinawa.com/http_api?action=sendsms&username=67518
 def deploy(member):
     app = Application.objects.get(slug=DARAJA)
     daraja_service = Service.objects.get(project_name_slug=DARAJA)
-    project_name_slug = slugify(member.username)
+    project_name_slug = slugify(member.username.split('@')[0])
     ikwen_name = project_name_slug.replace('-', '')
     pname = ikwen_name
     i = 0

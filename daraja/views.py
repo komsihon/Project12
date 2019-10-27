@@ -1,4 +1,5 @@
 import json
+import logging
 from datetime import datetime
 
 from django.conf import settings
@@ -26,6 +27,8 @@ from ikwen_kakocase.shopping.models import Customer
 from daraja.models import DaraRequest, Dara, DarajaConfig, DARAJA
 from daraja.admin import DaraAdmin, DarajaConfigAdmin
 from daraja.cloud_setup import deploy
+
+logger = logging.getLogger('ikwen')
 
 
 class Home(TemplateView):
@@ -70,7 +73,10 @@ class RegisteredCompanyList(HybridListView):
                 dara_request.delete()
                 raise DaraRequest.DoesNotExist()
         except DaraRequest.DoesNotExist:
-            DaraRequest.objects.using(db).create(service=service, member=request.user)
+            member = request.user
+            member.is_ghost = True
+            member.save(using=db)
+            DaraRequest.objects.using(db).create(service=service, member=member)
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
@@ -211,6 +217,11 @@ class Configuration(ChangeObjectBase):
         return daraja_config
 
     def after_save(self, request, obj, *args, **kwargs):
+        try:
+            Application.objects.get(slug=DARAJA)
+        except Application.DoesNotExist:
+            app = Application.objects.using(UMBRELLA).get(slug=DARAJA)
+            app.save(using='default')
         obj = self.get_object()
         obj.save(using=UMBRELLA)
 
@@ -258,7 +269,8 @@ class InviteDara(TemplateView):
             return HttpResponse(json.dumps(response), 'content-type: text/json')
         company_db = company.database
         add_database(company_db)
-        member.save(using=company_db)
+        member.customer_on_fk_list.append(company.id)
+        member.save()
         try:
             member_local = Member.objects.using(company_db).get(pk=member.id)
         except Member.DoesNotExist:
@@ -292,16 +304,13 @@ class DaraRequestList(HybridListView):
         return super(DaraRequestList, self).get(request, *args, **kwargs)
 
     def accept_application(self, request):
-        dara_request = DaraRequest.objects.using(UMBRELLA).get(pk=request.GET['request_id'])
+        dara_request = DaraRequest.objects.get(pk=request.GET['request_id'])
         member = dara_request.member
-        try:
-            member_local = Member.objects.get(pk=member.id)
-        except Member.DoesNotExist:
-            member.save(using='default')
-            member_local = Member.objects.get(pk=member.id)
-            UserPermissionList.objects.get_or_create(user=member_local)
-
-        Dara.objects.get_or_create(member=member_local)
+        member.is_ghost = False
+        member.customer_on_fk_list.append(getattr(settings, 'IKWEN_SERVICE_ID'))
+        member.save(using=UMBRELLA)
+        UserPermissionList.objects.get_or_create(user=member)
+        Dara.objects.get_or_create(member=member)
         dara_request.status = ACCEPTED
         dara_request.save()
         app = Application.objects.get(slug=DARAJA)
@@ -369,7 +378,7 @@ class DeployCloud(VerifiedEmailTemplateView):
             try:
                 service = deploy(member)
             except Exception as e:
-                logger.error("Daraja deployment failed for %s" % project_name, exc_info=True)
+                logger.error("Daraja deployment failed for %s" % member.username, exc_info=True)
                 context = self.get_context_data(**kwargs)
                 context['errors'] = e.message
                 return render(request, 'daraja/cloud_setup/deploy.html', context)
