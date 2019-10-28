@@ -2,15 +2,21 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 
 from django.contrib import admin
-admin.autodiscover()
 
-from daraja.views import Home
+from ikwen.accesscontrol.views import SignIn
+from daraja.views import Dashboard
+
+admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-
     url(r'^i18n/', include('django.conf.urls.i18n')),
-    url(r'^$', Home.as_view(), name='home'),
+
+    # URLs to make library internals to work properly
+    url(r'^signIn/$', SignIn.as_view(), name='home'),
+    url(r'^daraja/dashboard/$', login_required(Dashboard.as_view()), name='admin_home'),
+    url(r'^daraja/dashboard/$', login_required(Dashboard.as_view()), name='sudo_home'),
+
     url(r'^laakam/', include(admin.site.urls)),
     url(r'^billing/', include('ikwen.billing.urls', namespace='billing')),
     url(r'^theming/', include('ikwen.theming.urls', namespace='theming')),
@@ -25,5 +31,4 @@ urlpatterns = patterns(
     url(r'^daraja/', include('daraja.urls', namespace='daraja')),
 
     url(r'^', include('ikwen.core.urls', namespace='ikwen')),
-    # url(r'^page/(?P<url>[-\w]+)/$', FlatPageView.as_view(), name='flatpage'),
 )
