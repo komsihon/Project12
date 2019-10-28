@@ -1,6 +1,5 @@
-{% extends 'core/app_base_admin.html' %}
-{% load i18n humanize static auth_tokens %}
-
+{% extends 'core/base_bs.html' %}
+{% load i18n humanize static auth_tokens webdesign %}
 
 {% block meta %}
     {{ block.super }}
@@ -16,157 +15,100 @@
 
 {% block head_style %}
     {{ block.super }}
-    <link rel='stylesheet' href="{% static 'ikwen/css/change-form.css' %}" />
-    <link rel='stylesheet' href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-    <style>
-        .date-sm-scr {
-            display: none;
-        }
-        @media only screen and (max-width: 320px) {
-            .date-sm-scr{
-                display: block;
-            }
-            .date-bg-scr {
-                display: none;
-            }
-        }
-    </style>
+    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}" />
 {% endblock %}
 
-{% block breadcrumb_location %}
-    <li>
-        <a href="{% url 'daraja:dara_list' %}">{% trans "Dara profile" %}</a>
-    </li>
-    <li>{% if dara.member.is_ghost %}{{ dara.member.email }}{% else %}{{ dara.member.full_name }}{% endif %}</li>
-{% endblock %}
+{% block header %}
+    <script>window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
 
-{% block admin_content %}
-    <div id="admin-content">
-        <div class="container-fluid">
-            <div id="stage" class="row" style="float: none">
-                {% if dara %}
-                {% with member=dara.member %}
-                    {% url 'ikwen:profile' dara.member.id as member_profile_url %}
-                    <div>
-                        <div class="text-center">
-                            <a href="{{ member_profile_url|ikwenize }}" class="welcome-title">
-                                {% if dara.member.photo.name %}
-                                    <img class="img-circle img-thumbnail" src="{{ settings.IKWEN_MEDIA_URL }}{{ member.photo.small_name }}" style="margin-top: 1vh;width:100px;height:100px">
-                                {% else %}
-                                    <img class="img-circle img-thumbnail" src="{% static 'ikwen/img/login-avatar.jpg' %}" style="margin-top: 1vh;">
-                                {% endif %}
-                                {% if dara.member.is_ghost %}
-                                    <h4>{{ dara.member.email }}</h4>
-                                {% else %}
-                                    <h4>{{ dara.member.full_name }}</h4>
-                                {% endif %}
-                            </a>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                {% endwith %}
-                {% endif %}
-                <div class="col-sm-8 col-sm-offset-2">
-                    <section>
-                        <div style="margin-top: 15px;">
-                            <label>{% trans 'Username' %}</label>
-                            <span class="pull-right">{{ dara.member }}</span>
-                        </div>
-                        <div style="margin-top: 15px;">
-                            <label>{% trans 'Full name' %}</label>
-                            <span class="pull-right {% if not dara.member.full_name %}text-muted{% endif %}">
-                                {% if dara.member.full_name %}
-                                    {{ dara.member.full_name }}
-                                {% else %}
-                                    &#60;{% trans 'Not set' %}&#62;
-                                {% endif %}
-                            </span>
-                        </div>
-                        <div style="margin-top: 15px;">
-                            <label>{% trans 'DOB' %}</label>
-                            <span class="pull-right {% if not dara.member.dob %}text-muted{% endif %}">
-                                {% if dara.member.dob %}
-                                    {{ dara.member.dob }}
-                                {% else %}
-                                    &#60;{% trans 'Not set' %}&#62;
-                                {% endif %}
-                            </span>
-                        </div>
-                        <div style="margin-top: 15px;">
-                            <label>{% trans 'Phone' %}</label>
-                            <span class="pull-right {% if not dara.member.phone %}text-muted{% endif %}">
-                                {% if dara.member.phone %}
-                                    <a href="tel://{{ dara.member.phone }}">{{ dara.member.phone }}</a>
-                                {% else %}&#60;{% trans 'Not set' %}&#62;{% endif %}
-                            </span>
-                        </div>
-                        <div style="margin-top: 15px;">
-                            <label>{% trans 'Email' %}</label>
-                            <span class="pull-right {% if not dara.member.email %}text-muted{% endif %}">
-                                {% if dara.member.email %}
-                                    <a href="mailto:{{ dara.member.email }}">{{ dara.member.email }}</a>
-                                {% else %}
-                                    &#60;{% trans 'Not set' %}&#62;
-                                {% endif %}
-                            </span>
-                        </div>
-                        <div style="margin-top: 15px;">
-                            <label>{% trans 'Started been a Dara on' %}</label>
-                            <span class="pull-right date-bg-scr">{{ dara.created_on }}</span>
-                            <span class="pull-right date-sm-scr">{{ dara.created_on|date }}</span>
-                        </div>
-                        <div class="text-center accept" style="margin-top: 10vh">
-                            <a class="btn btn-deep-blue" href="{% url 'daraja:dara_list' %}" style="width: 50%;">
-                                {% include 'core/snippets/button_spinner.html' %}
-                                <strong>{% trans "Accept" %}</strong>
-                            </a>
-                        </div>
-                    </section>
-                </div>
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
 
-{#                <form class="col-sm-8 col-sm-offset-2" method="post">{% csrf_token %}#}
-{#                    {% if form.errors %}#}
-{#                        <div class="errorlist">{{ form.errors }}</div>#}
-{#                    {% endif %}#}
-{#                    {% if not dara and not form.errors %}#}
-{#                        <div class="form-group" style="padding: 0 15px; margin: 5vh 0 0">#}
-{#                            <label for="customer-name">{% trans "Customer email" %}</label>#}
-{#                            <div>#}
-{#                                <input id="customer-name" class="form-control input-sm" type="text" autocomplete="off"/>#}
-{#                                {{ form.member_id.errors }}#}
-{#                                <div class="results customers has-shade" style="display: none" data-min-search-chars="2">#}
-{#                                    {% include 'core/snippets/spinner.html' %}#}
-{#                                    <ul style="padding-left: 0">#}
-{#                                        <li class="member tpl" style="display: none">#}
-{#                                            <div style="display: block">#}
-{#                                                <span class="photo logo bg-img" style="background-image: url({% static 'ikwen/img/no_photo.png' %})"></span>#}
-{#                                                <div style="float: left; margin-left: 30px">#}
-{#                                                    <span class="full_name"></span>#}
-{#                                                    <p class="about short_description"></p>#}
-{#                                                </div>#}
-{#                                            </div>#}
-{#                                        </li>#}
-{#                                    </ul>#}
-{#                                    <div class="clearfix"></div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="row col-xs-12 col-sm-8 col-md-4" style="margin-top: 3vh">#}
-{#                                <button type="button" class="btn btn-sm btn-block btn-success continue" disabled>{% trans "Continue" %}</button>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    {% endif %}#}
-{#                    <div class="subscription-details{% if not dara and not form.errors %} tpl{% endif %}">#}
-{#                        {% include 'core/snippets/model_admin_form.html' %}#}
-{#                        <div style="padding-top: 30px; margin-bottom: 10px">#}
-{#                            <div class="col-xs-12 col-sm-8 col-md-4">#}
-{#                                <button class="btn btn-sm btn-block btn-success">{% trans "Save" %}</button>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </form>#}
-            </div>
-        </div>
+      return t;
+    }(document, "script", "twitter-wjs"));
+    </script>
+
+    <div id="top-notice-ctnr" style="display: none">
+        <span class="floating-notice has-shade" style="float: none; position: static"> Error goes here </span>
     </div>
 {% endblock %}
+
+{% block content %}
+    <div id="content" class="container" style="margin-top: 4vh">
+        {% with member=dara.member %}
+            {% url 'ikwen:profile' dara.member.id as member_profile_url %}
+            <div class="col-sm-8 col-sm-offset-2 dara-details">
+                <div>
+                    <div class="text-center">
+                        {% if member.photo.name %}
+                            <img class="img-circle img-thumbnail" src="{{ settings.IKWEN_MEDIA_URL }}{{ member.photo.small_name }}" style="margin-top: 1vh;width:200px;height:200px">
+                        {% else %}
+                            <img class="img-circle img-thumbnail" src="{% static 'ikwen/img/login-avatar.jpg' %}" style="margin-top: 1vh;">
+                        {% endif %}
+                        {% if member.is_ghost %}
+                            <h4>{{ member.email }}</h4>
+                        {% else %}
+                            <h4>{{ member.full_name }}</h4>
+                        {% endif %}
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="dara-basic-info row">
+                    <div class="col-md-4 col-sm-6 col-lg-offset-1">
+                        <label>{% trans 'Email' %}</label>
+                        <div>
+                            <a href="mailto:{{ dara.member.email }}" class="text-muted">{{ dara.member.email }}</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 phone">
+                        <label>{% trans 'Phone' %}</label>
+                        {% if dara.member.phone %}
+                            <div>
+                                <a href="tel://{{ dara.member.phone }}" class="text-muted">{{ dara.member.phone }}</a>
+                            </div>
+                        {% else %}
+                            <div class="text-muted">&#60;{% trans 'Not set' %}&#62;</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-3">
+                        <label>{% trans 'Suscribed on' %}</label>
+                        <div class="text-muted">{{ dara.created_on|date }}</div>
+                    </div>
+                </div>
+                <div class="dara-description">
+                    <p>{{ dara.description|safe }}</p>
+                    <p>{% lorem %}</p>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="agreement">
+                    <span class="pull-left col-lg-5 col-md-5 col-sm-4">
+                        <a class="accept btn btn-deep-blue" href="{% url 'daraja:dara_list' %}" role="button" style="width: 100%">
+                            {% include 'core/snippets/button_spinner.html' %}
+                            <strong>{% trans "Accept" %}</strong>
+                        </a>
+                    </span>
+                    <span class="pull-right col-lg-5 col-md-5 col-sm-4">
+                        <a class="decline btn btn-warning"  href="{% url 'daraja:dara_list' %}" role="button" style="width: 100%;">
+                            {% include 'core/snippets/button_spinner.html' %}
+                            <strong>{% trans "Decline" %}</strong>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        {% endwith %}
+    </div>
+{% endblock %}
+
+
 
 

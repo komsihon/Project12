@@ -13,13 +13,14 @@
 
 {% block head_style %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'daraja/css/daraja.css' %}">
+    <link rel="stylesheet" href="{% static 'daraja/css/daraja-admin.css' %}">
     <style>
         #admin-tools .btn.add {display: none}
     </style>
 {% endblock %}
 
 {% block header %}
+    {{ block.super }}
     <script>window.twttr = (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};

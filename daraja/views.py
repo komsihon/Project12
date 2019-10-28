@@ -229,7 +229,7 @@ class InviteDara(TemplateView):
         try:
             Dara.objects.using(company_db).get_or_create(member=member)
             context['invitation_already_accepted'] = True
-        except Dara.DoesNotExist:
+        except:
             pass
         daraja_config = DarajaConfig.objects.get(service=company)
         context['company'] = company
@@ -329,6 +329,14 @@ class DaraList(HybridListView):
     html_results_template_name = 'daraja/snippets/dara_list_results.html'
     model = Dara
 
+    def get_context_data(self, **kwargs):
+        context = super(DaraList, self).get_context_data(**kwargs)
+        service = get_service_instance()
+        daraja_config = DarajaConfig.objects.get(service=service)
+        context['project_name'] = service.project_name
+        context['share_rate'] = int(daraja_config.referrer_share_rate)
+        return context
+
     def get(self, request, *args, **kwargs):
         action = request.GET.get('action')
         if action == 'remove':
@@ -388,3 +396,4 @@ class SuccessfulDeployment(VerifiedEmailTemplateView):
         context['dara_service'] = get_object_or_404(Service, app=app, member=self.request.user)
         context['inviter'] = self.request.GET.get('inviter')
         return context
+

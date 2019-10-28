@@ -1,5 +1,5 @@
 {% extends "core/app_base_admin.html" %}
-{% load i18n static cache %}
+{% load i18n humanize staticfiles admin_list static cache %}
 
 {% block meta %}
     {{ block.super }}
@@ -13,34 +13,10 @@
 
 {% block head_style %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'daraja/css/daraja.css' %}">
+    <link rel="stylesheet" href="{% static 'daraja/css/daraja-admin.css' %}">
     <style>
         #admin-tools .btn.add {display: none}
     </style>
-{% endblock %}
-
-{% block header %}
-    <script>window.twttr = (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-      if (d.getElementById(id)) return t;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://platform.twitter.com/widgets.js";
-      fjs.parentNode.insertBefore(js, fjs);
-
-      t._e = [];
-      t.ready = function(f) {
-        t._e.push(f);
-      };
-
-      return t;
-    }(document, "script", "twitter-wjs"));
-    </script>
-
-    <div id="top-notice-ctnr" style="display: none">
-        <span class="floating-notice has-shade" style="float: none; position: static"> Error goes here </span>
-    </div>
 {% endblock %}
 
 {% block breadcrumb_location %}
@@ -129,7 +105,7 @@
                             <label for="whatsapp-share-msg" class="col-sm-5 col-md-4">{% trans "Message" %}</label>
                             <div class="col-sm-7 col-md-8">
                                 <textarea id="whatsapp-share-msg" style="height: 120px"
-                                          class="form-control input-sm">{% blocktrans with school_name=config.company_name %}Hello! This is our Foulassi platform for collaborating online in {{ school_name }}. Please, join in for us to configure your access.{% endblocktrans %}</textarea>
+                                          class="form-control input-sm">{% blocktrans %}Hello! Get {{ share_rate }}% by getting your ones to buy from {{ project_name }} online. Join Daraja program now !{% endblocktrans %}</textarea>
                             </div>
                         </div>
                     </form>
