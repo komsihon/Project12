@@ -41,18 +41,13 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3 text-center " style="padding-top: 18vh">
                 <img style="max-width: 180px" alt="logo_ikwen_DARAJA" src="{% static 'daraja/img/logo-daraja.png' %}"/>
-              <h1 style="font-size: 3.5vw;">{% trans 'Become a stockholder of the major companies' %}</h1>
+              <h1 style="font-size: 3.5vw;">{% trans 'Become a shareholder of companies you like' %}</h1>
                 <p >
-                    {% trans "Earn a percentage on the turnover of your favorite companies by free registering on the ikwen DARAJA program." %}
+                    {% trans "Get your nearest ones to buy online from your favorite companies and earn a percentage out of that." %}
                 </p>
-
-                {% if request.user.is_authenticated %}
-                    <a  href='{% url 'tsunami:bundles' %}'>
-                        <button  type=button class="btn btn-outline-primary btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Suscribe on <b>Daraja</b>" %}</button>
-                    </a>
-                {% else %}
-                     <button type="button" class="btn btn-outline-primary btn-deploy animated pulse " data-toggle="modal" data-target="#modal-get-email" style="margin-top: 20px; height: 45px;">{% trans "Suscribe on <b>Daraja</b>" %}</button>
-                {% endif %}
+                <a  href="{% url 'daraja:deploy_cloud' %}">
+                    <button  type=button class="btn btn-outline-primary btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Register on <b>Daraja</b>" %}</button>
+                </a>
                 <div class="anchor">
                     <a class="js-scrollTo" href="#banniere-top" style="text-decoration: none"><i class="fa fa-arrow-circle-down"></i></a>
                 </div>
@@ -62,48 +57,34 @@
     <div id="banniere-top" class="container-fluid">
         <div class="row section-banniere-top" style="margin-top: 0;">
             <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center" style="padding-top: 7vh">
-              <h1>{% trans 'Become stockholder' %} </h1>
-                <button type="button" class="btn btn-outline-white animated pulse " data-toggle="modal" data-target="#modal-get-email" style="margin-top: 20px; height: 45px;">{% trans "Suscribe on <b>Daraja</b>" %}</button>
+              <h1>{% trans 'Become shareholder' %} </h1>
+                <a  href="{% url 'daraja:deploy_cloud' %}">
+                    <button  type=button class="btn btn-outline-white btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Register on <b>Daraja</b>" %}</button>
+                </a>
             </div>
         </div>
     </div>
 
-    <div class="screenshots" id="container-general-view">
-        {% comment %}<div class="row row-custom" style="padding-top: 5vh">
-            <div class="col-md-6 section-features-text second-on-mobile">
-                <img class="picto-features" alt="picto_better_customer_compréhension" src="{% static 'tsunami/img/best_buddy_list_exploitation_picto.png' %}" />
-                <h2 class="" style="font-size: 3vw">{% trans 'Efficient use of the customer directory' %}</h2>
-                <p class="">
-                    {% trans 'You will now keep the contacts of your customers in a modern and useful way. Tsunami will be able to use this directory on his own to bring you even more customers and encourage them into repeated purchases. No more old paper phone books that get dusty at the bottom of the drawer.' %}
-                </p>
-                <a href="http://blog.ikwen.com/notion-dinbound-marketing-marketing-entrant/" target="_blank" style="font-size: 15px; font-weight: bold; margin-top: 10px; text-decoration: none;" class="discover-link">{% trans 'Discover Cloud Customer Manager' %}&nbsp;<i class="fa fa-arrow-circle-right animated infinite slideInLeft"></i></a>
-            </div>
-            <div class="col-md-6 col-sm-6 first-on-mobile">
-                <img class="img-features" alt="img_client_list_exploitation" src="{% static 'tsunami/img/best_buddy_list_exploitation.png' %}" />
-            </div>
-        </div>{% endcomment %}
-
+    <div class="features" id="container-general-view">
         <section class="features site" style="padding-top: 5vh">
             <div class="container">
                 <div class="row features">
                     <div class="col-sm-6 img continuous-gain">
                         <img class="img-responsive visible-xs" src="{% static 'daraja/img/ikwen-Daraja-continuous-gain.png' %}">
                         {# Force DIV height by putting the same text and set visibility to hidden #}
-                        <h2 class="hidden-xs" style="visibility: hidden">{% trans "Invite once and win infinitely!" %}</h2>
+                        <h2 class="hidden-xs" style="visibility: hidden">{% trans "Refer once. Earn forever." %}</h2>
                         <div class="desc hidden-xs" style="visibility: hidden">
                             <p>{% blocktrans %}
-                                A <strong>percentage of each purchase</strong> made according to your recommendations is paid directly to you.
-                                A single recommendation is enough!
+                                Send your referral link to your friends and relatives so that they register on the company’s online shop by using it. From there, get paid every time they buy online !
                             {% endblocktrans %}</p>
                         </div>
                         {# End Force DIV height #}
                     </div>
                     <div class="col-sm-6 description">
-                        <h2>{% trans "Invite once and win infinitely!" %}</h2>
+                        <h2>{% trans "Refer once. Earn forever." %}</h2>
                         <div class="desc">
                             <p>{% blocktrans %}
-                                A <strong>percentage of each purchase</strong> made according to your recommendations is paid directly to you.
-                                A single recommendation is enough!
+                                Send your referral link to your friends and relatives so that they register on the company’s online shop by using it. From there, get paid every time they buy online !
                             {% endblocktrans %}</p>
                         </div>
                     </div>
@@ -120,7 +101,7 @@
                         <h2>{% trans "The more they buy, the more you earn" %}</h2>
                         <div class="desc">
                             <p>{% blocktrans %}
-                                Be the first to register your buddies and <strong>earn percentages on everything their purchase</strong>
+                                Visit company’s website and share links of products your ones might be interested in. Guide them into buying online and remind them to do so very often to earn more.
                             {% endblocktrans %}</p>
                         </div>
                     </div>
@@ -129,7 +110,7 @@
                         <h2 class="hidden-xs" style="visibility: hidden">{% trans "The more they buy, the more you earn" %}</h2>
                         <div class="desc hidden-xs" style="visibility: hidden">
                             <p>{% blocktrans %}
-                                Be the first to register your buddies and <strong>earn percentages on everything their purchase</strong>
+                                Visit company’s website and share links of products your ones might be interested in. Guide them into buying online and remind them to do so very often to earn more.
                             {% endblocktrans %}</p>
                         </div>
                         {# End Force DIV height #}
@@ -140,22 +121,24 @@
         <section class="features site" style="padding-top: 5vh">
             <div class="container">
                 <div class="row features">
-                    <div class="col-sm-6 img enterprise-recruitment">
-                        <img class="img-responsive visible-xs" src="{% static 'daraja/img/ikwen-Daraja-enterprise-recruitment.png' %}">
+                    <div class="col-sm-6 img stock-monitoring">
+                        <img class="img-responsive visible-xs" src="{% static 'daraja/img/ikwen-Daraja-stock-monitoring.png' %}">
                         {# Force DIV height by putting the same text and set visibility to hidden #}
-                        <h2 class="hidden-xs" style="visibility: hidden">{% trans "Recruit companies and become their main shareholder!" %}</h2>
+                        <h2 class="hidden-xs" style="visibility: hidden">{% trans "All clear! Your money is safe." %}</h2>
                         <div class="desc hidden-xs" style="visibility: hidden">
                             <p>{% blocktrans %}
-                                Identifies companies that are not yet on the Daraja program, helps them register and <strong>becomes their first stockholder!</strong>
+                                You know exactly what percentage to expect from every company you partnership with. Get a notification every time a follower buys from your companies.
+                                Daraja collects money from buyer upon payment and deposits your share on your account immediately. Follow everything from your app.
                             {% endblocktrans %}</p>
                         </div>
                         {# End Force DIV height #}
                     </div>
                     <div class="col-sm-6 description">
-                        <h2>{% trans "Recruit companies and become their main stockholder!" %}</h2>
+                        <h2>{% trans "All clear! Your money is safe" %}</h2>
                         <div class="desc">
                             <p>{% blocktrans %}
-                                Identifies companies that are not yet on the Daraja program, helps them register and <strong>becomes their first stockholder!</strong>
+                                You know exactly what percentage to expect from every company you partnership with. Get a notification every time a follower buys from your companies.
+                                Daraja collects money from buyer upon payment and deposits your share on your account immediately. Follow everything from your app.
                             {% endblocktrans %}</p>
                         </div>
                     </div>
@@ -166,26 +149,24 @@
             <div class="container">
                 <div class="row features">
                     <div class="col-sm-6 visible-xs">
-                        <img class="img-responsive" src="{% static 'daraja/img/ikwen-Daraja-stock-monitoring.png' %}">
+                        <img class="img-responsive" src="{% static 'daraja/img/ikwen-Daraja-enterprise-recruitment.png' %}">
                     </div>
                     <div class="col-sm-6 description">
-                        <h2>{% trans "All clear! Keep an eye on your share." %}</h2>
+                        <h2>{% trans "Engage companies on Daraja and earn more" %}</h2>
                         <div class="desc">
                             <p>{% blocktrans %}
-                                You know exactly the percentage you earn from your companies,
-                                a notification advises you of each purchase made by your affiliates
-                                and <strong>your earnings are deposited immediately into your account!</strong>
+                                Identify companies that are not yet on Daraja and help them create and run their online Shop.
+                                You get paid immediately for recruiting new companies and you become their first shareholder.
                             {% endblocktrans %}</p>
                         </div>
                     </div>
-                    <div class="col-sm-6 img stock-monitoring hidden-xs">
+                    <div class="col-sm-6 img enterprise-recruitment hidden-xs">
                         {# Force DIV height by putting the same text and set visibility to hidden #}
-                        <h2 class="hidden-xs" style="visibility: hidden">{% trans "All clear! Keep an eye on your share." %}</h2>
+                        <h2 class="hidden-xs" style="visibility: hidden">{% trans "Engage companies on Daraja and earn more" %}</h2>
                         <div class="desc hidden-xs" style="visibility: hidden">
                             <p>{% blocktrans %}
-                                You know exactly the percentage you earn from your companies,
-                                a notification advises you of each purchase made by your affiliates
-                                and <strong>your earnings are deposited immediately into your account!</strong>
+                                Identify companies that are not yet on Daraja and help them create and run their online Shop.
+                                You get paid immediately for recruiting new companies and you become their first shareholder.
                             {% endblocktrans %}</p>
                         </div>
                         {# End Force DIV height #}
@@ -196,14 +177,10 @@
         <div class="container-fluid">
             <div class="row section-banniere">
                 <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center" style="padding-top: 3.5vh">
-                  <h1>{% trans 'Become stockholder' %}</h1>
-                    {% if request.user.is_authenticated %}
-                         <a  href='{% url 'tsunami:bundles' %}'>
-                            <button type="button" class="btn btn-outline-primary btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Suscribe on <b>Daraja</b>" %}</button>
-                        </a>
-                    {% else %}
-                        <button type="button" class="btn btn-outline-primary btn-deploy animated pulse " data-toggle="modal" data-target="#modal-get-email" style="margin-top: 20px; height: 45px;">{% trans "Suscribe on <b>Daraja</b>" %}</button>
-                    {% endif %}
+                  <h1>{% trans 'Become shareholder' %}</h1>
+                    <a  href="{% url 'daraja:deploy_cloud' %}">
+                        <button  type=button class="btn btn-outline-primary btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Register on <b>Daraja</b>" %}</button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -214,23 +191,21 @@
 
 {# Modal definition :BEGIN #}
     <div id="modal-get-email" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-get-email">
-        <div class="vertical-alignment-helper">
-            <div class="modal-dialog modal-m vertical-align-center" role="document">
-                <div class="modal-content" style=" background: url({% static 'tsunami/img/get_email-modal_background.png' %}); border: 0.2px solid #ccc; border-radius: 4px; text-align: center;">
-                    <div class="modal-header no-border " style="color: #464646">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color: #d32f2f">&times;</span></button>
-                        <h4 class="modal-title" style="text-align: center">{% trans "Please, enter your email before proceeding..." %}</h4>
-                    </div>
-                    <div id='email-error' class="failure" style="margin: auto; width: 80%">Enter a valid email please </div>
-                    <div class="modal-body">
-                        <form action="{% url 'tsunami:home' %}" id="get-user-email">
-                            <input id="action" name='action' type="hidden" required value="send_mail_to_visitor">
-                            <input id="visitor-email" name='visitor_email' type="email" required placeholder="Email" aria-describedby="input-email" class="form-control-custom">
-                        </form>
-                    </div>
-                    <div class="modal-footer no-border" style="padding-top: 0 !important; text-align: center !important;">
-                        <span class="btn btn-outline-primary btn-process  ">{% trans "Continue" %}</span>
-                    </div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style=" background: url({% static 'daraja/img/daraja_email_request_modal.png' %}); border: 0.2px solid #ccc; border-radius: 4px; text-align: center;">
+                <div class="modal-header no-border " style="color: #464646">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color: #d32f2f">&times;</span></button>
+                    <h4 class="modal-title" style="text-align: center">{% trans "Please, enter your email before proceeding..." %}</h4>
+                </div>
+                <div id='email-error' class="failure" style="margin: auto; width: 80%">Enter a valid email please </div>
+                <div class="modal-body">
+                    <form action="{% url 'tsunami:home' %}" id="get-user-email">
+                        <input id="action" name='action' type="hidden" required value="send_mail_to_visitor">
+                        <input id="visitor-email" name='visitor_email' type="email" required placeholder="Email" aria-describedby="input-email" class="form-control-custom">
+                    </form>
+                </div>
+                <div class="modal-footer no-border" style="padding-top: 0 !important; text-align: center !important;">
+                    <span class="btn btn-outline-primary btn-process  ">{% trans "Continue" %}</span>
                 </div>
             </div>
         </div>

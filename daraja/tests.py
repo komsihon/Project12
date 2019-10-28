@@ -10,7 +10,7 @@ from django.test.client import Client
 from django.test.utils import override_settings
 from django.utils import unittest
 
-from ikwen.core.models import Service, OperatorWallet
+from ikwen.core.models import OperatorWallet
 from ikwen.accesscontrol.models import Member
 from ikwen.accesscontrol.backends import UMBRELLA
 
@@ -22,10 +22,10 @@ def wipe_test_data(db=None):
     This test was originally built with django-nonrel 1.6 which had an error when flushing the database after
     each test. So the flush is performed manually with this custom tearDown()
     """
-    import ikwen_foulassi.foulassi.models
-    import ikwen_foulassi.school.models
+    import permission_backend_nonrel.models
     import ikwen.core.models
     import ikwen.accesscontrol.models
+    import daraja.models
     OperatorWallet.objects.using('wallets').all().delete()
     if db:
         aliases = [db]
@@ -35,17 +35,17 @@ def wipe_test_data(db=None):
         if alias == 'wallets':
             continue
         Group.objects.using(alias).all().delete()
-        for name in ('Teacher', 'Student', 'School', ):
-            model = getattr(ikwen_foulassi.foulassi.models, name)
-            model.objects.using(alias).all().delete()
-        for name in ('Level', 'Classroom', 'Subject', 'Session', 'SubjectSession', 'TeacherResponsibility'):
-            model = getattr(ikwen_foulassi.school.models, name)
-            model.objects.using(alias).all().delete()
+        for name in ('UserPermissionList',):
+            model = getattr(permission_backend_nonrel.models, name)
+            model.objects.using(db).all().delete()
         for name in ('Member',):
             model = getattr(ikwen.accesscontrol.models, name)
             model.objects.using(db).all().delete()
         for name in ('Application', 'Service', 'Config', 'ConsoleEventType', 'ConsoleEvent', 'Country', ):
             model = getattr(ikwen.core.models, name)
+            model.objects.using(alias).all().delete()
+        for name in ('DarajaConfig', 'DaraRequest', 'Dara', ):
+            model = getattr(daraja.models, name)
             model.objects.using(alias).all().delete()
 
 
@@ -55,12 +55,13 @@ class DarajaViewsTestCase(unittest.TestCase):
     Thus, self.client is not automatically created and fixtures not automatically loaded. This
     will be achieved manually by a custom implementation of setUp()
     """
-    fixtures = ['ikwen_members.yaml', 'setup_data.yaml']
+    fixtures = ['ikwen_members.yaml', 'setup_data.yaml', 'drj_setup_data.yaml']
 
     def setUp(self):
         self.client = Client()
         for fixture in self.fixtures:
             call_command('loaddata', fixture)
+            call_command('loaddata', fixture, database=UMBRELLA)
 
     def tearDown(self):
         wipe_test_data()
@@ -123,6 +124,7 @@ class DarajaViewsTestCase(unittest.TestCase):
         Deploy page must be reachable when user access through GET
         """
         Member.objects.using(UMBRELLA).filter(username='member4').update(email_verified=True)
+        self.client.login(username='member4', password='admin')
         response = self.client.get(reverse('daraja:deploy_cloud'))
         self.assertEqual(response.status_code, 200)
 
@@ -143,8 +145,8 @@ class DarajaViewsTestCase(unittest.TestCase):
         is accessible from within his account.
         Page must return HTTP 200 status.
         """
-        Member.objects.using(UMBRELLA).filter(username='member4').update(email_verified=True)
-        self.client.login(username='member4', password='admin')
+        Member.objects.using(UMBRELLA).filter(username='armelsikati').update(email_verified=True)
+        self.client.login(username='armelsikati', password='admin')
         response = self.client.get(reverse('daraja:company_list'))
         self.assertEqual(response.status_code, 200)
 
@@ -153,28 +155,29 @@ class DarajaViewsTestCase(unittest.TestCase):
         """
         Page must return HTTP 200 status.
         """
-        Member.objects.using(UMBRELLA).filter(username='member4').update(email_verified=True)
-        self.client.login(username='member4', password='admin')
+        Member.objects.using(UMBRELLA).filter(username='armelsikati').update(email_verified=True)
+        self.client.login(username='armelsikati', password='admin')
         response = self.client.get(reverse('daraja:dashboard'))
         self.assertEqual(response.status_code, 200)
 
     @override_settings(IKWEN_SERVICE_ID='56eb6d04b37b3379b531b101')
-    def test_Profile(self):
+    def test_ChangeProfile(self):
+        """
+        Profile page of a Dara. Page must return HTTP 200 status.
+        """
+        Member.objects.using(UMBRELLA).filter(username='armelsikati').update(email_verified=True)
+        self.client.login(username='armelsikati', password='admin')
+        response = self.client.get(reverse('daraja:change_profile'))
+        self.assertEqual(response.status_code, 200)
+
+    @override_settings(IKWEN_SERVICE_ID='56eb6d04b37b3379b531b101')
+    def test_ViewProfile(self):
         """
         Profile page of a Dara. Page must return HTTP 200 status.
         """
         Member.objects.using(UMBRELLA).filter(username='member4').update(email_verified=True)
         self.client.login(username='member4', password='admin')
         ikwen_name = 'armelsikati'
-        response = self.client.get(reverse('daraja:profile', args=(ikwen_name, )))
+        response = self.client.get(reverse('daraja:view_profile', args=(ikwen_name, )))
         self.assertEqual(response.status_code, 200)
 
-    @override_settings(IKWEN_SERVICE_ID='56eb6d04b37b3379b531b103')
-    def test_ActivateDaraja(self):
-        """
-        Page must return HTTP 200 status.
-        """
-        Member.objects.using(UMBRELLA).filter(username='member4').update(email_verified=True)
-        self.client.login(username='member4', password='admin')
-        response = self.client.get(reverse('daraja:activate'))
-        self.assertEqual(response.status_code, 200)
