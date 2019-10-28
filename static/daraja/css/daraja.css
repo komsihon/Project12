@@ -34,7 +34,6 @@
 #search-other-school .search-company {margin-top: 3vh}
 .member:not(.tpl):last-child, .ik-li:not(.tpl):last-of-type {border-bottom: none}
 .school-avatar {font-size: 60px;color: #bfc5d8;line-height: 80px;}
-.social-share {color: #fff; min-width: auto!important;}
 
 @media (max-width: 767px) {
     .company-list {margin: 0 -12px}
