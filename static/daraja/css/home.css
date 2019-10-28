@@ -1,0 +1,367 @@
+
+
+
+
+section.site {min-height: 100px; padding: 137px 0}
+section.site img {width: 60%;}
+
+.anchor { font-size: 4vw; padding-top: 6vh; }
+
+.container-fluid { margin-left: 0 !important; margin-right: 0 !important;}
+
+.features section.site {background-position-y: center; background-repeat: no-repeat}
+.features section.site {background-position-y: center; background-repeat: no-repeat}
+.features section.right {background-position-x: right}
+.features .img {background: no-repeat center; background-origin: content-box; background-size: cover}
+
+.form-control-custom{
+					background-color: #ffffff99;
+					background-image: none;
+					border: 1px solid #ccc;
+					color: #464646;
+					display: block;
+					font-size: 14px;
+					height: 50px;
+					line-height: 1.3333333;
+					border-radius: 4px;
+					-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+					margin: auto;
+					text-align: center;
+					transition: border-color ease-in-out .15s, box-shadow;
+					-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+					width: 60%;
+					padding: 10px 20px;
+}
+
+
+.section-banniere { background: url(../img/ikwen-daraja_banniere.png) center center no-repeat;
+					-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;
+					background-size: cover; color: inherit; height: 251px; margin-top: 5vh; }
+.section-banniere-top { background: url(../img/architecture-entreprise.jpg) center center;
+					-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;
+					background-size: cover; color: white; height: 300px; margin-top: 6.5vh !important; }
+.section-header{ background: url(../img/ikwen-daraja_entete.png) center center no-repeat;
+				-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;
+				background-size: cover; height: 100vh; }
+
+
+
+
+
+
+@media only screen and (max-device-width : 767px) and (orientation: portrait) {
+    section.header {height: 410px; margin-top: 0;}
+    section.header .banner-title-cntr {background-color: rgba(255, 255, 255, 0.7); margin-top: 70px;}
+    section.header h3 {color: #000;font-size: 22px; font-weight: 400; line-height: 44px}
+    .company .title {font-size: 35px }
+    .pricing-list > li {margin-top: 75px}
+    .lead {font-size: 22px}
+    section.address .cover h2 {color: #fff; font-weight: 600}
+    #bottom-menu {margin-top: 70px; position: relative}
+    #bottom-menu li a {color: #fff; font-size: 22px}
+    div.cloud-deploy {bottom: inherit;margin-top: 133px; position: relative}
+    .features {padding: 25px 0; margin-top: 0}
+    .feat {margin-top: 100px}
+    .feat:first-child {margin-top: 0}
+    section.main-feat {background-position: center}
+    section.main-feat h1 {margin-top: -4vh;}
+    .contact-img {margin-top: 35px}
+    section.site .cover h1 {padding: 0}
+    a.btn {margin-top: 15px;}
+    section.site.banner a.btn {width: 100%}
+    footer div {padding: 0}
+    .section.address .cta a {font-size: 20px}
+    section.install-pwa {background-position: right}
+    #install-pwa {text-align: center}
+}
+
+@media only screen and (max-width : 767px) and (orientation: landscape) {
+    .features {padding: 25px 0; margin-top: 50px}
+    .feat {margin-top: 20px}
+
+    section.header {height: 510px; margin-top: 0;}
+    section.header .banner-title-cntr {background-color: rgba(255, 255, 255, 0.7); margin-top: 70px;}
+    section.header h3 {color: #000;font-size: 22px; font-weight: 400; line-height: 44px;}
+    div.cloud-deploy {bottom: inherit;margin-top: 225px; position: relative}
+    section.site img {width: 60%}
+
+    section.site.banner p {margin-top: 25px; font-size: 21px;line-height: 40px;}
+    section.site.banner h1 {font-size: 60px;line-height: 65px; font-weight: 700}
+    .cta {text-align: center}
+    a.btn {margin-top: 50px}
+}
+
+@media only screen and (max-device-width : 767px) {
+    section.site {padding: 45px 0 0;}
+    section.effective-solution .features > div {margin-bottom: 24px}
+    section.site.banner h1 {font-size: 33px;line-height: 38px;font-weight: 600;}
+    section.site h2 {font-size: 24px; font-weight: 600; line-height: 30px;}
+    section.site p {margin-top: 15px;text-align: justify;font-size: 16px;font-weight: 400;line-height: 24px;}
+    #navbar-search input {background: none}
+    section.why-foulassi img {width: 60px}
+    section.why-foulassi .features > div {margin-bottom: 24px}
+    section.good-company h3 {font-size: 18px; font-weight: 700}
+    section.good-company .features > div {margin-bottom: 15px}
+    section.deploy {padding-bottom: 45px}
+    .features section.site img {width: 100%}
+}
+
+@media only screen and (min-width : 768px) and (orientation: landscape) {
+    section.site.banner h1 {margin-top: 40px}
+    section.site .cover .btn {margin-top: 60px}
+    section.address {height: 60vh}
+    section.address .cta {margin-top: 80px}
+    section.why-foulassi img {width: 60px}
+}
+
+@media only screen and (min-width : 768px) and (orientation: portrait) {
+    section.site .cover {height: 650px}
+    section.site.main-feat.banner {height: 650px}
+    section.site.banner h1 {margin-top: 110px}
+    footer, section.address .cover {height: 540px}
+}
+
+@media only screen and (min-width : 768px) {
+    section.site {padding: 60px 0}
+    .features section.site {padding: 0}
+    .features section.site .features > div {padding: 60px 15px;}
+    section.site .cover p {font-size: 21px; font-weight: 400; line-height: 35px}
+    section.site.banner h1 {font-size: 42px;font-weight: 700;line-height: 50px;text-align: left;}
+    section.site h2 {font-size: 30px;font-weight: 700;line-height: 42px;text-align:left}
+    section.site p {margin-top: 25px; text-align: justify; font-size: 18px; font-weight: 400; line-height: 30px;}
+    .img.continuous-gain {background-image: url('../img/ikwen-Daraja-continuous-gain.png')}
+    .img.budy-coating {background-image: url('../img/ikwen-Daraja-budy-coating.png');}
+    .img.enterprise-recruitment {background-image: url('../img/ikwen-Daraja-enterprise-recruitment.png')}
+    .img.stock-monitoring {background-image: url('../img/ikwen-Daraja-stock-monitoring.png')}
+    section.deploy {font-size: 30px}
+}
+/*671273*/
+@media only screen and (max-width : 991px) {
+    div.footer, #bottom-menu li a {font-size: 15px}
+    /*.features section.site {background-size: auto 70%}*/
+    .features .img {background-size: 100% auto}
+}
+
+@media only screen and (min-width : 992px) {
+    .navbar-default .navbar-brand:hover, .navbar-default .navbar-nav>li>a:hover {color: #fff}
+    section.header .banner-title-cntr {background-color: rgba(255, 255, 255, 0.7); margin-top: 130px;}
+    section.header h3 {color: #000; font-size: 33px;font-weight: 400;  line-height: 94px;}
+    section.header {height: 900px}
+    .features p {line-height: 40px}
+    .features section.site {background-size: auto 100%}
+    section.site img {width: 55%;}
+    section.site img.history {width: 60%}
+    section.site.banner {text-align: left; padding-top: 0; height: 900px}
+    section.site.banner p {margin-top: 25px; text-align: justify;font-size: 21px;line-height: 40px;}
+    section.site.banner h1 {font-weight: 700;line-height: 65px;margin-top: 18px;}
+    section.site.banner .video {margin-top: 58px}
+    .cta {text-align: left; }
+    .feat h2 {padding-bottom: 30px; font-size: 32px; font-weight: 600; text-align: left}
+    .trail {margin-top: 100px;}
+    /*footer, section.address .cover {height: 540px}*/
+    section.address {height: 490px}
+    section.address .cover h2 {padding-top: 15vh}
+    section.address .cta {margin-top: 150px}
+    section.deploy {font-size: 36px}
+}
+
+@media only screen and (min-width : 1200px) {
+    #navbar-search {display: block}
+    section.header .banner-title-cntr {background-color: rgba(255, 255, 255, 0.7); margin-top: 170px;}
+    section.site {padding: 135px 0}
+    .features section.site {padding: 0}
+    .features section.site .features > div {padding: 135px 15px;}
+    section.site.deploy a.cta {margin-top: 60px;}
+    section.site.banner h1 {font-size: 65px; margin-top: 110px}
+    section.site h2 {font-size: 42px;}
+    section.header h3 {color: #000; font-size: 33px;font-weight: 400;  line-height: 94px;}
+    section.header {height: 1015px}
+    div.cloud-deploy {bottom: 250px}
+    section.site.header {height: 1000px}
+    /*footer, section.address .cover {height: 670px}*/
+    section.address {height: 600px}
+    section.deploy {font-size: 42px}
+}
+
+@media (orientation: portrait) {
+    section.site.main-feat.banner {
+        padding-top: 8vh;
+    }
+}
+
+/* Animation set */
+.animated {
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.5s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
+/*
+.animated.infinite {
+	-webkit-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+}
+*/
+
+@-webkit-keyframes slideInLeft {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(50%, 0, 0);
+    transform: translate3d(50%, 0, 0);
+  }
+}
+
+@-moz-keyframes slideInLeft {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(50%, 0, 0);
+    transform: translate3d(50%, 0, 0);
+  }
+}
+
+@-o-keyframes slideInLeft {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(50%, 0, 0);
+    transform: translate3d(50%, 0, 0);
+  }
+}
+
+@-ms-keyframes slideInLeft {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(50%, 0, 0);
+    transform: translate3d(50%, 0, 0);
+  }
+}
+
+
+@keyframes slideInLeft {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(50%, 0, 0);
+    transform: translate3d(50%, 0, 0);
+  }
+}
+
+.discover-link:hover > i {
+  -webkit-animation-name: slideInLeft;
+  animation-name: slideInLeft;
+}
+
+
+@-webkit-keyframes pulse {
+	from {
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+	}
+
+	50% {
+	-webkit-transform: scale3d(1.05, 1.05, 1.05);
+	transform: scale3d(1.05, 1.05, 1.05);
+	}
+
+	to {
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+	}
+}
+
+@-moz-keyframes pulse {
+	from {
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+	}
+
+	50% {
+	-webkit-transform: scale3d(1.05, 1.05, 1.05);
+	transform: scale3d(1.05, 1.05, 1.05);
+	}
+
+	to {
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+	}
+}
+
+@-o-keyframes pulse {
+	from {
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+	}
+
+	50% {
+	-webkit-transform: scale3d(1.05, 1.05, 1.05);
+	transform: scale3d(1.05, 1.05, 1.05);
+	}
+
+	to {
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+	}
+}
+
+@-ms-keyframes pulse {
+	from {
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+	}
+
+	50% {
+	-webkit-transform: scale3d(1.05, 1.05, 1.05);
+	transform: scale3d(1.05, 1.05, 1.05);
+	}
+
+	to {
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+	}
+}
+
+@keyframes pulse {
+	from {
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+	}
+
+	50% {
+	-webkit-transform: scale3d(1.05, 1.05, 1.05);
+	transform: scale3d(1.05, 1.05, 1.05);
+	}
+
+	to {
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+	}
+}
+
+.pulse:hover {
+	-webkit-animation-name: pulse;
+	animation-name: pulse;
+}
