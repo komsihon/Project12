@@ -30,6 +30,8 @@ from daraja.cloud_setup import deploy
 
 logger = logging.getLogger('ikwen')
 
+_umbrella_db = 'ikwen_umbrella_prod'
+
 
 class Home(TemplateView):
     template_name = 'daraja/home.html'
@@ -140,8 +142,13 @@ class CompanyList(HybridListView):
         context = super(CompanyList, self).get_context_data(**kwargs)
         queryset = Service.objects.using(db).exclude(pk=dara_service.id)
         context_object_name = self.get_context_object_name(self.object_list)
-        context[context_object_name] = queryset.order_by(*self.ordering)[:self.page_size]
-        context['queryset'] = queryset
+        add_database(_umbrella_db)
+        company_list = []
+        for service in queryset.order_by(*self.ordering):
+            service.share_rate = DarajaConfig.objects.using(_umbrella_db).get(service=service).referrer_share_rate
+            company_list.append(service)
+        context[context_object_name] = company_list
+        context['queryset'] = company_list
         return context
 
 
@@ -217,13 +224,14 @@ class Configuration(ChangeObjectBase):
         return daraja_config
 
     def after_save(self, request, obj, *args, **kwargs):
+        add_database(_umbrella_db)
         try:
             Application.objects.get(slug=DARAJA)
         except Application.DoesNotExist:
-            app = Application.objects.using(UMBRELLA).get(slug=DARAJA)
+            app = Application.objects.using(_umbrella_db).get(slug=DARAJA)
             app.save(using='default')
         obj = self.get_object()
-        obj.save(using=UMBRELLA)
+        obj.save(using=_umbrella_db)
 
 
 class InviteDara(TemplateView):
@@ -269,7 +277,8 @@ class InviteDara(TemplateView):
             return HttpResponse(json.dumps(response), 'content-type: text/json')
         company_db = company.database
         add_database(company_db)
-        member.customer_on_fk_list.append(company.id)
+        if service.id not in member.customer_on_fk_list:
+            member.customer_on_fk_list.append(company.id)
         member.save()
         try:
             member_local = Member.objects.using(company_db).get(pk=member.id)
@@ -293,7 +302,7 @@ class InviteDara(TemplateView):
 
 class DaraRequestList(HybridListView):
     template_name = 'daraja/dara_request_list.html'
-    queryset = DaraRequest.objects.using(UMBRELLA).filter(service=getattr(settings, 'IKWEN_SERVICE_ID'), status=PENDING)
+    queryset = DaraRequest.objects.filter(status=PENDING)
 
     def get(self, request, *args, **kwargs):
         action = request.GET.get('action')
@@ -304,17 +313,16 @@ class DaraRequestList(HybridListView):
         return super(DaraRequestList, self).get(request, *args, **kwargs)
 
     def accept_application(self, request):
+        add_database(_umbrella_db)
         dara_request = DaraRequest.objects.get(pk=request.GET['request_id'])
         member = dara_request.member
         member.is_ghost = False
-        member.customer_on_fk_list.append(getattr(settings, 'IKWEN_SERVICE_ID'))
-        member.save(using=UMBRELLA)
         UserPermissionList.objects.get_or_create(user=member)
         Dara.objects.get_or_create(member=member)
         dara_request.status = ACCEPTED
         dara_request.save()
         app = Application.objects.get(slug=DARAJA)
-        dara_service = Service.objects.using(UMBRELLA).get(app=app, member=member)
+        dara_service = Service.objects.using(_umbrella_db).get(app=app, member=member)
         dara_service.save(using='default')
         db = dara_service.database
         add_database(db)
@@ -322,11 +330,16 @@ class DaraRequestList(HybridListView):
         service.save(using=db)
         service_mirror = Service.objects.using(db).get(pk=service.id)
         clear_counters(service_mirror)
+
+        if service.id not in member.customer_on_fk_list:
+            member.customer_on_fk_list.append(service.id)
+        member.save()
+        member.save(using=UMBRELLA)
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
     def reject_application(self, request):
-        dara_request = DaraRequest.objects.using(UMBRELLA).get(pk=request.GET['request_id'])
+        dara_request = DaraRequest.objects.get(pk=request.GET['request_id'])
         dara_request.status = REJECTED
         dara_request.save()
         response = {'success': True}
@@ -405,4 +418,3 @@ class SuccessfulDeployment(VerifiedEmailTemplateView):
         context['dara_service'] = get_object_or_404(Service, app=app, member=self.request.user)
         context['inviter'] = self.request.GET.get('inviter')
         return context
-

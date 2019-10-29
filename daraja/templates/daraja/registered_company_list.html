@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#ffffff">
 {% endblock %}
 
-{% block page_title %}<title>Registered companies - Daraja</title>{% endblock %}
+{% block page_title %}<title>{% trans "Registered companies" %} - Daraja</title>{% endblock %}
 
 {% block head_style %}
     {{ block.super }}
@@ -47,7 +47,7 @@
                     <ul class="object-list" style="padding-left: 0">
                         {% for obj in object_list %}
                             {% with company=obj.service config=obj.service.config %}
-                            <li id="{{ company.id }}" class="ik-li" data-id="{{ company.id }}">
+                            <li id="{{ company.id }}" class="ik-li">
                                 {% if config.logo.name %}
                                     <div class="image" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ company.photo.small_name }})"></div>
                                 {% else %}
@@ -64,7 +64,7 @@
                                     </ul>
                                 </div>
                                 <div class="actions">
-                                    <button class="btn btn-sm btn-green show-modal-request">{% trans "Request" %}</button>
+                                    <button class="btn btn-sm btn-green apply" data-id="{{ company.id }}">{% trans "Request" %}</button>
                                 </div>
                             </li>
                             {% endwith %}
@@ -81,69 +81,20 @@
         </div>
         <div class="clearfix"></div>
     </div>
-    <div class="modal fade" id="modal-invite-company" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content modal-info">
-                <div class="modal-header" style="border-bottom: none">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body row">
-                    <h4 class="col-xs-12 title" style="font-weight: 600; margin: -40px 0 10px"></h4>
-                    <p class="col-xs-12 notice">
-                        {% trans "Please write the names and classrooms of your kid(s) so that we can easily find and link them to you." %}
-                    </p>
-                    <div class="form-group col-xs-12">
-                        <label for="kids-details" class="sr-only">{% trans "Kids'details" %}</label>
-                        <textarea id="kids-details" class="form-control" style="height: 150px"
-                                  placeholder="{% blocktrans %}Simo Mballa, Form 6 A&#10;Youego Mballa, Form 2 C{% endblocktrans %}"></textarea>
-                    </div>
-                    {% include 'core/snippets/spinner.html' %}
-                    <div class="actions col-xs-12 col-sm-4">
-                        <button class="btn btn-green btn-md btn-block do-invite-company">
-                            {% include 'core/snippets/button_spinner.html' %}
-                            <span>{% trans "Submit" %}</span>
-                        </button>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
 
 {% block js %}
     {{ block.super }}
     <script>
         (function() {
-            var $company, companyId, companyName;
-            $('.suggestion-list .ik-li').click(function() {
-                if ($(window).width() < 768) {
-                    $(this).find('.actions').css('bottom', '-30vh').animate({'bottom': 0})
-                }
-            });
-            $('.show-modal-request').click(function() {
-                $company = $(this).parents('.ik-li');
-                companyId = $company.data('id');
-                companyName = $company.find('.full_name').text();
-                $('#modal-invite-company .title').text("{% trans 'Invite' context 'invite company ...' %}" + " " + companyName);
-                $('#modal-invite-company').modal('show');
-                $('#kids-details').delay(1000).focus();
-            });
-            $('.do-invite-company:not(.processing)').click(function() {
-                var _$btn = $(this),
-                    kidsDetails = $('#kids-details').val();
-                $('#modal-invite-company .form-group').removeClass('has-error');
-                if (!kidsDetails) {
-                    $('#kids-details').parents('.form-group').addClass('has-error');
-                    return
-                }
+            $('.btn.apply:not(.processing)').click(function() {
+                let _$btn = $(this),
+                    companyId = _$btn.data('id');
                 _$btn.addClass('processing');
-                $.getJSON('', {action: 'invite_company', company_id: companyId, kids_details: kidsDetails}, function(resp) {
+                $.getJSON('', {action: 'apply', service_id: companyId}, function(resp) {
                     _$btn.removeClass('processing');
                     if (resp.success) {
-                        $('#modal-invite-company').modal('hide');
-                        ikwen.showFloatingNotice("{% trans "Your request was submitted" %}");
-                        $company.find('.actions').remove();
+                        _$btn.fadeOut();
                     }
                 })
             });
