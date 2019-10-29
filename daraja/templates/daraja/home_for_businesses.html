@@ -308,19 +308,17 @@
 
 {% block js %}
     {{ block.super }}
-    <script src="{% static 'foulassi/install.js' %}"></script>
     <script>
         (() => {
+            $('#site-menu a.cta').attr('href', "{% url 'ikwen:sign_in' %}?next={% url 'daraja:home' %}");
             let scrollBreakPoint = 90;
             $(window).scroll((event) => {
-                var scrollTop = $(this).scrollTop();
+                let scrollTop = $(this).scrollTop();
                 if (scrollTop > scrollBreakPoint){
-                    var opacity = Math.abs(scrollBreakPoint - scrollTop) / 100;
+                    let opacity = Math.abs(scrollBreakPoint - scrollTop) / 100;
                     $('#navbar').css("background-color", `rgba(35, 54, 130, ${opacity})`);
-                    if ($(window).width() > 767) $('#navbar-search input').css("background-color", `rgba(26, 39, 93, ${opacity})`);
                 } else {
                     $('#navbar').css("background-color", "transparent");
-                    if ($(window).width() > 767) $('#navbar-search input').css("background-color", "rgba(102, 102, 102, .4)");
                 }
             });
         })()

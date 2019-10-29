@@ -37,11 +37,12 @@
 {% endblock %}
 
 {% block content %}
+    {{ block.super }}
     <div id="section-header-general-view" class="container-fluid section-header" style="padding-top: 6vh;">
         <div class="row">
             <div class="col-md-6 col-md-offset-3 text-center " style="padding-top: 18vh">
                 <img style="max-width: 180px" alt="logo_ikwen_DARAJA" src="{% static 'daraja/img/logo-daraja.png' %}"/>
-              <h1 style="font-size: 3.5vw;">{% trans 'Become a shareholder of companies you like' %}</h1>
+              <h1>{% trans 'Become a shareholder of companies you like' %}</h1>
                 <p >
                     {% trans "Get your nearest ones to buy online from your favorite companies and earn a percentage out of that." %}
                 </p>
@@ -219,8 +220,8 @@
             <div class="row" style="margin-bottom: 15px">
                 <div class="col-sm-3" style="margin-top: 4vh; text-align: center;">
                     <a href="{% url 'daraja:home' %}">
-                        <img class="footer-" src="{% static 'daraja/img/logo-daraja_grey.png' %}" style="max-width: 7vw;"/>
-                        <h4 style="color: #ffffff; font-size: 1.8vw; text-align: center;" class="logo footer-">Daraja</h4>
+                        <img class="footer-logo" src="{% static 'daraja/img/logo-daraja_grey.png' %}" style="max-width: 7vw;"/>
+                        <h4 style="color: #ffffff; font-size: 1.8vw; text-align: center;" class="logo footer-title">Daraja</h4>
                     </a>
                 </div>
                 <div class="col-sm-3 col-xs-4 footer-">
@@ -235,8 +236,9 @@
                     <h5 style="color: #ffffff; font-weight: bold; font-size: 2vw; margin-top: 5vh;">{% trans 'About us' %}</h5>
                     <ul style=" font-size: 1.2vw; line-height: 1.7; list-style-type: none; padding-left: 0">
                         <li><a style="color: #d2d1d1;" href="{% url 'about' %}" target="_blank">{% trans 'Our Company' %}</a></li>
+                        {% include 'website/snippets/language_switcher.html' %}
 {#                        <li><a style="color: #d2d1d1;" href="#" target="_blank">{% trans 'Contact us' %}</a></li>#}
-                        <li><a style="color: #d2d1d1;" href="{% url 'daraja:for_businesses' %}" target="_blank">{% trans 'For business' %}</a></li>
+{#                        <li><a style="color: #d2d1d1;" href="{% url 'daraja:for_businesses' %}" target="_blank">{% trans 'For business' %}</a></li>#}
                     </ul>
                 </div>
                 <div class="col-sm-3 col-xs-4 footer-">
@@ -267,30 +269,18 @@
 {% block js %}
     {{ block.super }}
     <script>
-        (function () {
-            // redirect to Tsunami signIn page
-            $('#site-menu a.cta').attr('href', "{% url 'ikwen:sign_in' %}?next={% url 'tsunami:home' %}");
-
-            // set focus when modal is opened
-            $('#modal-get-email').on('shown.bs.modal', function () {
-                $("#visitor-email").focus();
-            });
-
-            $('#visitor-email').focusin(function () {
-                $('div#email-error').fadeOut().hide()
-            })
-
-            // get the email for Tsunami relaunch mails
-            $('.btn-process').click(function () {
-                var visitor_email = $('#visitor-email').val();
-                if (visitor_email !== ''){
-                    $('#get-user-email').submit()
-                }else {
-                    $('div#email-error').fadeIn().show()
+        (() => {
+            $('#site-menu a.cta').attr('href', "{% url 'ikwen:sign_in' %}?next={% url 'daraja:home' %}");
+            let scrollBreakPoint = 90;
+            $(window).scroll((event) => {
+                let scrollTop = $(this).scrollTop();
+                if (scrollTop > scrollBreakPoint){
+                    let opacity = Math.abs(scrollBreakPoint - scrollTop) / 100;
+                    $('#navbar').css("background-color", `rgba(35, 54, 130, ${opacity})`);
+                } else {
+                    $('#navbar').css("background-color", "transparent");
                 }
-
             });
-
         })()
     </script>
 {% endblock %}
