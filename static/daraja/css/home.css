@@ -2,6 +2,8 @@
 
 
 
+li.dropdown:hover > ul.dropdown-menu { background: rgba(255, 255, 255, 0.7) }
+
 section.site {min-height: 100px; padding: 137px 0}
 section.site img {width: 60%;}
 
@@ -141,7 +143,6 @@ section.site img {width: 60%;}
 }
 
 @media only screen and (min-width : 992px) {
-    .navbar-default .navbar-brand:hover, .navbar-default .navbar-nav>li>a:hover {color: #fff}
     section.header .banner-title-cntr {background-color: rgba(255, 255, 255, 0.7); margin-top: 130px;}
     section.header h3 {color: #000; font-size: 33px;font-weight: 400;  line-height: 94px;}
     section.header {height: 900px}
