@@ -30,7 +30,10 @@ from daraja.cloud_setup import deploy
 
 logger = logging.getLogger('ikwen')
 
-_umbrella_db = 'ikwen_umbrella_prod'
+if getattr(settings, 'DEBUG', False):
+    _umbrella_db = 'ikwen_umbrella'
+else:
+    _umbrella_db = 'ikwen_umbrella_prod'
 
 
 class Home(TemplateView):
@@ -133,6 +136,7 @@ class CompanyList(HybridListView):
     html_results_template_name = 'daraja/snippets/company_list_results.html'
     # queryset = Service.objects.exclude(pk=getattr(settings, 'IKWEN_SERVICE_ID'))
     model = Service
+    context_object_name = 'company_list'
 
     def get_context_data(self, **kwargs):
         app = Application.objects.get(slug=DARAJA)
@@ -145,10 +149,12 @@ class CompanyList(HybridListView):
         add_database(_umbrella_db)
         company_list = []
         for service in queryset.order_by(*self.ordering):
-            service.share_rate = DarajaConfig.objects.using(_umbrella_db).get(service=service).referrer_share_rate
+            try:
+                service.share_rate = DarajaConfig.objects.using(_umbrella_db).get(service=service).referrer_share_rate
+            except:
+                pass
             company_list.append(service)
         context[context_object_name] = company_list
-        context['queryset'] = company_list
         return context
 
 
@@ -253,7 +259,8 @@ class InviteDara(TemplateView):
         daraja_config = DarajaConfig.objects.get(service=company)
         context['company'] = company
         context['company_name'] = company.project_name
-        context['share_rate'] = daraja_config.referrer_share_rate
+        share_rate = daraja_config.referrer_share_rate
+        context['share_rate'] = int(share_rate) if share_rate == int(share_rate) else share_rate
         return context
 
     def get(self, request, *args, **kwargs):
@@ -277,7 +284,7 @@ class InviteDara(TemplateView):
             return HttpResponse(json.dumps(response), 'content-type: text/json')
         company_db = company.database
         add_database(company_db)
-        if service.id not in member.customer_on_fk_list:
+        if company.id not in member.customer_on_fk_list:
             member.customer_on_fk_list.append(company.id)
         member.save()
         try:
@@ -415,6 +422,12 @@ class SuccessfulDeployment(VerifiedEmailTemplateView):
     def get_context_data(self, **kwargs):
         context = super(SuccessfulDeployment, self).get_context_data(**kwargs)
         app = Application.objects.get(slug=DARAJA)
-        context['dara_service'] = get_object_or_404(Service, app=app, member=self.request.user)
-        context['inviter'] = self.request.GET.get('inviter')
+        dara_service = get_object_or_404(Service, app=app, member=self.request.user)
+        context['dara_service'] = dara_service
+        inviter = self.request.GET.get('inviter')
+        if inviter:
+            next_url = reverse('daraja:invite_dara', args=(inviter, ))
+        else:
+            next_url = 'http://daraja.ikwen.com?action=get_in&challenge=' + dara_service.api_signature
+        context['next_url'] = next_url
         return context
