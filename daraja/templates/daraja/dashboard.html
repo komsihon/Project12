@@ -56,7 +56,7 @@
         function drawTopCompaniesChart(){
             let values, data, chart;
             {% for period, data in companies_report.items %}
-                values = ['Company name', 'Earnings'];
+                values = [['Company name', 'Earnings']];
                 {% if data and data.0.total > 0 %}
                     {% for company in data|slice:"5" %}
                         {% if company.total > 0 %}
@@ -66,7 +66,7 @@
                     data = google.visualization.arrayToDataTable(values);
                     chart = new google.visualization.PieChart(document.getElementById('{{ period }}-top-companies-chart'));
                     console.log(values);
-                    chart.draw(data, options);
+                    chart.draw(data);
                 {% endif %}
             {% endfor %}
         }
@@ -74,7 +74,7 @@
         function drawTopCustomersChart(){
             let values, data, chart;
             {% for period, data in customers_report.items %}
-                values = ['Customer name', 'Earnings'];
+                values = [['Customer name', 'Earnings']];
                 {% if data and data.0.total > 0 %}
                     {% for customer in data|slice:"5" %}
                         {% if customer.total > 0 %}
@@ -83,7 +83,7 @@
                     {% endfor %}
                     data = google.visualization.arrayToDataTable(values);
                     chart = new google.visualization.PieChart(document.getElementById('{{ period }}-top-customers-chart'));
-                    chart.draw(data, options);
+                    chart.draw(data);
                 {% endif %}
             {% endfor %}
         }
@@ -173,7 +173,7 @@
                         {% endif %}
                     </ul>
                     {% if data and data.0.total > 0 %}
-                        <div id="{{ period }}-top-companies-chart" style="width: 100%; height: inherit;"></div>
+                        <div id="{{ period }}-top-companies-chart" style="width: 100%; height: 200px;"></div>
                     {% endif %}
                 {% endfor %}
 
@@ -210,7 +210,7 @@
                         {% endif %}
                     </ul>
                     {% if data and data.0.total > 0 %}
-                        <div id="{{ period }}-top-customers-chart" style="width: 100%; height: inherit;"></div>
+                        <div id="{{ period }}-top-customers-chart" style="width: 100%; height: 200px;"></div>
                     {% endif %}
                 {% endfor %}
 
