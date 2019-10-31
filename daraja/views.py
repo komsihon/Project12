@@ -3,9 +3,11 @@ import logging
 from datetime import datetime
 
 from django.conf import settings
+from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render
+from django.utils.http import urlunquote
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -129,6 +131,27 @@ class Dashboard(DashboardBase):
         }
         context['companies_report'] = companies_report
         return context
+
+    def get(self, request, *args, **kwargs):
+        action = request.GET.get('action')
+        user = request.user
+        if action == 'get_in':
+            challenge = request.GET.get('challenge')
+            challenge = urlunquote(challenge)
+            service = self.get_service()
+            if service.api_signature == challenge:
+                if user.is_authenticated():
+                    logout(request)
+                member = authenticate(api_signature=challenge)
+                login(request, member)
+                next_url = reverse('daraja:dashboard') + '?first_setup=yes'
+                return HttpResponseRedirect(next_url)
+        elif user.is_anonymous() or (user.is_authenticated() and not user.is_staff):
+            if user.is_authenticated():
+                logout(request)
+            next_url = reverse('ikwen:sign_in')
+            return HttpResponseRedirect(next_url)
+        return super(Dashboard, self).get(request, *args, **kwargs)
 
 
 class CompanyList(HybridListView):
