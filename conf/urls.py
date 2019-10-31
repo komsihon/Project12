@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib import admin
 
+from ikwen.core.views import Offline
 from ikwen.accesscontrol.views import SignIn
 from daraja.views import Dashboard
 
@@ -11,9 +12,10 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^offline.html$', Offline.as_view(), name='offline'),
 
     # URLs to make library internals to work properly
-    url(r'^signIn/$', SignIn.as_view(), name='home'),
+    url(r'^$', SignIn.as_view(), name='home'),
     url(r'^daraja/dashboard/$', login_required(Dashboard.as_view()), name='admin_home'),
     url(r'^daraja/dashboard/$', login_required(Dashboard.as_view()), name='sudo_home'),
 
