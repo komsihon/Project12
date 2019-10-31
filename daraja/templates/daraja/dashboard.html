@@ -54,18 +54,17 @@
         }
 
         function drawTopCompaniesChart(){
-            let values = [];
-            let _companies_report = {{ companies_report|safe }};
-            console.log(_companies_report);
+            let values, data, chart;
             {% for period, data in companies_report.items %}
+                values = ['Company name', 'Earnings'];
                 {% if data and data.0.total > 0 %}
                     {% for company in data|slice:"5" %}
                         {% if company.total > 0 %}
-                            values.push([{{ company.project_name }}, {{ company.total|floatformat:CRNCY.precision|intcomma }}]);
+                            values.push(["{{ company.project_name }}", {{ company.total }}]);
                         {% endif %}
                     {% endfor %}
-                    let data = google.visualization.arrayToDataTable(values);
-                    let chart = new google.visualization.PieChart(document.getElementById('{{ period }}-top-companies-chart'));
+                    data = google.visualization.arrayToDataTable(values);
+                    chart = new google.visualization.PieChart(document.getElementById('{{ period }}-top-companies-chart'));
                     console.log(values);
                     chart.draw(data, options);
                 {% endif %}
@@ -73,19 +72,17 @@
         }
 
         function drawTopCustomersChart(){
-            let values = [];
-            let _customers_report = {{ customers_report|safe }};
-            console.log(_customers_report);
+            let values, data, chart;
             {% for period, data in customers_report.items %}
+                values = ['Customer name', 'Earnings'];
                 {% if data and data.0.total > 0 %}
                     {% for customer in data|slice:"5" %}
                         {% if customer.total > 0 %}
-                            values.push([{{ customer.member.full_name }}, {{ customer.total|floatformat:CRNCY.precision|intcomma }}]);
+                            values.push(["{{ customer.member.full_name }}", {{ customer.total }}]);
                         {% endif %}
                     {% endfor %}
-                    let data = google.visualization.arrayToDataTable(values);
-                    let chart = new google.visualization.PieChart(document.getElementById('{{ period }}-top-customers-chart'));
-                    console.log(values);
+                    data = google.visualization.arrayToDataTable(values);
+                    chart = new google.visualization.PieChart(document.getElementById('{{ period }}-top-customers-chart'));
                     chart.draw(data, options);
                 {% endif %}
             {% endfor %}
