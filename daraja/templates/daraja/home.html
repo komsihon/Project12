@@ -46,7 +46,7 @@
                 <p >
                     {% trans "Get your nearest ones to buy online from your favorite companies and earn a percentage out of that." %}
                 </p>
-                <a  href="{% url 'daraja:deploy_cloud' %}">
+                <a  href="{% url 'ikwen:sign_in' %}?next={% url 'daraja:deploy_cloud' %}{% if request.GET.inviter %}%3Finviter={{ request.GET.inviter }}{% endif %}">
                     <button  type=button class="btn btn-outline-primary btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Register on <b>Daraja</b>" %}</button>
                 </a>
                 <div class="anchor">
@@ -59,7 +59,7 @@
         <div class="row section-banniere-top" style="margin-top: 0;">
             <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center" style="padding-top: 7vh">
               <h1>{% trans 'Become shareholder' %} </h1>
-                <a  href="{% url 'daraja:deploy_cloud' %}">
+                <a  href="{% url 'ikwen:sign_in' %}?next={% url 'daraja:deploy_cloud' %}{% if request.GET.inviter %}%3Finviter={{ request.GET.inviter }}{% endif %}">
                     <button  type=button class="btn btn-outline-white btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Register on <b>Daraja</b>" %}</button>
                 </a>
             </div>
@@ -179,7 +179,7 @@
             <div class="row section-banniere">
                 <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center" style="padding-top: 3.5vh">
                   <h1>{% trans 'Become shareholder' %}</h1>
-                    <a  href="{% url 'daraja:deploy_cloud' %}">
+                    <a  href="{% url 'ikwen:sign_in' %}?next={% url 'daraja:deploy_cloud' %}{% if request.GET.inviter %}%3Finviter={{ request.GET.inviter }}{% endif %}">
                         <button  type=button class="btn btn-outline-primary btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Register on <b>Daraja</b>" %}</button>
                     </a>
                 </div>
@@ -189,29 +189,6 @@
             <i class="fa fa-chevron-circle-up"></i>
         </a>
     </div>
-
-{# Modal definition :BEGIN #}
-    <div id="modal-get-email" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-get-email">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style=" background: url({% static 'daraja/img/daraja_email_request_modal.png' %}); border: 0.2px solid #ccc; border-radius: 4px; text-align: center;">
-                <div class="modal-header no-border " style="color: #464646">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color: #d32f2f">&times;</span></button>
-                    <h4 class="modal-title" style="text-align: center">{% trans "Please, enter your email before proceeding..." %}</h4>
-                </div>
-                <div id='email-error' class="failure" style="margin: auto; width: 80%">Enter a valid email please </div>
-                <div class="modal-body">
-                    <form action="{% url 'tsunami:home' %}" id="get-user-email">
-                        <input id="action" name='action' type="hidden" required value="send_mail_to_visitor">
-                        <input id="visitor-email" name='visitor_email' type="email" required placeholder="Email" aria-describedby="input-email" class="form-control-custom">
-                    </form>
-                </div>
-                <div class="modal-footer no-border" style="padding-top: 0 !important; text-align: center !important;">
-                    <span class="btn btn-outline-primary btn-process  ">{% trans "Continue" %}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
 {% endblock %}
 
 {% block footer %}
