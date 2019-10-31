@@ -181,8 +181,8 @@
             $('#performances-period').on('click', 'li', function () {
                 var target = $(this).data('target'),
                     targetLabel = $(this).find('a').text();
-                $('.performances .report').hide();
-                $('.performances .report.' + target).show();
+                $('.performances .report, .pie-chart').hide();
+                $('.performances .report.' + target, '.' + target + '-pie-chart').show();
                 $('#period .target').text(targetLabel);
                 $('#performances-period li').show();
                 $(this).hide();

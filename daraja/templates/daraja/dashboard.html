@@ -11,8 +11,8 @@
         google.charts.setOnLoadCallback(drawTopCompaniesChart);
         google.charts.setOnLoadCallback(drawTopCustomersChart);
 
-        let earnings_history = {{ earnings_history|safe }},
-            transaction_count_history = {{ transactions_count_history|safe }};
+        let earningsHistory = {{ earnings_history|safe }},
+            transactionsCountHistory = {{ transactions_count_history|safe }};
 
         function drawOrdersChart(){
             let data = new google.visualization.DataTable(),
@@ -20,8 +20,8 @@
             data.addColumn('number', "{% trans 'Day' %}");
             data.addColumn('number', "{% trans 'Orders' %}");
 
-            for (let i=0; i<earnings_history.length; i ++) {
-                values.push([i, transaction_count_history[i]])
+            for (let i=0; i<earningsHistory.length; i ++) {
+                values.push([i, transactionsCountHistory[i]])
             }
             data.addRows(values);
             let options = {
@@ -39,8 +39,8 @@
             data.addColumn('number', "{% trans 'Day' %}");
             data.addColumn('number', "{% trans 'AEPO' %}");
 
-            for (let i=0; i<earnings_history.length; i ++) {
-                let avg = earnings_history[i]/transaction_count_history[i];
+            for (let i=0; i<earningsHistory.length; i ++) {
+                let avg = earningsHistory[i]/transactionsCountHistory[i];
                 values.push([i, Number(avg.toFixed(2))]);
             }
             data.addRows(values);
@@ -123,7 +123,7 @@
                     <em class="report last_week tpl">{{ orders_report.last_week.count|intcomma }}</em>
                     <em class="report last_28_days tpl">{{ orders_report.last_28_days.count|intcomma }}</em>
                 </div>
-                <div id="orders-chart" class="container" style="width: 100%; height: 200px;"></div>
+                <div id="orders-chart" class="container" class="line-chart"></div>
             </div>
         </div>
         <div class="col-sm-6">
@@ -139,7 +139,7 @@
                     <em class="report last_week tpl">{{ CRNCY.symbol }} {{ orders_report.last_week.aepo|floatformat:CRNCY.precision|intcomma }}</em>
                     <em class="report last_28_days tpl">{{ CRNCY.symbol }} {{ orders_report.last_28_days.aepo|floatformat:CRNCY.precision|intcomma }}</em>
                 </div>
-                <div id="aepo-chart" class="container" style="width: 100%; height: 200px;"></div>
+                <div id="aepo-chart" class="container" class="line-chart"></div>
             </div>
         </div>
     </div>
@@ -173,10 +173,10 @@
                         {% endif %}
                     </ul>
                     {% if data and data.0.total > 0 %}
-                        <div id="{{ period }}-top-companies-chart" style="width: 100%; height: 200px;"></div>
+                        <div id="{{ period }}-top-companies-chart"
+                             class="pie-chart {{ period }}-pie-chart {% if period != 'today' %}tpl{% endif %}"></div>
                     {% endif %}
                 {% endfor %}
-
                 <div class="clear"></div>
             </div>
         </div>
@@ -210,7 +210,8 @@
                         {% endif %}
                     </ul>
                     {% if data and data.0.total > 0 %}
-                        <div id="{{ period }}-top-customers-chart" style="width: 100%; height: 200px;"></div>
+                        <div id="{{ period }}-top-customers-chart"
+                             class="pie-chart {{ period }}-pie-chart {% if period != 'today' %}tpl{% endif %}"></div>
                     {% endif %}
                 {% endfor %}
 
