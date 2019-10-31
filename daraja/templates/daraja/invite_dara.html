@@ -42,9 +42,9 @@
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
             <div>
                 <p style="text-align: center;">{% blocktrans %}
-                    <strong>{{ company_name }}</strong> is inviting you to become partner through Daraja program.
-                    <br>Get {{ share_rate }}% for online purchases made by people you refer.
-                    <br>You receive money immediately after transactions.
+                    <strong>{{ company_name }}</strong> is inviting you to become partner through Daraja program.<br>
+                    Get <strong>{{ share_rate }}%</strong> for online purchases made by people you refer.<br>
+                    You receive money immediately after transactions.
                 {% endblocktrans %}</p>
                 <div class="clearfix"></div>
             </div>
@@ -66,29 +66,20 @@
             </div>
             <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center invitation-accepted" style="display: none; font-size: .9em; margin-top: 5vh">
                 <p class="text-success">{% blocktrans with company_url=company.url %}
-                    Great! You are now partner with {{ company_name }}. Get {{ share_rate }}% for getting someone to buy
+                    Great! You are now partner with {{ company_name }}. Get <strong>{{ share_rate }}%</strong> for getting someone to buy
                     online on {{ company_url }}. You must invite them first by sharing your link below.
                 {% endblocktrans %}</p>
-{#                <a href="{% url 'ikwen:company_profile' ikwen_name %}?referrer={{ user.id }}" class="btn btn-green">#}
-{#                    {% include 'core/snippets/button_spinner.html' %}#}
-{#                    <strong>{% trans "Invite someone now" %}</strong>#}
-{#                </a>#}
                 <div class="row">
-                    <div class="col-sm-4 col-xs-4" data-href="{{ service.url }}{{ product_url }}" data-layout="button" data-mobile-iframe="true">
+                    <div class="col-sm-offset-2 col-sm-4 col-xs-4" data-href="{{ service.url }}{{ product_url }}" data-layout="button" data-mobile-iframe="true">
                         <a class="social-share btn btn-block" target="_blank"  href="https://www.facebook.com/sharer/sharer.php?u={{ service.url }}"  style="background: #3b5998;">
                             <i class="fab fa-facebook"></i>
                         </a>
                     </div>
-                    <div class="col-sm-offset-2  col-sm-4 col-xs-4">
+                    <div class="col-sm-4 col-xs-4">
                         <a class="social-share btn btn-block" data-toggle="modal" data-target="#twitter-share" href="https://twitter.com/intent/tweet?url={{ service.url }}{{ product_url }}" style="background: #1da1f2;">
                             <i class="fab fa-twitter"></i>
                         </a>
                     </div>
-{#                        <div class="col-sm-4 col-xs-3">#}
-{#                            <button class="btn btn-block" data-toggle="modal" data-target="#instagram-share" style="min-width: auto; background: #c32aa3;">#}
-{#                                <i class="fab fa-instagram"></i>#}
-{#                            </button>#}
-{#                        </div>#}
                     <div class="col-xs-4">
                         <button class="social-share btn btn-block visible-xs" data-toggle="modal" data-target="#whatsapp-share" style="background: #25d366;">
                             <i class="fab fa-whatsapp"></i>
