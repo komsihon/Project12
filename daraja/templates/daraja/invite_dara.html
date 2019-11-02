@@ -2,11 +2,18 @@
 {% load i18n static user_agents %}
 
 {% block meta %}
-    {{ block.super }}
-    <link rel="shortcut icon" type="image/png" href="{% static 'daraja/img/logo-daraja.png' %}">
-    <meta name="theme-color" content="#233682">
-    <meta name="msapplication-navbutton-color" content="#233682">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#233682">
+    {% include 'daraja/snippets/color_and_icons.html' %}
+    <meta name="apple-mobile-web-app-title" content="Daraja" />
+
+    <meta name="abstract" content="{% blocktrans %}Partnership invitation from {{ company_name }}{% endblocktrans %}"/>
+    <meta name="description" content="{% blocktrans %}Let's do business together.{%endblocktrans %}"/>
+
+    <meta property="og:title" content="{% blocktrans %}Partnership invitation from {{ company_name }}{% endblocktrans %}" />
+    <meta property="og:image" content="{% static 'daraja/icons/icon-180x180.png' %}" />
+    <meta property="og:description" content="{% blocktrans %}Let's do business together.{%endblocktrans %}"/>
+
+{#    <link rel="manifest" href="{% static 'foulassi/manifest.json' %}">#}
+    <link rel="manifest" href="/daraja/manifest.json">
 {% endblock %}
 
 {% block page_title %}
@@ -21,8 +28,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'daraja/css/daraja.css' %}">
     <style>
         footer {position: static; margin-top: 60px}
-        body > .container {font-size: 18px; margin-top: 12vh}
-        body > .container .btn {width: 240px}
+        body > .container {font-size: 18px; margin-top: 23vh}
+        body > .container .btn {width: 240px;}
         .get-started {border: 1px solid #f00; padding: 30px 15px}
         @media (max-width: 767px) {
             body > .container {margin-top: 10vh}
@@ -35,13 +42,13 @@
         <div class="text-center">
 <!--            style="background: #f7f7f7"-->
             <img class="main-img" src="{% static 'daraja/img/logo-daraja.png' %}" />
-            <h2 class="main-title text-center" style="padding: 4vh 0; font-weight: bold;">
+            <h2 class="main-title text-center">
                 {% blocktrans %}Invitation from {{ company_name }}{% endblocktrans %}
             </h2>
         </div>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
             <div>
-                <p style="text-align: center;">{% blocktrans %}
+                <p class="text-center invitation">{% blocktrans %}
                     <strong>{{ company_name }}</strong> is inviting you to become partner through Daraja program.<br>
                     Get <strong>{{ share_rate }}%</strong> for online purchases made by people you refer.<br>
                     You receive money immediately after transactions.
@@ -54,7 +61,7 @@
                     <strong>{% trans "Accept" %}</strong>
                 </button>
             </div>
-            <div class="text-center get-started" style="display: none; font-size: .9em; margin-top: 5vh">
+            <div class="text-center get-started">
                 <p class="text-danger">{% blocktrans %}
                     You're not yet on Daraja. You must join the program before you can
                     partnership with {{ company_name }}.
@@ -64,7 +71,7 @@
                     <strong>{% trans "Join the program" %}</strong>
                 </a>
             </div>
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center invitation-accepted" style="display: none; font-size: .9em; margin-top: 5vh">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center invitation-accepted ">
                 <p class="text-success">{% blocktrans with company_url=company.url %}
                     Great! You are now partner with {{ company_name }}. Get <strong>{{ share_rate }}%</strong> for getting someone to buy
                     online on {{ company_url }}. You must invite them first by sharing your link below.
@@ -141,6 +148,7 @@
                     } else if (data.success) {
                         $('.accept, .invitation-accepted').toggle()
                     }
+                    $('body > .container').css('margin-top', '18vh');
                 })
             });
             $('body').on('click', '#whatsapp-share .btn.ok', () => {

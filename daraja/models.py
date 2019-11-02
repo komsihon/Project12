@@ -22,6 +22,7 @@ class DarajaConfig(Model):
     location = models.CharField(max_length=255, blank=True)
     referrer_share_rate = models.FloatField(default=0)
     is_active = models.BooleanField(default=True)
+    avg_purchase = models.IntegerField(default=0)
 
     def save(self, **kwargs):
         super(DarajaConfig, self).save(**kwargs)

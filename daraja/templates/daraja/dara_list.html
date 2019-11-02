@@ -1,14 +1,6 @@
 {% extends "core/app_base_admin.html" %}
 {% load i18n humanize staticfiles admin_list static cache %}
 
-{% block meta %}
-    {{ block.super }}
-    <link rel="shortcut icon" type="image/png" href="{% static 'daraja/img/logo-daraja_grey.png' %}">
-    <meta name="theme-color" content="#233682">
-    <meta name="msapplication-navbutton-color" content="#233682">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#233682">
-{% endblock %}
-
 {% block page_title %}<title>{% trans "Your daras" %} - ikwen</title>{% endblock %}
 
 {% block head_style %}

@@ -2,6 +2,7 @@ import json
 import logging
 from datetime import datetime
 
+from currencies.models import Currency
 from django.conf import settings
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
@@ -87,6 +88,10 @@ class RegisteredCompanyList(HybridListView):
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
+    # def get_context_data(self, **kwargs):
+    #     context = super(RegisteredCompanyList, self).get_context_data()
+    #     context['CNRCY'] = Currency.active.base()
+    #     return context
 
 @login_required
 def login_router(request, *args, **kwargs):

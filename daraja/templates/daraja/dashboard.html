@@ -6,13 +6,23 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages': ['line', 'corechart']});
-        google.charts.setOnLoadCallback(drawOrdersChart);
-        google.charts.setOnLoadCallback(drawAepoChart);
-        google.charts.setOnLoadCallback(drawTopCompaniesChart);
-        google.charts.setOnLoadCallback(drawTopCustomersChart);
+
+        $(document).on('ready', () => {
+           google.charts.setOnLoadCallback(drawOrdersChart);
+           google.charts.setOnLoadCallback(drawAepoChart);
+           google.charts.setOnLoadCallback(drawTopCompaniesChart);
+           google.charts.setOnLoadCallback(drawTopCustomersChart);
+        });
+        $(window).on('resize', () => {
+            google.charts.setOnLoadCallback(drawOrdersChart);
+            google.charts.setOnLoadCallback(drawAepoChart);
+            google.charts.setOnLoadCallback(drawTopCompaniesChart);
+            google.charts.setOnLoadCallback(drawTopCustomersChart);
+        });
 
         let earningsHistory = {{ earnings_history|safe }},
             transactionsCountHistory = {{ transactions_count_history|safe }};
+
 
         function drawOrdersChart(){
             let data = new google.visualization.DataTable(),
@@ -25,9 +35,11 @@
             }
             data.addRows(values);
             let options = {
-                hAxis: {title: "{% trans 'Day' %}", titleTextStyle: {color: '#203e96'}},
+                {#hAxis: {title: "{% trans 'Day' %}", titleTextStyle: {color: '#203e96'}, textPosition: 'in'},#}
+                hAxis: {title: ""},
                 vAxis: {minValue: 0},
-                legend: {position: 'none'}
+                legend: {position: 'none'},
+                explorer: {axis: 'horizontal'}
             };
             let chart = new google.charts.Line(document.getElementById('orders-chart'));
             chart.draw(data, google.charts.Line.convertOptions(options));
@@ -45,9 +57,11 @@
             }
             data.addRows(values);
             let options = {
-                hAxis: {title: "{% trans 'Day' %}", titleTextStyle: {color: '#203e96'}},
+                {#hAxis: {title: "{% trans 'Day' %}", titleTextStyle: {color: '#203e96'}},#}
+                hAxis: {title: ""},
                 vAxis: {minValue: 0},
-                legend: {position: 'none'}
+                legend: {position: 'none'},
+                explorer: {axis: 'horizontal'}
             };
             let chart = new google.charts.Line(document.getElementById('aepo-chart'));
             chart.draw(data, google.charts.Line.convertOptions(options));

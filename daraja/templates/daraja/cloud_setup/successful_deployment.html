@@ -19,9 +19,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'ikwen/css/deploy-minimal.css' %}">
     <style>
         footer {position: static; margin-top: 60px}
-        body > .container {font-size: 18px; margin-top: 12vh}
+        .main-img {width: 125px!important;}
+        .main-title {padding: 6vh 0!important; line-height: 1.3}
+        body > .container {font-size: 18px; margin-top: 16vh}
         @media (max-width: 767px) {
-            body > .container {margin-top: 10vh}
+            body > .container {margin-top:14vh}
+            .main-img {width: 100px!important;}
         }
     </style>
 {% endblock %}
@@ -35,11 +38,10 @@
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
             <div>
                 {% blocktrans with client_name=user.first_name service_url=dara_service.url %}
-                    <p>Your school management platform and website are now online on <a target="_blank" href="{{ service_url }}"> {{ service_url }}</a>.</p>
+                    <p>Your Daraja management platform and website are now online on <a target="_blank" href="{{ service_url }}"> {{ service_url }}</a>.</p>
                     <ul style="line-height: 28px">
-                        <li>Complete setup by adding levels, classrooms, students, teachers and collaborators.</li>
-                        <li>Set school fees to accept online Mobile Money payment.</li>
-                        <li>Invite parents on <strong>Foulassi MyKids</strong> application and set fees for that service.</li>
+                        <li>Invite companies to do their business online.</li>
+                        <li>You can make more money by inviting customers to buy from the companies your are actually referring.</li>
                     </ul>
                     <p>It's all very easy to do and will take only a few minutes!</p>
                 {% endblocktrans %}

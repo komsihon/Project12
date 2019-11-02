@@ -1,5 +1,5 @@
 {% extends "core/base_bs.html" %}
-{% load i18n static cache %}
+{% load i18n humanize staticfiles auth_tokens currency %}
 {% block meta %}
     <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.IKWEN_MEDIA_URL }}ikwen/favicons/{{ service.app.slug }}/apple-icon-180x180.png">
     <link rel="shortcut icon" type="image/png" href="{% static "daraja/img/logo-daraja.png" %}">
@@ -18,10 +18,17 @@
     <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}" />
     <style>
         body {background: #f8f6f6}
+        #company-name {border: none;}
+        .share-rate {padding: 0px;}
+        .share-rate > span {font-size: 23px;}
+        .avg-purchase > span {font-size: 17px; color: #4d4d4d;}
+        .simulate-earning-container {position: absolute; top: 75%; right: 3%;}
         @media (max-width: 767px) {
             #navbar .menu-button {display: none}
             #navbar .navbar-brand {margin-left: 20px}
             .company-list .main-title {display: none}
+            .share-rate > span {font-size: 19px;}
+            .avg-purchase > span {font-size: 14px;}
         }
     </style>
 {% endblock %}
@@ -58,13 +65,23 @@
                                 <div class="info">
                                     <h3 class="full_name">{{ config.company_name }}</h3>
                                     <ul class="text-muted">
-                                        <li class="annual-turnover">{{ config.contact_phone|truncatechars:"20" }}</li>
-                                        <li class="location"></li>
-                                        <li class="location">{{ config.contact_email }}</li>
+                                        {% with rate=obj.referrer_share_rate avg=obj.avg_purchase %}
+                                            <li class="share-rate">
+                                                <span class=" badge"
+                                                      style="{% if rate < 5 %}background: saddlebrown;{% elif rate < 10  %}background: darkorange;{% elif rate < 20 %}background: dodgerblue;{% else %}background: green;{% endif %}">{{ rate|floatformat }}<sup>%</sup>  {% trans 'share' %}</span></li>
+                                            <li class="avg-purchase">{% blocktrans %}<span>XAF {{ avg }} </span>averagely earned{% endblocktrans %}</li>
+    {#                                        <li class="avg-purchase"><span style="font-size: 20px">{% change_currency avg "XAF" %}</span>{% blocktrans %}averagely earned{% endblocktrans %}</li>#}
+                                            <li class="company-basic-info hidden-xs ">
+                                                {{ config.contact_email }}, {{ config.contact_phone|truncatechars:"20" }}{% if obj.location %}, {{ obj.location }}{% endif %}
+                                            </li>
+                                        {% endwith %}
                                     </ul>
                                 </div>
                                 <div class="actions">
                                     <button class="btn btn-sm btn-green apply" data-id="{{ company.id }}">{% trans "Request" %}</button>
+                                </div>
+                                <div class="actions simulate-earning-container">
+                                    <button class="btn btn-sm btn-primary apply" data-id="{{ company.id }}">{% trans "Simulate earnings" %}</button>
                                 </div>
                             </li>
                             {% endwith %}

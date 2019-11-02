@@ -36,16 +36,18 @@
 #search-other-school .search-company {margin-top: 3vh}
 .member:not(.tpl):last-child, .ik-li:not(.tpl):last-of-type {border-bottom: none}
 .school-avatar {font-size: 60px;color: #bfc5d8;line-height: 80px;}
-.social-share {color: #fff; min-width: auto!important;}
+.social-share {color: #fff; min-width: auto!important; width: auto!important;}
 .search-school {margin: 9vh 0;}
 .dara-details {margin-top: 40px; margin-bottom: 5vh;}
 .dara-basic-info {margin-top: 8vh;}
 .dara-description {margin-top: 10vh; padding-top: 6vh; border-top: 1px solid #bfc5d8; line-height: 30px; text-align: justify;}
 .agreement {margin-top: 9vh; margin-bottom: 9vh;}
+.main-img {width: 125px!important;}
+.invitation-accepted {display: none; font-size: .9em; margin-top: 5vh}
+.main-title {padding: 6vh 0; font-weight: bold; line-height: 1.5;}
+.get-started {display: none; font-size: .9em; margin-top: 5vh}
+.invitation {line-height: 2}
 
-@media (max-width: 425px) {
-    .company-list .image i {font-size: 16vw;}
-}
 @media (max-width: 767px) {
     .company-list {margin: 0 -12px}
     .company-list .ik-li h3 {font-size: 18px;margin-bottom: 10px;}
@@ -57,6 +59,9 @@
     #student-details .basic {clear: both;padding-top: 15px;}
     .ik-li:not(.selected):hover .actions {right: 15px;}
     .dara-basic-info .phone {margin-top: 10px; margin-bottom: 10px;}
+    .main-img {width: 100px!important;}
+    .invitation {line-height: 1.7}
+    .company-list .image i {font-size: 16vw;}
 }
 
 @media (min-width: 768px) {
@@ -71,10 +76,16 @@
     .company-list .ik-li .info {max-width: 280px;}
     .company-list .ik-li .btn.show-modal-request {margin-top: 75px; width: 180px}
 }
-@media (min-width: 1200px) {
-    .company-list .ik-li .info {max-width: 395px;}
-}
 
 @media (min-width: 1024px) {
-    .company-list .image i {font-size: 9vw;}
+    .company-list .image i {font-size: 10vw;}
+}
+
+@media (min-width: 1200px) {
+    .company-list .ik-li .info {max-width: 395px;}
+    .company-list .image i {font-size: 8vw;}
+}
+
+@media (min-width: 2560px) {
+    .company-list .image i {font-size: 5vw;}
 }
