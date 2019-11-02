@@ -2,11 +2,7 @@
 {% load i18n static user_agents %}
 
 {% block meta %}
-    {{ block.super }}
-    <link rel="shortcut icon" type="image/png" href="{% static "daraja/img/logo-daraja.png" %}">
-    <meta name="theme-color" content="#233682">
-    <meta name="msapplication-navbutton-color" content="#233682">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#233682">
+    {% include 'daraja/snippets/color_and_icons.html' %}
 {% endblock %}
 
 {% block page_title %}
@@ -33,22 +29,20 @@
     <div class="container">
         <div class="text-center">
             <img class="main-img" src="{% static 'daraja/img/logo-daraja.png' %}" />
-            <h2 class="main-title text-center" style="padding-bottom: 4vh">{% trans "Successful deployment" %}</h2>
+            <h2 class="main-title text-center" style="padding-bottom: 4vh">
+                {% blocktrans with name=user.first_name %}Congratulations {{ name }},{% endblocktrans %}
+            </h2>
+            <p>{% trans "Now, you are a Dara !" %}</p>
         </div>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
             <div>
-                {% blocktrans with client_name=user.first_name service_url=dara_service.url %}
-                    <p>Your Daraja management platform and website are now online on <a target="_blank" href="{{ service_url }}"> {{ service_url }}</a>.</p>
-                    <ul style="line-height: 28px">
-                        <li>Invite companies to do their business online.</li>
-                        <li>You can make more money by inviting customers to buy from the companies your are actually referring.</li>
-                    </ul>
-                    <p>It's all very easy to do and will take only a few minutes!</p>
+                {% blocktrans %}
+                    <p>Now, you are a Dara ! Discover your control panel to see how to grow and monitor your business.</p>
                 {% endblocktrans %}
                 <div class="clearfix"></div>
             </div>
             <div class="text-center" style="margin-top: 5vh">
-                <a class="btn btn-deep-blue continue processing" style="min-width: 240px">
+                <a class="btn btn-deep-blue continue" href="{{ next_url }}" style="min-width: 240px">
                     {% include 'core/snippets/button_spinner.html' %}
                     <strong>{% trans "Continue" %}</strong>
                 </a>
@@ -56,17 +50,4 @@
             <div class="clearfix"></div>
         </div>
     </div>
-{% endblock %}
-
-{% block js %}
-    {{ block.super }}
-    <script>
-        (() => {
-            setTimeout(() => {
-                let href = "{{ school.url }}{% url 'foulassi:admin_home' %}?action=get_in&challenge={{ school.api_signature }}";
-                $('.btn.continue').removeClass('processing').attr('href', href);
-            }, 5000);
-        })()
-    </script>
-
 {% endblock %}

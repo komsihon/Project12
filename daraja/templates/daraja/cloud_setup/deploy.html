@@ -6,11 +6,7 @@
 {% endblock %}
 
 {% block meta %}
-    {{ block.super }}
-    <link rel="shortcut icon" type="image/png" href="{% static 'daraja/img/logo-daraja.png' %}">
-    <meta name="theme-color" content="#233682">
-    <meta name="msapplication-navbutton-color" content="#233682">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#233682">
+    {% include 'daraja/snippets/color_and_icons.html' %}
 {% endblock %}
 
 {% block head_style %}

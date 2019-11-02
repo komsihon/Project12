@@ -2,7 +2,6 @@ import json
 import logging
 from datetime import datetime
 
-from currencies.models import Currency
 from django.conf import settings
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
@@ -88,10 +87,6 @@ class RegisteredCompanyList(HybridListView):
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(RegisteredCompanyList, self).get_context_data()
-    #     context['CNRCY'] = Currency.active.base()
-    #     return context
 
 @login_required
 def login_router(request, *args, **kwargs):
@@ -151,9 +146,7 @@ class Dashboard(DashboardBase):
                 login(request, member)
                 next_url = reverse('daraja:dashboard') + '?first_setup=yes'
                 return HttpResponseRedirect(next_url)
-        elif user.is_anonymous() or (user.is_authenticated() and not user.is_staff):
-            if user.is_authenticated():
-                logout(request)
+        elif user.is_anonymous():
             next_url = reverse('ikwen:sign_in')
             return HttpResponseRedirect(next_url)
         return super(Dashboard, self).get(request, *args, **kwargs)
@@ -426,7 +419,10 @@ class DeployCloud(VerifiedEmailTemplateView):
         except:
             pass
         else:
-            next_url = 'http://daraja.ikwen.com' + reverse('daraja:login_router')
+            if inviter:
+                next_url = reverse('daraja:invite_dara', args=(inviter, ))
+            else:
+                next_url = 'http://daraja.ikwen.com' + reverse('daraja:login_router')
             return HttpResponseRedirect(next_url)
         if getattr(settings, 'DEBUG', False):
             service = deploy(member)

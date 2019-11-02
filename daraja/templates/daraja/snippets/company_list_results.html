@@ -6,7 +6,7 @@
         {% with config=company.config %}
         <li id="{{ company.id }}" class="ik-li list-group-item" data-id="{{ company.id }}">
             {% if config.logo.name %}
-                <div class="image rounded" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ company.photo.small_name }})"></div>
+                <div class="image rounded" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ config.logo.small_name }})"></div>
             {% else %}
                 <div class="image rounded" style="background-image: url({% static 'ikwen/img/logo-placeholder.jpg' %})"></div>
             {% endif %}

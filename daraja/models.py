@@ -30,6 +30,16 @@ class DarajaConfig(Model):
         if using is None or using == 'default':
             super(DarajaConfig, self).save(using=UMBRELLA, **kwargs)
 
+    def _get_share_rate_bound(self):
+        if self.referrer_share_rate < 5:
+            return 0
+        elif self.referrer_share_rate < 10:
+            return 5
+        elif self.referrer_share_rate < 20:
+            return 10
+        return 20
+    share_rate_bound = property(_get_share_rate_bound)
+
 
 class DaraRequest(Model):
     service = models.ForeignKey(Service, related_name='+')

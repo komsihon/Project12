@@ -1,14 +1,8 @@
 {% extends "core/base_bs.html" %}
 {% load i18n humanize staticfiles auth_tokens currency %}
+
 {% block meta %}
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.IKWEN_MEDIA_URL }}ikwen/favicons/{{ service.app.slug }}/apple-icon-180x180.png">
-    <link rel="shortcut icon" type="image/png" href="{% static "daraja/img/logo-daraja.png" %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ settings.IKWEN_MEDIA_URL }}ikwen/favicons/{{ service.app.slug }}/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{ settings.IKWEN_MEDIA_URL }}ikwen/favicons/{{ service.app.slug }}/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ settings.IKWEN_MEDIA_URL }}ikwen/favicons/{{ service.app.slug }}/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{ settings.IKWEN_MEDIA_URL }}ikwen/favicons/{{ service.app.slug }}/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+    {% include 'daraja/snippets/color_and_icons.html' %}
 {% endblock %}
 
 {% block page_title %}<title>{% trans "Registered companies" %} - Daraja</title>{% endblock %}
@@ -65,16 +59,15 @@
                                 <div class="info">
                                     <h3 class="full_name">{{ config.company_name }}</h3>
                                     <ul class="text-muted">
-                                        {% with rate=obj.referrer_share_rate avg=obj.avg_purchase %}
-                                            <li class="share-rate">
-                                                <span class=" badge"
-                                                      style="{% if rate < 5 %}background: saddlebrown;{% elif rate < 10  %}background: darkorange;{% elif rate < 20 %}background: dodgerblue;{% else %}background: green;{% endif %}">{{ rate|floatformat }}<sup>%</sup>  {% trans 'share' %}</span></li>
-                                            <li class="avg-purchase">{% blocktrans %}<span>XAF {{ avg }} </span>averagely earned{% endblocktrans %}</li>
-    {#                                        <li class="avg-purchase"><span style="font-size: 20px">{% change_currency avg "XAF" %}</span>{% blocktrans %}averagely earned{% endblocktrans %}</li>#}
-                                            <li class="company-basic-info hidden-xs ">
-                                                {{ config.contact_email }}, {{ config.contact_phone|truncatechars:"20" }}{% if obj.location %}, {{ obj.location }}{% endif %}
-                                            </li>
-                                        {% endwith %}
+                                        <li class="share-rate">
+                                            <span class="badge badge-{{ obj.share_rate_bound }}">
+                                                {{ obj.referrer_share_rate|floatformat }}<sup>%</sup>  {% trans 'share' %}
+                                            </span>
+                                        </li>
+                                        <li class="avg-purchase">{% trans "Avg purchase: " %}XAF {{ avg|intcomma }}</li>
+                                        <li class="company-basic-info hidden-xs ">
+                                            {{ config.contact_email }}, {{ config.contact_phone|truncatechars:"20" }}{% if obj.location %}, {{ obj.location }}{% endif %}
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="actions">
