@@ -3,10 +3,9 @@
 
 <ul class="object-list" style="padding-left: 0">
     {% for company in company_list %}
-        {% with config=company.config %}
         <li id="{{ company.id }}" class="ik-li list-group-item" data-id="{{ company.id }}">
-            {% if config.logo.name %}
-                <div class="image rounded" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ config.logo.small_name }})"></div>
+            {% if company.logo.name %}
+                <div class="image rounded" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ company.logo.name }})"></div>
             {% else %}
                 <div class="image rounded" style="background-image: url({% static 'ikwen/img/logo-placeholder.jpg' %})"></div>
             {% endif %}
@@ -15,7 +14,6 @@
                 <p class="about"><strong>{{ company.share_rate }}%</strong> - {{ company.total_community|intcomma }} Followers - {{ config.currency_symbol }} {{ company.total_earnings|intcomma }} {% trans "earned" %}</p>
             </div>
         </li>
-        {% endwith %}
     {% endfor %}
 </ul>
 <div id="page-navigation" class="text-muted">

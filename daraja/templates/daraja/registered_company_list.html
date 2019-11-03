@@ -50,7 +50,7 @@
                             {% with company=obj.service config=obj.service.config %}
                             <li id="{{ company.id }}" class="ik-li">
                                 {% if config.logo.name %}
-                                    <div class="image" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ company.photo.small_name }})"></div>
+                                    <div class="image" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ config.logo.name }})"></div>
                                 {% else %}
                                     <div class="image">
                                         <i class="fas fa-building"></i>

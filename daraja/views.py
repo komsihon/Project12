@@ -7,6 +7,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render
+from django.template.defaultfilters import slugify
 from django.utils.http import urlunquote
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
@@ -17,7 +18,7 @@ from permission_backend_nonrel.models import UserPermissionList
 
 from ikwen.core.constants import PENDING, REJECTED, ACCEPTED
 from ikwen.core.views import HybridListView, DashboardBase, ChangeObjectBase
-from ikwen.core.models import Service, Application
+from ikwen.core.models import Service, Application, Config
 from ikwen.core.utils import slice_watch_objects, rank_watch_objects, add_database, set_counters, get_service_instance, \
     get_model_admin_instance, clear_counters
 from ikwen.accesscontrol.utils import VerifiedEmailTemplateView
@@ -58,6 +59,20 @@ class RegisteredCompanyList(HybridListView):
         if action == 'apply':
             return self.apply(request)
         return super(RegisteredCompanyList, self).get(request, *args, **kwargs)
+
+    def get_search_results(self, queryset, max_chars=None):
+        search_term = self.request.GET.get('q')
+        if search_term and len(search_term) >= 2:
+            search_term = search_term.lower()
+            word = slugify(search_term).replace('-', ' ')
+            try:
+                word = word[:int(max_chars)]
+            except:
+                pass
+            service_list = list(Service.objects.filter(project_name__icontains=word)[:50])
+            if word:
+                queryset = queryset.filter(service__in=service_list)
+        return queryset
 
     def apply(self, request):
         if request.user.is_anonymous():
@@ -155,7 +170,6 @@ class Dashboard(DashboardBase):
 class CompanyList(HybridListView):
     template_name = 'daraja/company_list.html'
     html_results_template_name = 'daraja/snippets/company_list_results.html'
-    # queryset = Service.objects.exclude(pk=getattr(settings, 'IKWEN_SERVICE_ID'))
     model = Service
     context_object_name = 'company_list'
 
@@ -172,6 +186,7 @@ class CompanyList(HybridListView):
         for service in queryset.order_by(*self.ordering):
             try:
                 service.share_rate = DarajaConfig.objects.using(_umbrella_db).get(service=service).referrer_share_rate
+                service.logo = Config.objects.get(service=service).logo  # This has should be done this way due to database routing !
             except:
                 pass
             company_list.append(service)
