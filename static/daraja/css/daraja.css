@@ -47,6 +47,18 @@
 .main-title {padding: 6vh 0; font-weight: bold; line-height: 1.5;}
 .get-started {display: none; font-size: .9em; margin-top: 5vh}
 .invitation {line-height: 2}
+.badge-0 {background-color: #e75d44;}
+.badge-5 {background-color: #ee9939;}
+.badge-10 {background-color: #3759fa;}
+.badge-20 {background-color: #11aa08;}
+.share-rate {padding: 0px; border-bottom: none!important; margin-bottom: 5px;}
+.share-rate > span {font-size: 20px; font-weight: 400; line-height: 30px; border-radius: 0}
+.avg-purchase > span {font-size: 17px; color: #4d4d4d;}
+.simulate-earning-container {position: absolute; top: 75%; right: 3%;}
+.company-list .info > ul {margin-top: -15px;}
+.company-basic-info {border-bottom: none!important;}
+.company-image {padding: 20%}
+.company-image > img {width: 100px}
 
 @media (max-width: 767px) {
     .company-list {margin: 0 -12px}
@@ -62,6 +74,11 @@
     .main-img {width: 100px!important;}
     .invitation {line-height: 1.7}
     .company-list .image i {font-size: 16vw;}
+    .company-list .info > ul {margin-top: -6px;}
+    .share-rate > span {font-size: 15px; line-height: 20px;}
+    .share-rate { margin-bottom: 0px;}
+    .avg-purchase > span {font-size: 14px;}
+    .company-image > img {width: 65px}
 }
 
 @media (min-width: 768px) {

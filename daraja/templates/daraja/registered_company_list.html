@@ -12,17 +12,10 @@
     <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}" />
     <style>
         body {background: #f8f6f6}
-        #company-name {border: none;}
-        .share-rate {padding: 0px;}
-        .share-rate > span {font-size: 23px;}
-        .avg-purchase > span {font-size: 17px; color: #4d4d4d;}
-        .simulate-earning-container {position: absolute; top: 75%; right: 3%;}
         @media (max-width: 767px) {
             #navbar .menu-button {display: none}
             #navbar .navbar-brand {margin-left: 20px}
             .company-list .main-title {display: none}
-            .share-rate > span {font-size: 19px;}
-            .avg-purchase > span {font-size: 14px;}
         }
     </style>
 {% endblock %}
@@ -48,9 +41,13 @@
                     <ul class="object-list" style="padding-left: 0">
                         {% for obj in object_list %}
                             {% with company=obj.service config=obj.service.config %}
-                            <li id="{{ company.id }}" class="ik-li">
+                                <li id="{{ company.id }}" class="ik-li">
                                 {% if config.logo.name %}
-                                    <div class="image" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ company.photo.small_name }})"></div>
+                                    <div class="image company-image">
+                                        <div>
+                                            <img src="{{ settings.IKWEN_MEDIA_URL }}{{ company.photo.small_name }}" alt="{{ company.project_name }}">
+                                        </div>
+                                    </div>
                                 {% else %}
                                     <div class="image">
                                         <i class="fas fa-building"></i>
@@ -64,16 +61,19 @@
                                                 {{ obj.referrer_share_rate|floatformat }}<sup>%</sup>  {% trans 'share' %}
                                             </span>
                                         </li>
-                                        <li class="avg-purchase">{% trans "Avg purchase: " %}XAF {{ avg|intcomma }}</li>
+                                        <li class="avg-purchase">{% trans "Avg purchase: " %}<span>XAF {{ obj.avg_purchase|intcomma }}</span></li>
                                         <li class="company-basic-info hidden-xs ">
-                                            {{ config.contact_email }}, {{ config.contact_phone|truncatechars:"20" }}{% if obj.location %}, {{ obj.location }}{% endif %}
+                                            {% if config.contact_email %}{{ config.contact_email }}{% endif %}{% if config.contact_phone %}, {{ config.contact_phone|truncatechars:"20" }}{% endif %}{% if obj.location %}, {{ obj.location }}{% endif %}
+                                        </li>
+                                        <li class="company-basic-info visible-xs">
+                                            {% if obj.location %}{{ obj.location }}{% else %}{{ config.contact_email }}{% endif %}
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="actions">
                                     <button class="btn btn-sm btn-green apply" data-id="{{ company.id }}">{% trans "Request" %}</button>
                                 </div>
-                                <div class="actions simulate-earning-container">
+                                <div class="actions simulate-earning-container hidden">
                                     <button class="btn btn-sm btn-primary apply" data-id="{{ company.id }}">{% trans "Simulate earnings" %}</button>
                                 </div>
                             </li>
