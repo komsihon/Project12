@@ -57,8 +57,8 @@
 .simulate-earning-container {position: absolute; top: 75%; right: 3%;}
 .company-list .info > ul {margin-top: -15px;}
 .company-basic-info {border-bottom: none!important;}
-.company-image {padding: 20%}
-.company-image > img {width: 100px}
+.company-image > div {padding: 20%}
+.company-image img {width: 100px}
 
 @media (max-width: 767px) {
     .company-list {margin: 0 -12px}
@@ -78,7 +78,7 @@
     .share-rate > span {font-size: 15px; line-height: 20px;}
     .share-rate { margin-bottom: 0px;}
     .avg-purchase > span {font-size: 14px;}
-    .company-image > img {width: 65px}
+    .company-image img {width: 65px}
 }
 
 @media (min-width: 768px) {
