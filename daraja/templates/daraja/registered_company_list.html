@@ -9,7 +9,7 @@
 
 {% block head_style %}
     {{ block.super }}
-    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}" />
+    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}?v=19.11.2" />
     <style>
         body {background: #f8f6f6}
         @media (max-width: 767px) {
@@ -45,7 +45,7 @@
                                 {% if config.logo.name %}
                                     <div class="image company-image">
                                         <div>
-                                            <img src="{{ settings.IKWEN_MEDIA_URL }}{{ company.logo.name }}" alt="{{ company.project_name }}">
+                                            <img src="{{ settings.IKWEN_MEDIA_URL }}{{ config.logo.name }}" alt="{{ company.project_name }}">
                                         </div>
                                     </div>
                                 {% else %}
