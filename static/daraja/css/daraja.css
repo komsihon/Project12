@@ -44,7 +44,7 @@
 .agreement {margin-top: 9vh; margin-bottom: 9vh;}
 .main-img {width: 125px!important;}
 .invitation-accepted {display: none; font-size: .9em; margin-top: 5vh}
-.main-title {padding: 6vh 0; font-weight: bold; line-height: 1.5;}
+.main-title {padding: 6vh 0;font-weight: bold;line-height: 35px;font-size: 30px;}
 .get-started {display: none; font-size: .9em; margin-top: 5vh}
 .invitation {line-height: 2}
 .badge-0 {background-color: #e75d44;}

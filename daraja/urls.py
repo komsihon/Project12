@@ -23,7 +23,7 @@ urlpatterns = patterns(
     url(r'^configuration$', permission_required('daraja.ik_manage_daraja')(Configuration.as_view()), name='configuration'),
 
     url(r'^login_router$', login_router, name='login_router'),
-    url(r'^dashboard/$', login_required(Dashboard.as_view()), name='dashboard'),
+    url(r'^dashboard/$', Dashboard.as_view(), name='dashboard'),
     url(r'^profile/$', login_required(ChangeProfile.as_view()), name='change_profile'),
     url(r'^companies/$', login_required(CompanyList.as_view()), name='company_list'),
     url(r'^wallet/$', login_required(Payments.as_view()), name='wallet'),

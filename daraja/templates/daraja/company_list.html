@@ -49,7 +49,7 @@
                             <label for="whatsapp-share-msg" class="col-sm-5 col-md-4">{% trans "Message" %}</label>
                             <div class="col-sm-7 col-md-8">
                                 <textarea id="whatsapp-share-msg" style="height: 120px"
-                                          class="form-control input-sm">{% blocktrans with school_name=config.company_name %}Hello! This is our Foulassi platform for collaborating online in {{ school_name }}. Please, join in for us to configure your access.{% endblocktrans %}</textarea>
+                                          class="form-control input-sm">{% blocktrans with school_name=config.company_name %}Hello! Use this link to create an e-commerce platform with online payment. Me and many others will help you sell your products.{% endblocktrans %}</textarea>
                             </div>
                         </div>
                     </form>
@@ -78,7 +78,7 @@
             $('div#admin-nav .companies').addClass('active');
             $('body').on('click', '#whatsapp-share .btn.ok', () => {
                 let msg = $('#whatsapp-share-msg').val(),
-                    url = 'https://ikwen.com/tsunami/{{ service.project_name_slug }}/?invite%3Dyes%26group%3Dteachers';
+                    url = 'https://ikwen.com/tsunami?inviter%3{{ user.id }}';
                 window.location = 'https://api.whatsapp.com/send?text=' + url + '%0A%0A' + msg;
             });
         })()

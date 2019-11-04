@@ -9,7 +9,7 @@
 
 {% block head_style %}
     {{ block.super }}
-    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}?v=19.11.2" />
+    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}?v=19.11.3" />
     <style>
         body {background: #f8f6f6}
         @media (max-width: 767px) {
@@ -58,7 +58,9 @@
                                     <ul class="text-muted">
                                         <li class="share-rate">
                                             <span class="badge badge-{{ obj.share_rate_bound }}">
-                                                {{ obj.referrer_share_rate|floatformat }}<sup>%</sup>  {% trans 'share' %}
+                                                {% blocktrans with share_rate=obj.referrer_share_rate|floatformat %}
+                                                    {{ share_rate }}<sup>%</sup> share
+                                                {% endblocktrans %}
                                             </span>
                                         </li>
                                         <li class="avg-purchase">{% trans "Avg purchase: " %}<span>XAF {{ obj.avg_purchase|intcomma }}</span></li>

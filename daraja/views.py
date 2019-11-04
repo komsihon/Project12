@@ -347,6 +347,14 @@ class DaraRequestList(HybridListView):
     template_name = 'daraja/dara_request_list.html'
     queryset = DaraRequest.objects.filter(status=PENDING)
 
+    def get_context_data(self, **kwargs):
+        context = super(DaraRequestList, self).get_context_data(**kwargs)
+        service = get_service_instance()
+        daraja_config = DarajaConfig.objects.get(service=service)
+        context['project_name'] = service.project_name
+        context['share_rate'] = int(daraja_config.referrer_share_rate)
+        return context
+
     def get(self, request, *args, **kwargs):
         action = request.GET.get('action')
         if action == 'accept':

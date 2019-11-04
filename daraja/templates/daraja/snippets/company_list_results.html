@@ -11,7 +11,8 @@
             {% endif %}
             <div class="info">
                 <a href="{{ company.url }}">{{ company.project_name }}</a>
-                <p class="about"><strong>{{ company.share_rate }}%</strong> - {{ company.total_community|intcomma }} Followers - {{ config.currency_symbol }} {{ company.total_earnings|intcomma }} {% trans "earned" %}</p>
+                <p class="about"><strong>{{ company.share_rate }}%</strong> - {{ company.total_community|intcomma }} Followers -
+                    {{ config.currency_symbol }} {% blocktrans with total_earnings=company.total_earnings|intcomma %}{{ total_earnings }} earned.{% endblocktrans %}</p>
             </div>
         </li>
     {% endfor %}
