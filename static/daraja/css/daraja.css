@@ -36,7 +36,7 @@
 #search-other-school .search-company {margin-top: 3vh}
 .member:not(.tpl):last-child, .ik-li:not(.tpl):last-of-type {border-bottom: none}
 .school-avatar {font-size: 60px;color: #bfc5d8;line-height: 80px;}
-.social-share {color: #fff; min-width: auto!important; width: auto!important;}
+.social-share {color: #fff; width: 100%!important;}
 .search-school {margin: 9vh 0;}
 .dara-details {margin-top: 40px; margin-bottom: 5vh;}
 .dara-basic-info {margin-top: 8vh;}
@@ -44,7 +44,9 @@
 .agreement {margin-top: 9vh; margin-bottom: 9vh;}
 .main-img {width: 125px!important;}
 .invitation-accepted {display: none; font-size: .9em; margin-top: 5vh}
-.main-title {padding: 6vh 0;font-weight: bold;line-height: 35px;font-size: 30px;}
+.main-title {padding: 4vh 0;font-weight: bold;line-height: 35px;font-size: 30px;}
+.main-title > h2 {font-weight: 600}
+.main-title p {font-weight: 300;}
 .get-started {display: none; font-size: .9em; margin-top: 5vh}
 .invitation {line-height: 2}
 .badge-0 {background-color: #e75d44;}

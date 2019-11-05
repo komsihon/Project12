@@ -28,11 +28,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'daraja/css/daraja.css' %}">
     <style>
         footer {position: static; margin-top: 60px}
-        body > .container {font-size: 18px; margin-top: 23vh}
+        body > .container {font-size: 18px; margin-top: 16vh}
         body > .container .btn {width: 240px;}
         .get-started {border: 1px solid #f00; padding: 30px 15px}
         @media (max-width: 767px) {
-            body > .container {margin-top: 10vh}
+            body > .container {margin-top: 13vh}
         }
     </style>
 {% endblock %}
@@ -44,13 +44,13 @@
             <img class="main-img" src="{% static 'daraja/img/logo-daraja.png' %}" />
             <div class="main-title">
                 <h2 class="text-center">{{ company_name }}</h2>
-                <p class="text-muted">{% trans "is inviting to partnership" %}</p>
+                <p class="text-muted">{% trans "is inviting you to partnership" %}</p>
             </div>
         </div>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
             <div>
                 <p class="text-center invitation">{% blocktrans %}
-                    <strong>{{ company_name }}</strong> is inviting you to become partner through Daraja program.<br>
+                    We are inviting you to become partner through Daraja program.<br>
                     Get <strong>{{ share_rate }}%</strong> for online purchases made by people you refer.<br>
                     You receive money immediately after transactions.
                 {% endblocktrans %}</p>
@@ -149,7 +149,7 @@
                     } else if (data.success) {
                         $('.accept, .invitation-accepted').toggle()
                     }
-                    $('body > .container').css('margin-top', '18vh');
+                    $('body > .container').css('margin-top', '13vh');
                 })
             });
             $('body').on('click', '#whatsapp-share .btn.ok', () => {
