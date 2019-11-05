@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-04 19:06+0000\n"
-"PO-Revision-Date: 2019-11-04 20:07+0100\n"
+"PO-Revision-Date: 2019-11-04 20:21+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -229,7 +229,7 @@ msgstr ""
 #: daraja/templates/daraja/home.html:45 daraja/templates/daraja/home.html:58
 #: daraja/templates/daraja/home.html:178
 msgid "Register on <b>Daraja</b>"
-msgstr "Rejoingnez <b>Daraja</b>"
+msgstr "Rejoignez <b>Daraja</b>"
 
 #: daraja/templates/daraja/home.html:56 daraja/templates/daraja/home.html:176
 msgid "Become shareholder"
