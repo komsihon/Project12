@@ -5,7 +5,6 @@
 
 {% block head_style %}
     {{ block.super }}
-    <link rel='stylesheet' href="{% static 'foulassi/css/foulassi-kids.css' %}" />
     <style>
         #admin-tools .btn.add {display: none}
     </style>
@@ -26,7 +25,7 @@
                     <div style="border-top: 1px solid #ddd; clear: both; margin: 6vh auto 0; width: 40%"></div>
                     <div class="text-center" style="clear: both; margin: 3vh 15px; padding-top: 2vh">
                         <p class="notice">{% blocktrans %}Invite a company on Daraja.{% endblocktrans %}</p>
-                        <button class="btn btn-green visible-xs" data-toggle="modal" data-target="#whatsapp-share" style="margin: auto; width: 100%">
+                        <button class="btn btn-green visible-xs invite-company" data-toggle="modal" data-target="#whatsapp-share" style="margin: auto; width: 100%">
                             {% trans "Send invitation" %}
                         </button>
                         <div class="clearfix"></div>
@@ -49,13 +48,13 @@
                             <label for="whatsapp-share-msg" class="col-sm-5 col-md-4">{% trans "Message" %}</label>
                             <div class="col-sm-7 col-md-8">
                                 <textarea id="whatsapp-share-msg" style="height: 120px"
-                                          class="form-control input-sm">{% blocktrans with school_name=config.company_name %}Hello! Use this link to create an e-commerce platform with online payment. Me and many others will help you sell your products.{% endblocktrans %}</textarea>
+                                          class="form-control input-sm"></textarea>
                             </div>
                         </div>
                     </form>
                     <div class="actions">
                         <div class="col-xs-12 col-sm-4 col-md-3 pull-right action">
-                            <button class="btn btn-success btn-block btn-sm ok"
+                            <button class="btn btn-green btn-block btn-sm ok"
                                     data-dismiss="modal" aria-label="OK">OK</button>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3 pull-right action">
@@ -76,9 +75,18 @@
     <script>
         (() => {
             $('div#admin-nav .companies').addClass('active');
-            $('body').on('click', '#whatsapp-share .btn.ok', () => {
+            $('.whatsapp-share-company').click((e) => {
+                let text = $(e.target).find('.text').text(),
+                    url = $(e.target).data('url');
+                $('#whatsapp-share-msg').val(text.trim());
+                $('#whatsapp-share .btn.ok').data('url', url);
+            });
+            $('body').on('click', '.invite-company', () => {
+                $('#whatsapp-share-msg').val("{% trans "Hello! Use this link to create an e-commerce platform with online payment. Me and many others will help you sell your products." %}");
+                $('#whatsapp-share .btn.ok').data('url', 'https://ikwen.com/tsunami?inviter%3{{ user.id }}')
+            }).on('click', '#whatsapp-share .btn.ok', () => {
                 let msg = $('#whatsapp-share-msg').val(),
-                    url = 'https://ikwen.com/tsunami?inviter%3{{ user.id }}';
+                    url = $(this).data('url');
                 window.location = 'https://api.whatsapp.com/send?text=' + url + '%0A%0A' + msg;
             });
         })()

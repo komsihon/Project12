@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-05 12:04+0100\n"
-"PO-Revision-Date: 2019-11-05 12:07+0100\n"
+"POT-Creation-Date: 2019-11-06 07:32+0000\n"
+"PO-Revision-Date: 2019-11-06 08:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,19 +18,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.0.6\n"
 
-#: conf/settings.py:155
-msgid "English"
-msgstr "Anglais"
-
-#: conf/settings.py:156
-msgid "French"
-msgstr "Français"
-
 #: daraja/cloud_setup.py:129
 msgid "Welcome to the business network."
 msgstr "Bienvenu(e) dans le réseau business."
 
-#: daraja/views.py:240
+#: daraja/views.py:256
 msgid "Your profile was successfully updated."
 msgstr "Votre profil a été mis à jour avec succès."
 
@@ -48,31 +40,29 @@ msgstr "Enregistrer"
 msgid "Your companies"
 msgstr "Vos entreprises"
 
-#: daraja/templates/daraja/company_list.html:28
+#: daraja/templates/daraja/company_list.html:27
 msgid "Invite a company on Daraja."
 msgstr "Invitez une entreprise sur Daraja."
 
-#: daraja/templates/daraja/company_list.html:30
+#: daraja/templates/daraja/company_list.html:29
 msgid "Send invitation"
 msgstr "Envoyez une invitation"
 
-#: daraja/templates/daraja/company_list.html:44
+#: daraja/templates/daraja/company_list.html:43
 #: daraja/templates/daraja/dara_list.html:92
 #: daraja/templates/daraja/dara_request_list.html:120
 #: daraja/templates/daraja/invite_dara.html:107
 msgid "Share on WhatsApp"
 msgstr "Partagez sur Whatsapp"
 
-#: daraja/templates/daraja/company_list.html:49
+#: daraja/templates/daraja/company_list.html:48
 #: daraja/templates/daraja/dara_list.html:97
 #: daraja/templates/daraja/dara_request_list.html:125
 #: daraja/templates/daraja/invite_dara.html:112
-#: daraja/templates/daraja/registered_company_list.html:106
-#: daraja/templates/daraja/registered_company_list.html:141
 msgid "Message"
 msgstr "Message"
 
-#: daraja/templates/daraja/company_list.html:52
+#: daraja/templates/daraja/company_list.html:51
 msgid ""
 "Hello! Use this link to create an e-commerce platform with online payment. "
 "Me and many others will help you sell your products."
@@ -81,7 +71,7 @@ msgstr ""
 "paiement en ligne. Moi et beaucoup d'autres vont t'aider à vendre tes "
 "produits."
 
-#: daraja/templates/daraja/company_list.html:63
+#: daraja/templates/daraja/company_list.html:62
 #: daraja/templates/daraja/dara_list.html:111
 #: daraja/templates/daraja/dara_request_list.html:141
 #: daraja/templates/daraja/invite_dara.html:126
@@ -332,27 +322,28 @@ msgstr ""
 "partenaire commercial.\n"
 "                            "
 
-#: daraja/templates/daraja/home.html:200
+#: daraja/templates/daraja/home.html:200 templates/com/base.html:202
 msgid "Get started"
 msgstr "Lancez-vous"
 
-#: daraja/templates/daraja/home.html:202
+#: daraja/templates/daraja/home.html:202 templates/com/base.html:143
+#: templates/com/base.html.py:204
 msgid "Home"
 msgstr "Accueil"
 
-#: daraja/templates/daraja/home.html:203
+#: daraja/templates/daraja/home.html:203 templates/com/base.html:205
 msgid "Sign In"
 msgstr "Connexion"
 
-#: daraja/templates/daraja/home.html:208
+#: daraja/templates/daraja/home.html:208 templates/com/base.html:210
 msgid "About us"
 msgstr "À propos"
 
-#: daraja/templates/daraja/home.html:210
+#: daraja/templates/daraja/home.html:210 templates/com/base.html:212
 msgid "Our Company"
 msgstr "Notre entreprise"
 
-#: daraja/templates/daraja/home.html:220
+#: daraja/templates/daraja/home.html:220 templates/com/base.html:221
 msgid "Help desk"
 msgstr "Aide"
 
@@ -462,7 +453,6 @@ msgid "Let's do business together."
 msgstr "Faisons affaire ensemble."
 
 #: daraja/templates/daraja/invite_dara.html:47
-#, fuzzy
 msgid "is inviting you to partnership"
 msgstr "vous invite à devenir partenaires"
 
@@ -576,22 +566,6 @@ msgstr "Simulez les gains"
 msgid "Sorry! No result found."
 msgstr "Désolé! Aucun résultat trouvé."
 
-#: daraja/templates/daraja/registered_company_list.html:109
-msgid ""
-"Aww!! It looks like you're not yet login. Please do it before continue..."
-msgstr "SVP!! Connectez-vous pour continuer..."
-
-#: daraja/templates/daraja/registered_company_list.html:144
-#, python-format
-msgid ""
-"Please you need to be a Dara for %(project_name)s before perform this action."
-msgstr "SVP! Vous devez être Dara pour %(project_name)s."
-
-#: daraja/templates/daraja/registered_company_list.html:151
-#: daraja/templates/daraja/cloud_setup/deploy.html:5
-msgid "Become a Dara"
-msgstr "Devenez un Dara"
-
 #: daraja/templates/daraja/view_profile.html:66
 msgid "Email"
 msgstr "Email"
@@ -611,6 +585,10 @@ msgstr "Inscrit le"
 #: daraja/templates/daraja/view_profile.html:103
 msgid "Decline"
 msgstr "Refuser"
+
+#: daraja/templates/daraja/cloud_setup/deploy.html:5
+msgid "Become a Dara"
+msgstr "Devenez un Dara"
 
 #: daraja/templates/daraja/cloud_setup/deploy.html:32
 msgid "Ready to become a Dara ?"
@@ -646,12 +624,27 @@ msgstr ""
 msgid "Continue"
 msgstr "Continuer"
 
-#: daraja/templates/daraja/snippets/company_list_results.html:15
+#: daraja/templates/daraja/snippets/company_list_results.html:17
 #, python-format
 msgid "%(total_earnings)s earned."
 msgstr "%(total_earnings)s gagné."
 
-#: daraja/templates/daraja/snippets/company_list_results.html:21
+#: daraja/templates/daraja/snippets/company_list_results.html:44
+msgid ""
+"Hello, I find this interesting for you. You can order online and get "
+"delivered where you want."
+msgstr ""
+"Salut, Je trouve ceci intéressant pour toi. Tu peux commander en ligne et "
+"être livré où tu veux."
+
+#: daraja/templates/daraja/snippets/company_list_results.html:46
+#, python-format
+msgid ""
+"Hello, join me on %(project_name)s. There are tons of good things for you."
+msgstr ""
+"Bonjour! Rejoins moi sur %(project_name)s. Il y a plein d'avantages pour toi."
+
+#: daraja/templates/daraja/snippets/company_list_results.html:61
 #: daraja/templates/daraja/snippets/dara_list_results.html:42
 #: daraja/templates/daraja/snippets/dara_request_list_results.html:42
 #, python-format
@@ -677,7 +670,8 @@ msgid "Your password was successfully reset, login now."
 msgstr ""
 "Votre mot de passe a été réinitialisé avec succès, connectez-vous maintenant."
 
-#: templates/accesscontrol/sign_in.html:66
+#: templates/accesscontrol/sign_in.html:66 templates/com/base.html:100
+#: templates/com/base.html.py:178
 msgid "Login"
 msgstr "Connexion"
 
@@ -794,6 +788,22 @@ msgstr "Nouvelle adresse de paiement"
 msgid "Update address"
 msgstr "Changer l'adresse"
 
+#: templates/com/base.html:93 templates/com/base.html.py:171
+msgid "Account setup"
+msgstr "Infos compte"
+
+#: templates/com/base.html:95 templates/com/base.html.py:173
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: templates/com/base.html:112
+msgid "Search"
+msgstr "Recherche"
+
+#: templates/com/base.html:214
+msgid "Reviews"
+msgstr "Avis"
+
 #: templates/core/app_base_admin.html:11 templates/core/dashboard_base.html:5
 #: templates/core/dashboard_base.html:14
 msgid "Dashboard"
@@ -839,17 +849,20 @@ msgstr "Dernier paiement"
 msgid "View payments"
 msgstr "Voirles paiements"
 
-#~ msgid "Account setup"
-#~ msgstr "Infos compte"
+#~ msgid "English"
+#~ msgstr "Anglais"
 
-#~ msgid "Logout"
-#~ msgstr "Déconnexion"
+#~ msgid "French"
+#~ msgstr "Français"
 
-#~ msgid "Search"
-#~ msgstr "Recherche"
+#~ msgid ""
+#~ "Aww!! It looks like you're not yet login. Please do it before continue..."
+#~ msgstr "SVP!! Connectez-vous pour continuer..."
 
-#~ msgid "Reviews"
-#~ msgstr "Avis"
+#~ msgid ""
+#~ "Please you need to be a Dara for %(project_name)s before perform this "
+#~ "action."
+#~ msgstr "SVP! Vous devez être Dara pour %(project_name)s."
 
 #~ msgid "earned"
 #~ msgstr "gagné"

@@ -39,6 +39,22 @@ else:
     _umbrella_db = 'ikwen_umbrella_prod'
 
 
+def _get_member(username, email, phone, using):
+    try:
+        member = Member.objects.using(using).get(username=username)
+        return member
+    except:
+        try:
+            member = Member.objects.using(using).get(email=email)
+            return member
+        except:
+            try:
+                member = Member.objects.using(using).get(phone=phone)
+                return member
+            except:
+                pass
+
+
 class Home(TemplateView):
     template_name = 'daraja/home.html'
 
@@ -186,7 +202,9 @@ class CompanyList(HybridListView):
         for service in queryset.order_by(*self.ordering):
             try:
                 service.share_rate = DarajaConfig.objects.using(_umbrella_db).get(service=service).referrer_share_rate
-                service.logo = Config.objects.get(service=service).logo  # This has should be done this way due to database routing !
+                config = Config.objects.get(service=service)  # This has should be done this way due to database routing !
+                service.logo = config.logo
+                service.is_standalone = config.is_standalone
             except:
                 pass
             company_list.append(service)
@@ -320,12 +338,23 @@ class InviteDara(TemplateView):
             return HttpResponse(json.dumps(response), 'content-type: text/json')
         company_db = company.database
         add_database(company_db)
-        if company.id not in member.customer_on_fk_list:
-            member.customer_on_fk_list.append(company.id)
-        member.save()
-        try:
-            member_local = Member.objects.using(company_db).get(pk=member.id)
-        except Member.DoesNotExist:
+        # Check Member in company_db with either the same username, email or password
+        member_local = _get_member(member.username, member.email, member.phone, using=company_db)
+        if member_local and member_local.id != member.id:
+            # If found and different from the one in umbrella. Simulate deletion of the one in umbrella then replace
+            # with the local one to make sure than local and umbrella Member have the same ID
+            member.username = '__deleted__' + member.username
+            member.email = '__deleted__' + member.email
+            member.phone = '__deleted__' + member.phone
+            member.save()
+            if company.id not in member_local.customer_on_fk_list:
+                member_local.customer_on_fk_list.append(company.id)
+            member_local.save(using=UMBRELLA)
+            member_local = _get_member(member.username, member.email, member.phone, using=company_db)
+        else:
+            if company.id not in member.customer_on_fk_list:
+                member.customer_on_fk_list.append(company.id)
+            member.save()
             member.save(using=company_db)
             member_local = Member.objects.using(company_db).get(pk=member.id)
             UserPermissionList.objects.using(company_db).get_or_create(user=member_local)
