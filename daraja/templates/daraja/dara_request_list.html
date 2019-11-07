@@ -11,31 +11,6 @@
     </style>
 {% endblock %}
 
-{% block header %}
-    {{ block.super }}
-    <script>window.twttr = (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-      if (d.getElementById(id)) return t;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://platform.twitter.com/widgets.js";
-      fjs.parentNode.insertBefore(js, fjs);
-
-      t._e = [];
-      t.ready = function(f) {
-        t._e.push(f);
-      };
-
-      return t;
-    }(document, "script", "twitter-wjs"));
-    </script>
-
-    <div id="top-notice-ctnr" style="display: none">
-        <span class="floating-notice has-shade" style="float: none; position: static"> Error goes here </span>
-    </div>
-{% endblock %}
-
 {% block breadcrumb_location %}
     <li>{{ verbose_name_plural|capfirst }}</li>
 {% endblock %}
@@ -49,116 +24,10 @@
                     {% include 'daraja/snippets/dara_request_list_results.html' %}
                 {% else %}
                     <div id="stage" class="empty-list" style="padding: 5vh 15px">
-                        <p class="notice">{% blocktrans %}Invite Daras now.{% endblocktrans %}</p>
-                        <div class="row">
-                            <div class="col-sm-offset-2 col-sm-4 col-xs-4" data-href="{{ service.url }}{{ product_url }}" data-layout="button" data-mobile-iframe="true">
-                                <a class="social-share btn btn-block" target="_blank"  href="https://www.facebook.com/sharer/sharer.php?u={{ service.url }}"  style="background: #3b5998;">
-                                    <i class="fab fa-facebook"></i>
-                                </a>
-                            </div>
-                            <div class="col-sm-4 col-xs-4">
-                                <a class="social-share btn btn-block" data-toggle="modal" data-target="#twitter-share" href="https://twitter.com/intent/tweet?url={{ service.url }}{{ product_url }}" style="background: #1da1f2;">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </div>
-    {#                        <div class="col-sm-4 col-xs-3">#}
-    {#                            <button class="btn btn-block" data-toggle="modal" data-target="#instagram-share" style="min-width: auto; background: #c32aa3;">#}
-    {#                                <i class="fab fa-instagram"></i>#}
-    {#                            </button>#}
-    {#                        </div>#}
-                            <div class="col-xs-4">
-                                <button class="social-share btn btn-block visible-xs" data-toggle="modal" data-target="#whatsapp-share" style="background: #25d366;">
-                                    <i class="fab fa-whatsapp"></i>
-                                </button>
-                            </div>
-                        </div>
+                        <p class="notice">{% blocktrans %}No pending request.{% endblocktrans %}</p>
                     </div>
                 {% endif %}
             </div>
-            {% if object_list %}
-            <div>
-                <div style="border-top: 1px solid #ddd; clear: both; margin: 6vh auto 0; width: 40%"></div>
-                <div class="text-center" style="clear: both; margin: 2vh 15px; padding-top: 2vh">
-                    <p class="notice">{% blocktrans %}Invite other Daras now.{% endblocktrans %}</p>
-                    <div id="stage" class="empty-list" style="padding: 5vh 15px">
-                        <p class="notice">{% blocktrans %}Invite Daras now.{% endblocktrans %}</p>
-                        <div class="row">
-                            <div class="col-sm-offset-2 col-sm-4 col-xs-4" data-href="{{ service.url }}{{ product_url }}" data-layout="button" data-mobile-iframe="true">
-                                <a class="social-share btn btn-block" target="_blank"  href="https://www.facebook.com/sharer/sharer.php?u={{ service.url }}"  style="background: #3b5998;">
-                                    <i class="fab fa-facebook"></i>
-                                </a>
-                            </div>
-                            <div class="col-sm-4 col-xs-4">
-                                <a class="social-share btn btn-block" data-toggle="modal" data-target="#twitter-share" href="https://twitter.com/intent/tweet?url={{ service.url }}{{ product_url }}" style="background: #1da1f2;">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </div>
-    {#                        <div class="col-sm-4 col-xs-3">#}
-    {#                            <button class="btn btn-block" data-toggle="modal" data-target="#instagram-share" style="min-width: auto; background: #c32aa3;">#}
-    {#                                <i class="fab fa-instagram"></i>#}
-    {#                            </button>#}
-    {#                        </div>#}
-                            <div class="social-share col-xs-4">
-                                <button class="btn btn-block visible-xs" data-toggle="modal" data-target="#whatsapp-share" style="min-width: auto; background: #25d366;">
-                                    <i class="fab fa-whatsapp"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            {% endif %}
         </div>
     </div>
-    {#    Modal declaration : BEGIN #}
-    <div class="modal fade" id="whatsapp-share" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content modal-info">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">{% trans "Share on WhatsApp" %}</h4>
-                </div>
-                <div class="modal-body text-center">
-                    <form onclick="return false" class="form-horizontal">
-                        <div class="form-group row">
-                            <label for="whatsapp-share-msg" class="col-sm-5 col-md-4">{% trans "Message" %}</label>
-                            <div class="col-sm-7 col-md-8">
-                                <textarea id="whatsapp-share-msg" style="height: 120px"
-                                          class="form-control input-sm">
-                                    {% blocktrans %}Hello! Get {{ share_rate }}% by getting your ones to buy from {{ project_name }} online. Join Daraja program now !{% endblocktrans %}
-                                </textarea>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="actions">
-                        <div class="col-xs-12 col-sm-4 col-md-3 pull-right action">
-                            <button class="btn btn-success btn-block btn-sm ok"
-                                    data-dismiss="modal" aria-label="OK">OK</button>
-                        </div>
-                        <div class="col-xs-12 col-sm-4 col-md-3 pull-right action">
-                            <button class="btn btn-default btn-block btn-sm"
-                                    data-dismiss="modal" aria-label="Close">{% trans "Cancel" %}</button>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {#    Modal declaration : END #}
-{% endblock %}
-
-{% block js %}
-    {{ block.super }}
-    <script>
-        (() => {
-            $('div#admin-nav .dara-requests').addClass('active');
-            $('body').on('click', '#whatsapp-share .btn.ok', () => {
-                let msg = $('#whatsapp-share-msg').val(),
-                    url = 'https://ikwen.com/daraja/invitation/{{ service.project_name_slug }}';
-                window.location = 'https://api.whatsapp.com/send?text=' + url + '%0A%0A' + msg;
-            });
-        })()
-    </script>
 {% endblock %}

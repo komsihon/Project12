@@ -44,24 +44,30 @@
             <img class="main-img" src="{% static 'daraja/img/logo-daraja.png' %}" />
             <div class="main-title">
                 <h2 class="text-center">{{ company_name }}</h2>
-                <p class="text-muted">{% trans "is inviting you to partnership" %}</p>
+                {% if invitation_already_accepted %}
+                    <p class="text-muted">{% trans "thanks you for accepting invitation" %}</p>
+                {% else %}
+                    <p class="text-muted">{% trans "is inviting you to partnership" %}</p>
+                {% endif %}
             </div>
         </div>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-            <div>
-                <p class="text-center invitation">{% blocktrans %}
-                    We are inviting you to become partner through Daraja program.<br>
-                    Get <strong>{{ share_rate }}%</strong> for online purchases made by people you refer.<br>
-                    You receive money immediately after transactions.
-                {% endblocktrans %}</p>
-                <div class="clearfix"></div>
-            </div>
-            <div class="text-center accept" style="margin-top: 5vh">
-                <button class="btn btn-deep-blue">
-                    {% include 'core/snippets/button_spinner.html' %}
-                    <strong>{% trans "Accept" %}</strong>
-                </button>
-            </div>
+            {% if not invitation_already_accepted %}
+                <div>
+                    <p class="text-center invitation">{% blocktrans %}
+                        Hello, we would like to partnership with you through Daraja program.<br>
+                        Get <strong>{{ share_rate }}%</strong> for online purchases made by people you refer.<br>
+                        You receive money immediately after transactions.
+                    {% endblocktrans %}</p>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="text-center accept" style="margin-top: 5vh">
+                    <button class="btn btn-deep-blue">
+                        {% include 'core/snippets/button_spinner.html' %}
+                        <strong>{% trans "Accept" %}</strong>
+                    </button>
+                </div>
+            {% endif %}
             <div class="text-center get-started">
                 <p class="text-danger">{% blocktrans %}
                     You're not yet on Daraja. You must join the program before you can
@@ -72,19 +78,20 @@
                     <strong>{% trans "Join the program" %}</strong>
                 </a>
             </div>
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center invitation-accepted ">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center invitation-accepted"
+                 {% if invitation_already_accepted %}style="display: block"{% endif %}>
                 <p class="text-success">{% blocktrans with company_url=company.url %}
                     Great! You are now partner with {{ company_name }}. Get <strong>{{ share_rate }}%</strong> for getting someone to buy
                     online on {{ company_url }}. You must invite them first by sharing your link below.
                 {% endblocktrans %}</p>
                 <div class="row">
                     <div class="col-sm-offset-2 col-sm-4 col-xs-4" data-href="{{ service.url }}{{ product_url }}" data-layout="button" data-mobile-iframe="true">
-                        <a class="social-share btn btn-block" target="_blank"  href="https://www.facebook.com/sharer/sharer.php?u={{ service.url }}"  style="background: #3b5998;">
+                        <a class="social-share btn btn-block" target="_blank"  href="https://www.facebook.com/sharer/sharer.php?u={{ company.url }}"  style="background: #3b5998;">
                             <i class="fab fa-facebook"></i>
                         </a>
                     </div>
                     <div class="col-sm-4 col-xs-4">
-                        <a class="social-share btn btn-block" data-toggle="modal" data-target="#twitter-share" href="https://twitter.com/intent/tweet?url={{ service.url }}{{ product_url }}" style="background: #1da1f2;">
+                        <a class="social-share btn btn-block" data-toggle="modal" data-target="#twitter-share" href="https://twitter.com/intent/tweet?url={{ company.url }}" style="background: #1da1f2;">
                             <i class="fab fa-twitter"></i>
                         </a>
                     </div>
@@ -111,8 +118,13 @@
                         <div class="form-group row">
                             <label for="whatsapp-share-msg" class="col-sm-5 col-md-4">{% trans "Message" %}</label>
                             <div class="col-sm-7 col-md-8">
+                                {% if company.config.is_standalone %}
                                 <textarea id="whatsapp-share-msg" style="height: 120px"
-                                          class="form-control input-sm">{% blocktrans %}Hello! Join {{ project_name }} on ikwen and get tons of cool advantages.{% endblocktrans %}</textarea>
+                                          class="form-control input-sm">{% blocktrans %}Hello, I find this interesting for you. You can order online and get delivered where you want.{% endblocktrans %}</textarea>
+                                {% else %}
+                                <textarea id="whatsapp-share-msg" style="height: 120px"
+                                          class="form-control input-sm">{% blocktrans %}Hello! Join {{ company_name }} on ikwen and get tons of cool advantages.{% endblocktrans %}</textarea>
+                                {% endif %}
                             </div>
                         </div>
                     </form>
@@ -145,7 +157,6 @@
                     _$btn.removeClass('processing');
                     if (data.error) {
                         $('.accept, .get-started').toggle()
-                        //$('.accept, .invitation-accepted').toggle()
                     } else if (data.success) {
                         $('.accept, .invitation-accepted').toggle()
                     }
@@ -153,8 +164,12 @@
                 })
             });
             $('body').on('click', '#whatsapp-share .btn.ok', () => {
-                let msg = $('#whatsapp-share-msg').val(),
-                    url = 'https://ikwen.com/daraja/invitation/{{ service.project_name_slug }}';
+                let msg = $('#whatsapp-share-msg').val(), url;
+                {% if company.config.is_standalone %}
+                    url = '{{ company.url }}?referrer={{ user.id }}';
+                {% else %}
+                    url = 'https://ikwen.com/{{ company.project_name_slug }}?referrer={{ user.id }}';
+                {% endif %}
                 window.location = 'https://api.whatsapp.com/send?text=' + url + '%0A%0A' + msg;
             });
         })()

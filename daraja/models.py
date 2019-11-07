@@ -69,6 +69,10 @@ class Dara(AbstractWatchModel):
     last_transaction_on = models.DateTimeField(blank=True, null=True, db_index=True)
 
 
+class Invitation(Model):
+    status = models.CharField(max_length=30, default=PENDING)
+
+
 class AbuseReport(Model):
     service = models.ForeignKey(Service, related_name='+')
     member = models.ForeignKey(Member)

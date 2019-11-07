@@ -1,0 +1,46 @@
+{% extends 'core/base_bs.html' %}
+{% load i18n static auth_tokens %}
+
+{% block meta %}
+    {% include 'daraja/snippets/color_and_icons.html' %}
+{% endblock %}
+
+{% block page_title %}
+    <title>{% trans "Not yet on Daraja, join first" %} - ikwen Daraja</title>
+{% endblock %}
+
+{% block head_style %}
+    {{ block.super }}
+    <!-- Custom css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'ikwen/css/deploy-minimal.css' %}?v=19.11.7">
+    <link rel="stylesheet" type="text/css" href="{% static 'daraja/css/daraja-admin.css' %}?v=19.11.5">
+    <link rel="stylesheet" type="text/css" href="{% static 'daraja/css/daraja.css' %}?v=19.11.5">
+    <style>
+        footer {position: static; margin-top: 60px}
+        body > .container {font-size: 18px; margin-top: 30vh}
+        body > .container .btn {width: 240px;}
+        .get-started {border: 1px solid #f00; padding: 30px 15px}
+        @media (max-width: 767px) {
+            body > .container {margin-top: 30vh}
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <div>
+                <p class="text-danger text-center">
+                    {% trans "You're not yet on Daraja. You must join the program before you can access to App." %}
+                </p>
+            </div>
+            <div class="text-center accept" style="margin-top: 5vh">
+                {% url 'daraja:home' as daraja_home %}
+                <a class="btn btn-deep-blue" href="{{ daraja_home|ikwenize }}">
+                    <strong>{% trans "Get started" %}</strong>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endblock %}

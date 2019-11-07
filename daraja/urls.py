@@ -6,7 +6,7 @@ from ikwen.cashout.views import Payments, manage_payment_address, request_cash_o
 
 from daraja.views import Home, RegisteredCompanyList, DeployCloud, ChangeProfile, Dashboard, CompanyList, \
     SuccessfulDeployment, ViewProfile, login_router, DaraList, DaraRequestList, Configuration, InviteDara, \
-    HomeForBusinesses
+    HomeForBusinesses, NotYetDara
 
 urlpatterns = patterns(
     '',
@@ -29,4 +29,5 @@ urlpatterns = patterns(
     url(r'^wallet/$', login_required(Payments.as_view()), name='wallet'),
     url(r'^manage_payment_address/$', manage_payment_address, name='manage_payment_address'),
     url(r'^request_cash_out/$', request_cash_out, name='request_cash_out'),
+    url(r'^notyetdara/$', NotYetDara.as_view(), name='not_yet_dara'),
 )
