@@ -9,10 +9,15 @@
 #app-nav {display: none;overflow: hidden;height: 0;}
 #content {min-height: 90vh}
 .search-company {margin: 5vh 0 2vh;}
-.company-list .ik-li {padding: 2px;height: 120px; margin-bottom: 5px;}
+.company-list .ik-li {padding: 2px;height: 120px; margin-bottom: 5px; overflow: hidden}
 /*.company-list .ik-li .actions {margin-top: 75px}*/
 .company-list .ik-li .btn.show-modal-request {margin-top: 75px; width: 150px}
-.company-list .ik-li:hover {background: #fff}
+.company-list .ik-li:hover {background: #fff;}
+.company-list .ik-li .image:hover, .company-list .ik-li .info {cursor: pointer;}
+.company-list .ik-li.disclosed {height: 300px!important; cursor: pointer;}
+.company-list .ik-li.disclosed .image, .company-list .ik-li.disclosed .info {height: inherit!important;}
+.company-list .ik-li .company-description {line-height: 20px; margin-top: 30px;}
+.info:active {height: inherit!important;}
 .company-list .ik-li .image {height: 100%;background-size: cover;width: 120px;}
 .company-list .ik-li .info {padding: 10px 0;}
 .company-list .ik-li h3 {font-weight: 700; margin: 0 0 20px}
@@ -61,6 +66,8 @@
 .company-basic-info {border-bottom: none!important;}
 .company-image > div {padding: 20%}
 .company-image img {width: 100px}
+#not-yet-dara-msg, #anonymous-user-msg {height: 120px; color: #fff; font-size: 16px;}
+.actions .apply.request {width: 200px;}
 
 @media (max-width: 767px) {
     .company-list {margin: 0 -12px}
@@ -81,6 +88,7 @@
     .share-rate { margin-bottom: 0px;}
     .avg-purchase > span {font-size: 14px;}
     .company-image img {width: 65px}
+    .actions .apply.request {width: auto;}
 }
 
 @media (min-width: 768px) {
