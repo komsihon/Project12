@@ -35,10 +35,15 @@
         </div>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
             <div>
-                {% if request.GET. %}
-                {% blocktrans %}
-                    <p>Now, you are a Dara ! Discover your control panel to see how to grow and monitor your business.</p>
-                {% endblocktrans %}
+                {% if request.GET.inviter %}
+                    {% blocktrans %}
+                        <p>Now, you are a Dara ! You can go back to your invitation and accept it.</p>
+                    {% endblocktrans %}
+                {% else %}
+                    {% blocktrans %}
+                        <p>Now, you are a Dara ! Discover your control panel to see how to grow and monitor your business.</p>
+                    {% endblocktrans %}
+                {% endif %}
                 <div class="clearfix"></div>
             </div>
             <div class="text-center" style="margin-top: 5vh">
