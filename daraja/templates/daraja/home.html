@@ -41,7 +41,7 @@
                 <p >
                     {% trans "Get your nearest ones to buy online from your favorite companies and earn a percentage out of that." %}
                 </p>
-                <a  href="{% url 'ikwen:sign_in' %}?next={% url 'daraja:deploy_cloud' %}{% if request.GET.inviter %}%3Finviter={{ request.GET.inviter }}{% endif %}">
+                <a  href="{% url 'ikwen:sign_in' %}?next={% url 'daraja:deploy_cloud' %}{% if request.GET.inviter %}%3Finviter={{ request.GET.inviter }}%26invitation_id={{ request.GET.invitation_id }}{% endif %}">
                     <button  type=button class="btn btn-outline-primary btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Register on <b>Daraja</b>" %}</button>
                 </a>
                 <div class="anchor">
@@ -54,7 +54,7 @@
         <div class="row section-banniere-top" style="margin-top: 0;">
             <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center" style="padding-top: 7vh">
               <h1>{% trans 'Become shareholder' %} </h1>
-                <a  href="{% url 'ikwen:sign_in' %}?next={% url 'daraja:deploy_cloud' %}{% if request.GET.inviter %}%3Finviter={{ request.GET.inviter }}{% endif %}">
+                <a  href="{% url 'ikwen:sign_in' %}?next={% url 'daraja:deploy_cloud' %}{% if request.GET.inviter %}%3Finviter={{ request.GET.inviter }}%26invitation_id={{ request.GET.invitation_id }}{% endif %}">
                     <button  type=button class="btn btn-outline-white btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Register on <b>Daraja</b>" %}</button>
                 </a>
             </div>
@@ -174,7 +174,7 @@
             <div class="row section-banniere">
                 <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center" style="padding-top: 3.5vh">
                   <h1>{% trans 'Become shareholder' %}</h1>
-                    <a  href="{% url 'ikwen:sign_in' %}?next={% url 'daraja:deploy_cloud' %}{% if request.GET.inviter %}%3Finviter={{ request.GET.inviter }}{% endif %}">
+                    <a  href="{% url 'ikwen:sign_in' %}?next={% url 'daraja:deploy_cloud' %}{% if request.GET.inviter %}%3Finviter={{ request.GET.inviter }}%26invitation_id={{ request.GET.invitation_id }}{% endif %}">
                         <button  type=button class="btn btn-outline-primary btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Register on <b>Daraja</b>" %}</button>
                     </a>
                 </div>

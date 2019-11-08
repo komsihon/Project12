@@ -39,7 +39,10 @@
                         {% include 'core/snippets/button_spinner.html' %}
                         <span>{% trans "Invite Daras now" %}</span>
                     </button>
-                    <p class="new-invitation-link" style="display: none;margin-top: 20px"></p>
+                    <div class="new-link-block" style="display: none;margin-top: 20px">
+                        <p class="new-invitation-link"></p>
+                        <p class="text-muted">{% trans "This link is usable once within 30mn." %}</p>
+                    </div>
                     <div class="share-buttons row" style="display: none;margin-top: 42px">
                         <div class="col-sm-offset-3 col-sm-3 col-xs-4" data-href="{{ service.url }}{{ product_url }}" data-layout="button" data-mobile-iframe="true">
                             <a class="social-share btn btn-block" target="_blank"  href="https://www.facebook.com/sharer/sharer.php?u={{ service.url }}"  style="background: #3b5998;">
@@ -103,17 +106,19 @@
     {{ block.super }}
     <script>
         (() => {
+            let invitationUrl;
             $('div#admin-nav .daras').addClass('active');
             $('body').on('click', '#whatsapp-share .btn.ok', () => {
-                let msg = $('#whatsapp-share-msg').val(),
-                    url = 'https://ikwen.com/daraja/invitation/{{ service.project_name_slug }}';
-                window.location = 'https://api.whatsapp.com/send?text=' + url + '%0A%0A' + msg;
+                let msg = $('#whatsapp-share-msg').val();
+                window.location = 'https://api.whatsapp.com/send?text=' + invitationUrl + '%0A%0A' + msg;
             }).on('click', '.generate-invitation-link:not(.processing)', (e) => {
                 let _$btn = $(e.target);
                 _$btn.addClass('processing');
                 $.getJSON('', {action: 'generate_invitation_link'}, function(resp) {
                     _$btn.removeClass('processing');
-                    $('.new-invitation-link').show().text(resp.link);
+                    invitationUrl = resp.link;
+                    $('.new-link-block').show();
+                    $('.new-invitation-link').text(invitationUrl);
                     $('.share-buttons').show()
                     setTimeout(() => {
                         $('.new-invitation-link, .share-buttons').hide();

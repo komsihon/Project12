@@ -73,7 +73,7 @@
                     You're not yet on Daraja. You must join the program before you can
                     partnership with {{ company_name }}.
                 {% endblocktrans %}</p>
-                <a href="{% url 'daraja:home' %}?inviter={{ ikwen_name }}" class="btn btn-green">
+                <a href="{% url 'daraja:home' %}?inviter={{ ikwen_name }}&invitation_id={{ request.GET.invitation_id }}" class="btn btn-green">
                     {% include 'core/snippets/button_spinner.html' %}
                     <strong>{% trans "Join the program" %}</strong>
                 </a>
@@ -150,6 +150,7 @@
     {{ block.super }}
     <script>
         (() => {
+            let userId;
             $('.accept .btn').click(() => {
                 let _$btn = $(this);
                 _$btn.addClass('processing');
@@ -158,7 +159,8 @@
                     if (data.error) {
                         $('.accept, .get-started').toggle()
                     } else if (data.success) {
-                        $('.accept, .invitation-accepted').toggle()
+                        $('.accept, .invitation-accepted').toggle();
+                        userId = data.user_id; // User ID may be moved to the one found in inviter's DB
                     }
                     $('body > .container').css('margin-top', '13vh');
                 })
@@ -166,9 +168,9 @@
             $('body').on('click', '#whatsapp-share .btn.ok', () => {
                 let msg = $('#whatsapp-share-msg').val(), url;
                 {% if company.config.is_standalone %}
-                    url = '{{ company.url }}?referrer={{ user.id }}';
+                    url = '{{ company.url }}?referrer=' + userId;
                 {% else %}
-                    url = 'https://ikwen.com/{{ company.project_name_slug }}?referrer={{ user.id }}';
+                    url = 'https://ikwen.com/{{ company.project_name_slug }}?referrer=' + userId;
                 {% endif %}
                 window.location = 'https://api.whatsapp.com/send?text=' + url + '%0A%0A' + msg;
             });

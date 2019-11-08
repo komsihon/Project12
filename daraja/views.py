@@ -175,7 +175,7 @@ class Dashboard(DashboardBase):
         user = request.user
         context = self.get_context_data(**kwargs)
         if context.get('not_yet_dara'):
-            next_url = reverse('daraja:dashboard')
+            next_url = 'https://ikwen.com/daraja'
             return HttpResponseRedirect(next_url)
         if action == 'get_in':
             challenge = request.GET.get('challenge')
@@ -384,10 +384,13 @@ class InviteDara(TemplateView):
             member.save()
             if company.id not in member_local.customer_on_fk_list:
                 member_local.customer_on_fk_list.append(company.id)
+            member_local.is_staff = False
+            member_local.is_superuser = False
             member_local.save(using=UMBRELLA)
             dara_service.member = member_local
             dara_service.save()
             member_local = _get_member(username, email, phone, using=company_db)  # Reload local member to prevent DB routing error
+            logout(request)
         else:
             if company.id not in member.customer_on_fk_list:
                 member.customer_on_fk_list.append(company.id)
@@ -405,7 +408,7 @@ class InviteDara(TemplateView):
         company.save(using=db)
         company_mirror = Service.objects.using(db).get(pk=company.id)
         clear_counters(company_mirror)
-        response = {'success': True}
+        response = {'success': True, 'user_id': member_local.id}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
 
@@ -512,13 +515,14 @@ class DeployCloud(VerifiedEmailTemplateView):
         member = request.user
         app = Application.objects.get(slug=DARAJA)
         inviter = request.GET.get('inviter')
+        invitation_id = request.GET.get('invitation_id')
         try:
             Service.objects.get(app=app, member=member)
         except:
             pass
         else:
             if inviter:
-                next_url = reverse('daraja:invite_dara', args=(inviter, ))
+                next_url = reverse('daraja:invite_dara', args=(inviter, )) + '?invitation_id=' + invitation_id
             else:
                 next_url = 'http://daraja.ikwen.com' + reverse('daraja:login_router')
             return HttpResponseRedirect(next_url)

@@ -56,14 +56,18 @@
     <script>
         (() => {
             $('form#deploy-cloud').submit(() => {
-                var $btnDeploy = $('.btn.deploy');
+                let $btnDeploy = $('.btn.deploy');
                 if ($btnDeploy.hasClass('processing')) return false;
                 $btnDeploy.addClass('processing');
             });
-            $('.btn.deploy').click(() => {
-                if ($(this).hasClass('processing')) return false;
-                $(this).addClass('processing')
-            })
+            $('.btn.deploy:not(.processing)').click((e) => {
+                $(e.target).addClass('processing')
+            });
+            window.addEventListener("beforeunload", function (e) {
+                let confirmation = "{% trans "Please wait for the process to go through. Leaving now may cause it to fail." %}";
+                (e || window.event).returnValue = confirmation; //Gecko + IE
+                return confirmation; //Gecko + Webkit, Safari, Chrome etc.
+            });
         })()
     </script>
 {% endblock %}
