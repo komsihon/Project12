@@ -27,7 +27,7 @@ urlpatterns = patterns(
     url(r'^profile/$', login_required(ChangeProfile.as_view()), name='change_profile'),
     url(r'^companies/$', login_required(CompanyList.as_view()), name='company_list'),
     url(r'^wallet/$', login_required(Payments.as_view()), name='wallet'),
-    url(r'^manage_payment_address/$', manage_payment_address, name='manage_payment_address'),
-    url(r'^request_cash_out/$', request_cash_out, name='request_cash_out'),
+    url(r'^manage_payment_address/$', login_required(manage_payment_address), name='manage_payment_address'),
+    url(r'^request_cash_out/$', login_required(request_cash_out), name='request_cash_out'),
     url(r'^notyetdara/$', NotYetDara.as_view(), name='not_yet_dara'),
 )

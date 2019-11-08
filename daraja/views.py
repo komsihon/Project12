@@ -63,6 +63,10 @@ class HomeForBusinesses(TemplateView):
     template_name = 'daraja/home_for_businesses.html'
 
 
+def not_yet_dara(request, *args, **kwargs):
+    return render(request, 'daraja/not_yet_dara.html')
+
+
 class RegisteredCompanyList(HybridListView):
     """
     Companies registered to ikwen Daraja program
@@ -138,7 +142,10 @@ class Dashboard(DashboardBase):
     def get_service(self, **kwargs):
         app = Application.objects.get(slug=DARAJA)
         try:
-            return Service.objects.get(app=app, member=self.request.user)
+            service_umbrella = Service.objects.get(app=app, member=self.request.user)
+            db = service_umbrella.database
+            add_database(db)
+            return Service.objects.using(db).get(pk=service_umbrella.id)
         except Service.DoesNotExist:
             pass
 
