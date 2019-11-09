@@ -73,7 +73,7 @@
                     You're not yet on Daraja. You must join the program before you can
                     partnership with {{ company_name }}.
                 {% endblocktrans %}</p>
-                <a href="{% url 'daraja:home' %}?inviter={{ ikwen_name }}&invitation_id={{ request.GET.invitation_id }}" class="btn btn-green">
+                <a href="{% url 'daraja:home' %}?tokens={{ ikwen_name }}-{{ request.GET.invitation_id }}" class="btn btn-green">
                     {% include 'core/snippets/button_spinner.html' %}
                     <strong>{% trans "Join the program" %}</strong>
                 </a>

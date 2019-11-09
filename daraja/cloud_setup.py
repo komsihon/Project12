@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 import subprocess
 from datetime import datetime, timedelta
 from threading import Thread
@@ -9,18 +10,16 @@ from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.utils.translation import gettext as _
-from permission_backend_nonrel.models import UserPermissionList, GroupPermissionList
-
 from ikwen.accesscontrol.backends import UMBRELLA
 from ikwen.accesscontrol.models import SUDO, Member
 from ikwen.core.models import Service, SERVICE_DEPLOYED, Application, Config
 from ikwen.core.tools import generate_random_key
 from ikwen.core.utils import add_database_to_settings, add_event, get_mail_content, \
     get_service_instance, clear_counters
+from permission_backend_nonrel.models import UserPermissionList
 
 from daraja.models import DARAJA, DARAJA_IKWEN_SHARE_RATE, DarajaConfig, Dara
 
-import logging
 logger = logging.getLogger('ikwen')
 
 
@@ -55,11 +54,11 @@ def deploy(member):
     while True:
         try:
             Service.objects.using(UMBRELLA).get(api_signature=api_signature)
-            api_signature = generate_random_key(30)
+            api_signature = generate_random_key(30, alpha_num=True)
         except Service.DoesNotExist:
             break
     database = ikwen_name
-    domain = 'go.' + pname + '.ikwen.com'
+    domain = 'go.' + ikwen_name + '.ikwen.com'
     now = datetime.now()
     expiry = now + timedelta(days=15)
 
@@ -67,7 +66,7 @@ def deploy(member):
                       domain=domain, database=database, expiry=expiry, monthly_cost=0, version=Service.FREE,
                       api_signature=api_signature)
     service.save(using=UMBRELLA)
-    logger.debug("Service %s successfully created" % pname)
+    logger.debug("Service %s successfully created" % ikwen_name)
 
     # Import template database and set it up
     db_folder = DARAJA_CLOUD_FOLDER + '000Tpl/DB/000Default'
@@ -97,12 +96,12 @@ def deploy(member):
 
     app.save(using=database)
     member.save(using=database)
-    logger.debug("Member %s access rights successfully set for service %s" % (member.username, pname))
+    logger.debug("Member %s access rights successfully set for service %s" % (member.username, ikwen_name))
 
     # Add member to SUDO Group
     obj_list, created = UserPermissionList.objects.using(database).get_or_create(user=member)
     obj_list.save(using=database)
-    logger.debug("Member %s successfully added to sudo group for service: %s" % (member.username, pname))
+    logger.debug("Member %s successfully added to sudo group for service: %s" % (member.username, ikwen_name))
     config = Config(service=service, cash_out_rate=DARAJA_IKWEN_SHARE_RATE,
                     currency_code='XAF', currency_symbol='XAF', decimal_precision=0,
                     company_name=ikwen_name, contact_email=member.email, contact_phone=member.phone,

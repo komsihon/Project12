@@ -182,7 +182,9 @@ class Dashboard(DashboardBase):
         user = request.user
         context = self.get_context_data(**kwargs)
         if context.get('not_yet_dara'):
-            next_url = 'https://ikwen.com/daraja'
+            logout(request)
+            next_url = reverse('home')
+            messages.info("You are not yet on Daraja.")
             return HttpResponseRedirect(next_url)
         if action == 'get_in':
             challenge = request.GET.get('challenge')
@@ -521,8 +523,12 @@ class DeployCloud(VerifiedEmailTemplateView):
     def post(self, request, *args, **kwargs):
         member = request.user
         app = Application.objects.get(slug=DARAJA)
-        inviter = request.GET.get('inviter')
-        invitation_id = request.GET.get('invitation_id')
+        tokens = request.GET.get('tokens')
+        inviter, invitation_id = None, None
+        if tokens:
+            tokens = tokens.split('-')
+            inviter = tokens[0]
+            invitation_id = tokens[1]
         try:
             Service.objects.get(app=app, member=member)
         except:
@@ -545,7 +551,7 @@ class DeployCloud(VerifiedEmailTemplateView):
                 return render(request, 'daraja/cloud_setup/deploy.html', context)
         next_url = reverse('daraja:successful_deployment', args=(service.ikwen_name,))
         if inviter:
-            next_url += '?inviter=' + inviter
+            next_url += '?inviter=' + inviter + '&invitation_id=' + invitation_id
         return HttpResponseRedirect(next_url)
 
 
@@ -558,8 +564,9 @@ class SuccessfulDeployment(VerifiedEmailTemplateView):
         dara_service = get_object_or_404(Service, app=app, member=self.request.user)
         context['dara_service'] = dara_service
         inviter = self.request.GET.get('inviter')
+        invitation_id = self.request.GET.get('invitation_id')
         if inviter:
-            next_url = reverse('daraja:invite_dara', args=(inviter, ))
+            next_url = reverse('daraja:invite_dara', args=(inviter, )) + '?invitation_id=' + invitation_id
         else:
             next_url = 'http://daraja.ikwen.com?action=get_in&challenge=' + dara_service.api_signature
         context['next_url'] = next_url
