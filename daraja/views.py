@@ -184,7 +184,7 @@ class Dashboard(DashboardBase):
         if context.get('not_yet_dara'):
             logout(request)
             next_url = reverse('home')
-            messages.info("You are not yet on Daraja.")
+            messages.info(request, "You are not yet on Daraja.")
             return HttpResponseRedirect(next_url)
         if action == 'get_in':
             challenge = request.GET.get('challenge')
