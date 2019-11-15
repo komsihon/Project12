@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block page_title %}
-<title> {% if dara.member.is_ghost %}{{ dara.member.email }}{% else %}{{ dara.member.full_name }}{% endif %} - {{ service.project_name }} </title>
+<title> {{ dara.member.full_name }} - {{ service.project_name }} </title>
 {% endblock %}
 
 {% block head_style %}
@@ -18,33 +18,13 @@
     <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}" />
 {% endblock %}
 
-{% block header %}
-    <script>window.twttr = (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-      if (d.getElementById(id)) return t;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://platform.twitter.com/widgets.js";
-      fjs.parentNode.insertBefore(js, fjs);
-      t._e = [];
-      t.ready = function(f) {
-        t._e.push(f);
-      };
-
-      return t;
-    }(document, "script", "twitter-wjs"));
-    </script>
-
+{% block content %}
     <div id="top-notice-ctnr" style="display: none">
         <span class="floating-notice has-shade" style="float: none; position: static"> Error goes here </span>
     </div>
-{% endblock %}
-
-{% block content %}
     <div id="content" class="container" style="margin-top: 4vh">
         {% with member=dara.member %}
-            {% url 'ikwen:profile' dara.member.id as member_profile_url %}
+            {% url 'ikwen:profile' member.id as member_profile_url %}
             <div class="col-sm-8 col-sm-offset-2 dara-details">
                 <div>
                     <div class="text-center">
@@ -53,11 +33,7 @@
                         {% else %}
                             <img class="img-circle img-thumbnail" src="{% static 'ikwen/img/login-avatar.jpg' %}" style="margin-top: 1vh;">
                         {% endif %}
-                        {% if member.is_ghost %}
-                            <h4>{{ member.email }}</h4>
-                        {% else %}
-                            <h4>{{ member.full_name }}</h4>
-                        {% endif %}
+                        <h4>{{ member.full_name }}</h4>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -65,14 +41,14 @@
                     <div class="col-md-4 col-sm-6 col-lg-offset-1">
                         <label>{% trans 'Email' %}</label>
                         <div>
-                            <a href="mailto:{{ dara.member.email }}" class="text-muted">{{ dara.member.email }}</a>
+                            <a href="mailto:{{ member.email }}" class="text-muted">{{ member.email }}</a>
                         </div>
                     </div>
                     <div class="col-sm-4 phone">
                         <label>{% trans 'Phone' %}</label>
-                        {% if dara.member.phone %}
+                        {% if member.phone %}
                             <div>
-                                <a href="tel://{{ dara.member.phone }}" class="text-muted">{{ dara.member.phone }}</a>
+                                <a href="tel://{{ member.phone }}" class="text-muted">{{ member.phone }}</a>
                             </div>
                         {% else %}
                             <div class="text-muted">&#60;{% trans 'Not set' %}&#62;</div>
@@ -86,27 +62,61 @@
                 <div class="dara-description">
                     <p>{{ dara.description|safe }}</p>
                     <p></p>
-{#                    {% lorem %}#}
                     <div class="clearfix"></div>
                 </div>
-
+                {% if dara_request %}
                 <div class="agreement">
                     <span class="pull-left col-lg-5 col-md-5 col-sm-4">
-                        <a class="accept btn btn-deep-blue" href="{% url 'daraja:dara_list' %}" role="button" style="width: 100%">
+                        <button class="accept btn btn-deep-blue btn-block" role="button">
                             {% include 'core/snippets/button_spinner.html' %}
                             <strong>{% trans "Accept" %}</strong>
-                        </a>
+                        </button>
                     </span>
                     <span class="pull-right col-lg-5 col-md-5 col-sm-4">
-                        <a class="decline btn btn-warning"  href="{% url 'daraja:dara_list' %}" role="button" style="width: 100%;">
+                        <button class="decline btn btn-warning btn-block" role="button">
                             {% include 'core/snippets/button_spinner.html' %}
                             <strong>{% trans "Decline" %}</strong>
-                        </a>
+                        </button>
                     </span>
                 </div>
+                {% endif %}
             </div>
         {% endwith %}
     </div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script>
+        (() => {
+            let invitationUrl;
+            $('div#admin-nav .daras').addClass('active');
+            $('body').on('click', '#whatsapp-share .btn.ok', () => {
+                let msg = $('#whatsapp-share-msg').val();
+                window.location = 'https://api.whatsapp.com/send?text=' + invitationUrl + '%0A%0A' + msg;
+            }).on('click', '.accept', (e) => {
+                let _$btn = $(e.target);
+                _$btn.addClass('processing');
+                $.getJSON('', {action: 'accept', request_id: '{{ dara_request.id }}', target: '{{ request.GET.target }}' }, function(resp) {
+                    _$btn.removeClass('processing');
+                    if (resp.success) {
+                        $('.agreement').remove();
+                        ikwen.showFloatingNotice("{% trans "Dara successfully added" %}");
+                    }
+                })
+            }).on('click', '.decline', (e) => {
+                let _$btn = $(e.target);
+                _$btn.addClass('processing');
+                $.getJSON('', {action: 'decline', request_id: '{{ dara_request.id }}', target: '{{ request.GET.target }}' }, function(resp) {
+                    _$btn.removeClass('processing');
+                    if (resp.success) {
+                        $('.agreement').remove();
+                        ikwen.showFloatingNotice("{% trans "Request declined" %}");
+                    }
+                })
+            });
+        })()
+    </script>
 {% endblock %}
 
 

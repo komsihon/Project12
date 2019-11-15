@@ -114,12 +114,12 @@
             }).on('click', '.generate-invitation-link:not(.processing)', (e) => {
                 let _$btn = $(e.target);
                 _$btn.addClass('processing');
+                $('.new-link-block, .share-buttons').hide();
                 $.getJSON('', {action: 'generate_invitation_link'}, function(resp) {
                     _$btn.removeClass('processing');
                     invitationUrl = resp.link;
-                    $('.new-link-block').show();
                     $('.new-invitation-link').text(invitationUrl);
-                    $('.share-buttons').show()
+                    $('.new-link-block, .share-buttons').show();
                     setTimeout(() => {
                         $('.new-invitation-link, .share-buttons').hide();
                     }, 120000)

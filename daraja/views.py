@@ -180,25 +180,32 @@ class Dashboard(DashboardBase):
     def get(self, request, *args, **kwargs):
         action = request.GET.get('action')
         user = request.user
-        context = self.get_context_data(**kwargs)
-        if context.get('not_yet_dara'):
+        if action == 'get_in':
+            challenge = request.GET.get('challenge')
+            try:
+                app = Application.objects.get(slug=DARAJA)
+                service = Service.objects.get(app=app, api_signature=challenge)
+            except:
+                next_url = reverse('home')
+                messages.info(request, "You are not yet on Daraja.")
+                return HttpResponseRedirect(next_url)
+            if user.is_authenticated():
+                logout(request)
+            member = authenticate(service=service, api_signature=challenge)
+            if member.is_authenticated():
+                login(request, member)
+                next_url = reverse('daraja:dashboard') + '?first_setup=yes'
+            else:
+                next_url = reverse('home')
+            return HttpResponseRedirect(next_url)
+        if user.is_anonymous():
+            next_url = reverse('home')
+            return HttpResponseRedirect(next_url)
+
+        if not self.get_service():
             logout(request)
             next_url = reverse('home')
             messages.info(request, "You are not yet on Daraja.")
-            return HttpResponseRedirect(next_url)
-        if action == 'get_in':
-            challenge = request.GET.get('challenge')
-            challenge = urlunquote(challenge)
-            service = self.get_service()
-            if service.api_signature == challenge:
-                if user.is_authenticated():
-                    logout(request)
-                member = authenticate(api_signature=challenge)
-                login(request, member)
-                next_url = reverse('daraja:dashboard') + '?first_setup=yes'
-                return HttpResponseRedirect(next_url)
-        elif user.is_anonymous():
-            next_url = reverse('ikwen:sign_in')
             return HttpResponseRedirect(next_url)
         return super(Dashboard, self).get(request, *args, **kwargs)
 
@@ -297,8 +304,62 @@ class ViewProfile(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ViewProfile, self).get_context_data(**kwargs)
         dara_name = kwargs['dara_name']
-        context['dara'] = get_object_or_404(Dara, uname=dara_name)
+        dara = get_object_or_404(Dara, uname=dara_name)
+        try:
+            target_service = Service.objects.get(project_name_slug=self.request.GET['target'])
+            db = target_service.database
+            add_database(db)
+            context['dara_request'] = DaraRequest.objects.using(db).get(member=dara.member, status=PENDING)
+        except:
+            pass
+        context['dara'] = dara
         return context
+
+    def get(self, request, *args, **kwargs):
+        action = request.GET.get('action')
+        if action == 'accept':
+            return self.accept_application(request)
+        elif action == 'decline':
+            return self.decline_application(request)
+        return super(ViewProfile, self).get(request, *args, **kwargs)
+
+    def accept_application(self, request):
+        target_service = Service.objects.get(project_name_slug=self.request.GET['target'])
+        db = target_service.database
+        add_database(db)
+        dara_request = DaraRequest.objects.using(db).get(pk=request.GET['request_id'])
+        member = dara_request.member
+        member.is_ghost = False
+        UserPermissionList.objects.using(db).get_or_create(user=member)
+        Dara.objects.using(db).get_or_create(member=member)
+        dara_request.status = ACCEPTED
+        dara_request.save()
+        app = Application.objects.get(slug=DARAJA)
+        dara_service = Service.objects.get(app=app, member=member)
+        dara_service.save(using=db)
+        dara_db = dara_service.database
+        add_database(dara_db)
+        service = get_service_instance()
+        target_service.save(using=dara_db)
+        service_mirror = Service.objects.using(dara_db).get(pk=service.id)
+        clear_counters(service_mirror)
+
+        if target_service.id not in member.customer_on_fk_list:
+            member.customer_on_fk_list.append(service.id)
+        member.save(using=db)
+        member.save(using=UMBRELLA)
+        response = {'success': True}
+        return HttpResponse(json.dumps(response), 'content-type: text/json')
+
+    def decline_application(self, request):
+        target_service = Service.objects.get(project_name_slug=self.request.GET['target'])
+        db = target_service.database
+        add_database(db)
+        dara_request = DaraRequest.objects.using(db).get(pk=request.GET['request_id'])
+        dara_request.status = REJECTED
+        dara_request.save()
+        response = {'success': True}
+        return HttpResponse(json.dumps(response), 'content-type: text/json')
 
 
 class Configuration(ChangeObjectBase):
@@ -568,6 +629,6 @@ class SuccessfulDeployment(VerifiedEmailTemplateView):
         if inviter:
             next_url = reverse('daraja:invite_dara', args=(inviter, )) + '?invitation_id=' + invitation_id
         else:
-            next_url = 'http://daraja.ikwen.com?action=get_in&challenge=' + dara_service.api_signature
+            next_url = 'http://daraja.ikwen.com/daraja/dashboard/?action=get_in&challenge=' + dara_service.api_signature
         context['next_url'] = next_url
         return context

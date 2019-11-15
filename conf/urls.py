@@ -16,8 +16,8 @@ urlpatterns = patterns(
 
     # URLs to make library internals to work properly
     url(r'^$', SignIn.as_view(), name='home'),
-    url(r'^daraja/dashboard/$', login_required(Dashboard.as_view()), name='admin_home'),
-    url(r'^daraja/dashboard/$', login_required(Dashboard.as_view()), name='sudo_home'),
+    url(r'^daraja/dashboard/$', Dashboard.as_view(), name='admin_home'),
+    url(r'^daraja/dashboard/$', Dashboard.as_view(), name='sudo_home'),
 
     url(r'^laakam/', include(admin.site.urls)),
     url(r'^billing/', include('ikwen.billing.urls', namespace='billing')),

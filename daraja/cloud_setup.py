@@ -64,7 +64,7 @@ def deploy(member):
 
     service = Service(member=member, app=app, project_name=member.full_name, project_name_slug=ikwen_name,
                       domain=domain, database=database, expiry=expiry, monthly_cost=0, version=Service.FREE,
-                      api_signature=api_signature)
+                      api_signature=api_signature, is_public=False)
     service.save(using=UMBRELLA)
     logger.debug("Service %s successfully created" % ikwen_name)
 
@@ -114,6 +114,7 @@ def deploy(member):
     ikwen_service = get_service_instance()
     daraja_config = DarajaConfig.objects.get(service=ikwen_service)
     dara, change = Dara.objects.get_or_create(member=member)
+    dara.uname = ikwen_name
     dara.share_rate = daraja_config.referrer_share_rate
     dara.save()
     ikwen_service.save(using=database)

@@ -83,7 +83,7 @@
             });
             $('body').on('click', '.invite-company', () => {
                 $('#whatsapp-share-msg').val("{% trans "Hello! Use this link to create an e-commerce platform with online payment. Me and many others will help you sell your products." %}");
-                $('#whatsapp-share .btn.ok').data('url', 'https://ikwen.com/tsunami?inviter%3{{ user.id }}')
+                $('#whatsapp-share .btn.ok').data('url', 'https://ikwen.com/tsunami?referrer%3F{{ user.id }}')
             }).on('click', '#whatsapp-share .btn.ok', (e) => {
                 let msg = $('#whatsapp-share-msg').val(),
                     url = $(e.target).data('url');

@@ -1,8 +1,9 @@
+from django.conf import settings
 from django.db import models
 from djangotoolbox.fields import ListField
 
 from ikwen.core.constants import PENDING
-from ikwen.core.utils import get_service_instance
+from ikwen.core.utils import get_service_instance, add_database
 from ikwen.core.models import Model, Service, AbstractWatchModel
 from ikwen.accesscontrol.models import Member
 from ikwen.accesscontrol.backends import UMBRELLA
@@ -48,6 +49,18 @@ class DaraRequest(Model):
 
     class Meta:
         unique_together = ('service', 'member')
+
+    def _get_dara(self):
+        if getattr(settings, 'DEBUG', False):
+            _umbrella_db = 'ikwen_umbrella'
+        else:
+            _umbrella_db = 'ikwen_umbrella_prod'
+        add_database(_umbrella_db)
+        try:
+            return Dara.objects.using(_umbrella_db).get(member=self.member)
+        except:
+            pass
+    dara = property(_get_dara)
 
 
 class Dara(AbstractWatchModel):

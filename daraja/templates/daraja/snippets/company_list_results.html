@@ -35,7 +35,7 @@
                                 Twitter
                             </a>
                         </li>
-                        <li>
+                        <li class="visible-xs">
                             <a class="whatsapp-share-company" href="javascript:;" style="color: #2cb100"
                                data-toggle="modal" data-target="#whatsapp-share"
                                data-url="{% if company.is_standalone %}{{ company.url }}{% else %}{{ company_ikwen_url|ikwenize }}{% endif %}?referrer={{ user.id }}">
@@ -49,6 +49,9 @@
                                 <i class="fab fa-whatsapp"></i>
                                 WhatsApp
                             </a>
+                        </li>
+                        <li class="hidden-xs">
+                            <a href="javascript:;" class="text-muted"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                         </li>
                     </ul>
                 </div>
