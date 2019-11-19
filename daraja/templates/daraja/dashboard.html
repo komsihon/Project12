@@ -21,7 +21,7 @@
         });
 
         let earningsHistory = {{ earnings_history|safe }},
-            transactionsCountHistory = {{ transactions_count_history|safe }};
+            transactionCountHistory = {{ transaction_count_history|safe }};
 
 
         function drawOrdersChart(){
@@ -31,7 +31,7 @@
             data.addColumn('number', "{% trans 'Orders' %}");
 
             for (let i=0; i<earningsHistory.length; i ++) {
-                values.push([i, transactionsCountHistory[i]])
+                values.push([i, transactionCountHistory[i]])
             }
             data.addRows(values);
             let options = {
@@ -52,7 +52,7 @@
             data.addColumn('number', "{% trans 'AEPO' %}");
 
             for (let i=0; i<earningsHistory.length; i ++) {
-                let avg = earningsHistory[i]/transactionsCountHistory[i];
+                let avg = earningsHistory[i]/transactionCountHistory[i];
                 values.push([i, Number(avg.toFixed(2))]);
             }
             data.addRows(values);
@@ -121,21 +121,19 @@
                 </ul>
             </div>
         </div>
-        <a href="javascript:;" class="show-details">{% trans "Details" %}</a>
     </h5>
     <div class="row performances" style="clear: both">
         <div class="col-sm-6">
             <div>
                 <header>
                     <h5>{% trans "Orders" %}</h5>
-                    <a href="javascript:;" class="show-details">{% trans "Details" %}</a>
                     <div class="clear"></div>
                 </header>
                 <div>
-                    <em class="report today">{{ orders_report.today.count|intcomma }}</em>
-                    <em class="report yesterday tpl">{{ orders_report.yesterday.count|intcomma }}</em>
-                    <em class="report last_week tpl">{{ orders_report.last_week.count|intcomma }}</em>
-                    <em class="report last_28_days tpl">{{ orders_report.last_28_days.count|intcomma }}</em>
+                    <em class="report today">{{ transactions_report.today.count|intcomma }}</em>
+                    <em class="report yesterday tpl">{{ transactions_report.yesterday.count|intcomma }}</em>
+                    <em class="report last_week tpl">{{ transactions_report.last_week.count|intcomma }}</em>
+                    <em class="report last_28_days tpl">{{ transactions_report.last_28_days.count|intcomma }}</em>
                 </div>
                 <div id="orders-chart" class="container" class="line-chart"></div>
             </div>
@@ -144,14 +142,13 @@
             <div>
                 <header>
                     <h5>{% trans "AEPO" %} <i class="text-muted">({% trans "Avg. Earning Per Order" %})</i></h5>
-                    <a href="javascript:;" class="show-details">{% trans "Details" %}</a>
                     <div class="clear"></div>
                 </header>
                 <div>
-                    <em class="report today">{{ CRNCY.symbol }} {{ orders_report.today.aepo|floatformat:CRNCY.precision|intcomma }}</em>
-                    <em class="report yesterday tpl">{{ CRNCY.symbol }} {{ orders_report.yesterday.aepo|floatformat:CRNCY.precision|intcomma }}</em>
-                    <em class="report last_week tpl">{{ CRNCY.symbol }} {{ orders_report.last_week.aepo|floatformat:CRNCY.precision|intcomma }}</em>
-                    <em class="report last_28_days tpl">{{ CRNCY.symbol }} {{ orders_report.last_28_days.aepo|floatformat:CRNCY.precision|intcomma }}</em>
+                    <em class="report today">{{ CRNCY.symbol }} {{ transactions_report.today.aepo|floatformat:CRNCY.precision|intcomma }}</em>
+                    <em class="report yesterday tpl">{{ CRNCY.symbol }} {{ transactions_report.yesterday.aepo|floatformat:CRNCY.precision|intcomma }}</em>
+                    <em class="report last_week tpl">{{ CRNCY.symbol }} {{ transactions_report.last_week.aepo|floatformat:CRNCY.precision|intcomma }}</em>
+                    <em class="report last_28_days tpl">{{ CRNCY.symbol }} {{ transactions_report.last_28_days.aepo|floatformat:CRNCY.precision|intcomma }}</em>
                 </div>
                 <div id="aepo-chart" class="container" class="line-chart"></div>
             </div>
@@ -162,7 +159,6 @@
             <div>
                 <header>
                     <h5>{% trans "Top companies" %}</h5>
-                    <a href="javascript:;" class="show-details">{% trans "Details" %}</a>
                     <div class="clear"></div>
                 </header>
                 <div class="th">
@@ -198,7 +194,6 @@
             <div>
                 <header>
                     <h5>{% trans "Top customers" %}</h5>
-                    <a href="javascript:;" class="show-details">{% trans "Details" %}</a>
                     <div class="clear"></div>
                 </header>
                 <div class="th">
@@ -228,7 +223,6 @@
                              class="pie-chart {{ period }}-pie-chart {% if period != 'today' %}tpl{% endif %}"></div>
                     {% endif %}
                 {% endfor %}
-
                 <div class="clear"></div>
             </div>
         </div>
