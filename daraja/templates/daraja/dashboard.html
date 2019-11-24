@@ -8,21 +8,51 @@
         google.charts.load('current', {'packages': ['line', 'corechart']});
 
         $(document).on('ready', () => {
-           google.charts.setOnLoadCallback(drawOrdersChart);
-           google.charts.setOnLoadCallback(drawAepoChart);
-           google.charts.setOnLoadCallback(drawTopCompaniesChart);
-           google.charts.setOnLoadCallback(drawTopCustomersChart);
+            google.charts.setOnLoadCallback(drawTrendChart);
+            google.charts.setOnLoadCallback(drawOrdersChart);
+            google.charts.setOnLoadCallback(drawAepoChart);
+            google.charts.setOnLoadCallback(drawTopCompaniesChart);
+            google.charts.setOnLoadCallback(drawTopCustomersChart);
         });
         $(window).on('resize', () => {
+            google.charts.setOnLoadCallback(drawTrendChart);
             google.charts.setOnLoadCallback(drawOrdersChart);
             google.charts.setOnLoadCallback(drawAepoChart);
             google.charts.setOnLoadCallback(drawTopCompaniesChart);
             google.charts.setOnLoadCallback(drawTopCustomersChart);
         });
 
-        let earningsHistory = {{ earnings_history|safe }},
-            transactionCountHistory = {{ transaction_count_history|safe }};
+        let earningsHistoryCurrentMonth = {{ earnings_history|safe }},
+            {#earningsHistoryPreviousMonth = {{ earnings_history_previous_month|safe }},#}
+            transactionsCountHistory = {{ transaction_count_history|safe }};
 
+        function drawTrendChart(){
+            let data = new google.visualization.DataTable(),
+            values = [];
+            data.addColumn('number', "{% trans 'Day' %}");
+            data.addColumn('number', "{% trans 'This month' %}");
+            {#data.addColumn('number', "{% trans 'Previous Month' %}");#}
+
+            for (let i=0; i<earningsHistoryCurrentMonth.length; i ++) {
+                values.push([i, earningsHistoryCurrentMonth[i]]);
+                {#values.push([i, earningsHistoryCurrentMonth[i], earningsHistoryPreviousMonth[i]]);#}
+            }
+            data.addRows(values);
+            let options = {
+                title: "{% trans 'Earnings (XAF)' %}",
+                {#hAxis: {title: "{% trans 'Day' %}", titleTextStyle: {color: '#203e96'}, textPosition: 'in'},#}
+                hAxis: {title: ""},
+                vAxis: {minValue: 0},
+            };
+            if ($(window).width() < 1200){
+                options.legend = {position: 'none'};
+            }
+            if ($(window).width() < 768){
+                options.explorer = {axis: 'horizontal'};
+            }
+            let chart = new google.charts.Line(document.getElementById('trend-chart'));
+            chart.draw(data, google.charts.Line.convertOptions(options));
+        }
 
         function drawOrdersChart(){
             let data = new google.visualization.DataTable(),
@@ -30,14 +60,15 @@
             data.addColumn('number', "{% trans 'Day' %}");
             data.addColumn('number', "{% trans 'Orders' %}");
 
-            for (let i=0; i<earningsHistory.length; i ++) {
-                values.push([i, transactionCountHistory[i]])
+            for (let i=0; i<earningsHistoryCurrentMonth.length; i ++) {
+                values.push([i, transactionsCountHistory[i]])
             }
             data.addRows(values);
             let options = {
                 {#hAxis: {title: "{% trans 'Day' %}", titleTextStyle: {color: '#203e96'}, textPosition: 'in'},#}
                 hAxis: {title: ""},
                 vAxis: {minValue: 0},
+                colors: ["#ff36a3"],
                 legend: {position: 'none'},
                 explorer: {axis: 'horizontal'}
             };
@@ -51,8 +82,8 @@
             data.addColumn('number', "{% trans 'Day' %}");
             data.addColumn('number', "{% trans 'AEPO' %}");
 
-            for (let i=0; i<earningsHistory.length; i ++) {
-                let avg = earningsHistory[i]/transactionCountHistory[i];
+            for (let i=0; i<earningsHistoryCurrentMonth.length; i ++) {
+                let avg = earningsHistoryCurrentMonth[i]/transactionsCountHistory[i];
                 values.push([i, Number(avg.toFixed(2))]);
             }
             data.addRows(values);
@@ -60,6 +91,7 @@
                 {#hAxis: {title: "{% trans 'Day' %}", titleTextStyle: {color: '#203e96'}},#}
                 hAxis: {title: ""},
                 vAxis: {minValue: 0},
+                colors: ["#36dd21"],
                 legend: {position: 'none'},
                 explorer: {axis: 'horizontal'}
             };
@@ -68,13 +100,14 @@
         }
 
         function drawTopCompaniesChart(){
-            let values, data, chart;
+            let values, data, chart, company_total;
             {% for period, data in companies_report.items %}
                 values = [['Company name', 'Earnings']];
                 {% if data and data.0.total > 0 %}
                     {% for company in data|slice:"5" %}
                         {% if company.total > 0 %}
-                            values.push(["{{ company.project_name }}", {{ company.total }}]);
+                            company_total = "{{ company.total }}".replace('{{ settings.DECIMAL_SEPARATOR }}', '.');
+                            values.push(["{{ company.project_name }}", parseFloat(company_total)]);
                         {% endif %}
                     {% endfor %}
                     data = google.visualization.arrayToDataTable(values);
@@ -86,13 +119,14 @@
         }
 
         function drawTopCustomersChart(){
-            let values, data, chart;
+            let values, data, chart, customer_total;
             {% for period, data in customers_report.items %}
                 values = [['Customer name', 'Earnings']];
                 {% if data and data.0.total > 0 %}
                     {% for customer in data|slice:"5" %}
                         {% if customer.total > 0 %}
-                            values.push(["{{ customer.member.full_name }}", {{ customer.total }}]);
+                            customer_total = "{{ customer.total }}".replace('{{ settings.DECIMAL_SEPARATOR }}', '.');
+                            values.push(["{{ customer.member.full_name }}", parseFloat(customer_total)]);
                         {% endif %}
                     {% endfor %}
                     data = google.visualization.arrayToDataTable(values);
@@ -121,36 +155,43 @@
                 </ul>
             </div>
         </div>
+        <a href="javascript:;" class="show-details">{% trans "Details" %}</a>
     </h5>
     <div class="row performances" style="clear: both">
         <div class="col-sm-6">
             <div>
                 <header>
                     <h5>{% trans "Orders" %}</h5>
+                    <a href="javascript:;" class="show-details">{% trans "Details" %}</a>
                     <div class="clear"></div>
                 </header>
-                <div>
-                    <em class="report today">{{ transactions_report.today.count|intcomma }}</em>
-                    <em class="report yesterday tpl">{{ transactions_report.yesterday.count|intcomma }}</em>
-                    <em class="report last_week tpl">{{ transactions_report.last_week.count|intcomma }}</em>
-                    <em class="report last_28_days tpl">{{ transactions_report.last_28_days.count|intcomma }}</em>
+                <div style="margin:3vh 0">
+                    <div style="margin-bottom: 20px;">
+                        <em class="report today">{{ transactions_report.today.count|intcomma }}</em>
+                        <em class="report yesterday tpl">{{ transactions_report.yesterday.count|intcomma }}</em>
+                        <em class="report last_week tpl">{{ transactions_report.last_week.count|intcomma }}</em>
+                        <em class="report last_28_days tpl">{{ transactions_report.last_28_days.count|intcomma }}</em>
+                    </div>
+                    <div id="orders-chart" class="line-chart"></div>
                 </div>
-                <div id="orders-chart" class="container" class="line-chart"></div>
             </div>
         </div>
         <div class="col-sm-6">
             <div>
                 <header>
                     <h5>{% trans "AEPO" %} <i class="text-muted">({% trans "Avg. Earning Per Order" %})</i></h5>
+                    <a href="javascript:;" class="show-details">{% trans "Details" %}</a>
                     <div class="clear"></div>
                 </header>
-                <div>
-                    <em class="report today">{{ CRNCY.symbol }} {{ transactions_report.today.aepo|floatformat:CRNCY.precision|intcomma }}</em>
-                    <em class="report yesterday tpl">{{ CRNCY.symbol }} {{ transactions_report.yesterday.aepo|floatformat:CRNCY.precision|intcomma }}</em>
-                    <em class="report last_week tpl">{{ CRNCY.symbol }} {{ transactions_report.last_week.aepo|floatformat:CRNCY.precision|intcomma }}</em>
-                    <em class="report last_28_days tpl">{{ CRNCY.symbol }} {{ transactions_report.last_28_days.aepo|floatformat:CRNCY.precision|intcomma }}</em>
+                <div style="margin:3vh 0">
+                    <div style="margin-bottom: 20px;">
+                        <em class="report today">{{ CRNCY.symbol }} {{ transactions_report.today.aepo|floatformat:CRNCY.precision|intcomma }}</em>
+                        <em class="report yesterday tpl">{{ CRNCY.symbol }} {{ transactions_report.yesterday.aepo|floatformat:CRNCY.precision|intcomma }}</em>
+                        <em class="report last_week tpl">{{ CRNCY.symbol }} {{ transactions_report.last_week.aepo|floatformat:CRNCY.precision|intcomma }}</em>
+                        <em class="report last_28_days tpl">{{ CRNCY.symbol }} {{ transactions_report.last_28_days.aepo|floatformat:CRNCY.precision|intcomma }}</em>
+                    </div>
+                    <div id="aepo-chart" class="line-chart"></div>
                 </div>
-                <div id="aepo-chart" class="container" class="line-chart"></div>
             </div>
         </div>
     </div>
@@ -159,6 +200,7 @@
             <div>
                 <header>
                     <h5>{% trans "Top companies" %}</h5>
+                    <a href="javascript:;" class="show-details">{% trans "Details" %}</a>
                     <div class="clear"></div>
                 </header>
                 <div class="th">
@@ -169,7 +211,7 @@
                     </span>
                 </div>
                 {% for period, data in companies_report.items %}
-                    <ul class="report ranking {{ period }}{% if forloop.counter >= 2 %} tpl{% endif %}">
+                    <ul class="report ranking {{ period }}{% if period != 'today' %}tpl{% endif %}">
                         {% if data and data.0.total > 0 %}
                             {% for company in data|slice:"5" %}
                                 {% if company.total > 0 %}
@@ -194,6 +236,7 @@
             <div>
                 <header>
                     <h5>{% trans "Top customers" %}</h5>
+                    <a href="javascript:;" class="show-details">{% trans "Details" %}</a>
                     <div class="clear"></div>
                 </header>
                 <div class="th">
@@ -204,14 +247,21 @@
                     </span>
                 </div>
                 {% for period, data in customers_report.items %}
-                    <ul class="report ranking {{ period }}{% if forloop.counter >= 2 %} tpl{% endif %}">
+                    <ul class="report ranking {{ period }}{% if period != 'today' %} tpl{% endif %}">
                         {% if data and data.0.total > 0 %}
                             {% for customer in data|slice:"5" %}
                                 {% if customer.total > 0 %}
-                                    <li>
-                                        <a href="javascript:;">#{{ forloop.counter }}</a>
-                                        <span>{{ customer.total|floatformat:CRNCY.precision|intcomma }}</span>
-                                    </li>
+                                    {% with member=customer.member %}
+                                        {% if settings.MEMBER_DETAIL_VIEW %}
+                                            {% url settings.MEMBER_DETAIL_VIEW member.id as member_url %}
+                                        {% else %}
+                                            {% url 'ikwen:profile' member.id as member_url %}
+                                        {% endif %}
+                                            <li>
+                                                <a href="{% if settings.MEMBER_DETAIL_VIEW %}{{ member_url }}{% else %}{{ member_url|ikwenize }}{% endif %}">{{ member.full_name }}</a>
+                                                <span>{{ customer.total|floatformat:CRNCY.precision|intcomma }}</span>
+                                            </li>
+                                    {% endwith %}
                                 {% endif %}
                             {% endfor %}
                         {% else %}

@@ -175,6 +175,10 @@ class Dashboard(DashboardBase):
             'last_28_days': rank_watch_objects(company_list, 'earnings_history', 28)
         }
         context['companies_report'] = companies_report
+        # context['earnings_history_current_month'] = service.earnings_history
+        # context['earnings_history_current_month'] = service.earnings_history[-30:]
+        # context['earnings_history_previous_month'] = service.earnings_history[-60:-30]
+        context['transaction_count_history'] = service.transaction_count_history[-30:]
         return context
 
     def get(self, request, *args, **kwargs):
