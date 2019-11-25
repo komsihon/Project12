@@ -30,7 +30,7 @@ class DarajaConfig(Model):
     annual_turnover = models.IntegerField(default=0)
     number_of_employees = models.IntegerField(default=1)
     location = models.CharField(max_length=255, blank=True, null=True,
-                                help_text=_("City where you"))
+                                help_text=_("City where HQ of company is located."))
     referrer_share_rate = models.FloatField(default=0)
     is_active = models.BooleanField(default=True)
     avg_purchase = models.IntegerField(default=0,

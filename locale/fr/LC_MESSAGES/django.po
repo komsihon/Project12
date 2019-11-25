@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-25 15:21+0000\n"
-"PO-Revision-Date: 2019-11-07 19:50+0100\n"
+"POT-Creation-Date: 2019-11-25 15:49+0000\n"
+"PO-Revision-Date: 2019-11-25 16:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -20,11 +20,11 @@ msgstr ""
 
 #: daraja/admin.py:13
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 #: daraja/admin.py:14
 msgid "How to make money with you ?"
-msgstr ""
+msgstr "Comment gagner de l'argent avec vous ?"
 
 #: daraja/cloud_setup.py:129
 msgid "Welcome to the business network."
@@ -32,44 +32,51 @@ msgstr "Bienvenu(e) dans le réseau business."
 
 #: daraja/models.py:21
 msgid "Description and products"
-msgstr ""
+msgstr "Description et produits"
 
 #: daraja/models.py:22
 msgid ""
 "Tell Daras about your business and your products are the most easy and "
 "profitable to sell."
 msgstr ""
+"Décrivez votre activité aux Daras. Dites leurs quels sont les produits les "
+"plus faciles à vendre et aussi les plus rentables."
 
 #: daraja/models.py:24
 msgid "Strategy"
-msgstr ""
+msgstr "Stratégie"
 
 #: daraja/models.py:25
 msgid ""
 "Give Daras an idea of marketing strategy they might use including market to "
 "target and how to attract customers."
 msgstr ""
+"Donnez aux Daras une idée de la stratégie marketing qu'ils peuvent mettre en "
+"place. Par exemple le public cible et comment l'attirer"
 
 #: daraja/models.py:27
-#, fuzzy
 msgid "Simulation"
-msgstr "Simulez les gains"
+msgstr ""
 
 #: daraja/models.py:28
 msgid ""
 "Help Daras by giving a realistic, yet optmistic simulation of what they "
 "might earn in a month if they work well."
 msgstr ""
+"Aidez les Daras à se projeter en donnant une simulation réaliste, mais "
+"optimiste de ce qu'ils peuvent gagner en vous travaillant correctement."
 
 #: daraja/models.py:33
-msgid "City where you"
-msgstr ""
+msgid "City where HQ of company is located."
+msgstr "Ville où se trouve la DG de l'entreprise."
 
 #: daraja/models.py:37
 msgid ""
 "Average amount a customer generally buys from you. This helps the Dara do a "
 "simulation of what he might earn."
 msgstr ""
+"Le ticket moyen qu'un client dépense en général chez vous. Ceci aide le Dara "
+"à faire une estimation de ses gains potentiels"
 
 #: daraja/views.py:297
 msgid "Your profile was successfully updated."
@@ -143,7 +150,7 @@ msgstr "Invitez des Daras"
 
 #: daraja/templates/daraja/dara_list.html:49
 msgid "This link is usable once within 30mn."
-msgstr ""
+msgstr "Ce lien est utilisable une seule fois dans un délai de 30mn."
 
 #: daraja/templates/daraja/dara_list.html:87
 #, python-format
@@ -171,12 +178,11 @@ msgstr "Jour"
 
 #: daraja/templates/daraja/dashboard.html:33
 msgid "This month"
-msgstr ""
+msgstr "Ce mois"
 
 #: daraja/templates/daraja/dashboard.html:42
-#, fuzzy
 msgid "Earnings (XAF)"
-msgstr "Revenus"
+msgstr "Revenus (XAF)"
 
 #: daraja/templates/daraja/dashboard.html:61
 #: daraja/templates/daraja/dashboard.html:164
@@ -622,7 +628,7 @@ msgid "Company name"
 msgstr "Nom de l'entreprise"
 
 #: daraja/templates/daraja/registered_company_list.html:61
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "                                                        %(share_rate)s<sup>"
@@ -657,12 +663,11 @@ msgstr "SVP!! Connectez-vous pour continuer..."
 
 #: daraja/templates/daraja/registered_company_list.html:107
 msgid "Log in"
-msgstr ""
+msgstr "Connexion"
 
 #: daraja/templates/daraja/registered_company_list.html:126
-#, fuzzy
 msgid "Please you need to be a Dara before perform this action."
-msgstr "SVP! Vous devez être Dara pour %(project_name)s."
+msgstr "SVP! Vous devez être Dara pour poursuivre cette action."
 
 #: daraja/templates/daraja/registered_company_list.html:130
 #: daraja/templates/daraja/cloud_setup/deploy.html:5
@@ -690,12 +695,10 @@ msgid "Decline"
 msgstr "Refuser"
 
 #: daraja/templates/daraja/view_profile.html:104
-#, fuzzy
 msgid "Dara successfully added"
-msgstr "Votre profil a été mis à jour avec succès."
+msgstr "Dara ajouté avec succès."
 
 #: daraja/templates/daraja/view_profile.html:114
-#, fuzzy
 msgid "Request declined"
 msgstr "Demande rejetée"
 
