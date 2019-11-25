@@ -27,6 +27,48 @@
     </style>
 {% endblock %}
 
+{% block head_js %}
+    {{ block.super }}
+    <script src="{% static 'ikwen/swiper/js/swiper.jquery.min.js' %}"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        (function () {
+            let properties = {
+                menubar: false,
+                statusbar: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste code'
+                ],
+                paste_data_images: true,
+                content_css: [
+                    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                    '//www.tinymce.com/css/codepen.min.css'
+                ],
+                toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table link image media code',
+                insert_button_items: 'charmap anchor insertdatetime',
+                height: 300
+            };
+            let productsProperties = properties,
+                strategyProperties = JSON.parse(JSON.stringify(properties)),
+                simulationProperties = JSON.parse(JSON.stringify(properties));
+
+            productsProperties['selector'] = '#id_products';
+            strategyProperties['selector'] = '#id_strategy';
+            simulationProperties['selector'] = '#id_simulation';
+            if ($(window).width() >= 768) {
+                productsProperties['width'] = 740;
+                strategyProperties['width'] = 740;
+                simulationProperties['width'] = 740;
+            }
+            tinymce.init(productsProperties);
+            tinymce.init(strategyProperties);
+            tinymce.init(simulationProperties);
+        })()
+    </script>
+{% endblock %}
+
 {% block breadcrumb_location %}
     <li>{% trans "Daraja Configuration" %}</li>
 {% endblock %}
@@ -39,7 +81,7 @@
                     <input type="hidden" name="object_id" value="{{ config.id }}" />
                     <input type="hidden" name="company_name_slug" value="{{ config.company_name_slug }}" />
                     {% include 'core/snippets/model_admin_form.html' %}
-                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 15px 0 0 0">
+                    <div class="form-group col-xs-12 col-sm-4" style="padding: 15px 0 0 0">
                         <button class="btn btn-md btn-primary btn-block">{% trans "Save" %}</button>
                     </div>
                 </form>
@@ -50,7 +92,6 @@
 
 {% block js %}
     {{ block.super }}
-    {% include 'core/snippets/banner_and_pp_uploader.html' %}
     <script type="text/javascript">
         (function() {
             $('div#admin-nav .daraja-configuration').addClass('active');

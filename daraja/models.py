@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from djangotoolbox.fields import ListField
 
 from ikwen.core.constants import PENDING
@@ -17,13 +18,24 @@ REFEREE_JOINED_EVENT = "RefereeJoined"
 
 class DarajaConfig(Model):
     service = models.ForeignKey(Service, unique=True, default=get_service_instance, related_name='+')
-    description = models.TextField(blank=True)
+    products = models.TextField(_("Description and products"), blank=True, null=True,
+                                help_text=_("Tell Daras about your business and your products are the "
+                                            "most easy and profitable to sell."))
+    strategy = models.TextField(_("Strategy"), blank=True, null=True,
+                                help_text=_("Give Daras an idea of marketing strategy they might use including "
+                                            "market to target and how to attract customers."))
+    simulation = models.TextField(_("Simulation"), blank=True, null=True,
+                                  help_text=_("Help Daras by giving a realistic, yet optmistic simulation of what "
+                                              "they might earn in a month if they work well."))
     annual_turnover = models.IntegerField(default=0)
     number_of_employees = models.IntegerField(default=1)
-    location = models.CharField(max_length=255, blank=True)
+    location = models.CharField(max_length=255, blank=True, null=True,
+                                help_text=_("City where you"))
     referrer_share_rate = models.FloatField(default=0)
     is_active = models.BooleanField(default=True)
-    avg_purchase = models.IntegerField(default=0)
+    avg_purchase = models.IntegerField(default=0,
+                                       help_text=_("Average amount a customer generally buys from you. This helps the "
+                                                   "Dara do a simulation of what he might earn."))
 
     def save(self, **kwargs):
         super(DarajaConfig, self).save(**kwargs)

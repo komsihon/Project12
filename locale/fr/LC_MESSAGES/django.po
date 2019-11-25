@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-07 18:48+0000\n"
+"POT-Creation-Date: 2019-11-25 15:21+0000\n"
 "PO-Revision-Date: 2019-11-07 19:50+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,11 +18,60 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.0.6\n"
 
+#: daraja/admin.py:13
+msgid "General"
+msgstr ""
+
+#: daraja/admin.py:14
+msgid "How to make money with you ?"
+msgstr ""
+
 #: daraja/cloud_setup.py:129
 msgid "Welcome to the business network."
 msgstr "Bienvenu(e) dans le réseau business."
 
-#: daraja/views.py:277
+#: daraja/models.py:21
+msgid "Description and products"
+msgstr ""
+
+#: daraja/models.py:22
+msgid ""
+"Tell Daras about your business and your products are the most easy and "
+"profitable to sell."
+msgstr ""
+
+#: daraja/models.py:24
+msgid "Strategy"
+msgstr ""
+
+#: daraja/models.py:25
+msgid ""
+"Give Daras an idea of marketing strategy they might use including market to "
+"target and how to attract customers."
+msgstr ""
+
+#: daraja/models.py:27
+#, fuzzy
+msgid "Simulation"
+msgstr "Simulez les gains"
+
+#: daraja/models.py:28
+msgid ""
+"Help Daras by giving a realistic, yet optmistic simulation of what they "
+"might earn in a month if they work well."
+msgstr ""
+
+#: daraja/models.py:33
+msgid "City where you"
+msgstr ""
+
+#: daraja/models.py:37
+msgid ""
+"Average amount a customer generally buys from you. This helps the Dara do a "
+"simulation of what he might earn."
+msgstr ""
+
+#: daraja/views.py:297
 msgid "Your profile was successfully updated."
 msgstr "Votre profil a été mis à jour avec succès."
 
@@ -31,7 +80,7 @@ msgid "Subscriptions"
 msgstr "Inscriptions"
 
 #: daraja/templates/daraja/change_profile.html:51
-#: daraja/templates/daraja/configuration.html:43
+#: daraja/templates/daraja/configuration.html:85
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -49,20 +98,22 @@ msgid "Send invitation"
 msgstr "Envoyez une invitation"
 
 #: daraja/templates/daraja/company_list.html:43
-#: daraja/templates/daraja/dara_list.html:72
+#: daraja/templates/daraja/dara_list.html:79
 #: daraja/templates/daraja/invite_dara.html:114
 msgid "Share on WhatsApp"
 msgstr "Partagez sur Whatsapp"
 
 #: daraja/templates/daraja/company_list.html:48
-#: daraja/templates/daraja/dara_list.html:77
+#: daraja/templates/daraja/dara_list.html:84
 #: daraja/templates/daraja/invite_dara.html:119
 msgid "Message"
 msgstr "Message"
 
 #: daraja/templates/daraja/company_list.html:62
-#: daraja/templates/daraja/dara_list.html:91
+#: daraja/templates/daraja/dara_list.html:98
 #: daraja/templates/daraja/invite_dara.html:138
+#: daraja/templates/daraja/registered_company_list.html:110
+#: daraja/templates/daraja/registered_company_list.html:133
 #: templates/cashout/payments.html:211 templates/cashout/payments.html:249
 msgid "Cancel"
 msgstr "Annuler"
@@ -77,7 +128,7 @@ msgstr ""
 "produits."
 
 #: daraja/templates/daraja/configuration.html:13
-#: daraja/templates/daraja/configuration.html:31
+#: daraja/templates/daraja/configuration.html:73
 msgid "Daraja Configuration"
 msgstr "Configuration de Daraja"
 
@@ -90,7 +141,11 @@ msgstr "Vos daras"
 msgid "Invite Daras now"
 msgstr "Invitez des Daras"
 
-#: daraja/templates/daraja/dara_list.html:80
+#: daraja/templates/daraja/dara_list.html:49
+msgid "This link is usable once within 30mn."
+msgstr ""
+
+#: daraja/templates/daraja/dara_list.html:87
 #, python-format
 msgid ""
 "Hello! Get %(share_rate)s%% by getting your ones to buy from "
@@ -108,85 +163,93 @@ msgstr "Demandes"
 msgid "No pending request."
 msgstr "Aucune demande en attente."
 
-#: daraja/templates/daraja/dashboard.html:30
-#: daraja/templates/daraja/dashboard.html:51
+#: daraja/templates/daraja/dashboard.html:32
+#: daraja/templates/daraja/dashboard.html:60
+#: daraja/templates/daraja/dashboard.html:82
 msgid "Day"
 msgstr "Jour"
 
-#: daraja/templates/daraja/dashboard.html:31
-#: daraja/templates/daraja/dashboard.html:130
+#: daraja/templates/daraja/dashboard.html:33
+msgid "This month"
+msgstr ""
+
+#: daraja/templates/daraja/dashboard.html:42
+#, fuzzy
+msgid "Earnings (XAF)"
+msgstr "Revenus"
+
+#: daraja/templates/daraja/dashboard.html:61
+#: daraja/templates/daraja/dashboard.html:164
 msgid "Orders"
 msgstr "Commandes"
 
-#: daraja/templates/daraja/dashboard.html:52
-#: daraja/templates/daraja/dashboard.html:146
+#: daraja/templates/daraja/dashboard.html:83
+#: daraja/templates/daraja/dashboard.html:182
 msgid "AEPO"
 msgstr "RMPC"
 
-#: daraja/templates/daraja/dashboard.html:110
-#: templates/core/dashboard_base.html:125
+#: daraja/templates/daraja/dashboard.html:144
+#: templates/core/dashboard_base.html:120
 msgid "Performances"
 msgstr "Performances"
 
-#: daraja/templates/daraja/dashboard.html:113
-#: daraja/templates/daraja/dashboard.html:117
-#: templates/core/dashboard_base.html:26 templates/core/dashboard_base.html:128
-#: templates/core/dashboard_base.html:132
+#: daraja/templates/daraja/dashboard.html:147
+#: daraja/templates/daraja/dashboard.html:151
+#: templates/core/dashboard_base.html:23 templates/core/dashboard_base.html:123
+#: templates/core/dashboard_base.html:127
 msgid "Today"
 msgstr "Aujourd'hui"
 
-#: daraja/templates/daraja/dashboard.html:118
-#: templates/core/dashboard_base.html:32 templates/core/dashboard_base.html:133
+#: daraja/templates/daraja/dashboard.html:152
+#: templates/core/dashboard_base.html:29 templates/core/dashboard_base.html:128
 msgid "Yesterday"
 msgstr "Hier"
 
-#: daraja/templates/daraja/dashboard.html:119
-#: templates/core/dashboard_base.html:53 templates/core/dashboard_base.html:134
+#: daraja/templates/daraja/dashboard.html:153
+#: templates/core/dashboard_base.html:50 templates/core/dashboard_base.html:129
 msgid "Last week"
 msgstr "Semaine dernière"
 
-#: daraja/templates/daraja/dashboard.html:120
-#: templates/core/dashboard_base.html:74 templates/core/dashboard_base.html:135
+#: daraja/templates/daraja/dashboard.html:154
+#: templates/core/dashboard_base.html:71 templates/core/dashboard_base.html:130
 msgid "Last 28 days"
 msgstr "28 derniers jours"
 
-#: daraja/templates/daraja/dashboard.html:124
-#: daraja/templates/daraja/dashboard.html:131
-#: daraja/templates/daraja/dashboard.html:147
+#: daraja/templates/daraja/dashboard.html:158
 #: daraja/templates/daraja/dashboard.html:165
-#: daraja/templates/daraja/dashboard.html:201
-#: templates/core/dashboard_base.html:22
+#: daraja/templates/daraja/dashboard.html:183
+#: daraja/templates/daraja/dashboard.html:203
+#: daraja/templates/daraja/dashboard.html:239
 msgid "Details"
 msgstr "Détails"
 
-#: daraja/templates/daraja/dashboard.html:146
+#: daraja/templates/daraja/dashboard.html:182
 msgid "Avg. Earning Per Order"
 msgstr "Revenu Moy. Par Cmde"
 
-#: daraja/templates/daraja/dashboard.html:164
+#: daraja/templates/daraja/dashboard.html:202
 msgid "Top companies"
 msgstr "Top entreprises"
 
-#: daraja/templates/daraja/dashboard.html:169
+#: daraja/templates/daraja/dashboard.html:207
 msgid "Company"
 msgstr "Entreprise"
 
-#: daraja/templates/daraja/dashboard.html:171
-#: daraja/templates/daraja/dashboard.html:207
-#: templates/core/dashboard_base.html:21
+#: daraja/templates/daraja/dashboard.html:209
+#: daraja/templates/daraja/dashboard.html:245
 msgid "Earnings"
 msgstr "Revenus"
 
-#: daraja/templates/daraja/dashboard.html:186
-#: daraja/templates/daraja/dashboard.html:223
+#: daraja/templates/daraja/dashboard.html:224
+#: daraja/templates/daraja/dashboard.html:268
 msgid "Not enough data"
 msgstr "Pas assez de données"
 
-#: daraja/templates/daraja/dashboard.html:200
+#: daraja/templates/daraja/dashboard.html:238
 msgid "Top customers"
 msgstr "Top clients"
 
-#: daraja/templates/daraja/dashboard.html:205
+#: daraja/templates/daraja/dashboard.html:243
 msgid "Customer"
 msgstr "Client"
 
@@ -476,7 +539,7 @@ msgstr ""
 "                "
 
 #: daraja/templates/daraja/invite_dara.html:67
-#: daraja/templates/daraja/view_profile.html:97
+#: daraja/templates/daraja/view_profile.html:72
 msgid "Accept"
 msgstr "Accepter"
 
@@ -559,12 +622,12 @@ msgid "Company name"
 msgstr "Nom de l'entreprise"
 
 #: daraja/templates/daraja/registered_company_list.html:61
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
-"                                                    %(share_rate)s<sup>%%</"
-"sup> share\n"
-"                                                "
+"                                                        %(share_rate)s<sup>"
+"%%</sup> share\n"
+"                                                    "
 msgstr ""
 "\n"
 "                                                    %(share_rate)s<sup>%%</"
@@ -575,41 +638,66 @@ msgstr ""
 msgid "Avg purchase: "
 msgstr "Ticket moyen: "
 
-#: daraja/templates/daraja/registered_company_list.html:76
+#: daraja/templates/daraja/registered_company_list.html:79
 msgid "Request"
 msgstr "Demandez"
 
-#: daraja/templates/daraja/registered_company_list.html:79
+#: daraja/templates/daraja/registered_company_list.html:82
 msgid "Simulate earnings"
 msgstr "Simulez les gains"
 
-#: daraja/templates/daraja/registered_company_list.html:90
+#: daraja/templates/daraja/registered_company_list.html:93
 msgid "Sorry! No result found."
 msgstr "Désolé! Aucun résultat trouvé."
 
-#: daraja/templates/daraja/view_profile.html:66
-msgid "Email"
-msgstr "Email"
+#: daraja/templates/daraja/registered_company_list.html:103
+msgid ""
+"Aww!! It looks like you're not yet login. Please do it before continue..."
+msgstr "SVP!! Connectez-vous pour continuer..."
 
-#: daraja/templates/daraja/view_profile.html:72
-msgid "Phone"
-msgstr "Téléphone"
+#: daraja/templates/daraja/registered_company_list.html:107
+msgid "Log in"
+msgstr ""
 
-#: daraja/templates/daraja/view_profile.html:78
-msgid "Not set"
-msgstr "Non renseigné"
+#: daraja/templates/daraja/registered_company_list.html:126
+#, fuzzy
+msgid "Please you need to be a Dara before perform this action."
+msgstr "SVP! Vous devez être Dara pour %(project_name)s."
 
-#: daraja/templates/daraja/view_profile.html:82
-msgid "Suscribed on"
-msgstr "Inscrit le"
-
-#: daraja/templates/daraja/view_profile.html:103
-msgid "Decline"
-msgstr "Refuser"
-
+#: daraja/templates/daraja/registered_company_list.html:130
 #: daraja/templates/daraja/cloud_setup/deploy.html:5
 msgid "Become a Dara"
 msgstr "Devenez un Dara"
+
+#: daraja/templates/daraja/view_profile.html:42
+msgid "Email"
+msgstr "Email"
+
+#: daraja/templates/daraja/view_profile.html:48
+msgid "Phone"
+msgstr "Téléphone"
+
+#: daraja/templates/daraja/view_profile.html:54
+msgid "Not set"
+msgstr "Non renseigné"
+
+#: daraja/templates/daraja/view_profile.html:58
+msgid "Suscribed on"
+msgstr "Inscrit le"
+
+#: daraja/templates/daraja/view_profile.html:78
+msgid "Decline"
+msgstr "Refuser"
+
+#: daraja/templates/daraja/view_profile.html:104
+#, fuzzy
+msgid "Dara successfully added"
+msgstr "Votre profil a été mis à jour avec succès."
+
+#: daraja/templates/daraja/view_profile.html:114
+#, fuzzy
+msgid "Request declined"
+msgstr "Demande rejetée"
 
 #: daraja/templates/daraja/cloud_setup/deploy.html:32
 msgid "Ready to become a Dara ?"
@@ -669,7 +757,7 @@ msgid ""
 msgstr ""
 "Bonjour! Rejoins moi sur %(project_name)s. Il y a plein d'avantages pour toi."
 
-#: daraja/templates/daraja/snippets/company_list_results.html:60
+#: daraja/templates/daraja/snippets/company_list_results.html:63
 #: daraja/templates/daraja/snippets/dara_list_results.html:42
 #: daraja/templates/daraja/snippets/dara_request_list_results.html:42
 #, python-format
@@ -690,46 +778,46 @@ msgstr ""
 msgid "Sign in"
 msgstr "Connexion"
 
-#: templates/accesscontrol/sign_in.html:53
+#: templates/accesscontrol/sign_in.html:55
 msgid "Your password was successfully reset, login now."
 msgstr ""
 "Votre mot de passe a été réinitialisé avec succès, connectez-vous maintenant."
 
-#: templates/accesscontrol/sign_in.html:66 templates/com/base.html:100
+#: templates/accesscontrol/sign_in.html:68 templates/com/base.html:100
 #: templates/com/base.html.py:178
 msgid "Login"
 msgstr "Connexion"
 
-#: templates/accesscontrol/sign_in.html:70
+#: templates/accesscontrol/sign_in.html:72
 msgid "Email or phone"
 msgstr "Email ou téléphone"
 
-#: templates/accesscontrol/sign_in.html:75
+#: templates/accesscontrol/sign_in.html:77
 msgid "Password"
 msgstr "Mot de passe"
 
-#: templates/accesscontrol/sign_in.html:82
+#: templates/accesscontrol/sign_in.html:84
 msgid "Submit"
 msgstr "Soumettre"
 
-#: templates/accesscontrol/sign_in.html:87
+#: templates/accesscontrol/sign_in.html:89
 msgid "Login with <strong>ikwen</strong>"
 msgstr "Se connecter avec <strong>ikwen</strong>"
 
-#: templates/accesscontrol/sign_in.html:91
+#: templates/accesscontrol/sign_in.html:93
 msgid "Forgotten password ?"
 msgstr "Mot de passe oublié ?"
 
-#: templates/accesscontrol/sign_in.html:95
+#: templates/accesscontrol/sign_in.html:97
 msgid "No account yet ?"
 msgstr "Pas encore de compte ?"
 
-#: templates/accesscontrol/sign_in.html:97
+#: templates/accesscontrol/sign_in.html:99
 msgid "Register"
 msgstr "Inscrivez-vous"
 
 #: templates/cashout/payments.html:5 templates/cashout/payments.html.py:14
-#: templates/cashout/payments.html:71 templates/core/dashboard_base.html:98
+#: templates/cashout/payments.html:71 templates/core/dashboard_base.html:94
 msgid "Payments"
 msgstr "Paiements"
 
@@ -846,31 +934,31 @@ msgstr "Porte-monnaie"
 msgid "Add new company"
 msgstr "Ajouter une nouvelle entreprise"
 
-#: templates/core/dashboard_base.html:50
+#: templates/core/dashboard_base.html:47
 msgid "vs same day last week"
 msgstr "vs même jr. de la sem dernière"
 
-#: templates/core/dashboard_base.html:71
+#: templates/core/dashboard_base.html:68
 msgid "vs previous 7 days"
 msgstr "vs 7 jours précédents"
 
-#: templates/core/dashboard_base.html:92
+#: templates/core/dashboard_base.html:89
 msgid "vs previous 28 days"
 msgstr "vs 28 jours précédents"
 
-#: templates/core/dashboard_base.html:102
+#: templates/core/dashboard_base.html:98
 msgid "Balance"
 msgstr "Solde"
 
-#: templates/core/dashboard_base.html:105
+#: templates/core/dashboard_base.html:101
 msgid "Payment details"
 msgstr "Détails paiement"
 
-#: templates/core/dashboard_base.html:110
+#: templates/core/dashboard_base.html:106
 msgid "Last payment"
 msgstr "Dernier paiement"
 
-#: templates/core/dashboard_base.html:115
+#: templates/core/dashboard_base.html:111
 msgid "View payments"
 msgstr "Voirles paiements"
 
@@ -882,15 +970,6 @@ msgstr "Voirles paiements"
 
 #~ msgid "French"
 #~ msgstr "Français"
-
-#~ msgid ""
-#~ "Aww!! It looks like you're not yet login. Please do it before continue..."
-#~ msgstr "SVP!! Connectez-vous pour continuer..."
-
-#~ msgid ""
-#~ "Please you need to be a Dara for %(project_name)s before perform this "
-#~ "action."
-#~ msgstr "SVP! Vous devez être Dara pour %(project_name)s."
 
 #~ msgid "earned"
 #~ msgstr "gagné"

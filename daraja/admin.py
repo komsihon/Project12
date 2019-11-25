@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 
 class DaraAdmin(admin.ModelAdmin):
@@ -6,4 +7,9 @@ class DaraAdmin(admin.ModelAdmin):
 
 
 class DarajaConfigAdmin(admin.ModelAdmin):
-    fields = ('description', 'annual_turnover', 'number_of_employees', 'location', 'referrer_share_rate')
+    fields = ('referrer_share_rate', 'location', 'avg_purchase', 'products', 'strategy', 'simulation')
+    fieldsets = (
+        (None, {'fields': ('referrer_share_rate', )}),
+        (_('General'), {'fields': ('avg_purchase', 'location')}),
+        (_('How to make money with you ?'), {'fields': ('products', 'strategy', 'simulation')}),
+    )
