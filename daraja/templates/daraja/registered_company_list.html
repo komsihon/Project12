@@ -77,15 +77,27 @@
                                                     </h3>
                                                     <h4>{% trans 'Description and products' %}</h4>
                                                     <div>
-                                                        {{ obj.products }}
+                                                        {% if obj.products %}
+                                                            {{ obj.products }}
+                                                        {% else %}
+                                                            <em>&lt;Not yet set&gt;</em>
+                                                        {% endif %}
                                                     </div>
                                                     <h4>{% trans 'Strategy' %}</h4>
                                                     <div>
-                                                        {{ obj.strategy }}
+                                                        {% if obj.strategy %}
+                                                            {{ obj.strategy }}
+                                                        {% else %}
+                                                            <em>&lt;Not yet set&gt;</em>
+                                                        {% endif %}
                                                     </div>
                                                     <h4>{% trans 'Simulation' %}</h4>
                                                     <div>
-                                                        {{ obj.simulation }}
+                                                        {% if obj.simulation %}
+                                                            {{ obj.simulation }}
+                                                        {% else %}
+                                                            <em>&lt;Not yet set&gt;</em>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             </div>
