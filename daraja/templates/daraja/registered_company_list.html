@@ -1,5 +1,5 @@
 {% extends "core/base_bs.html" %}
-{% load i18n humanize staticfiles auth_tokens currency %}
+{% load i18n humanize staticfiles auth_tokens currency webdesign %}
 
 {% block meta %}
     {% include 'daraja/snippets/color_and_icons.html' %}
@@ -38,53 +38,68 @@
             </div>
             {% if object_list %}
                 <div class="company-list">
-                    <ul class="object-list" style="padding-left: 0">
+                    <div class="object-list" style="padding-left: 0">
                         {% for obj in object_list %}
                             {% with company=obj.service config=obj.service.config %}
-                                <li id="{{ company.id }}" class="ik-li">
+                                <div id="{{ company.id }}" class="ik-li">
                                     {% if config.logo.name %}
-                                        <div class="image company-image">
-                                            <div>
-                                                <img src="{{ settings.IKWEN_MEDIA_URL }}{{ config.logo.name }}" alt="{{ company.project_name }}">
+                                            <div class="image company-image">
+                                                <div>
+                                                    <img src="{{ settings.IKWEN_MEDIA_URL }}{{ config.logo.name }}" alt="{{ company.project_name }}">
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="image">
+                                                <i class="fas fa-building"></i>
+                                            </div>
+                                        {% endif %}
+                                        <div class="info">
+                                            <h3 class="full_name">{{ config.company_name }}</h3>
+                                            <div class="text-muted">
+                                                <div class="share-rate">
+                                                    <span class="badge badge-{{ obj.share_rate_bound }}">
+                                                        {% blocktrans with share_rate=obj.referrer_share_rate|floatformat %}
+                                                            {{ share_rate }}<sup>%</sup> share
+                                                        {% endblocktrans %}
+                                                    </span>
+                                                </div>
+                                                <div class="avg-purchase">{% trans "Avg purchase: " %}<span>XAF {{ obj.avg_purchase|intcomma }}</span>
+                                                </div>
+                                                <div class="company-basic-info hidden-xs ">
+                                                    {% if config.contact_email %}{{ config.contact_email }}{% endif %}{% if config.contact_phone %}, {{ config.contact_phone|truncatechars:"20" }}{% endif %}{% if obj.location %}, {{ obj.location }}{% endif %}
+                                                </div>
+                                                <div class="company-basic-info visible-xs">
+                                                    {% if obj.location %}{{ obj.location }}{% else %}{{ config.contact_email }}{% endif %}
+                                                </div>
+                                                <div class="about">
+                                                    <h3>
+                                                        {% trans 'How to make money with us ?' %}
+                                                    </h3>
+                                                    <h4>{% trans 'Description and products' %}</h4>
+                                                    <div>
+                                                        {{ obj.products }}
+                                                    </div>
+                                                    <h4>{% trans 'Strategy' %}</h4>
+                                                    <div>
+                                                        {{ obj.strategy }}
+                                                    </div>
+                                                    <h4>{% trans 'Simulation' %}</h4>
+                                                    <div>
+                                                        {{ obj.simulation }}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    {% else %}
-                                        <div class="image">
-                                            <i class="fas fa-building"></i>
+                                        <div class="actions">
+                                            <button class="btn btn-sm btn-green apply request" data-id="{{ company.id }}" data-toggle="modal" data-target="error-handler">{% trans "Request" %}</button>
                                         </div>
-                                    {% endif %}
-                                    <div class="info">
-                                        <h3 class="full_name">{{ config.company_name }}</h3>
-                                        <ul class="text-muted">
-                                            <li class="share-rate">
-                                                <span class="badge badge-{{ obj.share_rate_bound }}">
-                                                    {% blocktrans with share_rate=obj.referrer_share_rate|floatformat %}
-                                                        {{ share_rate }}<sup>%</sup> share
-                                                    {% endblocktrans %}
-                                                </span>
-                                            </li>
-                                            <li class="avg-purchase">{% trans "Avg purchase: " %}<span>XAF {{ obj.avg_purchase|intcomma }}</span></li>
-                                            <li class="company-basic-info hidden-xs ">
-                                                {% if config.contact_email %}{{ config.contact_email }}{% endif %}{% if config.contact_phone %}, {{ config.contact_phone|truncatechars:"20" }}{% endif %}{% if obj.location %}, {{ obj.location }}{% endif %}
-                                            </li>
-                                            <li class="company-basic-info visible-xs">
-                                                {% if obj.location %}{{ obj.location }}{% else %}{{ config.contact_email }}{% endif %}
-                                            </li>
-                                            <li class="company-description">
-                                                {{ obj.description }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="actions">
-                                        <button class="btn btn-sm btn-green apply request" data-id="{{ company.id }}" data-toggle="modal" data-target="error-handler">{% trans "Request" %}</button>
-                                    </div>
-                                    <div class="actions simulate-earning-container hidden">
-                                        <button class="btn btn-sm btn-primary apply" data-id="{{ company.id }}">{% trans "Simulate earnings" %}</button>
-                                    </div>
-                                </li>
+                                        <div class="actions simulate-earning-container hidden">
+                                            <button class="btn btn-sm btn-primary apply" data-id="{{ company.id }}">{% trans "Simulate earnings" %}</button>
+                                        </div>
+                                </div>
                             {% endwith %}
                         {% endfor %}
-                    </ul>
+                    </div>
                     <div class="clearfix"></div>
                 </div>
             {% else %}
