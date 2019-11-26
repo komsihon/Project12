@@ -75,6 +75,7 @@
 
 @media (max-width: 767px) {
     .company-list {margin: 0 -12px}
+    .company-list .ik-li {height: 150px;}
     .company-list .ik-li h3 {font-size: 18px;margin-bottom: 10px;}
     .company-list .ik-li .info {padding: 3px 0 10px;max-width: 180px;}
     .company-list .ik-li ul li {height: 30px;padding-top: 4px;}
