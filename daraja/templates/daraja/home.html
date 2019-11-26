@@ -39,7 +39,7 @@
                 <img style="max-width: 180px" alt="logo_ikwen_DARAJA" src="{% static 'daraja/img/logo-daraja.png' %}"/>
               <h1>{% trans 'Become a shareholder of companies you like' %}</h1>
                 <p >
-                    {% trans "Get your nearest ones to buy online from your favorite companies and earn a percentage out of that." %}
+                    {% trans "Get your nearest ones to buy online from your favorite companies and earn money out of that." %}
                 </p>
                 <a  href="{% url 'ikwen:sign_in' %}?next={% url 'daraja:deploy_cloud' %}{% if request.GET.tokens %}%3Ftokens={{ request.GET.tokens }}{% endif %}">
                     <button  type=button class="btn btn-outline-primary btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Register on <b>Daraja</b>" %}</button>
@@ -97,7 +97,7 @@
                         <h2>{% trans "The more they buy, the more you earn" %}</h2>
                         <div class="desc">
                             <p>{% blocktrans %}
-                                Visit company’s website and share links of products your ones might be interested in. Guide them into buying online and remind them to do so very often to earn more.
+                                Visit companies'websites and share links of products your ones might be interested in. Guide them into buying online and remind them to do so very often to earn more.
                             {% endblocktrans %}</p>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                         <h2 class="hidden-xs" style="visibility: hidden">{% trans "The more they buy, the more you earn" %}</h2>
                         <div class="desc hidden-xs" style="visibility: hidden">
                             <p>{% blocktrans %}
-                                Visit company’s website and share links of products your ones might be interested in. Guide them into buying online and remind them to do so very often to earn more.
+                                Visit companies'websites and share links of products your ones might be interested in. Guide them into buying online and remind them to do so very often to earn more.
                             {% endblocktrans %}</p>
                         </div>
                         {# End Force DIV height #}
@@ -123,8 +123,8 @@
                         <h2 class="hidden-xs" style="visibility: hidden">{% trans "All clear! Your money is safe." %}</h2>
                         <div class="desc hidden-xs" style="visibility: hidden">
                             <p>{% blocktrans %}
-                                You know exactly what percentage to expect from every company you partnership with. Get a notification every time a follower buys from your companies.
-                                Daraja collects money from buyer upon payment and deposits your share on your account immediately. Follow everything from your app.
+                                You know exactly what percentage to earn from every company you partnership with. Get a notification every time a follower buys from your companies.
+                                Upon online payment, you receive money on your account immediately and the rest goes to the company. Follow everything from your app.
                             {% endblocktrans %}</p>
                         </div>
                         {# End Force DIV height #}
@@ -133,8 +133,8 @@
                         <h2>{% trans "All clear! Your money is safe" %}</h2>
                         <div class="desc">
                             <p>{% blocktrans %}
-                                You know exactly what percentage to expect from every company you partnership with. Get a notification every time a follower buys from your companies.
-                                Daraja collects money from buyer upon payment and deposits your share on your account immediately. Follow everything from your app.
+                                You know exactly what percentage to earn from every company you partnership with. Get a notification every time a follower buys from your companies.
+                                Upon online payment, you receive money on your account immediately and the rest goes to the company. Follow everything from your app.
                             {% endblocktrans %}</p>
                         </div>
                     </div>

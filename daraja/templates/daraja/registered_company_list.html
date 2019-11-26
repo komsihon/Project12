@@ -78,7 +78,7 @@
                                                     <h4>{% trans 'Description and products' %}</h4>
                                                     <div>
                                                         {% if obj.products %}
-                                                            {{ obj.products }}
+                                                            {{ obj.products|safe }}
                                                         {% else %}
                                                             <em>&lt;Not yet set&gt;</em>
                                                         {% endif %}
@@ -86,7 +86,7 @@
                                                     <h4>{% trans 'Strategy' %}</h4>
                                                     <div>
                                                         {% if obj.strategy %}
-                                                            {{ obj.strategy }}
+                                                            {{ obj.strategy|safe }}
                                                         {% else %}
                                                             <em>&lt;Not yet set&gt;</em>
                                                         {% endif %}
@@ -94,7 +94,7 @@
                                                     <h4>{% trans 'Simulation' %}</h4>
                                                     <div>
                                                         {% if obj.simulation %}
-                                                            {{ obj.simulation }}
+                                                            {{ obj.simulation|safe }}
                                                         {% else %}
                                                             <em>&lt;Not yet set&gt;</em>
                                                         {% endif %}
