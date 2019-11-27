@@ -67,24 +67,29 @@
                                             <div class="text-muted">
                                                 <div class="avg-purchase">{% trans "Avg purchase: " %}<span>XAF {{ obj.avg_purchase|intcomma }}</span>
                                                 </div>
-                                                <div class="company-basic-info hidden-xs ">
-                                                    {% if config.contact_email %}{{ config.contact_email }}{% endif %}{% if config.contact_phone %}, {{ config.contact_phone|truncatechars:"20" }}{% endif %}{% if obj.location %}, {{ obj.location }}{% endif %}
-                                                </div>
-                                                <div class="company-basic-info visible-xs">
-                                                    {% if obj.location %}{{ obj.location }}{% else %}{{ config.contact_email }}{% endif %}
-                                                </div>
+{#                                                <div class="company-basic-info hidden-xs ">#}
+{#                                                    {% if config.contact_email %}{{ config.contact_email }}{% endif %}{% if config.contact_phone %}, {{ config.contact_phone|truncatechars:"20" }}{% endif %}{% if obj.location %}, {{ obj.location }}{% endif %}#}
+{#                                                </div>#}
+{#                                                <div class="company-basic-info visible-xs">#}
+{#                                                    {% if obj.location %}{{ obj.location }}{% else %}{{ config.contact_email }}{% endif %}#}
+{#                                                </div>#}
                                                 <div class="business">
-                                                    <h4 class="estimate-earnings-title">{% trans "Estimate your earnings" %}</h4>
+                                                    <h5 class="estimate-earnings-title">{% trans "Estimate your earnings" %}</h5>
                                                     <div class="form-group estimate-earnings">
                                                         <div class="col-md-5 col-xs-12">
                                                             <label for="dailySales" class="col-form-label">{% trans "Daily sales (XAF)" %}</label>
-                                                            {% with share_rate=obj.referrer_share_rate %}
-                                                                <input type="number" id="dailySales" step="500" value="10000" class="form-control" onchange="$(this).parents('.estimate-earnings').find('#monthlyIncome1, #monthlyIncome2').text(($(this).val() * {{ share_rate }} * 30) + ' XAF')">
+                                                            {% with share_rate=obj.referrer_share_rate|floatformat %}
+                                                                <input type="number" id="dailySales" step="500" value="10000" class="form-control"
+                                                                       onchange="$(this).parents('.estimate-earnings')
+                                                                               .find('#monthlyIncome1, #monthlyIncome2')
+                                                                               .text(new Intl.NumberFormat(
+                                                                                   'cm-CM', {style: 'currency',
+                                                                               currency: 'XAF'}).format($(this).val() * {{ share_rate }} * 30))">
                                                             {% endwith %}
                                                         </div>
                                                         <div class="col-md-5 col-md-offset-2 col-xs-12 pull-right hidden-xs">
                                                             <label for="monthlyIncome1">{% trans "Monthly income" %}</label>
-                                                            <div id="monthlyIncome1" class="form-row"></div>
+                                                            <div id="monthlyIncome1" class="form-row bold"></div>
                                                         </div>
                                                         <div class="col-md-5 col-md-offset-2 col-xs-12 visible-xs">
                                                             <label for="monthlyIncome2">{% trans "Monthly income" %}</label>
@@ -221,7 +226,9 @@
             {% for obj in object_list %}
                 {% with company=obj.service %}
                     val = $("#{{ company.id }}").find('#dailySales').attr('value');
-                    $("#{{ company.id }} #monthlyIncome1 , #{{ company.id }} #monthlyIncome2").text((val * {{ obj.referrer_share_rate }}) + ' XAF');
+                    $("#{{ company.id }} #monthlyIncome1 , #{{ company.id }} #monthlyIncome2").text(new Intl.NumberFormat(
+                                                                                   'cm-CM', {style: 'currency',
+                                                                               currency: 'XAF'}).format(val * {{ obj.referrer_share_rate|floatformat }}));
                 {% endwith %}
             {% endfor %}
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-26 17:44+0000\n"
-"PO-Revision-Date: 2019-11-26 18:52+0100\n"
+"POT-Creation-Date: 2019-11-27 13:56+0100\n"
+"PO-Revision-Date: 2019-11-27 14:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.0.6\n"
+
+#: conf/settings.py:155
+msgid "English"
+msgstr "Anglais"
+
+#: conf/settings.py:156
+msgid "French"
+msgstr "Français"
 
 #: daraja/admin.py:13
 msgid "General"
@@ -30,7 +38,7 @@ msgstr "Comment gagner de l'argent avec vous ?"
 msgid "Welcome to the business network."
 msgstr "Bienvenu(e) dans le réseau business."
 
-#: daraja/models.py:21 daraja/templates/daraja/registered_company_list.html:78
+#: daraja/models.py:21 daraja/templates/daraja/registered_company_list.html:99
 msgid "Description and products"
 msgstr "Description et produits"
 
@@ -42,7 +50,7 @@ msgstr ""
 "Décrivez votre activité aux Daras. Dites leurs quels sont les produits les "
 "plus faciles à vendre et aussi les plus rentables."
 
-#: daraja/models.py:24 daraja/templates/daraja/registered_company_list.html:86
+#: daraja/models.py:24 daraja/templates/daraja/registered_company_list.html:107
 msgid "Strategy"
 msgstr "Stratégie"
 
@@ -52,16 +60,16 @@ msgid ""
 "target and how to attract customers."
 msgstr ""
 "Donnez aux Daras une idée de la stratégie marketing qu'ils peuvent mettre en "
-"place. Par exemple le public cible et comment l'attirer"
+"place. Par exemple le public cible et comment l'attirer."
 
-#: daraja/models.py:27 daraja/templates/daraja/registered_company_list.html:94
+#: daraja/models.py:27 daraja/templates/daraja/registered_company_list.html:115
 msgid "Simulation"
-msgstr ""
+msgstr "Simulation"
 
 #: daraja/models.py:28
 msgid ""
-"Help Daras by giving a realistic, yet optmistic simulation of what they might "
-"earn in a month if they work well."
+"Help Daras by giving a realistic, yet optmistic simulation of what they "
+"might earn in a month if they work well."
 msgstr ""
 "Aidez les Daras à se projeter en donnant une simulation réaliste, mais "
 "optimiste de ce qu'ils peuvent gagner en vous travaillant correctement."
@@ -75,8 +83,8 @@ msgid ""
 "Average amount a customer generally buys from you. This helps the Dara do a "
 "simulation of what he might earn."
 msgstr ""
-"Le ticket moyen qu'un client dépense en général chez vous. Ceci aide le Dara à "
-"faire une estimation de ses gains potentiels"
+"Le ticket moyen qu'un client dépense en général chez vous. Ceci aide le Dara "
+"à faire une estimation de ses gains potentiels."
 
 #: daraja/views.py:297
 msgid "Your profile was successfully updated."
@@ -119,19 +127,20 @@ msgstr "Message"
 #: daraja/templates/daraja/company_list.html:62
 #: daraja/templates/daraja/dara_list.html:98
 #: daraja/templates/daraja/invite_dara.html:138
-#: daraja/templates/daraja/registered_company_list.html:137
-#: daraja/templates/daraja/registered_company_list.html:160
+#: daraja/templates/daraja/registered_company_list.html:159
+#: daraja/templates/daraja/registered_company_list.html:182
 #: templates/cashout/payments.html:211 templates/cashout/payments.html:249
 msgid "Cancel"
 msgstr "Annuler"
 
 #: daraja/templates/daraja/company_list.html:85
 msgid ""
-"Hello! Use this link to create an e-commerce platform with online payment. Me "
-"and many others will help you sell your products."
+"Hello! Use this link to create an e-commerce platform with online payment. "
+"Me and many others will help you sell your products."
 msgstr ""
-"Hello! Utilise ce lient pour créer une plateforme de e-commerce avec paiement "
-"en ligne. Moi et beaucoup d'autres vont t'aider à vendre tes produits."
+"Hello! Utilise ce lient pour créer une plateforme de e-commerce avec "
+"paiement en ligne. Moi et beaucoup d'autres vont t'aider à vendre tes "
+"produits."
 
 #: daraja/templates/daraja/configuration.html:13
 #: daraja/templates/daraja/configuration.html:73
@@ -154,8 +163,8 @@ msgstr "Ce lien est utilisable une seule fois dans un délai de 30mn."
 #: daraja/templates/daraja/dara_list.html:87
 #, python-format
 msgid ""
-"Hello! Get %(share_rate)s%% by getting your ones to buy from %(project_name)s "
-"online. Join Daraja program now !"
+"Hello! Get %(share_rate)s%% by getting your ones to buy from "
+"%(project_name)s online. Join Daraja program now !"
 msgstr ""
 "Bonjour! Obtenez %(share_rate)s%% en invitant vos proches à acheter chez "
 "%(project_name)s en ligne. Rejoignez le programme Daraja !"
@@ -264,11 +273,11 @@ msgstr "ikwen Daraja, devenez actionnaire des grandes entreprises"
 
 #: daraja/templates/daraja/home.html:14 daraja/templates/daraja/home.html:15
 msgid ""
-"Earn a percentage on the turnover of your favorite companies by joining ikwen "
-"Daraja program for free."
+"Earn a percentage on the turnover of your favorite companies by joining "
+"ikwen Daraja program for free."
 msgstr ""
-"Gagnez un pourcentage sur le chiffre d'affaire de vos entreprises préférées en "
-"rejoignant gratuitement le programme ikwen Daraja."
+"Gagnez un pourcentage sur le chiffre d'affaire de vos entreprises préférées "
+"en rejoignant gratuitement le programme ikwen Daraja."
 
 #: daraja/templates/daraja/home.html:19
 msgid "Become a shareholder of your favorite companies"
@@ -304,13 +313,13 @@ msgstr "Recommandez une fois. Gagnez pour toujours."
 msgid ""
 "\n"
 "                                Send your referral link to your friends and "
-"relatives so that they register on the company’s online shop by using it. From "
-"there, get paid every time they buy online !\n"
+"relatives so that they register on the company’s online shop by using it. "
+"From there, get paid every time they buy online !\n"
 "                            "
 msgstr ""
 "\n"
-"                                Envoyez votre lien de parrainage à vos amis et "
-"connaissances pour qu'ils s'enregistrent sur la boutique en ligne de "
+"                                Envoyez votre lien de parrainage à vos amis "
+"et connaissances pour qu'ils s'enregistrent sur la boutique en ligne de "
 "l'entreprise concernée. À partir de cet instant, recevez de l'argent pour "
 "chaque achat qu'ils feront en ligne !\n"
 "                            "
@@ -341,12 +350,12 @@ msgstr "Tout est clair ! Votre argent est sécurisé."
 #: daraja/templates/daraja/home.html:125 daraja/templates/daraja/home.html:135
 msgid ""
 "\n"
-"                                You know exactly what percentage to earn from "
-"every company you partnership with. Get a notification every time a follower "
-"buys from your companies.\n"
-"                                Upon online payment, you receive money on your "
-"account immediately and the rest goes to the company. Follow everything from "
-"your app.\n"
+"                                You know exactly what percentage to earn "
+"from every company you partnership with. Get a notification every time a "
+"follower buys from your companies.\n"
+"                                Upon online payment, you receive money on "
+"your account immediately and the rest goes to the company. Follow everything "
+"from your app.\n"
 "                            "
 msgstr ""
 "\n"
@@ -360,52 +369,51 @@ msgstr ""
 
 #: daraja/templates/daraja/home.html:133
 msgid "All clear! Your money is safe"
-msgstr "Tout est clair ! Votre argent est sécurisé."
+msgstr "Tout est clair ! Votre argent est sécurisé"
 
 #: daraja/templates/daraja/home.html:151 daraja/templates/daraja/home.html:161
 msgid "Engage companies on Daraja and earn more"
-msgstr "Amenez des entreprises sur Daraja et gagnez encore plus !"
+msgstr "Amenez des entreprises sur Daraja et gagnez plus !"
 
 #: daraja/templates/daraja/home.html:153 daraja/templates/daraja/home.html:163
 msgid ""
 "\n"
-"                                Identify companies that are not yet on Daraja "
-"and help them create and run their online Shop.\n"
+"                                Identify companies that are not yet on "
+"Daraja and help them create and run their online Shop.\n"
 "                                You get paid immediately for recruiting new "
 "companies and you become their first shareholder.\n"
 "                            "
 msgstr ""
 "\n"
-"                                Répérez les entreprises qui ne sont pas encore "
-"enregistrées sur Daraja et aidez les à créer et à vendre en ligne.\n"
+"                                Répérez les entreprises qui ne sont pas "
+"encore enregistrées sur Daraja et aidez les à créer et à vendre en ligne.\n"
 "                                Vous serez immédiatement payé pour le "
 "recrutement de nouvelles entreprises et vous deviendrez leur premier "
 "partenaire commercial.\n"
 "                            "
 
 #: daraja/templates/daraja/home.html:200
-#: daraja/templates/daraja/not_yet_dara.html:40 templates/com/base.html:202
+#: daraja/templates/daraja/not_yet_dara.html:40
 msgid "Get started"
 msgstr "Lancez-vous"
 
-#: daraja/templates/daraja/home.html:202 templates/com/base.html:143
-#: templates/com/base.html.py:204
+#: daraja/templates/daraja/home.html:202
 msgid "Home"
 msgstr "Accueil"
 
-#: daraja/templates/daraja/home.html:203 templates/com/base.html:205
+#: daraja/templates/daraja/home.html:203
 msgid "Sign In"
 msgstr "Connexion"
 
-#: daraja/templates/daraja/home.html:208 templates/com/base.html:210
+#: daraja/templates/daraja/home.html:208
 msgid "About us"
 msgstr "À propos"
 
-#: daraja/templates/daraja/home.html:210 templates/com/base.html:212
+#: daraja/templates/daraja/home.html:210
 msgid "Our Company"
 msgstr "Notre entreprise"
 
-#: daraja/templates/daraja/home.html:220 templates/com/base.html:221
+#: daraja/templates/daraja/home.html:220
 msgid "Help desk"
 msgstr "Aide"
 
@@ -419,8 +427,8 @@ msgid ""
 "Earn a percentage on the turnover of your favorite companies by free "
 "registering on the ikwen DARAJA program."
 msgstr ""
-"Gagnez un pourcentage sur le chiffre d'affaire de vos entreprises préférées en "
-"vous enregistrant gratuitement sur le programme ikwen DARAJA."
+"Gagnez un pourcentage sur le chiffre d'affaire de vos entreprises préférées "
+"en vous enregistrant gratuitement sur le programme ikwen DARAJA."
 
 #: daraja/templates/daraja/home_for_businesses.html:206
 msgid "An army of digital salespeople awaits you"
@@ -468,8 +476,8 @@ msgid ""
 "\n"
 "                                You have immediate access to your children's "
 "scores and discipline information, as\n"
-"                                soon as teachers and staff put them online.<br/"
-">\n"
+"                                soon as teachers and staff put them online."
+"<br/>\n"
 "                                You can take decisive action if things are "
 "going wrong. If results are good,\n"
 "                                think of offering them their favorite "
@@ -551,14 +559,14 @@ msgstr "Accepter"
 #, python-format
 msgid ""
 "\n"
-"                    You're not yet on Daraja. You must join the program before "
-"you can\n"
+"                    You're not yet on Daraja. You must join the program "
+"before you can\n"
 "                    partnership with %(company_name)s.\n"
 "                "
 msgstr ""
 "\n"
-"                    Vous n'êtes pas encore sur Daraja. Vous devez rejoindre le "
-"programme pour pouvoir \n"
+"                    Vous n'êtes pas encore sur Daraja. Vous devez rejoindre "
+"le programme pour pouvoir \n"
 "                    entrer en partenariat avec %(company_name)s.\n"
 "                "
 
@@ -578,8 +586,8 @@ msgid ""
 msgstr ""
 "\n"
 "                    Super! Vous et %(company_name)s êtes désormais "
-"partenaires. Obtenez <strong>%(share_rate)s%%</strong> en amenant quelqu'un à "
-"acheter\n"
+"partenaires. Obtenez <strong>%(share_rate)s%%</strong> en amenant quelqu'un "
+"à acheter\n"
 "                    en ligner sur %(company_url)s. Vous devez d'abord les "
 "inviter en partageant le lien ci-dessous.\n"
 "                "
@@ -587,11 +595,11 @@ msgstr ""
 #: daraja/templates/daraja/invite_dara.html:123
 #: daraja/templates/daraja/snippets/company_list_results.html:44
 msgid ""
-"Hello, I find this interesting for you. You can order online and get delivered "
-"where you want."
+"Hello, I find this interesting for you. You can order online and get "
+"delivered where you want."
 msgstr ""
-"Salut, Je trouve ceci intéressant pour toi. Tu peux commander en ligne et être "
-"livré où tu veux."
+"Salut, Je trouve ceci intéressant pour toi. Tu peux commander en ligne et "
+"être livré où tu veux."
 
 #: daraja/templates/daraja/invite_dara.html:126
 #, python-format
@@ -625,52 +633,66 @@ msgstr "Recherchez une entreprise"
 msgid "Company name"
 msgstr "Nom de l'entreprise"
 
-#: daraja/templates/daraja/registered_company_list.html:61
+#: daraja/templates/daraja/registered_company_list.html:60
 #, python-format
 msgid ""
 "\n"
-"                                                            %(share_rate)s<sup>"
+"                                                        %(share_rate)s<sup>"
 "%%</sup> share\n"
-"                                                        "
+"                                                    "
 msgstr ""
 "\n"
 "                                                    %(share_rate)s<sup>%%</"
 "sup> à gagner\n"
 "                                                "
 
-#: daraja/templates/daraja/registered_company_list.html:66
+#: daraja/templates/daraja/registered_company_list.html:68
 msgid "Avg purchase: "
 msgstr "Ticket moyen: "
 
-#: daraja/templates/daraja/registered_company_list.html:76
+#: daraja/templates/daraja/registered_company_list.html:77
+msgid "Estimate your earnings"
+msgstr "Estimez vos gains"
+
+#: daraja/templates/daraja/registered_company_list.html:80
+msgid "Daily sales (XAF)"
+msgstr "Revenus journaliers (en XAF)"
+
+#: daraja/templates/daraja/registered_company_list.html:86
+#: daraja/templates/daraja/registered_company_list.html:90
+msgid "Monthly income"
+msgstr "Revenus mensuels"
+
+#: daraja/templates/daraja/registered_company_list.html:97
 msgid "How to make money with us ?"
 msgstr "Comment gagner de l'argent avec nous ?"
 
-#: daraja/templates/daraja/registered_company_list.html:106
+#: daraja/templates/daraja/registered_company_list.html:128
 msgid "Request"
 msgstr "Demandez"
 
-#: daraja/templates/daraja/registered_company_list.html:109
+#: daraja/templates/daraja/registered_company_list.html:131
 msgid "Simulate earnings"
 msgstr "Simulez les gains"
 
-#: daraja/templates/daraja/registered_company_list.html:120
+#: daraja/templates/daraja/registered_company_list.html:142
 msgid "Sorry! No result found."
 msgstr "Désolé! Aucun résultat trouvé."
 
-#: daraja/templates/daraja/registered_company_list.html:130
-msgid "Aww!! It looks like you're not yet login. Please do it before continue..."
+#: daraja/templates/daraja/registered_company_list.html:152
+msgid ""
+"Aww!! It looks like you're not yet login. Please do it before continue..."
 msgstr "SVP!! Connectez-vous pour continuer..."
 
-#: daraja/templates/daraja/registered_company_list.html:134
+#: daraja/templates/daraja/registered_company_list.html:156
 msgid "Log in"
 msgstr "Connexion"
 
-#: daraja/templates/daraja/registered_company_list.html:153
+#: daraja/templates/daraja/registered_company_list.html:175
 msgid "Please you need to be a Dara before perform this action."
 msgstr "SVP! Vous devez être Dara pour poursuivre cette action."
 
-#: daraja/templates/daraja/registered_company_list.html:157
+#: daraja/templates/daraja/registered_company_list.html:179
 #: daraja/templates/daraja/cloud_setup/deploy.html:5
 msgid "Become a Dara"
 msgstr "Devenez un Dara"
@@ -728,8 +750,8 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                    <p>Désormais, vous êtes un Dara ! Vous pouvez retourner à "
-"l'invitation et l'accepter.</p>\n"
+"                    <p>Désormais, vous êtes un Dara ! Vous pouvez retourner "
+"à l'invitation et l'accepter.</p>\n"
 "                "
 
 #: daraja/templates/daraja/cloud_setup/successful_deployment.html:43
@@ -740,8 +762,9 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                    <p>Désormais, vous êtes un Dara ! Découvrez votre panneau "
-"de contrôle d'où vous pourrez suivre et développer votre business.</p>\n"
+"                    <p>Désormais, vous êtes un Dara ! Découvrez votre "
+"panneau de contrôle d'où vous pourrez suivre et développer votre business.</"
+"p>\n"
 "                "
 
 #: daraja/templates/daraja/cloud_setup/successful_deployment.html:52
@@ -795,8 +818,7 @@ msgid "Your password was successfully reset, login now."
 msgstr ""
 "Votre mot de passe a été réinitialisé avec succès, connectez-vous maintenant."
 
-#: templates/accesscontrol/sign_in.html:68 templates/com/base.html:100
-#: templates/com/base.html.py:178
+#: templates/accesscontrol/sign_in.html:68
 msgid "Login"
 msgstr "Connexion"
 
@@ -913,22 +935,6 @@ msgstr "Nouvelle adresse de paiement"
 msgid "Update address"
 msgstr "Changer l'adresse"
 
-#: templates/com/base.html:93 templates/com/base.html.py:171
-msgid "Account setup"
-msgstr "Infos compte"
-
-#: templates/com/base.html:95 templates/com/base.html.py:173
-msgid "Logout"
-msgstr "Déconnexion"
-
-#: templates/com/base.html:112
-msgid "Search"
-msgstr "Recherche"
-
-#: templates/com/base.html:214
-msgid "Reviews"
-msgstr "Avis"
-
 #: templates/core/app_base_admin.html:11 templates/core/dashboard_base.html:5
 #: templates/core/dashboard_base.html:14
 msgid "Dashboard"
@@ -974,6 +980,18 @@ msgstr "Dernier paiement"
 msgid "View payments"
 msgstr "Voirles paiements"
 
+#~ msgid "Account setup"
+#~ msgstr "Infos compte"
+
+#~ msgid "Logout"
+#~ msgstr "Déconnexion"
+
+#~ msgid "Search"
+#~ msgstr "Recherche"
+
+#~ msgid "Reviews"
+#~ msgstr "Avis"
+
 #~ msgid ""
 #~ "\n"
 #~ "                                You know exactly what percentage to earn "
@@ -985,9 +1003,9 @@ msgstr "Voirles paiements"
 #~ "                            "
 #~ msgstr ""
 #~ "\n"
-#~ "                                Vous savez exactement quel pourcentage vous "
-#~ "gagnez chez vos entreprises partenaires. Recevez une notification à chaque "
-#~ "fois qu'un follower achète chez celles-ci.\n"
+#~ "                                Vous savez exactement quel pourcentage "
+#~ "vous gagnez chez vos entreprises partenaires. Recevez une notification à "
+#~ "chaque fois qu'un follower achète chez celles-ci.\n"
 #~ "                                Daraja perçoit l'argent de l'acheteur au "
 #~ "moment du paiement et dépose immédiatement votre part sur votre compte. "
 #~ "Suivez tout sur votre application.\n"
@@ -996,18 +1014,12 @@ msgstr "Voirles paiements"
 #~ msgid "Invite other Daras now."
 #~ msgstr "Invitez d'autres Daras."
 
-#~ msgid "English"
-#~ msgstr "Anglais"
-
-#~ msgid "French"
-#~ msgstr "Français"
-
 #~ msgid "earned"
 #~ msgstr "gagné"
 
 #~ msgid ""
-#~ "Hello! Become a Dara for %(service.project_name_slug)s and together we will "
-#~ "enjoy the great offers they give."
+#~ "Hello! Become a Dara for %(service.project_name_slug)s and together we "
+#~ "will enjoy the great offers they give."
 #~ msgstr ""
 #~ "Bonjour! Devenez un Dara pour %(service.project_name_slug)s et ensemble "
 #~ "nous profiteront des offres qu'ils nous donnent."
@@ -1033,12 +1045,12 @@ msgstr "Voirles paiements"
 
 #~ msgid ""
 #~ "\n"
-#~ "                    <p>Your Daraja management platform and website are now "
-#~ "online on <a target=\"_blank\" href=\"%(service_url)s\"> %(service_url)s</"
-#~ "a>.</p>\n"
+#~ "                    <p>Your Daraja management platform and website are "
+#~ "now online on <a target=\"_blank\" href=\"%(service_url)s\"> "
+#~ "%(service_url)s</a>.</p>\n"
 #~ "                    <ul style=\"line-height: 28px\">\n"
-#~ "                        <li>Invite companies to do their business online.</"
-#~ "li>\n"
+#~ "                        <li>Invite companies to do their business online."
+#~ "</li>\n"
 #~ "                        <li>You can make more money by inviting customers "
 #~ "to buy from the companies your are actually referring.</li>\n"
 #~ "                    </ul>\n"
@@ -1047,12 +1059,12 @@ msgstr "Voirles paiements"
 #~ "                "
 #~ msgstr ""
 #~ "\n"
-#~ "                    <p>Votre plateforme de gestion Daraja et site web sont "
-#~ "désormais en ligne sur <a target=\"_blank\" href=\"%(service_url)s\"> "
-#~ "%(service_url)s</a>.</p>\n"
+#~ "                    <p>Votre plateforme de gestion Daraja et site web "
+#~ "sont désormais en ligne sur <a target=\"_blank\" href=\"%(service_url)s"
+#~ "\"> %(service_url)s</a>.</p>\n"
 #~ "                    <ul style=\"line-height: 28px\">\n"
-#~ "                        <li>Invitez les entreprises à faire vendre en ligne."
-#~ "</li>\n"
+#~ "                        <li>Invitez les entreprises à faire vendre en "
+#~ "ligne.</li>\n"
 #~ "                        <li>Vous pouvez plus d'argent en invitant les "
 #~ "clients à acheter des entreprises que vous référez maintenant.</li>\n"
 #~ "                    </ul>\n"

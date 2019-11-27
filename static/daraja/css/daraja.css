@@ -20,14 +20,14 @@
 .company-list .ik-li.disclosed .company-description {line-height: 20px; padding-bottom: 30px; height: auto;}
 .company-list .ik-li .about {margin-top: 90px; text-align: justify;}
 .company-list .ik-li.disclosed .about {margin-top: 20px;}
-.company-list .ik-li .about h3,h4 {color: #464646; font-weight: 600;}
+.company-list .ik-li .about h2,h3,h4,h5,h6 {color: #464646; font-weight: 600;}
 .company-list .ik-li .about h4:not(:first-of-type) {margin-top: 30px}
 .info:active {height: inherit!important;}
 .info-header {margin-bottom: 10px;}
 .info-header .full_name {display: inline; margin: 0;}
-.info-header .share-rate {padding-left: 10px; padding-right: 10px;}
-#monthlyIncome1, #monthlyIncome2 {font-size: 30px;}
-.estimate-earnings >* {padding: 0;}
+.info-header .share-rate {padding: 2px;}
+#monthlyIncome1, #monthlyIncome2 {font-size: 30px; color: #2c3e50;}
+.estimate-earnings >* {padding: 0; font-size: 14px}
 .company-list .ik-li .image {height: 100%;background-size: cover;width: 120px;}
 .company-list .ik-li .info {padding: 10px 0;}
 .company-list .ik-li h3 {font-weight: 700; margin: 0 0 20px}
@@ -84,7 +84,7 @@
 }
 @media (max-width: 767px) {
     .company-list {margin: 0 -12px}
-    .company-list .ik-li {height: 350px;}
+    .company-list .ik-li {height: 300px;}
     .company-list .ik-li h3 {font-size: 18px;margin-bottom: 10px;}
     .company-list .ik-li .info {padding: 3px 0 10px;max-width: 180px;}
     .company-list .ik-li ul li {height: 30px;padding-top: 4px;}
