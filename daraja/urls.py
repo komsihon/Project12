@@ -16,7 +16,7 @@ urlpatterns = patterns(
     url(r'^registeredCompanies$', RegisteredCompanyList.as_view(), name='registered_company_list'),
     url(r'^deploy$', login_required(DeployCloud.as_view()), name='deploy_cloud'),
     url(r'^successfulDeployment/(?P<ikwen_name>[-\w]+)$', login_required(SuccessfulDeployment.as_view()), name='successful_deployment'),
-    url(r'^profile/(?P<dara_name>[-\w]+)/$', ViewProfile.as_view(), name='view_profile'),
+    url(r'^profile/(?P<dara_name>[-\w]+) /$', ViewProfile.as_view(), name='view_profile'),
 
     url(r'^daraList$', permission_required('daraja.ik_manage_daraja')(DaraList.as_view()), name='dara_list'),
     url(r'^daraRequestList$', permission_required('daraja.ik_manage_daraja')(DaraRequestList.as_view()), name='dara_request_list'),

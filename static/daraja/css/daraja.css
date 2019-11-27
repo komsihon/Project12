@@ -18,10 +18,11 @@
 .company-list .ik-li.disclosed {height: auto!important;cursor: pointer;}
 .company-list .ik-li.disclosed .image, .company-list .ik-li.disclosed .info {height: auto!important;}
 .company-list .ik-li.disclosed .company-description {line-height: 20px; padding-bottom: 30px; height: auto;}
-.company-list .ik-li .about {margin-top: 90px; text-align: justify;}
-.company-list .ik-li.disclosed .about {margin-top: 50px;}
-.company-list .ik-li .about h2,h3,h4,h5,h6 {color: #464646; font-weight: 600;}
+.company-list .ik-li .about {margin-top: 90px; margin-bottom: 20px; text-align: justify;}
+.company-list .ik-li.disclosed .about {margin-top: 30px;}
+.company-list .ik-li .about h2,h3,h4,h5,h6 {color: #464646; font-weight: 600; margin-top: 16px; margin-bottom: 16px}
 .company-list .ik-li .about h4:not(:first-of-type) {margin-top: 30px}
+.company-list .ik-li .company-url {margin-top: 30px;}
 .info:active {height: inherit!important;}
 .info-header {margin-bottom: 10px;}
 .info-header .full_name {display: inline; margin: 0;}

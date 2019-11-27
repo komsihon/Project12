@@ -9,7 +9,7 @@
 
 {% block head_style %}
     {{ block.super }}
-    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}?v=19.11.27.20.21" />
+    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}?v=19.11.27.23.23" />
     <style>
         body {background: #f8f6f6}
         @media (max-width: 767px) {
@@ -97,11 +97,14 @@
                                                         </div>
                                                         <div class="clearfix"></div>
                                                     </div>
+                                                    <div class="company-url">
+                                                        {% trans "Visit us on " %} <a href="{{ company.url }}" target="_blank">{{ company.url }}</a>
+                                                    </div>
                                                     <div class="about">
-                                                        <h3>
+                                                        <h4>
                                                             {% trans 'How to make money with us ?' %}
-                                                        </h3>
-                                                        <h4>{% trans 'Description and products' %}</h4>
+                                                        </h4>
+                                                        <h5>{% trans 'Description and products' %}</h5>
                                                         <div>
                                                             {% if obj.products %}
                                                                 {{ obj.products|safe }}
@@ -109,7 +112,7 @@
                                                                 <em>&lt;{% trans 'Not yet set' %}&gt;</em>
                                                             {% endif %}
                                                         </div>
-                                                        <h4>{% trans 'Strategy' %}</h4>
+                                                        <h5>{% trans 'Strategy' %}</h5>
                                                         <div>
                                                             {% if obj.strategy %}
                                                                 {{ obj.strategy|safe }}

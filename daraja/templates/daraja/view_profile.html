@@ -64,6 +64,34 @@
                     <p></p>
                     <div class="clearfix"></div>
                 </div>
+                <div>
+                    <h3>{% trans "Social medias" %}</h3>
+                    {% if dara.facebook_link %}
+                        <div class="col-sm-4" style="padding-left: 0">
+                            <a href="{{ dara.facebook_link }}" target="_blank"><i class="fab fa-facebook" style="color: #3b5998; font-size: 50px; padding-left: 0"></i></a>
+                        </div>
+                    {% endif %}
+                    {% if dara.instagram_link %}
+                        <div class="col-sm-4" style="padding-left: 0">
+                            <a href="{{ dara.instagram_link }}" target="_blank"><i class="fab fa-instagram" style="color: #c32aa3; font-size: 50px; "></i></a>
+                        </div>
+                    {% endif %}
+                    {% if dara.youtube_link %}
+                        <div class="col-sm-4" style="padding-left: 0">
+                            <a href="{{ dara.youtube_link }}" target="_blank"><i class="fab fa-youtube" style="color: #c4302b; font-size: 50px; "></i></a>
+                        </div>
+                    {% endif %}
+                    {% if dara.twitter_link %}
+                        <div class="col-sm-4" style="padding-left: 0">
+                            <a href="{{ dara.twitter_link }}" target="_blank"><i class="fab fa-twitter" style="color: #1da1f2; font-size: 50px; "></i></a>
+                        </div>
+                    {% endif %}
+                    {% if dara.linkedin_link %}
+                        <div class="col-sm-4" style="padding-left: 0">
+                            <a href="{{ dara.linkedin_link }}" target="_blank"><i class="fab fa-linkedin" style="color: #3b5998; font-size: 50px"></i></a>
+                        </div>
+                    {% endif %}
+                </div>
                 {% if dara_request %}
                 <div class="agreement">
                     <span class="pull-left col-lg-5 col-md-5 col-sm-4">
