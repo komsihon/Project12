@@ -154,16 +154,24 @@
                                 Identify companies that are not yet on Daraja and help them create and run their online Shop.
                                 You get paid immediately for recruiting new companies and you become their first shareholder.
                             {% endblocktrans %}</p>
+                             <p>
+                                <a href="{% url 'daraja:registered_company_list' %}" target="_blank" class="discover-link">{% trans 'See current companies onboard ' %}<i class="fa fa-arrow-circle-right animated infinite slideInLeft"></i></a>
+                            </p>
                         </div>
                     </div>
                     <div class="col-sm-6 img enterprise-recruitment hidden-xs">
                         {# Force DIV height by putting the same text and set visibility to hidden #}
                         <h2 class="hidden-xs" style="visibility: hidden">{% trans "Engage companies on Daraja and earn more" %}</h2>
                         <div class="desc hidden-xs" style="visibility: hidden">
-                            <p>{% blocktrans %}
+                            {% blocktrans %}
+                            <p>
                                 Identify companies that are not yet on Daraja and help them create and run their online Shop.
                                 You get paid immediately for recruiting new companies and you become their first shareholder.
-                            {% endblocktrans %}</p>
+                            </p>
+                            {% endblocktrans %}
+                            <p>
+                                <a href="{% url 'daraja:registered_company_list' %}" target="_blank" class="discover-link">{% trans 'See current companies onboard ' %}<i class="fa fa-arrow-circle-right animated infinite slideInLeft"></i></a>
+                            </p>
                         </div>
                         {# End Force DIV height #}
                     </div>

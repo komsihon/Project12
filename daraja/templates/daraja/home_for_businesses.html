@@ -33,11 +33,11 @@
         section.address .cta a {background: #fff; color: #2f2f2f;font-size: 18px;font-weight: 300;}
         section.address a {color: #2f2f2f;font-size: 18px;font-weight: 300;}
         section.site {min-height: 100px; padding: 137px 0}
+        section.simulation {min-height: 100px; padding: 100px 0}
         section.site:nth-child(2n) {background-color: #fff}
         section.site img {width: 60%}
         section.install-pwa {background: url({% static 'foulassi/img/foulassi-install-pwa.png' %}) center; background-size: cover}
-        #install-pwa {text-align: left}
-        .white-text-has-shade {text-shadow: 1px 2px 2px rgba(255, 255, 255, 0.7)}
+        section.simulation { font-size: 28px; line-height: 45px; font-weight: 300;}
         #navbar .glyphicon {color: #fff !important;}
         #navbar .btn {background: #FFF !important; color: #233682 !important;}
 
@@ -104,11 +104,13 @@
 
         @media only screen and (max-device-width : 767px) {
             section.site {padding: 30px 0}
+            section.simulation {padding: 20px 0}
             section.site.banner h1 {font-size: 30px;line-height: 45px; font-weight: 600}
             section.site h2 {font-size: 24px; font-weight: 600; line-height: 30px; text-align: left;}
+            section.simulation h2 {font-size: 24px; font-weight: 600; line-height: 30px; margin-bottom: 25px!important; text-align: center;}
             section.site p {margin-top: 25px; text-align: justify; font-size: 18px; font-weight: 400; line-height: 30px;}
             #navbar-search input {background: none}
-            .for-schools {background-position-x: -10px}
+            div.expected {padding-top: 30px!important;}
         }
 
         @media only screen and (min-width : 768px) and (orientation: landscape) {
@@ -129,9 +131,11 @@
 
         @media only screen and (min-width : 768px) {
             section.site {padding: 60px 0}
+            section.simulation {padding: 50px 0}
             section.site .cover p {font-size: 21px; font-weight: 400; line-height: 35px}
             section.site.banner h1 {font-size: 51px; font-weight: 700;line-height: 65px}
-            section.site h2 {font-size: 24px; font-weight: 600; line-height: 30px; text-align: left;}
+            section.site h2 {font-size: 24px; font-weight: 600; line-height: 40px; text-align: left;}
+            section.simulation h2 {font-size: 24px; font-weight: 600; line-height: 40px; text-align: center;}
             section.site p {margin-top: 25px; text-align: justify; font-size: 18px; font-weight: 400; line-height: 30px;}
             .for-schools {background-position-x: 50px}
         }
@@ -164,14 +168,18 @@
         @media only screen and (min-width : 1200px) {
             section.header .banner-title-cntr {background-color: rgba(255, 255, 255, 0.7); margin-top: 170px;}
             section.site {padding: 135px 0}
-            section.site.banner h1 {margin-top: 50vh}
-            section.site h2 {font-size: 33px}
+            section.simulation {padding: 50px 0}
+            section.site.banner h1 {margin-top: 35vh}
+            section.site h2, section.simulation h2 {font-size: 33px}
             section.header h3 {color: #000; font-size: 33px;font-weight: 400;  line-height: 94px;}
             section.header {height: 1015px}
             div.cloud-deploy {bottom: 250px}
             section.site.header {height: 1000px}
             footer, section.address .cover {height: 670px}
             section.address {height: 600px}
+            label.label-expected { margin: 10px 0 20px;}
+            label.average-revenue {float: right}
+            input.average-revenue {text-align: right}
         }
     </style>
 {% endblock %}
@@ -203,16 +211,16 @@
             <div class="container text-center">
                 <div class="row desc" >
                     <div class="col-xs-12">
-                        <h1>{% trans "An army of digital salespeople awaits you" %} </h1>
+                        <h1>{% trans "Increase your turnover with" %}<br>{%trans " an army of salespeople." %} </h1>
                         <p>
                             {% blocktrans %}
-                                Conquer your markets at a lower cost right now !
+                                Hundreds of marketing agents ready to work online for you.
                             {% endblocktrans %}
                         </p>
                     </div>
                 </div>
                 <div class="cta" style="font-weight: 600; width: 100%">
-                    <a id="deploy" class="btn btn-sm " href="{% url 'daraja:deploy_cloud' %}" style="font-weight: 600">{% trans "Get enhanced" %}</a>
+                    <a id="deploy" class="btn btn-sm " href="{% url 'daraja:deploy_cloud' %}" style="font-weight: 600">{% trans "Hire them" %}</a>
                 </div>
             </div>
         </div>
@@ -220,20 +228,54 @@
     <section class="features site">
         <div class="container">
             <div class="row features">
-                <div class="feat col-sm-12">
-                    <div class="col-sm-6">
-                        <img class="img-responsive" src="{% static 'foulassi/img/foulassi-follow-in-single-place.png' %}">
+                <div class="col-sm-6 visible-xs">
+                    <img class="img-responsive" src="{% static 'daraja/img/ikwen-Daraja-budy-coating.png' %}">
+                </div>
+                <div class="col-sm-6 description">
+                    <h2>{% trans "Lower total payroll and marketing costs while increasing revenue" %}</h2>
+                    <div class="desc">
+                        <p>{% blocktrans %}
+                            No salary for the sales person, he gets paid only by a percentage that YOU decide. No flyer, no radio or TV ad, no social media sponsoring.
+                            Your sales people share their products to their contacts and make them new customers.
+                        {% endblocktrans %}</p>
                     </div>
-                    <div class="col-sm-6">
-                        <h2>{% trans "Follow them all in one single place" %}</h2>
-                        <div class="desc">
-                            <p>{% blocktrans %}
-                                Foulassi collects data from all schools of your kids and put them in one single place
-                                for you to follow.
-                                You can get someone else to follow them by adding the person to the parent list. This
-                                is perfect to add the child's uncle or grand-father.
-                            {% endblocktrans %}</p>
-                        </div>
+                </div>
+                <div class="col-sm-6 img budy-coating hidden-xs">
+                    {# Force DIV height by putting the same text and set visibility to hidden #}
+                    <h2 class="hidden-xs" style="visibility: hidden">{% trans "Lower total payroll and marketing costs while increasing revenue" %}</h2>
+                    <div class="desc hidden-xs" style="visibility: hidden">
+                        <p>{% blocktrans %}
+                            No salary for the sales person, he gets paid only by a percentage that YOU decide. No flyer, no radio or TV ad, no social media sponsoring.
+                            Your sales people share their products to their contacts and make them new customers.
+                        {% endblocktrans %}</p>
+                    </div>
+                    {# End Force DIV height #}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="features site">
+        <div class="container">
+            <div class="row features">
+                <div class="col-sm-6 img stock-monitoring">
+                    <img class="img-responsive visible-xs" src="{% static 'daraja/img/ikwen-Daraja-stock-monitoring.png' %}">
+                    {# Force DIV height by putting the same text and set visibility to hidden #}
+                    <h2 class="hidden-xs" style="visibility: hidden">{% trans "Build a smart customer database" %}</h2>
+                    <div class="desc hidden-xs" style="visibility: hidden">
+                        <p>{% blocktrans %}
+                            Daras share your links and people register on your online plateform providing their names, emails and phone numbers.
+                            Thos precious data help you build a solid relationship with your clients by talking to them directly.
+                        {% endblocktrans %}</p>
+                    </div>
+                    {# End Force DIV height #}
+                </div>
+                <div class="col-sm-6 description">
+                    <h2>{% trans "Build a smart customer database" %}</h2>
+                    <div class="desc">
+                        <p>{% blocktrans %}
+                            Daras share your links and people register on your online plateform providing their names, emails and phone numbers.
+                            Thos precious data help you build a solid relationship with your clients by talking to them directly.
+                        {% endblocktrans %}</p>
                     </div>
                 </div>
             </div>
@@ -242,21 +284,33 @@
     <section class="features site">
         <div class="container">
             <div class="row features">
-                <div class="feat col-sm-12">
-                    <div class="col-sm-6">
-                        <h2>{% trans "Know their results before they do" %}</h2>
-                        <div class="desc">
-                            <p>{% blocktrans %}
-                                You have immediate access to your children's scores and discipline information, as
-                                soon as teachers and staff put them online.<br/>
-                                You can take decisive action if things are going wrong. If results are good,
-                                think of offering them their favorite sneakers.
-                            {% endblocktrans %}</p>
-                        </div>
+                <div class="col-sm-6 visible-xs">
+                    <img class="img-responsive" src="{% static 'daraja/img/ikwen-Daraja-enterprise-recruitment.png' %}">
+                </div>
+                <div class="col-sm-6 description">
+                    <h2>{% trans "Improve your brand image" %}</h2>
+                    <div class="desc">
+
+                        <p>
+                            {% blocktrans %}
+                            People tend to think that digital area is only for big companies. Seize this opportunity to improve your brand image for customers.
+                            You will be closer to those, closer to your Daras and their nearest ones.
+                            {% endblocktrans %}
+                        </p>
                     </div>
-                    <div class="col-sm-6">
-                        <img class="img-responsive" src="{% static 'foulassi/img/foulassi-stay-tuned.png' %}">
+                </div>
+                <div class="col-sm-6 img enterprise-recruitment hidden-xs">
+                    {# Force DIV height by putting the same text and set visibility to hidden #}
+                    <h2 class="hidden-xs" style="visibility: hidden">{% trans "Improve your brand image" %}</h2>
+                    <div class="desc hidden-xs" style="visibility: hidden">
+                        {% blocktrans %}
+                        <p>
+                            People tend to think that digital area is only for big companies. Seize this opportunity to improve your brand image for customers.
+                            You will be closer to those, closer to your Daras and their nearest ones.
+                        </p>
+                        {% endblocktrans %}
                     </div>
+                    {# End Force DIV height #}
                 </div>
             </div>
         </div>
@@ -264,22 +318,46 @@
     <section class="features site">
         <div class="container">
             <div class="row features">
-                <div class="feat col-sm-12">
-                    <div class="col-sm-6">
-                        <img class="history img-responsive" src="{% static 'foulassi/img/foulassi-online-payment.png' %}">
+                <div class="col-sm-6 img stock-monitoring">
+                    <img class="img-responsive visible-xs" src="{% static 'daraja/img/ikwen-Daraja-stock-monitoring.png' %}">
+                    {# Force DIV height by putting the same text and set visibility to hidden #}
+                    <h2 class="hidden-xs" style="visibility: hidden">{% trans "Your digital department now affordable" %}</h2>
+                    <div class="desc hidden-xs" style="visibility: hidden">
+                        <p>{% blocktrans %}
+                            Just like multinationals, get an external, yet powerful digital department that you can trust.
+                            IT experts dedicated to Cloud business are taking care of your digital assets daily.
+                        {% endblocktrans %}</p>
                     </div>
-                    <div class="col-sm-6">
-                        <h2>{% trans "Pay their invoices online" %}</h2>
-                        <div class="desc">
-                            <p>{% blocktrans %}
-                                Pay whatever is due directly online using whatever Mobile Money wallet.
-                                Money goes straight to the school. You know exactly how much things cost and
-                                you don't take the risk of giving money to your kids for them to go and use it
-                                for something else.
-                            {% endblocktrans %}</p>
-                        </div>
+                    {# End Force DIV height #}
+                </div>
+                <div class="col-sm-6 description">
+                    <h2>{% trans "Your digital department now affordable" %}</h2>
+                    <div class="desc">
+                        <p>{% blocktrans %}
+                            Just like multinationals, get an external, yet powerful digital department that you can trust.
+                            IT experts dedicated to Cloud business are taking care of your digital assets daily.
+                        {% endblocktrans %}</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+    <section class="simulation">
+        <div class="container">
+            <h2 class="text-center" style="margin-bottom: 70px">{% trans "Estimate your potential revenue" %}</h2>
+            <div class="col-md-6 col-xs-12">
+                <label class="dara-count">{% trans "Number of Dara" %}</label>
+                <input type="number" value="5" class="form-control dara-count">
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <label class="average-revenue">{% trans "Average sales per day" %}</label>
+                <input type="number" value="5000" step="1000" class="form-control average-revenue">
+            </div>
+            <div class="clearfix"></div>
+            <div class="text-center expected" style="padding-top: 50px">
+                <label class="label-expected">{% trans "Expected additional monthly revenue" %}</label>
+                <label style="display: block"><span class="text-muted" style="display: inline">XAF </span><strong class="expected-revenue" style="font-size: 2em; font-weight: 600" >750 000 </strong></label>
             </div>
         </div>
     </section>
@@ -297,7 +375,7 @@
                         {% trans "And take over the markets." %}
                     </p>
                     <div class="cta" style="text-align: center">
-                        <a id="deploy" class="btn btn-sm" href="{% url 'daraja:deploy_cloud' %}" style="font-weight: 600">{% trans "Get enhanced" %}</a>
+                        <a id="deploy" class="btn btn-sm" href="{% url 'tsunami:bundles' %}" style="font-weight: 600">{% trans "Get enhanced" %}</a>
                     </div>
                 </div>
             </div>
@@ -320,6 +398,18 @@
                 } else {
                     $('#navbar').css("background-color", "transparent");
                 }
+            });
+            $('input.dara-count').on('change click', function() {
+                let daraCount = $(this).val();
+                let averageRevenue = $('input.average-revenue').val();
+                let expectedRevenue = daraCount * averageRevenue * 30;
+                $('strong.expected-revenue').text(expectedRevenue.formatMoney(0, '{{ settings.THOUSAND_SEPARATOR }}', '{{ settings.DECIMAL_SEPARATOR }}'))
+            });
+            $('input.average-revenue').on('change click', function() {
+                let averageRevenue = $(this).val();
+                let daraCount = $('input.dara-count').val();
+                let expectedRevenue = daraCount * averageRevenue * 30;
+                $('strong.expected-revenue').text(expectedRevenue.formatMoney(0, '{{ settings.THOUSAND_SEPARATOR }}', '{{ settings.DECIMAL_SEPARATOR }}'))
             });
         })()
     </script>
