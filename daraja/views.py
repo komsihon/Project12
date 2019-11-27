@@ -463,6 +463,9 @@ class InviteDara(TemplateView):
             member_local.save(using=UMBRELLA)
             dara_service.member = member_local
             dara_service.save()
+            dara = Dara.objects.using(UMBRELLA).get(member=member_local)
+            dara.member = member_local
+            dara.save()
             member_local = _get_member(username, email, phone, using=company_db)  # Reload local member to prevent DB routing error
             logout(request)
         else:

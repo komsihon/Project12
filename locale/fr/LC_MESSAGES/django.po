@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-27 19:42+0100\n"
-"PO-Revision-Date: 2019-11-27 19:45+0100\n"
+"POT-Creation-Date: 2019-11-27 21:14+0000\n"
+"PO-Revision-Date: 2019-11-27 22:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.0.6\n"
 
-#: conf/settings.py:155
-msgid "English"
-msgstr "Anglais"
+#: daraja/admin.py:8
+msgid "Your social media"
+msgstr "Vos réseaux sociaux"
 
-#: conf/settings.py:156
-msgid "French"
-msgstr "Français"
+#: daraja/admin.py:10
+msgid "Market yourself"
+msgstr "Vendez-vous"
 
-#: daraja/admin.py:13
+#: daraja/admin.py:18
 msgid "General"
 msgstr "Général"
 
-#: daraja/admin.py:14
+#: daraja/admin.py:19
 msgid "How to make money with you ?"
 msgstr "Comment gagner de l'argent avec vous ?"
 
@@ -38,7 +38,7 @@ msgstr "Comment gagner de l'argent avec vous ?"
 msgid "Welcome to the business network."
 msgstr "Bienvenu(e) dans le réseau business."
 
-#: daraja/models.py:21 daraja/templates/daraja/registered_company_list.html:100
+#: daraja/models.py:21 daraja/templates/daraja/registered_company_list.html:104
 msgid "Description and products"
 msgstr "Description et produits"
 
@@ -50,7 +50,7 @@ msgstr ""
 "Décrivez votre activité aux Daras. Dites leurs quels sont les produits les "
 "plus faciles à vendre et aussi les plus rentables."
 
-#: daraja/models.py:24 daraja/templates/daraja/registered_company_list.html:108
+#: daraja/models.py:24 daraja/templates/daraja/registered_company_list.html:112
 msgid "Strategy"
 msgstr "Stratégie"
 
@@ -90,6 +90,10 @@ msgstr ""
 msgid "Estimated daily sales of a dara"
 msgstr "Estimez les ventes journalières d'un dara"
 
+#: daraja/models.py:87
+msgid "Say something about you"
+msgstr "Dites le meilleur de vous"
+
 #: daraja/views.py:297
 msgid "Your profile was successfully updated."
 msgstr "Votre profil a été mis à jour avec succès."
@@ -99,7 +103,7 @@ msgid "Subscriptions"
 msgstr "Inscriptions"
 
 #: daraja/templates/daraja/change_profile.html:51
-#: daraja/templates/daraja/configuration.html:85
+#: daraja/templates/daraja/configuration.html:81
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -131,8 +135,8 @@ msgstr "Message"
 #: daraja/templates/daraja/company_list.html:62
 #: daraja/templates/daraja/dara_list.html:98
 #: daraja/templates/daraja/invite_dara.html:138
-#: daraja/templates/daraja/registered_company_list.html:152
-#: daraja/templates/daraja/registered_company_list.html:175
+#: daraja/templates/daraja/registered_company_list.html:156
+#: daraja/templates/daraja/registered_company_list.html:179
 #: templates/cashout/payments.html:211 templates/cashout/payments.html:249
 msgid "Cancel"
 msgstr "Annuler"
@@ -146,7 +150,7 @@ msgstr ""
 "en ligne. Moi et beaucoup d'autres vont t'aider à vendre tes produits."
 
 #: daraja/templates/daraja/configuration.html:13
-#: daraja/templates/daraja/configuration.html:73
+#: daraja/templates/daraja/configuration.html:69
 msgid "Daraja Configuration"
 msgstr "Configuration de Daraja"
 
@@ -396,27 +400,28 @@ msgstr ""
 "                            "
 
 #: daraja/templates/daraja/home.html:200
-#: daraja/templates/daraja/not_yet_dara.html:40
+#: daraja/templates/daraja/not_yet_dara.html:40 templates/com/base.html:202
 msgid "Get started"
 msgstr "Lancez-vous"
 
-#: daraja/templates/daraja/home.html:202
+#: daraja/templates/daraja/home.html:202 templates/com/base.html:143
+#: templates/com/base.html.py:204
 msgid "Home"
 msgstr "Accueil"
 
-#: daraja/templates/daraja/home.html:203
+#: daraja/templates/daraja/home.html:203 templates/com/base.html:205
 msgid "Sign In"
 msgstr "Connexion"
 
-#: daraja/templates/daraja/home.html:208
+#: daraja/templates/daraja/home.html:208 templates/com/base.html:210
 msgid "About us"
 msgstr "À propos"
 
-#: daraja/templates/daraja/home.html:210
+#: daraja/templates/daraja/home.html:210 templates/com/base.html:212
 msgid "Our Company"
 msgstr "Notre entreprise"
 
-#: daraja/templates/daraja/home.html:220
+#: daraja/templates/daraja/home.html:220 templates/com/base.html:221
 msgid "Help desk"
 msgstr "Aide"
 
@@ -675,44 +680,44 @@ msgid "Daily sales"
 msgstr "Ventes journalières (XAF)"
 
 #: daraja/templates/daraja/registered_company_list.html:87
-#: daraja/templates/daraja/registered_company_list.html:91
+#: daraja/templates/daraja/registered_company_list.html:93
 msgid "Monthly income"
 msgstr "Revenus mensuels"
 
-#: daraja/templates/daraja/registered_company_list.html:98
+#: daraja/templates/daraja/registered_company_list.html:102
 msgid "How to make money with us ?"
 msgstr "Comment gagner de l'argent avec nous ?"
 
-#: daraja/templates/daraja/registered_company_list.html:105
-#: daraja/templates/daraja/registered_company_list.html:113
+#: daraja/templates/daraja/registered_company_list.html:109
+#: daraja/templates/daraja/registered_company_list.html:117
 msgid "Not yet set"
 msgstr "Non renseigné"
 
-#: daraja/templates/daraja/registered_company_list.html:121
+#: daraja/templates/daraja/registered_company_list.html:125
 msgid "Request"
 msgstr "Demandez"
 
-#: daraja/templates/daraja/registered_company_list.html:124
+#: daraja/templates/daraja/registered_company_list.html:128
 msgid "Simulate earnings"
 msgstr "Simulez les gains"
 
-#: daraja/templates/daraja/registered_company_list.html:135
+#: daraja/templates/daraja/registered_company_list.html:139
 msgid "Sorry! No result found."
 msgstr "Désolé! Aucun résultat trouvé."
 
-#: daraja/templates/daraja/registered_company_list.html:145
+#: daraja/templates/daraja/registered_company_list.html:149
 msgid "Aww!! It looks like you're not yet login. Please do it before continue..."
 msgstr "SVP!! Connectez-vous pour continuer..."
 
-#: daraja/templates/daraja/registered_company_list.html:149
+#: daraja/templates/daraja/registered_company_list.html:153
 msgid "Log in"
 msgstr "Connexion"
 
-#: daraja/templates/daraja/registered_company_list.html:168
+#: daraja/templates/daraja/registered_company_list.html:172
 msgid "Please you need to be a Dara before perform this action."
 msgstr "SVP! Vous devez être Dara pour poursuivre cette action."
 
-#: daraja/templates/daraja/registered_company_list.html:172
+#: daraja/templates/daraja/registered_company_list.html:176
 #: daraja/templates/daraja/cloud_setup/deploy.html:5
 msgid "Become a Dara"
 msgstr "Devenez un Dara"
@@ -837,7 +842,8 @@ msgid "Your password was successfully reset, login now."
 msgstr ""
 "Votre mot de passe a été réinitialisé avec succès, connectez-vous maintenant."
 
-#: templates/accesscontrol/sign_in.html:68
+#: templates/accesscontrol/sign_in.html:68 templates/com/base.html:100
+#: templates/com/base.html.py:178
 msgid "Login"
 msgstr "Connexion"
 
@@ -954,6 +960,22 @@ msgstr "Nouvelle adresse de paiement"
 msgid "Update address"
 msgstr "Changer l'adresse"
 
+#: templates/com/base.html:93 templates/com/base.html.py:171
+msgid "Account setup"
+msgstr "Infos compte"
+
+#: templates/com/base.html:95 templates/com/base.html.py:173
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: templates/com/base.html:112
+msgid "Search"
+msgstr "Recherche"
+
+#: templates/com/base.html:214
+msgid "Reviews"
+msgstr "Avis"
+
 #: templates/core/app_base_admin.html:11 templates/core/dashboard_base.html:5
 #: templates/core/dashboard_base.html:14
 msgid "Dashboard"
@@ -999,17 +1021,11 @@ msgstr "Dernier paiement"
 msgid "View payments"
 msgstr "Voirles paiements"
 
-#~ msgid "Account setup"
-#~ msgstr "Infos compte"
+#~ msgid "English"
+#~ msgstr "Anglais"
 
-#~ msgid "Logout"
-#~ msgstr "Déconnexion"
-
-#~ msgid "Search"
-#~ msgstr "Recherche"
-
-#~ msgid "Reviews"
-#~ msgstr "Avis"
+#~ msgid "French"
+#~ msgstr "Français"
 
 #~ msgid ""
 #~ "\n"

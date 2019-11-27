@@ -51,20 +51,16 @@
                 height: 300
             };
             let productsProperties = properties,
-                strategyProperties = JSON.parse(JSON.stringify(properties)),
-                simulationProperties = JSON.parse(JSON.stringify(properties));
+                strategyProperties = JSON.parse(JSON.stringify(properties));
 
             productsProperties['selector'] = '#id_products';
             strategyProperties['selector'] = '#id_strategy';
-            simulationProperties['selector'] = '#id_simulation';
             if ($(window).width() >= 768) {
                 productsProperties['width'] = 740;
                 strategyProperties['width'] = 740;
-                simulationProperties['width'] = 740;
             }
             tinymce.init(productsProperties);
             tinymce.init(strategyProperties);
-            tinymce.init(simulationProperties);
         })()
     </script>
 {% endblock %}

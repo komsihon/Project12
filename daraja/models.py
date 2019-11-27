@@ -79,7 +79,12 @@ class DaraRequest(Model):
 class Dara(AbstractWatchModel):
     member = models.ForeignKey(Member, unique=True)
     uname = models.CharField(max_length=100, unique=True)
-    description = models.TextField(blank=True)
+    facebook_link = models.URLField(blank=True, null=True)
+    instagram_link = models.URLField(blank=True, null=True)
+    youtube_link = models.URLField(blank=True, null=True)
+    twitter_link = models.URLField(blank=True, null=True)
+    linkedin_link = models.URLField(blank=True, null=True)
+    description = models.TextField(_("Say something about you"), blank=True)
     share_rate = models.FloatField(default=0)
 
     orders_count_history = ListField(editable=False)
