@@ -1,7 +1,7 @@
 /**
     Document   : daraja
     Created on : Oct 08, 2019, 11:14
-    Contributors     : Kom Sihon
+    Contributors     : Kom Sihon, Silatchom SIAKA
     Description:
         Daraja extra styles
 */
@@ -9,19 +9,25 @@
 #app-nav {display: none;overflow: hidden;height: 0;}
 #content {min-height: 90vh}
 .search-company {margin: 5vh 0 2vh;}
-.company-list .ik-li {padding: 2px; height: 200px; margin-bottom: 5px; overflow: hidden}
+.company-list .ik-li {padding: 2px; height: 230px; margin-bottom: 5px; overflow: hidden}
 /*.company-list .ik-li .actions {margin-top: 75px}*/
 .company-list .ik-li .btn.show-modal-request {margin-top: 75px; width: 150px}
 .company-list .ik-li:hover {background: #fff;}
 .company-list .ik-li .image:hover, .company-list .ik-li .info {cursor: pointer;}
+.company-list .ik-li .business {margin-top: 20px;}
 .company-list .ik-li.disclosed {height: auto!important;cursor: pointer;}
 .company-list .ik-li.disclosed .image, .company-list .ik-li.disclosed .info {height: auto!important;}
 .company-list .ik-li.disclosed .company-description {line-height: 20px; padding-bottom: 30px; height: auto;}
-.company-list .ik-li .about {margin-top: 60px; text-align: justify;}
+.company-list .ik-li .about {margin-top: 90px; text-align: justify;}
 .company-list .ik-li.disclosed .about {margin-top: 20px;}
 .company-list .ik-li .about h3,h4 {color: #464646; font-weight: 600;}
 .company-list .ik-li .about h4:not(:first-of-type) {margin-top: 30px}
 .info:active {height: inherit!important;}
+.info-header {margin-bottom: 10px;}
+.info-header .full_name {display: inline; margin: 0;}
+.info-header .share-rate {padding-left: 10px; padding-right: 10px;}
+#monthlyIncome1, #monthlyIncome2 {font-size: 30px;}
+.estimate-earnings >* {padding: 0;}
 .company-list .ik-li .image {height: 100%;background-size: cover;width: 120px;}
 .company-list .ik-li .info {padding: 10px 0;}
 .company-list .ik-li h3 {font-weight: 700; margin: 0 0 20px}
@@ -62,8 +68,8 @@
 .badge-5 {background-color: #ee9939;}
 .badge-10 {background-color: #3759fa;}
 .badge-20 {background-color: #11aa08;}
-.share-rate {padding: 0px; border-bottom: none!important; margin-bottom: 5px;}
-.share-rate > span {font-size: 20px; font-weight: 400; line-height: 30px; border-radius: 0}
+/*.share-rate {padding: 0px; border-bottom: none!important; margin-bottom: 5px;}*/
+.share-rate {font-size: 20px; font-weight: 400; line-height: 30px; border-radius: 0}
 .avg-purchase > span {font-size: 17px; color: #4d4d4d;}
 .simulate-earning-container {position: absolute; top: 75%; right: 3%;}
 .company-list .info > ul {margin-top: -15px;}
@@ -73,9 +79,12 @@
 #not-yet-dara-msg, #anonymous-user-msg {height: 120px; color: #fff; font-size: 16px;}
 .actions .apply.request {width: 200px;}
 
+@media (width: 768px) {
+    .company-list .ik-li {height: 350px;}
+}
 @media (max-width: 767px) {
     .company-list {margin: 0 -12px}
-    .company-list .ik-li {height: 150px;}
+    .company-list .ik-li {height: 350px;}
     .company-list .ik-li h3 {font-size: 18px;margin-bottom: 10px;}
     .company-list .ik-li .info {padding: 3px 0 10px;max-width: 180px;}
     .company-list .ik-li ul li {height: 30px;padding-top: 4px;}
@@ -89,8 +98,8 @@
     .invitation {line-height: 1.7}
     .company-list .image i {font-size: 16vw;}
     .company-list .info > ul {margin-top: -6px;}
-    .share-rate > span {font-size: 15px; line-height: 20px;}
-    .share-rate { margin-bottom: 0px;}
+    .share-rate {font-size: 15px; line-height: 20px;}
+    /*.share-rate { margin-bottom: 0px;}*/
     .avg-purchase > span {font-size: 14px;}
     .company-image img {width: 65px}
     .actions .apply.request {width: auto;}
