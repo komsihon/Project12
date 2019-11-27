@@ -9,7 +9,7 @@
 
 {% block head_style %}
     {{ block.super }}
-    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}?v=19.11.27" />
+    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}?v=19.11.27.20.21" />
     <style>
         body {background: #f8f6f6}
         @media (max-width: 767px) {
@@ -55,45 +55,45 @@
                                         {% endif %}
                                         <div class="info">
                                             <div class="info-header">
-                                                <span>
-                                                    <h3 class="full_name">{{ config.company_name }}<span class="col-xs-offset-1 share-rate badge badge-{{ obj.share_rate_bound }}">
+                                                <span class="hidden-xs hidden-sm">
+                                                    <h3 class="full_name">{{ config.company_name }}&nbsp;&nbsp;<span class="share-rate badge badge-{{ obj.share_rate_bound }}">
                                                     {% blocktrans with share_rate=obj.referrer_share_rate|floatformat %}
                                                         {{ share_rate }}<sup>%</sup> share
                                                     {% endblocktrans %}</span>
                                                     </h3>
                                                 </span>
+                                                <div class="visible-xs visible-sm">
+                                                    <h3 class="full_name clearfix">{{ config.company_name }}</h3>
+                                                    <div class="share-rate badge badge-{{ obj.share_rate_bound }}">
+                                                        {% blocktrans with share_rate=obj.referrer_share_rate|floatformat %}
+                                                            {{ share_rate }}<sup>%</sup> share
+                                                        {% endblocktrans %}
+                                                    </div>
+                                                </div>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="text-muted">
-                                                <div class="avg-purchase">{% trans "Avg purchase: " %}<span>XAF {{ obj.avg_purchase|intcomma }}</span>
+                                                <div class="avg-purchase">
+                                                    {% trans "Avg purchase: " %}<span>XAF {{ obj.avg_purchase|intcomma }}</span>
                                                 </div>
-{#                                                <div class="company-basic-info hidden-xs ">#}
-{#                                                    {% if config.contact_email %}{{ config.contact_email }}{% endif %}{% if config.contact_phone %}, {{ config.contact_phone|truncatechars:"20" }}{% endif %}{% if obj.location %}, {{ obj.location }}{% endif %}#}
-{#                                                </div>#}
-{#                                                <div class="company-basic-info visible-xs">#}
-{#                                                    {% if obj.location %}{{ obj.location }}{% else %}{{ config.contact_email }}{% endif %}#}
-{#                                                </div>#}
                                                 <div class="business">
-                                                    <h5 class="estimate-earnings-title">{% trans "Estimate your earnings" %}</h5>
+                                                    <h4 class="estimate-earnings-title">{% trans "Estimate your earnings" %}</h4>
                                                     <div class="form-group estimate-earnings">
                                                         <div class="col-md-5 col-xs-12">
-                                                            <label for="dailySales" class="col-form-label">{% trans "Daily sales (XAF)" %}</label>
-                                                            {% with share_rate=obj.referrer_share_rate|floatformat %}
-                                                                <input type="number" id="dailySales" step="500" value="10000" class="form-control"
-                                                                       onchange="$(this).parents('.estimate-earnings')
-                                                                               .find('#monthlyIncome1, #monthlyIncome2')
-                                                                               .text(new Intl.NumberFormat(
-                                                                                   'cm-CM', {style: 'currency',
-                                                                               currency: 'XAF'}).format($(this).val() * {{ share_rate }} * 30))">
-                                                            {% endwith %}
+                                                            <label class="col-form-label">{% trans "Daily sales" %}</label>
+                                                            <input type="number" step="1000" value="{{ obj.daily_sales }}" data-share-rate="{{ obj.referrer_share_rate }}" class="daily-sales form-control">
                                                         </div>
-                                                        <div class="col-md-5 col-md-offset-2 col-xs-12 pull-right hidden-xs">
-                                                            <label for="monthlyIncome1">{% trans "Monthly income" %}</label>
-                                                            <div id="monthlyIncome1" class="form-row bold"></div>
+                                                        <div class="col-md-5 col-md-offset-2 pull-right hidden-sm hidden-xs">
+                                                            <label >{% trans "Monthly income" %}</label>
+                                                            <div>
+                                                                XAF&nbsp;<span class="monthly-income form-row"></span>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-5 col-md-offset-2 col-xs-12 visible-xs">
-                                                            <label for="monthlyIncome2">{% trans "Monthly income" %}</label>
-                                                            <div id="monthlyIncome2" class="form-row"></div>
+                                                        <div class="col-xs-12 visible-sm visible-xs">
+                                                            <label>{% trans "Monthly income" %}</label>
+                                                            <div>
+                                                                XAF&nbsp;<span class="monthly-income form-row"></span>
+                                                            </div>
                                                         </div>
                                                         <div class="clearfix"></div>
                                                     </div>
@@ -104,25 +104,17 @@
                                                         <h4>{% trans 'Description and products' %}</h4>
                                                         <div>
                                                             {% if obj.products %}
-                                                                {{ obj.products }}
+                                                                {{ obj.products|safe }}
                                                             {% else %}
-                                                                <em>&lt;Not yet set&gt;</em>
+                                                                <em>&lt;{% trans 'Not yet set' %}&gt;</em>
                                                             {% endif %}
                                                         </div>
                                                         <h4>{% trans 'Strategy' %}</h4>
                                                         <div>
                                                             {% if obj.strategy %}
-                                                                {{ obj.strategy }}
+                                                                {{ obj.strategy|safe }}
                                                             {% else %}
-                                                                <em>&lt;Not yet set&gt;</em>
-                                                            {% endif %}
-                                                        </div>
-                                                        <h4>{% trans 'Simulation' %}</h4>
-                                                        <div>
-                                                            {% if obj.simulation %}
-                                                                {{ obj.simulation }}
-                                                            {% else %}
-                                                                <em>&lt;Not yet set&gt;</em>
+                                                                <em>&lt;{% trans 'Not yet set' %}&gt;</em>
                                                             {% endif %}
                                                         </div>
                                                     </div>
@@ -220,17 +212,21 @@
                     _$btn.fadeOut();
                 })
             });
-            $('.company-list .image, .company-list .info *:not(.estimate-earnings)').click((e) => {
+            $('input.daily-sales').on('change, click', function() {
+                let dailySales = $(this).val(),
+                    shareRate = parseFloat($(this).data('share-rate')),
+                    monthlyEarnings = (dailySales * shareRate * 30) / 100;
+                console.log(shareRate, dailySales, monthlyEarnings);
+                $(this).parents('.ik-li').find('.monthly-income').text(monthlyEarnings.formatMoney(0, "{{ settings.THOUSAND_SEPARATOR }}"));
+            }).each(function() {
+                let dailySales = $(this).val(),
+                    shareRate = parseFloat($(this).data('share-rate')),
+                    monthlyEarnings = (dailySales * shareRate * 30) / 100;
+                $(this).parents('.ik-li').find('.monthly-income').text(monthlyEarnings.formatMoney(0, "{{ settings.THOUSAND_SEPARATOR }}"));
+            });
+            $('.company-list .image, .company-list .info-header').click((e) => {
                 $(e.target).parents('.ik-li').toggleClass('disclosed');
             });
-            {% for obj in object_list %}
-                {% with company=obj.service %}
-                    val = $("#{{ company.id }}").find('#dailySales').attr('value');
-                    $("#{{ company.id }} #monthlyIncome1 , #{{ company.id }} #monthlyIncome2").text(new Intl.NumberFormat(
-                                                                                   'cm-CM', {style: 'currency',
-                                                                               currency: 'XAF'}).format(val * {{ obj.referrer_share_rate|floatformat }}));
-                {% endwith %}
-            {% endfor %}
 
         })()
     </script>

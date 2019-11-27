@@ -36,6 +36,7 @@ class DarajaConfig(Model):
     avg_purchase = models.IntegerField(default=0,
                                        help_text=_("Average amount a customer generally buys from you. This helps the "
                                                    "Dara do a simulation of what he might earn."))
+    daily_sales = models.IntegerField(default=10000, help_text=_('Estimated daily sales of a dara'))
 
     def save(self, **kwargs):
         super(DarajaConfig, self).save(**kwargs)
