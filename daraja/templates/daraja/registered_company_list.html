@@ -79,7 +79,7 @@
                                                         <div class="col-md-5 col-xs-12">
                                                             <label for="dailySales" class="col-form-label">{% trans "Daily sales (XAF)" %}</label>
                                                             {% with share_rate=obj.referrer_share_rate %}
-                                                                <input type="number" id="dailySales" step="500" value="10000" class="form-control" onchange="$('#monthlyIncome1, #monthlyIncome2').text(($(this).val() * {{ share_rate }}) + ' XAF')">
+                                                                <input type="number" id="dailySales" step="500" value="10000" class="form-control" onchange="$(this).parents('.estimate-earnings').find('#monthlyIncome1, #monthlyIncome2').text(($(this).val() * {{ share_rate }} * 30) + ' XAF')">
                                                             {% endwith %}
                                                         </div>
                                                         <div class="col-md-5 col-md-offset-2 col-xs-12 pull-right hidden-xs">
@@ -197,6 +197,7 @@
     {{ block.super }}
     <script>
         (function() {
+            let val;
             $('.btn.apply:not(.processing)').click(function() {
                 let _$btn = $(this),
                     companyId = _$btn.data('id');
@@ -218,8 +219,8 @@
                 $(e.target).parents('.ik-li').toggleClass('disclosed');
             });
             {% for obj in object_list %}
-                {% with company=obj.service config=obj.service.config %}
-                    let val = $("#{{ company.id }}").find('#dailySales').attr('value');
+                {% with company=obj.service %}
+                    val = $("#{{ company.id }}").find('#dailySales').attr('value');
                     $("#{{ company.id }} #monthlyIncome1 , #{{ company.id }} #monthlyIncome2").text((val * {{ obj.referrer_share_rate }}) + ' XAF');
                 {% endwith %}
             {% endfor %}
