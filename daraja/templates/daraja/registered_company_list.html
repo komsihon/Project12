@@ -9,7 +9,7 @@
 
 {% block head_style %}
     {{ block.super }}
-    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}?v=19.11.27.23.23" />
+    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}?v=19.11.28.10.10" />
     <style>
         body {background: #f8f6f6}
         @media (max-width: 767px) {
@@ -215,18 +215,27 @@
                     _$btn.fadeOut();
                 })
             });
-            $('input.daily-sales').on('change, click', function() {
-                let dailySales = $(this).val(),
-                    shareRate = parseFloat($(this).data('share-rate')),
-                    monthlyEarnings = (dailySales * shareRate * 30) / 100;
-                console.log(shareRate, dailySales, monthlyEarnings);
-                $(this).parents('.ik-li').find('.monthly-income').text(monthlyEarnings.formatMoney(0, "{{ settings.THOUSAND_SEPARATOR }}"));
+            $('input.daily-sales').on({
+                click: function(){
+                   compute_money_income($(this));
+                },
+                change: function () {
+                    compute_money_income($(this));
+                },
+                focus: function () {
+                    compute_money_income($(this));
+                }
             }).each(function() {
-                let dailySales = $(this).val(),
-                    shareRate = parseFloat($(this).data('share-rate')),
-                    monthlyEarnings = (dailySales * shareRate * 30) / 100;
-                $(this).parents('.ik-li').find('.monthly-income').text(monthlyEarnings.formatMoney(0, "{{ settings.THOUSAND_SEPARATOR }}"));
+                compute_money_income($(this));
             });
+
+            function compute_money_income($selector) {
+                let dailySales = $selector.val(),
+                    shareRate = parseFloat($selector.data('share-rate')),
+                    monthlyEarnings = (dailySales * shareRate * 30) / 100;
+                $selector.parents('.ik-li').find('.monthly-income').text(monthlyEarnings.formatMoney(0, "{{ settings.THOUSAND_SEPARATOR }}"));
+            }
+
             $('.company-list .image, .company-list .info-header').click((e) => {
                 $(e.target).parents('.ik-li').toggleClass('disclosed');
             });
