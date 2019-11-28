@@ -57,6 +57,7 @@
         section.site.banner a.btn {background: #fff; border: #233682; color: #233682}
         section.site.banner {margin-top: 0}
         .section.address .cta a {font-size: 18px}
+        .features .img { background: no-repeat center; background-origin: content-box; background-size: cover; }
 
         @media only screen and (max-device-width : 767px) and (orientation: portrait) {
             section.header {height: 410px; margin-top: 0;}
@@ -114,8 +115,6 @@
         }
 
         @media only screen and (min-width : 768px) and (orientation: landscape) {
-            {#section.site .cover {height: 650px}#}
-            {#section.site.main-feat.banner {height: 650px}#}
             section.site.banner h1 {margin-top: 40px}
             section.site .cover .btn {margin-top: 25px}
             section.address {height: 60vh}
@@ -137,7 +136,11 @@
             section.site h2 {font-size: 24px; font-weight: 600; line-height: 40px; text-align: left;}
             section.simulation h2 {font-size: 24px; font-weight: 600; line-height: 40px; text-align: center;}
             section.site p {margin-top: 25px; text-align: justify; font-size: 18px; font-weight: 400; line-height: 30px;}
-            .for-schools {background-position-x: 50px}
+
+            .img.increase-revenue {background-image: url('{% static "daraja/img/ikwen-daraja-increase-revenue.png" %}')}
+            .img.smart-database {background-image: url('{% static "daraja/img/ikwen-daraja-smart-database.png" %}');}
+            .img.improve-brand {background-image: url('{% static "daraja/img/ikwen-daraja-improve-brand.png" %}')}
+            .img.affordable-digital {background-image: url('{% static "daraja/img/ikwen-daraja-afordable-digital.png" %}')}
         }
 
         @media only screen and (max-width : 991px) {
@@ -150,15 +153,13 @@
             section.header h3 {color: #000; font-size: 33px;font-weight: 400;  line-height: 94px;}
             section.header {height: 900px}
             .features p {line-height: 40px}
-            section.site img {width: 55%}
-            section.site img.history {width: 60%}
+            section.site .smart-database, section.site .increase-revenue {width: 40%}
+            section.site .improve-brand, section.site .affordable-digital {width: 35%}
             section.site.banner {text-align: left; padding-top: 0; height: 900px}
             section.site.banner p {margin-top: 25px; text-align: center;font-size: 21px;line-height: 40px;}
             section.site.banner h1 {font-size: 51px; font-weight: 700;line-height: 65px; margin-top: 110px}
             section.site.banner .video {margin-top: 58px}
-            {#.cta {text-align: left; }#}
             .feat h2 {padding-bottom: 30px; font-size: 32px; font-weight: 600; text-align: left}
-            .trail {margin-top: 100px;}
             footer, section.address .cover {height: 540px}
             section.address {height: 490px}
             section.address .cover h2 {padding-top: 50vh}
@@ -180,6 +181,25 @@
             label.label-expected { margin: 10px 0 20px;}
             label.average-revenue {float: right}
             input.average-revenue {text-align: right}
+        }
+
+        {#Annimation set#}
+
+        .animated { -webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both; animation-fill-mode: both; }
+
+
+        .puffOut { -webkit-animation-name: puffOut; animation-name: puffOut; }
+
+        @-webkit-keyframes puffOut {
+            0% { opacity: 1; -webkit-transform-origin: 50% 50%; transform-origin: 50% 50%; -webkit-transform: scale(1,1); transform: scale(1,1); -webkit-filter: blur(0px); filter: blur(0px); }
+
+            100% { opacity: 0; -webkit-transform-origin: 50% 50%; transform-origin: 50% 50%; -webkit-transform: scale(3,3); transform: scale(3,3); -webkit-filter: blur(3px); filter: blur(3px); }
+        }
+
+        @keyframes puffOut {
+            0% { opacity: 1; -webkit-transform-origin: 50% 50%; transform-origin: 50% 50%; -webkit-transform: scale(1,1); transform: scale(1,1); -webkit-filter: blur(0px); filter: blur(0px); }
+
+            100% { opacity: 0; -webkit-transform-origin: 50% 50%; transform-origin: 50% 50%; -webkit-transform: scale(3,3); transform: scale(3,3); -webkit-filter: blur(3px); filter: blur(3px); }
         }
     </style>
 {% endblock %}
@@ -220,7 +240,7 @@
                     </div>
                 </div>
                 <div class="cta" style="font-weight: 600; width: 100%">
-                    <a id="deploy" class="btn btn-sm " href="{% url 'daraja:deploy_cloud' %}" style="font-weight: 600">{% trans "Hire them" %}</a>
+                    <a id="deploy" class="btn btn-sm " href="{% url 'tsunami:bundles' %}" style="font-weight: 600">{% trans "Hire them" %}</a>
                 </div>
             </div>
         </div>
@@ -229,7 +249,7 @@
         <div class="container">
             <div class="row features">
                 <div class="col-sm-6 visible-xs">
-                    <img class="img-responsive" src="{% static 'daraja/img/ikwen-Daraja-budy-coating.png' %}">
+                    <img class="img-responsive" src="{% static 'daraja/img/ikwen-daraja-increase-revenue.png' %}">
                 </div>
                 <div class="col-sm-6 description">
                     <h2>{% trans "Lower total payroll and marketing costs while increasing revenue" %}</h2>
@@ -240,7 +260,7 @@
                         {% endblocktrans %}</p>
                     </div>
                 </div>
-                <div class="col-sm-6 img budy-coating hidden-xs">
+                <div class="col-sm-6 img increase-revenue hidden-xs">
                     {# Force DIV height by putting the same text and set visibility to hidden #}
                     <h2 class="hidden-xs" style="visibility: hidden">{% trans "Lower total payroll and marketing costs while increasing revenue" %}</h2>
                     <div class="desc hidden-xs" style="visibility: hidden">
@@ -257,8 +277,8 @@
     <section class="features site">
         <div class="container">
             <div class="row features">
-                <div class="col-sm-6 img stock-monitoring">
-                    <img class="img-responsive visible-xs" src="{% static 'daraja/img/ikwen-Daraja-stock-monitoring.png' %}">
+                <div class="col-sm-6 img smart-database">
+                    <img class="img-responsive visible-xs" src="{% static 'daraja/img/ikwen-daraja-smart-database.png' %}">
                     {# Force DIV height by putting the same text and set visibility to hidden #}
                     <h2 class="hidden-xs" style="visibility: hidden">{% trans "Build a smart customer database" %}</h2>
                     <div class="desc hidden-xs" style="visibility: hidden">
@@ -285,7 +305,7 @@
         <div class="container">
             <div class="row features">
                 <div class="col-sm-6 visible-xs">
-                    <img class="img-responsive" src="{% static 'daraja/img/ikwen-Daraja-enterprise-recruitment.png' %}">
+                    <img class="img-responsive" src="{% static 'daraja/img/ikwen-daraja-improve-brand.png' %}">
                 </div>
                 <div class="col-sm-6 description">
                     <h2>{% trans "Improve your brand image" %}</h2>
@@ -299,7 +319,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-sm-6 img enterprise-recruitment hidden-xs">
+                <div class="col-sm-6 img improve-brand hidden-xs">
                     {# Force DIV height by putting the same text and set visibility to hidden #}
                     <h2 class="hidden-xs" style="visibility: hidden">{% trans "Improve your brand image" %}</h2>
                     <div class="desc hidden-xs" style="visibility: hidden">
@@ -318,8 +338,8 @@
     <section class="features site">
         <div class="container">
             <div class="row features">
-                <div class="col-sm-6 img stock-monitoring">
-                    <img class="img-responsive visible-xs" src="{% static 'daraja/img/ikwen-Daraja-stock-monitoring.png' %}">
+                <div class="col-sm-6 img affordable-digital">
+                    <img class="img-responsive visible-xs" src="{% static 'daraja/img/ikwen-daraja-afordable-digital.png' %}">
                     {# Force DIV height by putting the same text and set visibility to hidden #}
                     <h2 class="hidden-xs" style="visibility: hidden">{% trans "Your digital department now affordable" %}</h2>
                     <div class="desc hidden-xs" style="visibility: hidden">
@@ -357,7 +377,7 @@
             <div class="clearfix"></div>
             <div class="text-center expected" style="padding-top: 50px">
                 <label class="label-expected">{% trans "Expected additional monthly revenue" %}</label>
-                <label style="display: block"><span class="text-muted" style="display: inline">XAF </span><strong class="expected-revenue" style="font-size: 2em; font-weight: 600" >750 000 </strong></label>
+                <label style="display: block" class=""><span class="text-muted" style="display: inline">XAF </span><strong class="expected-revenue animated" style="font-size: 2em; font-weight: 600" >750 000 </strong></label>
             </div>
         </div>
     </section>
@@ -399,17 +419,22 @@
                     $('#navbar').css("background-color", "transparent");
                 }
             });
-            $('input.dara-count').on('change click', function() {
+            $('input.dara-count').on('change', function() {
                 let daraCount = $(this).val();
                 let averageRevenue = $('input.average-revenue').val();
                 let expectedRevenue = daraCount * averageRevenue * 30;
-                $('strong.expected-revenue').text(expectedRevenue.formatMoney(0, '{{ settings.THOUSAND_SEPARATOR }}', '{{ settings.DECIMAL_SEPARATOR }}'))
+                $('strong.animated').addClass('puffOut');
+                setTimeout(() => { $('strong.animated').removeClass('puffOut')}, 500);
+                setTimeout(() => { $('strong.expected-revenue').text(expectedRevenue.formatMoney(0, '{{ settings.THOUSAND_SEPARATOR }}', '{{ settings.DECIMAL_SEPARATOR }}'))}, 400);
+
             });
-            $('input.average-revenue').on('change click', function() {
+            $('input.average-revenue').on('change', function() {
                 let averageRevenue = $(this).val();
                 let daraCount = $('input.dara-count').val();
                 let expectedRevenue = daraCount * averageRevenue * 30;
-                $('strong.expected-revenue').text(expectedRevenue.formatMoney(0, '{{ settings.THOUSAND_SEPARATOR }}', '{{ settings.DECIMAL_SEPARATOR }}'))
+                $('strong.animated').addClass('puffOut');
+                setTimeout(() => { $('strong.animated').removeClass('puffOut')}, 500);
+                setTimeout(() => { $('strong.expected-revenue').text(expectedRevenue.formatMoney(0, '{{ settings.THOUSAND_SEPARATOR }}', '{{ settings.DECIMAL_SEPARATOR }}'))}, 400);
             });
         })()
     </script>

@@ -59,20 +59,6 @@ section.site img {width: 60%;}
     section.address .cover h2 {color: #fff; font-weight: 600}
     section.features.site { padding-top: 1vh !important; }
     .features { padding: 0 0 10vh }
-    /*#bottom-menu {margin-top: 70px; position: relative}*/
-    /*#bottom-menu li a {color: #fff; font-size: 22px}*/
-    /*.features {padding: 25px 0; margin-top: 0}*/
-    /*.feat {margin-top: 100px}*/
-    /*.feat:first-child {margin-top: 0}*/
-    /*section.main-feat {background-position: center}*/
-    /*section.main-feat h1 {margin-top: -4vh;}*/
-    /*.contact-img {margin-top: 35px}*/
-    /*section.site .cover h1 {padding: 0}*/
-    /*a.btn {margin-top: 15px;}*/
-    /*section.site.banner a.btn {width: 100%}*/
-    /*footer div {padding: 0}*/
-    /*.section.address .cta a {font-size: 20px}*/
-    /*section.install-pwa {background-position: right}*/
 }
 
 @media only screen and (max-width : 767px) and (orientation: landscape) {
