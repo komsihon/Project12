@@ -231,16 +231,14 @@
             <div class="container text-center">
                 <div class="row desc" >
                     <div class="col-xs-12">
-                        <h1>{% trans "Increase your turnover with" %}<br>{%trans " an army of salespeople." %} </h1>
+                        <h1>{% blocktrans %}Increase your turnover with<br> an army of salespeople.{% endblocktrans %}</h1>
                         <p>
-                            {% blocktrans %}
-                                Hundreds of marketing agents ready to work online for you.
-                            {% endblocktrans %}
+                            {% trans "Hundreds of marketing agents ready to work online for you." %}
                         </p>
                     </div>
                 </div>
                 <div class="cta" style="font-weight: 600; width: 100%">
-                    <a id="deploy" class="btn btn-sm " href="{% url 'tsunami:bundles' %}" style="font-weight: 600">{% trans "Hire them" %}</a>
+                    <a id="deploy" class="btn btn-sm " href="{% url 'tsunami:bundles' %}" style="font-weight: 600">{% trans "Hire them now" %}</a>
                 </div>
             </div>
         </div>
@@ -256,7 +254,7 @@
                     <div class="desc">
                         <p>{% blocktrans %}
                             No salary for the sales person, he gets paid only by a percentage that YOU decide. No flyer, no radio or TV ad, no social media sponsoring.
-                            Your sales people share their products to their contacts and make them new customers.
+                            Your sales people share their products to their contacts and turn them into new customers.
                         {% endblocktrans %}</p>
                     </div>
                 </div>
@@ -266,7 +264,7 @@
                     <div class="desc hidden-xs" style="visibility: hidden">
                         <p>{% blocktrans %}
                             No salary for the sales person, he gets paid only by a percentage that YOU decide. No flyer, no radio or TV ad, no social media sponsoring.
-                            Your sales people share their products to their contacts and make them new customers.
+                            Your sales people share their products to their contacts and turn them into new customers.
                         {% endblocktrans %}</p>
                     </div>
                     {# End Force DIV height #}
@@ -310,25 +308,20 @@
                 <div class="col-sm-6 description">
                     <h2>{% trans "Improve your brand image" %}</h2>
                     <div class="desc">
-
-                        <p>
-                            {% blocktrans %}
+                        <p>{% blocktrans %}
                             People tend to think that digital area is only for big companies. Seize this opportunity to improve your brand image for customers.
                             You will be closer to those, closer to your Daras and their nearest ones.
-                            {% endblocktrans %}
-                        </p>
+                        {% endblocktrans %}</p>
                     </div>
                 </div>
                 <div class="col-sm-6 img improve-brand hidden-xs">
                     {# Force DIV height by putting the same text and set visibility to hidden #}
                     <h2 class="hidden-xs" style="visibility: hidden">{% trans "Improve your brand image" %}</h2>
                     <div class="desc hidden-xs" style="visibility: hidden">
-                        {% blocktrans %}
-                        <p>
+                        <p>{% blocktrans %}
                             People tend to think that digital area is only for big companies. Seize this opportunity to improve your brand image for customers.
                             You will be closer to those, closer to your Daras and their nearest ones.
-                        </p>
-                        {% endblocktrans %}
+                        {% endblocktrans %}</p>
                     </div>
                     {# End Force DIV height #}
                 </div>
