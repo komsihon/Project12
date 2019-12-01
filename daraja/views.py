@@ -588,6 +588,18 @@ class DaraList(HybridListView):
 class DeployCloud(VerifiedEmailTemplateView):
     template_name = 'daraja/cloud_setup/deploy.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(DeployCloud, self).get_context_data(**kwargs)
+        app = Application.objects.get(slug=DARAJA)
+        try:
+            dara_service = Service.objects.get(app=app, member=self.request.user)
+            next_url = 'http://daraja.ikwen.com/daraja/dashboard/?action=get_in&challenge=' + dara_service.api_signature
+            context['next_url'] = next_url
+            context['is_dara'] = True
+        except:
+            pass
+        return context
+
     def post(self, request, *args, **kwargs):
         member = request.user
         app = Application.objects.get(slug=DARAJA)

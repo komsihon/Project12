@@ -31,6 +31,7 @@ else:
 DARAJA_CLOUD_FOLDER = CLOUD_HOME + 'Daraja/'
 SMS_API_URL = 'http://websms.mobinawa.com/http_api?action=sendsms&username=675187705&password=depotguinness&from=$label&to=$recipient&msg=$text'
 
+CASH_OUT_MIN = 5000  # Default cash out min for Daras
 
 # from captcha.fields import ReCaptchaField
 
@@ -105,7 +106,7 @@ def deploy(member):
     config = Config(service=service, cash_out_rate=DARAJA_IKWEN_SHARE_RATE,
                     currency_code='XAF', currency_symbol='XAF', decimal_precision=0,
                     company_name=ikwen_name, contact_email=member.email, contact_phone=member.phone,
-                    sms_api_script_url=SMS_API_URL)
+                    cash_out_min=CASH_OUT_MIN)
     config.save(using=UMBRELLA)
     logger.debug("Dara config created for %s" % ikwen_name)
 

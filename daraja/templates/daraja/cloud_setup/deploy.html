@@ -29,7 +29,11 @@
         <div class="text-center">
             <img class="main-img" src="{% static 'daraja/img/logo-daraja.png' %}" />
             <h2 class="main-title text-center" style="padding: 4vh 0">
-                {% blocktrans %}Ready to become a Dara ?{% endblocktrans %}
+                {% if is_dara %}
+                    {% blocktrans %}Congratulations ! You are already a Dara.{% endblocktrans %}
+                {% else %}
+                    {% blocktrans %}Ready to become a Dara ?{% endblocktrans %}
+                {% endif %}
             </h2>
         </div>
         <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
@@ -38,11 +42,16 @@
             {% endif %}
             <form id="deploy-cloud" method="post">{% csrf_token %}
                 <div class="form-group">
-                    <!-- Submit Button -->
-                    <button class="btn btn-block btn-deep-blue deploy">
-                        {% include 'core/snippets/button_spinner.html' %}
-                        <strong>{% trans "Let's go !" %}</strong>
-                    </button>
+                    {% if is_dara %}
+                        <a class="btn btn-deep-blue continue" href="{{ next_url }}" style="min-width: 240px">
+                            <strong>{% trans "Continue" %}</strong>
+                        </a>
+                    {% else %}
+                        <button class="btn btn-block btn-deep-blue deploy">
+                            {% include 'core/snippets/button_spinner.html' %}
+                            <strong>{% trans "Let's go !" %}</strong>
+                        </button>
+                    {% endif %}
                 </div>
                 <div class="clearfix"></div>
             </form>
