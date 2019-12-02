@@ -233,7 +233,7 @@ class CompanyList(HybridListView):
         for service in queryset.order_by(*self.ordering):
             try:
                 service.share_rate = DarajaConfig.objects.using(_umbrella_db).get(service=service).referrer_share_rate
-                config = Config.objects.get(service=service)  # This has should be done this way due to database routing !
+                config = Config.objects.get(service=service)  # This has should be done this way due to database routing
                 service.logo = config.logo
                 service.is_standalone = config.is_standalone
             except:
@@ -343,13 +343,12 @@ class ViewProfile(TemplateView):
         dara_service.save(using=db)
         dara_db = dara_service.database
         add_database(dara_db)
-        service = get_service_instance()
         target_service.save(using=dara_db)
-        service_mirror = Service.objects.using(dara_db).get(pk=service.id)
+        service_mirror = Service.objects.using(dara_db).get(pk=target_service.id)
         clear_counters(service_mirror)
 
         if target_service.id not in member.customer_on_fk_list:
-            member.customer_on_fk_list.append(service.id)
+            member.customer_on_fk_list.append(target_service.id)
         member.save(using=db)
         member.save(using=UMBRELLA)
         response = {'success': True}
