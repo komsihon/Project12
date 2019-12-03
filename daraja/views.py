@@ -116,7 +116,6 @@ class RegisteredCompanyList(HybridListView):
                 raise DaraRequest.DoesNotExist()
         except DaraRequest.DoesNotExist:
             member = request.user
-            member.is_ghost = True
             member.save(using=db)
             service = Service.objects.using(db).get(pk=request.GET['service_id'])
             DaraRequest.objects.using(db).create(service=service, member=member)

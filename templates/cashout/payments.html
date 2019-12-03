@@ -107,7 +107,6 @@
                                             <p>{{ address.account_number|slice:"0:2" }} • • • {{ address.account_number|slice:"-3:" }}</p>
                                             <p class="text-muted">{{ address.name }}</p>
                                         </div>
-                                        {% if user.is_bao %}
                                         <div class="dropdown" style="cursor: pointer; float: right">
                                             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 <i class="glyphicon glyphicon-option-vertical text-muted"></i>
@@ -122,7 +121,6 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        {% endif %}
                                         <div class="clearfix"></div>
                                     </li>
                                 {% empty %}

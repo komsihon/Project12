@@ -123,10 +123,10 @@ def deploy(member):
     clear_counters(ikwen_service_mirror)
 
     # Send notification and Invoice to customer
-    add_event(ikwen_service, SERVICE_DEPLOYED, member=member)
+    add_event(ikwen_service, SERVICE_DEPLOYED, member=member, object_id=service.id)
     sender = 'ikwen Daraja <no-reply@ikwen.com>'
     sudo_group = Group.objects.using(UMBRELLA).get(name=SUDO)
-    add_event(ikwen_service, SERVICE_DEPLOYED, group_id=sudo_group.id)
+    add_event(ikwen_service, SERVICE_DEPLOYED, group_id=sudo_group.id, object_id=service.id)
     subject = _("Welcome to the business network.")
     registered_company_list_url = ikwen_service.url + reverse('daraja:registered_company_list')
     html_content = get_mail_content(subject, template_name='daraja/mails/service_deployed.html',
