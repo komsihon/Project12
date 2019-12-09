@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-01 23:03+0000\n"
-"PO-Revision-Date: 2019-12-02 00:06+0100\n"
+"POT-Creation-Date: 2019-12-09 21:33+0000\n"
+"PO-Revision-Date: 2019-12-09 22:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -94,7 +94,7 @@ msgstr "Estimez les ventes journalières d'un dara"
 msgid "Say something about you"
 msgstr "Dites le meilleur de vous"
 
-#: daraja/views.py:297
+#: daraja/views.py:296
 msgid "Your profile was successfully updated."
 msgstr "Votre profil a été mis à jour avec succès."
 
@@ -121,23 +121,23 @@ msgid "Send invitation"
 msgstr "Envoyez une invitation"
 
 #: daraja/templates/daraja/company_list.html:43
-#: daraja/templates/daraja/dara_list.html:79
+#: daraja/templates/daraja/dara_list.html:88
 #: daraja/templates/daraja/invite_dara.html:114
 msgid "Share on WhatsApp"
 msgstr "Partagez sur Whatsapp"
 
 #: daraja/templates/daraja/company_list.html:48
-#: daraja/templates/daraja/dara_list.html:84
+#: daraja/templates/daraja/dara_list.html:93
 #: daraja/templates/daraja/invite_dara.html:119
 msgid "Message"
 msgstr "Message"
 
 #: daraja/templates/daraja/company_list.html:62
-#: daraja/templates/daraja/dara_list.html:98
+#: daraja/templates/daraja/dara_list.html:107
 #: daraja/templates/daraja/invite_dara.html:138
 #: daraja/templates/daraja/registered_company_list.html:159
 #: daraja/templates/daraja/registered_company_list.html:182
-#: templates/cashout/payments.html:209 templates/cashout/payments.html:247
+#: templates/cashout/payments.html:207 templates/cashout/payments.html:245
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -159,15 +159,24 @@ msgid "Your daras"
 msgstr "Vos daras"
 
 #: daraja/templates/daraja/dara_list.html:29
-#: daraja/templates/daraja/dara_list.html:40
+#: daraja/templates/daraja/dara_list.html:47
 msgid "Invite Daras now"
 msgstr "Invitez des Daras"
 
-#: daraja/templates/daraja/dara_list.html:49
+#: daraja/templates/daraja/dara_list.html:34
+msgid "You must configure Daraja before you can invite Daras."
+msgstr "Vous devez configurer Daraja avant de pouvoir inviter des Daras."
+
+#: daraja/templates/daraja/dara_list.html:36
+#: daraja/templates/daraja/dara_request_list.html:33
+msgid "Configure Daraja"
+msgstr "Configurer Daraja"
+
+#: daraja/templates/daraja/dara_list.html:57
 msgid "This link is usable once within 30mn."
 msgstr "Ce lien est utilisable une seule fois dans un délai de 30mn."
 
-#: daraja/templates/daraja/dara_list.html:87
+#: daraja/templates/daraja/dara_list.html:96
 #, python-format
 msgid ""
 "Hello! Get %(share_rate)s%% by getting your ones to buy from %(project_name)s "
@@ -184,6 +193,10 @@ msgstr "Demandes"
 #: daraja/templates/daraja/dara_request_list.html:27
 msgid "No pending request."
 msgstr "Aucune demande en attente."
+
+#: daraja/templates/daraja/dara_request_list.html:31
+msgid "You must configure Daraja before Daras can find you."
+msgstr "Vous devez configurer Daraja pour que les Daras puissent vous trouver."
 
 #: daraja/templates/daraja/dashboard.html:32
 #: daraja/templates/daraja/dashboard.html:60
@@ -1005,47 +1018,47 @@ msgstr "En attente"
 msgid "How you get paid"
 msgstr "Comment êtes-vous payé"
 
-#: templates/cashout/payments.html:118 templates/cashout/payments.html:148
+#: templates/cashout/payments.html:117 templates/cashout/payments.html:146
 msgid "Update"
 msgstr "Changer"
 
-#: templates/cashout/payments.html:121 templates/cashout/payments.html:151
+#: templates/cashout/payments.html:120 templates/cashout/payments.html:149
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/cashout/payments.html:130
+#: templates/cashout/payments.html:128
 msgid "No payment method set"
 msgstr "Aucun moyen de paiement défini"
 
-#: templates/cashout/payments.html:159
+#: templates/cashout/payments.html:157
 msgid "ADD NEW"
 msgstr "AJOUTER UN NOUVEAU"
 
-#: templates/cashout/payments.html:179
+#: templates/cashout/payments.html:177
 msgid "Method"
 msgstr "Moyen de paiement"
 
-#: templates/cashout/payments.html:190
+#: templates/cashout/payments.html:188
 msgid "Account number"
 msgstr "Numéro de compte"
 
-#: templates/cashout/payments.html:196
+#: templates/cashout/payments.html:194
 msgid "Recipient name"
 msgstr "Nom"
 
-#: templates/cashout/payments.html:222
+#: templates/cashout/payments.html:220
 msgid "Choose wallet provider"
 msgstr "Choisissez le wallet"
 
-#: templates/cashout/payments.html:228
+#: templates/cashout/payments.html:226
 msgid "Cash-out from"
 msgstr "Retirer de"
 
-#: templates/cashout/payments.html:262
+#: templates/cashout/payments.html:260
 msgid "New payment address"
 msgstr "Nouvelle adresse de paiement"
 
-#: templates/cashout/payments.html:271
+#: templates/cashout/payments.html:269
 msgid "Update address"
 msgstr "Changer l'adresse"
 

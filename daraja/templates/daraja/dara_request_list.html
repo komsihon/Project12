@@ -22,9 +22,16 @@
             <div id="results">
                 {% if object_list %}
                     {% include 'daraja/snippets/dara_request_list_results.html' %}
-                {% else %}
+                {% elif daraja_config %}
                     <div id="stage" class="empty-list" style="padding: 5vh 15px">
                         <p class="notice">{% blocktrans %}No pending request.{% endblocktrans %}</p>
+                    </div>
+                {% else %}
+                    <div id="stage" class="empty-list" style="padding: 5vh 15px">
+                        {% trans "You must configure Daraja before Daras can find you." %}
+                        <a class="btn btn-green" href="{% url 'daraja:configuration' %}">
+                            <span>{% trans "Configure Daraja" %}</span>
+                        </a>
                     </div>
                 {% endif %}
             </div>

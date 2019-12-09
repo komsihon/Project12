@@ -11,9 +11,11 @@ from django.test.utils import override_settings
 from django.utils import unittest
 
 from ikwen.core.models import OperatorWallet
+from ikwen.billing.models import MoMoTransaction
 from ikwen.accesscontrol.models import Member
 from ikwen.accesscontrol.backends import UMBRELLA
 
+from echo.models import Balance
 from daraja.models import DaraRequest
 
 
@@ -27,6 +29,8 @@ def wipe_test_data(db=None):
     import ikwen.accesscontrol.models
     import daraja.models
     OperatorWallet.objects.using('wallets').all().delete()
+    MoMoTransaction.objects.using('wallets').all().delete()
+    Balance.objects.using('wallets').all().delete()
     if db:
         aliases = [db]
     else:
@@ -44,7 +48,7 @@ def wipe_test_data(db=None):
         for name in ('Application', 'Service', 'Config', 'ConsoleEventType', 'ConsoleEvent', 'Country', ):
             model = getattr(ikwen.core.models, name)
             model.objects.using(alias).all().delete()
-        for name in ('DarajaConfig', 'DaraRequest', 'Dara', ):
+        for name in ('DarajaConfig', 'DaraRequest', 'Dara', 'Invitation', ):
             model = getattr(daraja.models, name)
             model.objects.using(alias).all().delete()
 
@@ -180,4 +184,3 @@ class DarajaViewsTestCase(unittest.TestCase):
         ikwen_name = 'armelsikati'
         response = self.client.get(reverse('daraja:view_profile', args=(ikwen_name, )))
         self.assertEqual(response.status_code, 200)
-

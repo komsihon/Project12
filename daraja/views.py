@@ -494,9 +494,13 @@ class DaraRequestList(HybridListView):
     def get_context_data(self, **kwargs):
         context = super(DaraRequestList, self).get_context_data(**kwargs)
         service = get_service_instance()
-        daraja_config = DarajaConfig.objects.get(service=service)
-        context['project_name'] = service.project_name
-        context['share_rate'] = int(daraja_config.referrer_share_rate)
+        try:
+            daraja_config = DarajaConfig.objects.get(service=service)
+            context['daraja_config'] = daraja_config
+            context['project_name'] = service.project_name
+            context['share_rate'] = int(daraja_config.referrer_share_rate)
+        except:
+            pass
         return context
 
     def get(self, request, *args, **kwargs):
@@ -549,9 +553,13 @@ class DaraList(HybridListView):
     def get_context_data(self, **kwargs):
         context = super(DaraList, self).get_context_data(**kwargs)
         service = get_service_instance()
-        daraja_config = DarajaConfig.objects.get(service=service)
-        context['project_name'] = service.project_name
-        context['share_rate'] = int(daraja_config.referrer_share_rate)
+        try:
+            daraja_config = DarajaConfig.objects.get(service=service)
+            context['daraja_config'] = daraja_config
+            context['project_name'] = service.project_name
+            context['share_rate'] = int(daraja_config.referrer_share_rate)
+        except:
+            pass
         return context
 
     def get(self, request, *args, **kwargs):
