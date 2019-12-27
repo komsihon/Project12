@@ -1,9 +1,11 @@
 import json
 import logging
 from datetime import datetime
+from threading import Thread
 
 from django.conf import settings
 from django.contrib.auth import logout, authenticate, login
+from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render
@@ -20,7 +22,7 @@ from ikwen.core.constants import PENDING, REJECTED, ACCEPTED
 from ikwen.core.views import HybridListView, DashboardBase, ChangeObjectBase
 from ikwen.core.models import Service, Application, Config
 from ikwen.core.utils import slice_watch_objects, rank_watch_objects, add_database, set_counters, get_service_instance, \
-    get_model_admin_instance, clear_counters
+    get_model_admin_instance, clear_counters, get_mail_content, XEmailMessage
 from ikwen.accesscontrol.utils import VerifiedEmailTemplateView
 from ikwen.accesscontrol.backends import UMBRELLA
 from ikwen.accesscontrol.models import Member
@@ -350,6 +352,21 @@ class ViewProfile(TemplateView):
             member.customer_on_fk_list.append(target_service.id)
         member.save(using=db)
         member.save(using=UMBRELLA)
+
+        try:
+            sender = 'ikwen Daraja <no-reply@ikwen.com>'
+            member = dara_request.member
+            company_name = target_service.config.company_name
+            cta_url = target_service.url + '/ikwen/signIn/'
+            subject = _("Your Dara request was accepted")
+            html_content = get_mail_content(subject, template_name='daraja/mails/accept_dara_request.html',
+                                            extra_context={'dara_name': member.first_name, 'member': member,
+                                                           'company_name': company_name, 'cta_url': cta_url})
+            msg = XEmailMessage(subject, html_content, sender, [member.email])
+            msg.content_subtype = "html"
+            Thread(target=lambda m: m.send(), args=(msg,)).start()
+        except:
+            pass
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
@@ -513,7 +530,7 @@ class DaraRequestList(HybridListView):
 
     def accept_application(self, request):
         add_database(_umbrella_db)
-        dara_request = DaraRequest.objects.get(pk=request.GET['request_id'])
+        dara_request = DaraRequest.objects.select_related('service', 'member').get(pk=request.GET['request_id'])
         member = dara_request.member
         member.is_ghost = False
         UserPermissionList.objects.get_or_create(user=member)
@@ -534,6 +551,21 @@ class DaraRequestList(HybridListView):
             member.customer_on_fk_list.append(service.id)
         member.save()
         member.save(using=UMBRELLA)
+        try:
+            sender = 'ikwen Daraja <no-reply@ikwen.com>'
+            member = dara_request.member
+            dara_uname = dara_request.dara.uname
+            cta_url = "https://ikwen.com" + reverse('daraja:view_profile', args=(dara_uname,))\
+                      + "?target=" + dara_request.service.project_name_slug
+            subject = _("New Dara request")
+            html_content = get_mail_content(subject, template_name='daraja/mails/dara_request.html',
+                                            extra_context={'dara_name': member.first_name, 'member': member,
+                                                           'cta_url': cta_url})
+            msg = XEmailMessage(subject, html_content, sender, [member.email])
+            msg.content_subtype = "html"
+            Thread(target=lambda m: m.send(), args=(msg,)).start()
+        except:
+            pass
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
