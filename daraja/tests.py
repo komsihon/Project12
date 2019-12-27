@@ -11,6 +11,7 @@ from django.test.utils import override_settings
 from django.utils import unittest
 
 from ikwen.core.models import OperatorWallet
+from ikwen.core.utils import add_database
 from ikwen.billing.models import MoMoTransaction
 from ikwen.accesscontrol.models import Member
 from ikwen.accesscontrol.backends import UMBRELLA
@@ -33,10 +34,13 @@ def wipe_test_data(db=None):
     Balance.objects.using('wallets').all().delete()
     if db:
         aliases = [db]
+        add_database(db)
     else:
         aliases = getattr(settings, 'DATABASES').keys()
     for alias in aliases:
         if alias == 'wallets':
+            continue
+        if not alias.startswith('test_'):
             continue
         Group.objects.using(alias).all().delete()
         for name in ('UserPermissionList',):
@@ -69,16 +73,17 @@ class DarajaViewsTestCase(unittest.TestCase):
 
     def tearDown(self):
         wipe_test_data()
+        wipe_test_data('test_ikwen_service_2')
         OperatorWallet.objects.using('wallets').all().update(balance=0)
         cache.clear()
 
-    @override_settings(IKWEN_SERVICE_ID='56eb6d04b37b3379b531b101', IS_IKWEN=True)
-    def test_Home(self):
-        """
-        Home page must be reachable.
-        """
-        response = self.client.get(reverse('daraja:home'))
-        self.assertEqual(response.status_code, 200)
+    # @override_settings(IKWEN_SERVICE_ID='56eb6d04b37b3379b531b101', IS_IKWEN=True)
+    # def test_Home(self):
+    #     """
+    #     Home page must be reachable.
+    #     """
+    #     response = self.client.get(reverse('daraja:home'))
+    #     self.assertEqual(response.status_code, 200)
 
     @override_settings(IKWEN_SERVICE_ID='56eb6d04b37b3379b531b101')
     def test_RegisteredCompanyList(self):
@@ -95,23 +100,27 @@ class DarajaViewsTestCase(unittest.TestCase):
         Request to become Dara of a company fails if anonymous user
         """
         response = self.client.get(reverse('daraja:registered_company_list'),
-                                   {'action': 'request', 'service_id': '56eb6d04b37b3379b531b102'})
+                                   {'action': 'apply', 'service_id': '56eb6d04b37b3379b531b102'})
         self.assertEqual(response.status_code, 200)
         json_resp = json.loads(response.content)
         self.assertEqual(json_resp['error'], 'anonymous_user')
 
-    @override_settings(IKWEN_SERVICE_ID='56eb6d04b37b3379b531b101')
+    @override_settings(IKWEN_SERVICE_ID='56eb6d04b37b3379b531b101', DEBUG=True,
+                       EMAIL_BACKEND='django.core.mail.backends.filebased.EmailBackend',
+                       EMAIL_FILE_PATH='test_emails/daraja/', UNIT_TESTING=True)
     def test_RegisteredCompanyList_request(self):
         """
         Request to become Dara of a company. Must create a DaraRequest in umbrella DB
         """
-        self.client.login(username='member4', password='admin')
+        db = 'test_ikwen_service_2'
+        call_command('loaddata', 'setup_data.yaml', database=db)
+        self.client.login(username='armelsikati', password='admin')
         response = self.client.get(reverse('daraja:registered_company_list'),
-                                   {'action': 'request', 'service_id': '56eb6d04b37b3379b531b102'})
+                                   {'action': 'apply', 'service_id': '56eb6d04b37b3379b531b102'})
         self.assertEqual(response.status_code, 200)
         json_resp = json.loads(response.content)
         self.assertTrue(json_resp['success'])
-        DaraRequest.objects.get(service='56eb6d04b37b3379b531b102', member='56eb6d04b37b3379b531e014')  # Test if exists
+        DaraRequest.objects.using(db).get(service='56eb6d04b37b3379b531b102', member='56eb6d04b37b3379b531e014')  # Test if exists
 
     @override_settings(IKWEN_SERVICE_ID='56eb6d04b37b3379b531b101', IS_IKWEN=True)
     def test_Deploy_with_get_access_and_email_not_verified(self):
@@ -184,3 +193,17 @@ class DarajaViewsTestCase(unittest.TestCase):
         ikwen_name = 'armelsikati'
         response = self.client.get(reverse('daraja:view_profile', args=(ikwen_name, )))
         self.assertEqual(response.status_code, 200)
+
+    # @override_settings(IKWEN_SERVICE_ID='56eb6d04b37b3379b531b101',
+    #                    EMAIL_BACKEND='django.core.mail.backends.filebased.EmailBackend',
+    #                    EMAIL_FILE_PATH='test_emails/daraja/')
+    # def test_ViewProfile_accept_application(self):
+    #     """
+    #     Accepting Dara request from the view profile page adds the Dara to the Weblet Dara list
+    #     """
+    #     Member.objects.using(UMBRELLA).filter(username='member4').update(email_verified=True)
+    #     self.client.login(username='member4', password='admin')
+    #     ikwen_name = 'armelsikati'
+    #     url = reverse('daraja:view_profile', args=(ikwen_name, )
+    #     response = self.client.get(reverse('daraja:view_profile', args=(ikwen_name, )))
+    #     self.assertEqual(response.status_code, 200)

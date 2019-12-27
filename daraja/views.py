@@ -120,7 +120,29 @@ class RegisteredCompanyList(HybridListView):
             member = request.user
             member.save(using=db)
             service = Service.objects.using(db).get(pk=request.GET['service_id'])
-            DaraRequest.objects.using(db).create(service=service, member=member)
+            dara_request = DaraRequest.objects.using(db).create(service=service, member=member)
+
+        try:
+            sender = 'ikwen Daraja <no-reply@ikwen.com>'
+            member = request.user
+            dara_uname = dara_request.dara.uname
+            cta_url = "https://ikwen.com" + reverse('daraja:view_profile', args=(dara_uname,))\
+                      + "?target=" + dara_request.service.project_name_slug
+            subject = _("New Dara request")
+            recipient_list = [service.config.contact_email, service.member.email]
+            recipient_list = list(set(recipient_list))
+            html_content = get_mail_content(subject, template_name='daraja/mails/dara_request.html',
+                                            extra_context={'dara_name': member.first_name, 'member': member,
+                                                           'cta_url': cta_url})
+            msg = XEmailMessage(subject, html_content, sender, recipient_list)
+            msg.content_subtype = "html"
+            if getattr(settings, 'UNIT_TESTING', False):
+                msg.send()
+            else:
+                Thread(target=lambda m: m.send(), args=(msg,)).start()
+        except:
+            pass
+
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
@@ -505,6 +527,10 @@ class InviteDara(TemplateView):
 
 
 class DaraRequestList(HybridListView):
+    """
+    Shows the list of Dara requests sent by registered Daras
+    This view is supposed to be shown in the Admin Panel of a weblet.
+    """
     template_name = 'daraja/dara_request_list.html'
     queryset = DaraRequest.objects.filter(status=PENDING)
 
@@ -528,56 +554,11 @@ class DaraRequestList(HybridListView):
             return self.reject_application(request)
         return super(DaraRequestList, self).get(request, *args, **kwargs)
 
-    def accept_application(self, request):
-        add_database(_umbrella_db)
-        dara_request = DaraRequest.objects.select_related('service', 'member').get(pk=request.GET['request_id'])
-        member = dara_request.member
-        member.is_ghost = False
-        UserPermissionList.objects.get_or_create(user=member)
-        Dara.objects.get_or_create(member=member)
-        dara_request.status = ACCEPTED
-        dara_request.save()
-        app = Application.objects.get(slug=DARAJA)
-        dara_service = Service.objects.using(_umbrella_db).get(app=app, member=member)
-        dara_service.save(using='default')
-        db = dara_service.database
-        add_database(db)
-        service = get_service_instance()
-        service.save(using=db)
-        service_mirror = Service.objects.using(db).get(pk=service.id)
-        clear_counters(service_mirror)
-
-        if service.id not in member.customer_on_fk_list:
-            member.customer_on_fk_list.append(service.id)
-        member.save()
-        member.save(using=UMBRELLA)
-        try:
-            sender = 'ikwen Daraja <no-reply@ikwen.com>'
-            member = dara_request.member
-            dara_uname = dara_request.dara.uname
-            cta_url = "https://ikwen.com" + reverse('daraja:view_profile', args=(dara_uname,))\
-                      + "?target=" + dara_request.service.project_name_slug
-            subject = _("New Dara request")
-            html_content = get_mail_content(subject, template_name='daraja/mails/dara_request.html',
-                                            extra_context={'dara_name': member.first_name, 'member': member,
-                                                           'cta_url': cta_url})
-            msg = XEmailMessage(subject, html_content, sender, [member.email])
-            msg.content_subtype = "html"
-            Thread(target=lambda m: m.send(), args=(msg,)).start()
-        except:
-            pass
-        response = {'success': True}
-        return HttpResponse(json.dumps(response), 'content-type: text/json')
-
-    def reject_application(self, request):
-        dara_request = DaraRequest.objects.get(pk=request.GET['request_id'])
-        dara_request.status = REJECTED
-        dara_request.save()
-        response = {'success': True}
-        return HttpResponse(json.dumps(response), 'content-type: text/json')
-
 
 class DaraList(HybridListView):
+    """
+    Shows the list of accepted Daras on a weblet
+    """
     template_name = 'daraja/dara_list.html'
     html_results_template_name = 'daraja/snippets/dara_list_results.html'
     model = Dara
