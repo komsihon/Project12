@@ -114,7 +114,7 @@ class RegisteredCompanyList(HybridListView):
         try:
             Dara.objects.using(db).get(member=request.user)
             return HttpResponse(json.dumps({'success': True}), 'content-type: text/json')
-        except DaraRequest.DoesNotExist:
+        except Dara.DoesNotExist:
             pass
 
         try:
