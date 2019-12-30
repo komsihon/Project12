@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-26 14:56+0000\n"
-"PO-Revision-Date: 2019-12-26 15:58+0100\n"
+"POT-Creation-Date: 2019-12-28 19:10+0000\n"
+"PO-Revision-Date: 2019-12-28 20:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -38,11 +38,24 @@ msgstr "Comment gagner de l'argent avec vous ?"
 msgid "Welcome to the business network."
 msgstr "Bienvenu(e) dans le réseau business."
 
-#: daraja/models.py:21 daraja/templates/daraja/registered_company_list.html:107
+#: daraja/models.py:21
+msgid "Unique invitations ?"
+msgstr "Invitations uniques ?"
+
+#: daraja/models.py:22
+msgid ""
+"If checked, generated invitation link is usable once within 30mn. Else, the "
+"link is public and can be used without limitation."
+msgstr ""
+"Cochez pour rendre les liens d'invitations générés utilisables une seule fois "
+"dans un délai de 30mn. Sinon, le lien est public et peut être utilisé sans "
+"limitation."
+
+#: daraja/models.py:25 daraja/templates/daraja/registered_company_list.html:107
 msgid "Description and products"
 msgstr "Description et produits"
 
-#: daraja/models.py:22
+#: daraja/models.py:26
 msgid ""
 "Tell Daras about your business and your products are the most easy and "
 "profitable to sell."
@@ -50,11 +63,11 @@ msgstr ""
 "Décrivez votre activité aux Daras. Dites leurs quels sont les produits les "
 "plus faciles à vendre et aussi les plus rentables."
 
-#: daraja/models.py:24 daraja/templates/daraja/registered_company_list.html:115
+#: daraja/models.py:28 daraja/templates/daraja/registered_company_list.html:115
 msgid "Strategy"
 msgstr "Stratégie"
 
-#: daraja/models.py:25
+#: daraja/models.py:29
 msgid ""
 "Give Daras an idea of marketing strategy they might use including market to "
 "target and how to attract customers."
@@ -62,11 +75,11 @@ msgstr ""
 "Donnez aux Daras une idée de la stratégie marketing qu'ils peuvent mettre en "
 "place. Par exemple le public cible et comment l'attirer."
 
-#: daraja/models.py:27
+#: daraja/models.py:31
 msgid "Simulation"
 msgstr "Simulation"
 
-#: daraja/models.py:28
+#: daraja/models.py:32
 msgid ""
 "Help Daras by giving a realistic, yet optmistic simulation of what they might "
 "earn in a month if they work well."
@@ -74,11 +87,11 @@ msgstr ""
 "Aidez les Daras à se projeter en donnant une simulation réaliste, mais "
 "optimiste de ce qu'ils peuvent gagner en vous travaillant correctement."
 
-#: daraja/models.py:33
+#: daraja/models.py:37
 msgid "City where HQ of company is located."
 msgstr "Ville où se trouve la DG de l'entreprise."
 
-#: daraja/models.py:37
+#: daraja/models.py:41
 msgid ""
 "Average amount a customer generally buys from you. This helps the Dara do a "
 "simulation of what he might earn."
@@ -86,17 +99,25 @@ msgstr ""
 "Le ticket moyen qu'un client dépense en général chez vous. Ceci aide le Dara à "
 "faire une estimation de ses gains potentiels."
 
-#: daraja/models.py:39
+#: daraja/models.py:43
 msgid "Estimated daily sales of a dara"
 msgstr "Estimez les ventes journalières d'un dara"
 
-#: daraja/models.py:87
+#: daraja/models.py:91
 msgid "Say something about you"
 msgstr "Dites le meilleur de vous"
 
-#: daraja/views.py:296
+#: daraja/views.py:131
+msgid "New Dara request"
+msgstr "Nouvelle requête"
+
+#: daraja/views.py:320
 msgid "Your profile was successfully updated."
 msgstr "Votre profil a été mis à jour avec succès."
+
+#: daraja/views.py:383
+msgid "Your Dara request was accepted"
+msgstr "Votre requête en tant que Dara a été acceptée"
 
 #: daraja/templates/daraja/change_profile.html:16
 msgid "Subscriptions"
@@ -642,7 +663,7 @@ msgstr ""
 "                    Nous voudrions vous avoir comme partenaire à  travers le "
 "programme Daraja.<br>\n"
 "                    Obtenez <strong>%(share_rate)s%%</strong> des achats en "
-"ligne faites par les personnes que vous recommandez.<br>\n"
+"ligne faits par les personnes que vous recommandez.<br>\n"
 "                    Vous recevrez de l'argent directement après chaque "
 "transaction.\n"
 "                "
@@ -1123,6 +1144,10 @@ msgstr "Dernier paiement"
 msgid "View payments"
 msgstr "Voirles paiements"
 
+#: templates/website/snippets/language_switcher.html:6
+msgid "Language"
+msgstr ""
+
 #~ msgid "English"
 #~ msgstr "Anglais"
 
@@ -1190,9 +1215,6 @@ msgstr "Voirles paiements"
 
 #~ msgid "share"
 #~ msgstr "de partage"
-
-#~ msgid "Your request was submitted"
-#~ msgstr "Votre demande a été soumise"
 
 #~ msgid "<span>XAF %(avg)s </span>averagely earned"
 #~ msgstr "<span>XAF %(avg)s </span>averagely earned"

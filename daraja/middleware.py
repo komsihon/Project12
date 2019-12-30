@@ -6,7 +6,8 @@ class SetDaraMiddleware(object):
     Sets the Dara referrer in session
     """
 
-    def process_request(self, request):
+    def process_response(self, request, response):
         referrer = request.GET.get('referrer')
         if referrer:
-            request.session['referrer'] = referrer
+            response.set_cookie('referrer', referrer)
+        return response

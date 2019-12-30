@@ -110,6 +110,13 @@ class RegisteredCompanyList(HybridListView):
         service = Service.objects.get(pk=request.GET['service_id'])
         db = service.database
         add_database(db)
+
+        try:
+            Dara.objects.using(db).get(member=request.user)
+            return HttpResponse(json.dumps({'success': True}), 'content-type: text/json')
+        except DaraRequest.DoesNotExist:
+            pass
+
         try:
             dara_request = DaraRequest.objects.using(db).get(service=service, member=request.user)
             diff = now - dara_request.created_on
@@ -122,26 +129,26 @@ class RegisteredCompanyList(HybridListView):
             service = Service.objects.using(db).get(pk=request.GET['service_id'])
             dara_request = DaraRequest.objects.using(db).create(service=service, member=member)
 
-        try:
-            sender = 'ikwen Daraja <no-reply@ikwen.com>'
-            member = request.user
-            dara_uname = dara_request.dara.uname
-            cta_url = "https://ikwen.com" + reverse('daraja:view_profile', args=(dara_uname,))\
-                      + "?target=" + dara_request.service.project_name_slug
-            subject = _("New Dara request")
-            recipient_list = [service.config.contact_email, service.member.email]
-            recipient_list = list(set(recipient_list))
-            html_content = get_mail_content(subject, template_name='daraja/mails/dara_request.html',
-                                            extra_context={'dara_name': member.first_name, 'member': member,
-                                                           'cta_url': cta_url})
-            msg = XEmailMessage(subject, html_content, sender, recipient_list)
-            msg.content_subtype = "html"
-            if getattr(settings, 'UNIT_TESTING', False):
-                msg.send()
-            else:
-                Thread(target=lambda m: m.send(), args=(msg,)).start()
-        except:
-            pass
+            try:
+                sender = 'ikwen Daraja <no-reply@ikwen.com>'
+                member = request.user
+                dara_uname = dara_request.dara.uname
+                cta_url = "https://ikwen.com" + reverse('daraja:view_profile', args=(dara_uname,))\
+                          + "?target=" + dara_request.service.project_name_slug
+                subject = _("New Dara request")
+                recipient_list = [service.config.contact_email, service.member.email]
+                recipient_list = list(set(recipient_list))
+                html_content = get_mail_content(subject, template_name='daraja/mails/dara_request.html',
+                                                extra_context={'dara_name': member.first_name, 'member': member,
+                                                               'cta_url': cta_url, 'project_name': service.project_name})
+                msg = XEmailMessage(subject, html_content, sender, recipient_list)
+                msg.content_subtype = "html"
+                if getattr(settings, 'UNIT_TESTING', False):
+                    msg.send()
+                else:
+                    Thread(target=lambda m: m.send(), args=(msg,)).start()
+            except:
+                pass
 
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
@@ -434,6 +441,7 @@ class InviteDara(TemplateView):
         invitation_id = self.request.GET.get('invitation_id')
         member = self.request.user
         company = get_object_or_404(Service, project_name_slug=ikwen_name)
+        daraja_config = get_object_or_404(DarajaConfig, service=company)
         company_db = company.database
         add_database(company_db)
         invitation_already_accepted = False
@@ -443,14 +451,14 @@ class InviteDara(TemplateView):
         except:
             pass
         if not invitation_already_accepted:
-            try:
-                invitation = Invitation.objects.using(company_db).get(pk=invitation_id, status=PENDING)
-                diff = datetime.now() - invitation.created_on
-                if diff.total_seconds() > getattr(settings, 'DARAJA_INVITATION_TIMEOUT', 30) * 60:
-                    raise Http404('Invitation is expired')
-            except:
-                raise Http404('Unexisting invitation')
-        daraja_config = DarajaConfig.objects.get(service=company)
+            if daraja_config.invitation_is_unique:
+                try:
+                    invitation = Invitation.objects.using(company_db).get(pk=invitation_id, status=PENDING)
+                    diff = datetime.now() - invitation.created_on
+                    if diff.total_seconds() > getattr(settings, 'DARAJA_INVITATION_TIMEOUT', 30) * 60:
+                        raise Http404('Invitation is expired')
+                except:
+                    raise Http404('Unexisting invitation')
         context['company'] = company
         context['company_name'] = company.project_name
         share_rate = daraja_config.referrer_share_rate

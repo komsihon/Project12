@@ -12,9 +12,9 @@ class DaraAdmin(admin.ModelAdmin):
 
 
 class DarajaConfigAdmin(admin.ModelAdmin):
-    fields = ('referrer_share_rate', 'location', 'avg_purchase', 'products', 'strategy', 'daily_sales')
+    fields = ('referrer_share_rate', 'invitation_is_unique', 'location', 'avg_purchase', 'products', 'strategy', 'daily_sales')
     fieldsets = (
-        (None, {'fields': ('referrer_share_rate', )}),
+        (None, {'fields': ('referrer_share_rate', 'invitation_is_unique', )}),
         (_('General'), {'fields': ('avg_purchase', 'location')}),
         (_('How to make money with you ?'), {'fields': ('products', 'strategy', 'daily_sales')}),
     )

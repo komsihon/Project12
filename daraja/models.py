@@ -18,6 +18,10 @@ REFEREE_JOINED_EVENT = "RefereeJoined"
 
 class DarajaConfig(Model):
     service = models.ForeignKey(Service, unique=True, default=get_service_instance, related_name='+')
+    invitation_is_unique = models.BooleanField(_("Unique invitations ?"), default=True,
+                                               help_text=_("If checked, generated invitation link is usable once "
+                                                           "within 30mn. Else, the link is public and can be used "
+                                                           "without limitation."))
     products = models.TextField(_("Description and products"), blank=True, null=True,
                                 help_text=_("Tell Daras about your business and your products are the "
                                             "most easy and profitable to sell."))
