@@ -195,7 +195,7 @@ class Dashboard(DashboardBase):
             'last_28_days': rank_watch_objects(customer_list, 'turnover_history', 28)
         }
         context['customers_report'] = customers_report
-        company_list = list(Service.objects.using(db).all())
+        company_list = list(Service.objects.using(db).exclude(pk=service.id))
         for company in company_list:
             set_counters(company)
         companies_report = {
@@ -205,9 +205,6 @@ class Dashboard(DashboardBase):
             'last_28_days': rank_watch_objects(company_list, 'earnings_history', 28)
         }
         context['companies_report'] = companies_report
-        # context['earnings_history_current_month'] = service.earnings_history
-        # context['earnings_history_current_month'] = service.earnings_history[-30:]
-        # context['earnings_history_previous_month'] = service.earnings_history[-60:-30]
         context['transaction_count_history'] = service.transaction_count_history[-30:]
         return context
 
