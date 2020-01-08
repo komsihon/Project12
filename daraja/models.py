@@ -42,6 +42,9 @@ class DarajaConfig(Model):
                                                    "Dara do a simulation of what he might earn."))
     daily_sales = models.IntegerField(default=10000, help_text=_('Estimated daily sales of a dara'))
 
+    def __unicode__(self):
+        return self.service.project_name
+
     def save(self, **kwargs):
         super(DarajaConfig, self).save(**kwargs)
         using = kwargs.pop('using', None)
@@ -106,6 +109,25 @@ class Dara(AbstractWatchModel):
 
 class Invitation(Model):
     status = models.CharField(max_length=30, default=PENDING)
+
+
+class Follower(AbstractWatchModel):
+    """
+    Profile information for a Buyer on whatever retail website
+    """
+    member = models.OneToOneField(Member)
+    referrer = models.ForeignKey(Service, blank=True, null=True, related_name='+')
+    last_payment_on = models.DateTimeField(blank=True, null=True, db_index=True)
+
+    orders_count_history = ListField()
+    items_purchased_history = ListField()
+    turnover_history = ListField()
+    earnings_history = ListField()
+
+    total_orders_count = models.IntegerField(default=0)
+    total_items_purchased = models.IntegerField(default=0)
+    total_turnover = models.IntegerField(default=0)
+    total_earnings = models.IntegerField(default=0)
 
 
 class AbuseReport(Model):

@@ -5,11 +5,8 @@
     {% for company in company_list %}
         <li id="{{ company.id }}" class="ik-li list-group-item" data-id="{{ company.id }}">
             {% url 'ikwen:company_profile' company.project_name_slug as company_ikwen_url %}
-            {% if company.logo.name %}
-                <a href="{{ company.url }}" class="image rounded" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ company.logo.name }})"></a>
-            {% else %}
-                <a href="{{ company.url }}" class="image rounded" style="background-image: url({% static 'ikwen/img/logo-placeholder.jpg' %})"></a>
-            {% endif %}
+            <a href="{{ company.url }}" class="image rounded"
+               style="background-image: url({% if company.logo.name %}{{ settings.IKWEN_MEDIA_URL }}{{ company.logo.name }}{% else %}{% static 'ikwen/img/logo-placeholder.jpg' %}{% endif %})"></a>
             <div class="info">
                 <div>{{ company.project_name }}</div>
                 <p class="about"><strong>{{ company.share_rate }}%</strong> - {{ company.total_community|intcomma }} Followers -
