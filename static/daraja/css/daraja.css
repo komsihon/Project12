@@ -22,14 +22,14 @@
 .company-list .ik-li.disclosed .about {margin-top: 30px;}
 .company-list .ik-li .about h2,h3,h4,h5,h6 {color: #464646; font-weight: 600; margin-top: 16px; margin-bottom: 16px}
 .company-list .ik-li .about h4:not(:first-of-type) {margin-top: 30px}
-.company-list .ik-li .company-url {margin-top: 30px;}
+.company-list .ik-li .company-url {margin-top: 60px;}
 .info:active {height: inherit!important;}
 .info-header {margin-bottom: 10px;}
 .info-header .full_name {display: inline; margin: 0;}
 .info-header .share-rate {padding: 7px;}
 .monthly-income {font-size: 30px; color: #2c3e50;}
 .estimate-earnings >* {padding: 0; font-size: 14px}
-.company-list .ik-li .image {height: 100%;background-size: cover;width: 120px;}
+.company-list .ik-li .image {height: auto; background-size: cover;width: 120px;}
 .company-list .ik-li .info {padding: 10px 0;}
 .company-list .ik-li h3 {font-weight: 700; margin: 0 0 20px}
 .company-list .ik-li ul {padding-left: 0}
@@ -80,6 +80,13 @@
 #not-yet-dara-msg, #anonymous-user-msg {height: 120px; color: #fff; font-size: 16px;}
 .actions .apply.request {width: 200px;}
 
+#acknowledgement .modal-content {border: 0}
+#acknowledgement .modal-header {background-size: cover; background-repeat: no-repeat; background-position: center; color: #fff; height: 200px; padding: 0;}
+#acknowledgement .modal-header .bgd-image {background-color: rgba(47,47,47,0.61); height: inherit; padding-top: 10px;}
+#acknowledgement .modal-body {padding: 10px 0!important;}
+
+.ik-li .other-details {padding-left: 20px;}
+
 @media (width: 768px) {
     .company-list .ik-li {height: 350px;}
     .estimate-earnings >*:not(:first-child) {margin-top: 20px;}
@@ -87,7 +94,7 @@
 
 @media (max-width: 767px) {
     .company-list {margin: 0 -12px}
-    .company-list .ik-li {height: 340px;}
+    .company-list .ik-li {height: 400px;}
     .company-list .ik-li h3 {font-size: 18px;margin-bottom: 10px;}
     .company-list .ik-li .info {padding: 3px 0 10px;max-width: 180px;}
     .company-list .ik-li ul li {height: 30px;padding-top: 4px;}
@@ -107,6 +114,9 @@
     .avg-purchase > span {font-size: 14px;}
     .company-image img {width: 65px}
     .actions .apply.request {width: auto;}
+    .company-list .ik-li.disclosed .company-url {margin-top: 20px;}
+    /*.company-list .ik-li.disclosed .info .details {display: none; visibility: hidden;}*/
+    /*.companyl-list .ik-li.disclosed .other-details .detail*/
 }
 
 @media (min-width: 768px) {
@@ -118,7 +128,7 @@
 }
 @media (min-width: 992px) {
     .title-brand {margin-top: -2px;}
-    .company-list .ik-li .info {max-width: 500px; width: 800px}
+    .company-list .ik-li .info {max-width: 500px; width: 350px}
     .company-list .ik-li .btn.show-modal-request {margin-top: 75px; width: 180px}
 }
 
