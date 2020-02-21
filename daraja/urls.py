@@ -1,12 +1,14 @@
 
 from django.conf.urls import patterns, url
-from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
+from django.contrib.auth.decorators import login_required, permission_required
 
-from ikwen.cashout.views import Payments, manage_payment_address, request_cash_out
+from ikwen.cashout.views import manage_payment_address, request_cash_out
 
 from daraja.views import Home, RegisteredCompanyList, DeployCloud, ChangeProfile, Dashboard, CompanyList, \
     SuccessfulDeployment, ViewProfile, login_router, DaraList, DaraRequestList, Configuration, InviteDara, \
     HomeForBusinesses, NotYetDara
+
+from daraja.wallet import Payments
 
 urlpatterns = patterns(
     '',

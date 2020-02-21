@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.db import models
+from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 from djangotoolbox.fields import ListField
 
@@ -94,6 +94,9 @@ class Dara(AbstractWatchModel):
     description = models.TextField(_("Say something about you"), blank=True)
     share_rate = models.FloatField(default=0)
 
+    xp = models.IntegerField(default=0)
+    level = models.IntegerField(default=1)
+
     orders_count_history = ListField(editable=False)
     items_traded_history = ListField(editable=False)
     turnover_history = ListField(editable=False)
@@ -105,6 +108,34 @@ class Dara(AbstractWatchModel):
     total_earnings = models.IntegerField(default=0)
 
     last_transaction_on = models.DateTimeField(blank=True, null=True, db_index=True)
+
+    def _get_bonus_wallet(self):
+        wallet, update = BonusWallet.objects.using('wallets').get_or_create(dara_id=self.id)
+        return wallet
+
+    def _get_bonus_cash(self):
+        wallet = self._get_bonus_wallet()
+        return wallet.cash
+    bonus_cash = property(_get_bonus_cash)
+
+    def raise_bonus_cash(self, amount):
+        wallet = self._get_bonus_wallet()
+        with transaction.atomic():
+            wallet.cash += amount
+            wallet.save(using='wallets')
+
+    def lower_bonus_cash(self, amount):
+        wallet = self._get_bonus_wallet()
+        if wallet.cash < amount:
+            raise ValueError("Amount larger than current balance.")
+        with transaction.atomic():
+            wallet.cash -= amount
+            wallet.save(using='wallets')
+
+
+class BonusWallet(Model):
+    dara_id = models.CharField(max_length=24)
+    cash = models.IntegerField(default=0)
 
 
 class Invitation(Model):
