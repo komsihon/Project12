@@ -134,7 +134,7 @@ class Dara(AbstractWatchModel):
 
 
 class BonusWallet(Model):
-    dara_id = models.CharField(max_length=24)
+    dara_id = models.CharField(max_length=24, unique=True)
     cash = models.IntegerField(default=0)
 
 
