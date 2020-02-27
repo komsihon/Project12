@@ -282,6 +282,7 @@
     {{ block.super }}
     <script type="text/javascript">
         (function() {
+            $('div#admin-nav .wallet').addClass('active');
             $('#addresses').on('click', '.new-address', function() {
                 $('#update-payment-address .modal-title').text("{% trans 'New payment address' %}");
                 $('#address-id').val('');

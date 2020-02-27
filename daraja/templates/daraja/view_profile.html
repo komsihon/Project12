@@ -118,7 +118,7 @@
     <script>
         (() => {
             let invitationUrl;
-            $('div#admin-nav .daras').addClass('active');
+            $('div#admin-nav .profile').addClass('active');
             $('body').on('click', '#whatsapp-share .btn.ok', () => {
                 let msg = $('#whatsapp-share-msg').val();
                 window.location = 'https://api.whatsapp.com/send?text=' + invitationUrl + '%0A%0A' + msg;

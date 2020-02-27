@@ -50,6 +50,16 @@
     status: Active
     expiry: 2035-01-01T00:00:00.120Z
 
+- model: billing.paymentmean
+  pk: 5880870c0c229e4fda8da3d6
+  fields:
+    name: Dara Cash
+    slug: dara-cash
+    action_url_name: billing:momo_set_checkout
+    logo: logo.png
+    watermark: watermark.png
+    credentials: {}
+
 - model: daraja.dara
   pk: 58a9658b4fc0c25ddbeca241
   fields:
