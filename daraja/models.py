@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
@@ -123,6 +125,7 @@ class Dara(AbstractWatchModel):
         wallet = self._get_bonus_wallet()
         with transaction.atomic():
             wallet.cash += amount
+            wallet.top_up_on = datetime.now()
             wallet.save(using='wallets')
 
     def lower_bonus_cash(self, amount):
@@ -135,6 +138,8 @@ class Dara(AbstractWatchModel):
 
 
 class BonusWallet(Model):
+    VALIDITY = 14  # Bonus cash gets reset to 0 14 days after the last top up
+
     dara_id = models.CharField(max_length=24, unique=True)
     cash = models.IntegerField(default=0)
     top_up_on = models.DateTimeField(db_index=True)
