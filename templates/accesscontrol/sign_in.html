@@ -47,6 +47,9 @@
 
 {% block content %}
     <div id="content" class="form container">
+        <p class="failure chrome-only" style="display: none; margin: 15px; padding: 9px">
+            {% trans "Downloading the App is not possible with your current browser. Please switch to Google Chrome." %}
+        </p>
         {% if login_form.errors %}
             <p class="failure" style="font-size: 1em; padding: 9px">{{ error_message }}</p>
         {% elif request.GET.msg %}
@@ -106,15 +109,19 @@
     {{ block.super }}
     <script src="{% static 'foulassi/install.js' %}"></script>
     <script type="text/javascript">
-        {% get_current_language as LANGUAGE_CODE %}
         (function() {
+            {% if request.GET.dl %}
+                let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+                if (!isChrome) $('.chrome-only').show();
+                else ikwen.showFloatingNotice("{% trans "Wait a few seconds and click the prompt that appear at the bottom of the screen" %}");
+            {% endif %}
             $('#lg-username').keyup(function(e) {
                 if (e.key === ' ') {
                     var username = $(this).val().trim().toLowerCase();
                     $(this).val(username);
                 }
             }).blur(function() {
-                var username = $(this).val().replace(/ /g, '').toLowerCase();
+                let username = $(this).val().replace(/ /g, '').toLowerCase();
                 $(this).val(username);
             });
             $('#login-form').submit(() => {
