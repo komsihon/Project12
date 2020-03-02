@@ -42,12 +42,19 @@ section.site img {width: 60%;}
 .section-banniere-top { background: url(../img/architecture-entreprise.jpg) center center;
 					-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;
 					background-size: cover; color: white; height: 300px; margin-top: 6.5vh !important; }
+.section-banniere-inner {
+    width: inherit;
+    height: inherit;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,0.7792637074360994) 0%,
+    rgba(9,9,121,0.49635054216999297) 35%, rgba(0,212,255,0.31707883348651966) 100%);
+    }
 .section-header{ background: url(../img/ikwen-daraja_entete.png) center center no-repeat;
 				-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;
 				background-size: cover; height: 100vh; }
 .section-header h1 { font-size: 3.5vw}
 
-
+.playground-header {font-size: 24px;font-weight: 700; margin-top: 9vh;}
 
 
 
@@ -57,7 +64,8 @@ section.site img {width: 60%;}
     .section-header h1 { font-size: 30px}
     section.header h3 {color: #000;font-size: 22px; font-weight: 400; line-height: 44px}
     section.address .cover h2 {color: #fff; font-weight: 600}
-    section.features.site { padding-top: 1vh !important; }
+    #container-general-view:not(.playground) section.features.site {padding-top: 1vh}
+    #container-general-view.playground .features.site {padding: 5vh auto}
     .features { padding: 0 0 10vh }
 }
 
@@ -90,6 +98,9 @@ section.site img {width: 60%;}
     section.good-company .features > div {margin-bottom: 15px}
     section.deploy {padding-bottom: 45px}
     .features section.site img {width: 100%}
+    .playground .section-banniere > div {padding: 3vh 2vh 9vh;}
+    .playground-header {font-size: 18px; font-weight: 800}
+    .playground .features.site h2, p {margin-top: 40px!important;}
 }
 
 @media only screen and (min-width : 768px) and (orientation: landscape) {
@@ -120,6 +131,9 @@ section.site img {width: 60%;}
     .img.enterprise-recruitment {background-image: url('../img/ikwen-Daraja-enterprise-recruitment.png')}
     .img.stock-monitoring {background-image: url('../img/ikwen-Daraja-stock-monitoring.png')}
     section.deploy {font-size: 30px}
+    .playground .features.site {height: 90vh;}
+    .playground .features.site .features > div {height: 77vh;}
+    .playground .section-banniere > div {padding: 3vh 0 9vh;}
 }
 /*671273*/
 @media only screen and (max-width : 991px) {

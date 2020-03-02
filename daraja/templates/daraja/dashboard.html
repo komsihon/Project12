@@ -211,7 +211,7 @@
                     </span>
                 </div>
                 {% for period, data in companies_report.items %}
-                    <ul class="report ranking {{ period }}{% if period != 'today' %}tpl{% endif %}">
+                    <ul class="report ranking {{ period }}{% if period != 'today' %} tpl{% endif %}">
                         {% if data and data.0.total > 0 %}
                             {% for company in data|slice:"5" %}
                                 {% if company.total > 0 %}
@@ -277,4 +277,21 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'ikwen/js/ikwen-utils.js' %}"></script>
+    <script>
+        (()=> {
+            let img = "{% static 'daraja/img/banner-2.png' %}",
+                title = "Try Daraja Playground",
+                message = "Get into Playground experience and earn a bunch amount of cash money.",
+                url = "{% url 'daraja:home_playground' %}";
+
+            {% if is_beginner %}
+                ikwen.showNoticeDialog(img,title,message,url);
+            {% endif %}
+        })()
+    </script>
 {% endblock %}
