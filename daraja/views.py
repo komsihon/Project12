@@ -65,6 +65,10 @@ class HomeForBusinesses(TemplateView):
     template_name = 'daraja/home_for_businesses.html'
 
 
+class HomePlayground(TemplateView):
+    template_name = 'daraja/home_playground.html'
+
+
 def not_yet_dara(request, *args, **kwargs):
     return render(request, 'daraja/not_yet_dara.html')
 
@@ -206,6 +210,10 @@ class Dashboard(DashboardBase):
         }
         context['companies_report'] = companies_report
         context['transaction_count_history'] = service.transaction_count_history[-30:]
+
+        dara = get_object_or_404(Dara, member=service.member)
+        if dara.level == 1 and dara.xp == 0:
+            context['is_beginner'] = True
         return context
 
     def get(self, request, *args, **kwargs):

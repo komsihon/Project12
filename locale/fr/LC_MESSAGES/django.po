@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-21 19:19+0000\n"
-"PO-Revision-Date: 2020-02-21 20:23+0100\n"
+"POT-Creation-Date: 2020-03-01 12:11+0100\n"
+"PO-Revision-Date: 2020-03-01 12:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -17,6 +17,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.0.6\n"
+
+#: kakocase_operator_follow_up.py:62 publish_product_request.py:42
+msgid "There is no product online"
+msgstr "Aucun produit en ligne"
+
+#: conf/settings.py:160
+msgid "English"
+msgstr "Anglais"
+
+#: conf/settings.py:161
+msgid "French"
+msgstr "Français"
 
 #: daraja/admin.py:8
 msgid "Your social media"
@@ -38,11 +50,11 @@ msgstr "Comment gagner de l'argent avec vous ?"
 msgid "Welcome to the business network."
 msgstr "Bienvenu(e) dans le réseau business."
 
-#: daraja/models.py:21
+#: daraja/models.py:24
 msgid "Unique invitations ?"
 msgstr "Invitations uniques ?"
 
-#: daraja/models.py:22
+#: daraja/models.py:25
 msgid ""
 "If checked, generated invitation link is usable once within 30mn. Else, the link "
 "is public and can be used without limitation."
@@ -51,11 +63,11 @@ msgstr ""
 "dans un délai de 30mn. Sinon, le lien est public et peut être utilisé sans "
 "limitation."
 
-#: daraja/models.py:25 daraja/templates/daraja/registered_company_list.html:146
+#: daraja/models.py:28 daraja/templates/daraja/registered_company_list.html:146
 msgid "Description and products"
 msgstr "Description et produits"
 
-#: daraja/models.py:26
+#: daraja/models.py:29
 msgid ""
 "Tell Daras about your business and your products are the most easy and profitable "
 "to sell."
@@ -63,11 +75,11 @@ msgstr ""
 "Décrivez votre activité aux Daras. Dites leurs quels sont les produits les plus "
 "faciles à vendre et aussi les plus rentables."
 
-#: daraja/models.py:28 daraja/templates/daraja/registered_company_list.html:154
+#: daraja/models.py:31 daraja/templates/daraja/registered_company_list.html:154
 msgid "Strategy"
 msgstr "Stratégie"
 
-#: daraja/models.py:29
+#: daraja/models.py:32
 msgid ""
 "Give Daras an idea of marketing strategy they might use including market to "
 "target and how to attract customers."
@@ -75,11 +87,11 @@ msgstr ""
 "Donnez aux Daras une idée de la stratégie marketing qu'ils peuvent mettre en "
 "place. Par exemple le public cible et comment l'attirer."
 
-#: daraja/models.py:31
+#: daraja/models.py:34
 msgid "Simulation"
 msgstr "Simulation"
 
-#: daraja/models.py:32
+#: daraja/models.py:35
 msgid ""
 "Help Daras by giving a realistic, yet optmistic simulation of what they might "
 "earn in a month if they work well."
@@ -87,11 +99,11 @@ msgstr ""
 "Aidez les Daras à se projeter en donnant une simulation réaliste, mais optimiste "
 "de ce qu'ils peuvent gagner en vous travaillant correctement."
 
-#: daraja/models.py:37
+#: daraja/models.py:40
 msgid "City where HQ of company is located."
 msgstr "Ville où se trouve la DG de l'entreprise."
 
-#: daraja/models.py:41
+#: daraja/models.py:44
 msgid ""
 "Average amount a customer generally buys from you. This helps the Dara do a "
 "simulation of what he might earn."
@@ -99,11 +111,11 @@ msgstr ""
 "Le ticket moyen qu'un client dépense en général chez vous. Ceci aide le Dara à "
 "faire une estimation de ses gains potentiels."
 
-#: daraja/models.py:43
+#: daraja/models.py:46
 msgid "Estimated daily sales of a dara"
 msgstr "Estimez les ventes journalières d'un dara"
 
-#: daraja/models.py:94
+#: daraja/models.py:97
 msgid "Say something about you"
 msgstr "Dites le meilleur de vous"
 
@@ -122,15 +134,15 @@ msgstr "Je viens de m'inscrire sur %s !"
 msgid "New transaction on %s"
 msgstr "Nouvelle transaction sur %s"
 
-#: daraja/views.py:138
+#: daraja/views.py:142
 msgid "New Dara request"
 msgstr "Nouvelle requête"
 
-#: daraja/views.py:324
+#: daraja/views.py:332
 msgid "Your profile was successfully updated."
 msgstr "Votre profil a été mis à jour avec succès."
 
-#: daraja/views.py:387
+#: daraja/views.py:395
 msgid "Your Dara request was accepted"
 msgstr "Votre requête en tant que Dara a été acceptée"
 
@@ -467,28 +479,36 @@ msgstr ""
 "                            "
 
 #: daraja/templates/daraja/home.html:209
-#: daraja/templates/daraja/not_yet_dara.html:40 templates/com/base.html:202
+#: daraja/templates/daraja/home_playground.html:226
+#: daraja/templates/daraja/not_yet_dara.html:40 templates/com/base.html:242
+#: templates/com/base_online.html:202
 msgid "Get started"
 msgstr "Lancez-vous"
 
-#: daraja/templates/daraja/home.html:211 templates/com/base.html:143
-#: templates/com/base.html.py:204
+#: daraja/templates/daraja/home.html:211
+#: daraja/templates/daraja/home_playground.html:228
+#: templates/com/base_online.html:143 templates/com/base_online.html.py:204
 msgid "Home"
 msgstr "Accueil"
 
-#: daraja/templates/daraja/home.html:212 templates/com/base.html:205
+#: daraja/templates/daraja/home.html:212
+#: daraja/templates/daraja/home_playground.html:229 templates/com/base.html:244
+#: templates/com/base_online.html:205
 msgid "Sign In"
 msgstr "Connexion"
 
-#: daraja/templates/daraja/home.html:217 templates/com/base.html:210
+#: daraja/templates/daraja/home.html:217 templates/com/base.html:249
+#: templates/com/base_online.html:210
 msgid "About us"
 msgstr "À propos"
 
-#: daraja/templates/daraja/home.html:219 templates/com/base.html:212
+#: daraja/templates/daraja/home.html:219 templates/com/base_online.html:212
 msgid "Our Company"
 msgstr "Notre entreprise"
 
-#: daraja/templates/daraja/home.html:229 templates/com/base.html:221
+#: daraja/templates/daraja/home.html:229
+#: daraja/templates/daraja/home_playground.html:243 templates/com/base.html:258
+#: templates/com/base_online.html:221
 msgid "Help desk"
 msgstr "Aide"
 
@@ -624,6 +644,185 @@ msgstr "Et prenez en charge le marché."
 #: daraja/templates/daraja/home_for_businesses.html:392
 msgid "Get enhanced"
 msgstr "Lancez-vous"
+
+#: daraja/templates/daraja/home_playground.html:13
+msgid "Daraja Playground, Pratice on Playground and learn how Daraja works"
+msgstr ""
+"Daraja Playground, Exercez-vous sur Playground et apprenez comment Daraja "
+"fonctionne"
+
+#: daraja/templates/daraja/home_playground.html:14
+msgid "Earn bonus cash each time you complete a step on Playground"
+msgstr ""
+"Gagnez des bonus cash chaque fois que vous traversez une étape sur Playground"
+
+#: daraja/templates/daraja/home_playground.html:15
+msgid "Earn bonus cash each time you complete a step on Playground."
+msgstr ""
+"Gagnez des bonus cash chaque fois que vous traversez une étape sur Playground."
+
+#: daraja/templates/daraja/home_playground.html:20
+msgid "Get into Playground experience and learn how Daraja works ."
+msgstr "Entrez dans l'avanture Playground et apprenez comment Daraja fonctionne."
+
+#: daraja/templates/daraja/home_playground.html:41
+msgid ""
+"Try yourself on <span style=\"color: #FFEE58;\">Playground</span> and learn how "
+"Daraja works"
+msgstr ""
+"Essayez-vous <span style=\"color: #FFEE58;\">Playground</span> et apprenez "
+"comment Daraja fonctionne"
+
+#: daraja/templates/daraja/home_playground.html:43
+msgid "Follow steps below and earn bonus cash each time you complete one."
+msgstr ""
+"Suivez les étapes ci-dessous et gagnez des bonus cash chaque fois que vous en "
+"traversez une."
+
+#: daraja/templates/daraja/home_playground.html:55
+msgid ""
+"Download the app<br><span style=\"font-size: .5em\">( Android only <i class=\"fab "
+"fa-android\" style=\"font-size: 1.5em\"></i> )</span>"
+msgstr ""
+"Téléchargez l'application<br><span style=\"font-size: .5em\">( Android uniquement "
+"<i class=\"fab fa-android\" style=\"font-size: 1.5em\"></i> )</span>"
+
+#: daraja/templates/daraja/home_playground.html:57
+msgid "Download"
+msgstr "Télécharger"
+
+#: daraja/templates/daraja/home_playground.html:71
+#: daraja/templates/daraja/home_playground.html:84
+msgid "Step 1: Buy online"
+msgstr "Étape 1: Achetez en ligne"
+
+#: daraja/templates/daraja/home_playground.html:73
+msgid ""
+"\n"
+"                                    Go on Playground website, choose your desired "
+"products, order and earn instantly <strong>100 CFA bonus cash</strong> for that."
+msgstr ""
+"\n"
+"                                    Allez sur le site web de Playground, "
+"choississez les produits que vous désirez, commandez et gagnez instantanément "
+"<strong>100 CFA de bonus cash</strong> pour cette action."
+
+#: daraja/templates/daraja/home_playground.html:86
+msgid ""
+"\n"
+"                                Go on Playground website, choose your desired "
+"products, order and earn instantly <strong>100 CFA bonus cash</strong> for that."
+msgstr ""
+"\n"
+"                                    Allez sur le site web de Playground, "
+"choississez les produits que vous désirez, commandez et gagnez instantanément "
+"<strong>100 CFA de bonus cash</strong> pour cette action."
+
+#: daraja/templates/daraja/home_playground.html:104
+#: daraja/templates/daraja/home_playground.html:117
+msgid "Step 2: Invite somebody"
+msgstr "Étape 2: Invitez quelqu'un"
+
+#: daraja/templates/daraja/home_playground.html:106
+#: daraja/templates/daraja/home_playground.html:119
+msgid ""
+"\n"
+"                                Send members invitations to join Daraja to "
+"discover universe great advantages these companies\n"
+"                                have to share with customers.<br><br>"
+msgstr ""
+"\n"
+"                                Invitez vos proches à joindre Daraja pour "
+"découvrir l'univers des choses merveilleuses que reservent ces entreprises à "
+"leurs clients.<br><br>"
+
+#: daraja/templates/daraja/home_playground.html:110
+#: daraja/templates/daraja/home_playground.html:123
+msgid "Watch the video to learn more how to refer a product."
+msgstr ""
+"Regardez la vidéo sur YouTube pour mieux apprendre comment recommender un produit."
+
+#: daraja/templates/daraja/home_playground.html:138
+#: daraja/templates/daraja/home_playground.html:147
+msgid "Step 3: Get a follower to buy online"
+msgstr "Étape 3: Obtenez un follower qui achète en ligne"
+
+#: daraja/templates/daraja/home_playground.html:140
+msgid ""
+"\n"
+"                                Go on Playground website, choose and share "
+"products your followers may like on your social medias\n"
+"                                or individually. When you get one who buy online, "
+"you will receive a new <strong>100 CFA bonus cash</strong>."
+msgstr ""
+"\n"
+"                                Allez sur le site web de Playground, choississez "
+"et partagez les produits que vos followers aimeront sur vos médias sociaux \n"
+"                                ou personnellement. Lorsque l'un d'eux achètera "
+"en ligne, vous recevrez directement <strong>100 CFA de bonus cash</strong>."
+
+#: daraja/templates/daraja/home_playground.html:149
+msgid ""
+"\n"
+"                                Go on Playground website, choose and share on "
+"your social medias or individually\n"
+"                                products your followers may like . When you get "
+"one who buy online, you will receive a new <strong>100 CFA bonus cash</strong>."
+msgstr ""
+"\n"
+"                                Allez sur le site web de Playground, choississez "
+"et partagez les produits que vos followers aimeront sur vos médias sociaux \n"
+"                                ou personnellement. Lorsque l'un d'eux achètera "
+"en ligne, vous recevrez directement <strong>100 CFA de bonus cash</strong>."
+
+#: daraja/templates/daraja/home_playground.html:164
+#: daraja/templates/daraja/home_playground.html:180
+msgid "Step 4: Like, follow us on social medias"
+msgstr "Étape 4: Likez, suivez nous sur les réseaux sociaux"
+
+#: daraja/templates/daraja/home_playground.html:166
+msgid ""
+"\n"
+"                                Send likes to our social platforms and invite "
+"friends to follow us,\n"
+"                                like our pages, share, and subscribe to our "
+"social pages to keep up with new activities."
+msgstr ""
+"\n"
+"                               Envoyez les likes sur nos réseaux sociaux et "
+"invitez vos amis à nous suivre,\n"
+"                                likez nos postes, partagez-les, et inscrivez vous "
+"sur nos pages pour être au courant de nouvelles activités. "
+
+#: daraja/templates/daraja/home_playground.html:182
+msgid ""
+"\n"
+"                                Send likes to our social platforms and invite "
+"friends to follow us,\n"
+"                                like our pages, share , and subscribe to our "
+"social pages to keep up with new activities."
+msgstr ""
+"\n"
+"                               Envoyez les likes sur nos réseaux sociaux et "
+"invitez vos amis à nous suivre,\n"
+"                                likez nos postes, partagez-les, et inscrivez vous "
+"sur nos pages pour être au courant de nouvelles activités."
+
+#: daraja/templates/daraja/home_playground.html:201
+msgid "Go live !"
+msgstr "Allez en direct"
+
+#: daraja/templates/daraja/home_playground.html:202
+msgid ""
+"Request access to a company, invite 3 followers and get one to buy to earn "
+"another<br><strong>500 CFA bonus cash</strong>"
+msgstr ""
+"Demandez une invitation à une entreprise, invitez 3 followers et obtenez un qui "
+"achète en ligne; puis gagnez un autre<br><strong>500 CFA de bonus cash</strong>"
+
+#: daraja/templates/daraja/home_playground.html:204
+msgid "Go now"
+msgstr "C'est parti !"
 
 #: daraja/templates/daraja/invite_dara.html:8
 #: daraja/templates/daraja/invite_dara.html:11
@@ -829,7 +1028,7 @@ msgstr ""
 
 #: daraja/templates/daraja/registered_company_list.html:192
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: daraja/templates/daraja/registered_company_list.html:207
 msgid "Aww!! It looks like you're not yet login. Please do it before continue..."
@@ -970,43 +1169,59 @@ msgstr ""
 "Invitez vos proches à acheter en ligne chez vos entreprises préférées et gagnez "
 "un pourcentage."
 
-#: templates/accesscontrol/sign_in.html:55
+#: templates/accesscontrol/sign_in.html:51
+msgid ""
+"Downloading the App is not possible with your current browser. Please switch to "
+"Google Chrome."
+msgstr ""
+"Le téléchargement de l'application n'est pas possible sur votre navigateur. "
+"Veuillez utiliser Google Chrome SVP."
+
+#: templates/accesscontrol/sign_in.html:58
 msgid "Your password was successfully reset, login now."
 msgstr ""
 "Votre mot de passe a été réinitialisé avec succès, connectez-vous maintenant."
 
-#: templates/accesscontrol/sign_in.html:68 templates/com/base.html:100
-#: templates/com/base.html.py:178
+#: templates/accesscontrol/sign_in.html:71 templates/com/base.html:117
+#: templates/com/base.html.py:223 templates/com/base_online.html:100
+#: templates/com/base_online.html.py:178
 msgid "Login"
 msgstr "Connexion"
 
-#: templates/accesscontrol/sign_in.html:72
+#: templates/accesscontrol/sign_in.html:75
 msgid "Email or phone"
 msgstr "Email ou téléphone"
 
-#: templates/accesscontrol/sign_in.html:77
+#: templates/accesscontrol/sign_in.html:80
 msgid "Password"
 msgstr "Mot de passe"
 
-#: templates/accesscontrol/sign_in.html:84
+#: templates/accesscontrol/sign_in.html:87
 msgid "Submit"
 msgstr "Soumettre"
 
-#: templates/accesscontrol/sign_in.html:89
+#: templates/accesscontrol/sign_in.html:92
 msgid "Login with <strong>ikwen</strong>"
 msgstr "Se connecter avec <strong>ikwen</strong>"
 
-#: templates/accesscontrol/sign_in.html:93
+#: templates/accesscontrol/sign_in.html:96
 msgid "Forgotten password ?"
 msgstr "Mot de passe oublié ?"
 
-#: templates/accesscontrol/sign_in.html:97
+#: templates/accesscontrol/sign_in.html:100
 msgid "No account yet ?"
 msgstr "Pas encore de compte ?"
 
-#: templates/accesscontrol/sign_in.html:99
+#: templates/accesscontrol/sign_in.html:102
 msgid "Register"
 msgstr "Inscrivez-vous"
+
+#: templates/accesscontrol/sign_in.html:116
+msgid ""
+"Wait a few seconds and click the prompt that appear at the bottom of the screen"
+msgstr ""
+"Patientez quelques secondes et cliquez la boîte de dialogue qui apparaîtra en bas "
+"de votre écran"
 
 #: templates/cashout/payments.html:5 templates/cashout/payments.html.py:14
 #: templates/cashout/payments.html:95 templates/core/dashboard_base.html:94
@@ -1093,27 +1308,37 @@ msgstr "Choisissez le wallet"
 msgid "Cash-out from"
 msgstr "Retirer de"
 
-#: templates/cashout/payments.html:286
+#: templates/cashout/payments.html:287
 msgid "New payment address"
 msgstr "Nouvelle adresse de paiement"
 
-#: templates/cashout/payments.html:295
+#: templates/cashout/payments.html:296
 msgid "Update address"
 msgstr "Changer l'adresse"
 
-#: templates/com/base.html:93 templates/com/base.html.py:171
+#: templates/com/base.html:110 templates/com/base.html.py:216
+#: templates/com/base_online.html:93 templates/com/base_online.html.py:171
 msgid "Account setup"
 msgstr "Infos compte"
 
-#: templates/com/base.html:95 templates/com/base.html.py:173
+#: templates/com/base.html:112 templates/com/base.html.py:218
+#: templates/com/base_online.html:95 templates/com/base_online.html.py:173
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: templates/com/base.html:112
+#: templates/com/base.html:129 templates/com/base_online.html:112
 msgid "Search"
 msgstr "Recherche"
 
-#: templates/com/base.html:214
+#: templates/com/base.html:160 templates/com/base.html.py:172
+msgid "Community"
+msgstr "Communauté"
+
+#: templates/com/base.html:161 templates/com/base.html.py:173
+msgid "Enterprise"
+msgstr "Entreprise"
+
+#: templates/com/base.html:251 templates/com/base_online.html:214
 msgid "Reviews"
 msgstr "Avis"
 
@@ -1162,10 +1387,6 @@ msgstr "Dernier paiement"
 msgid "View payments"
 msgstr "Voirles paiements"
 
-#: templates/website/snippets/language_switcher.html:6
-msgid "Language"
-msgstr ""
-
 #~ msgid "ikwen DARAJA, become a stockholder of the major companies"
 #~ msgstr "ikwen DARAJA, devenez un actionnaire des grandes entreprises"
 
@@ -1186,12 +1407,6 @@ msgstr ""
 #~ "                                                    %(share_rate)s<sup>%%</"
 #~ "sup> à gagner\n"
 #~ "                                                "
-
-#~ msgid "English"
-#~ msgstr "Anglais"
-
-#~ msgid "French"
-#~ msgstr "Français"
 
 #~ msgid "An army of digital salespeople awaits you"
 #~ msgstr "Une armée de commerciaux digitaux vous attendent"
