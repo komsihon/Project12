@@ -78,7 +78,12 @@ class RegisteredCompanyList(HybridListView):
     Companies registered to ikwen Daraja program
     """
     template_name = 'daraja/registered_company_list.html'
-    queryset = DarajaConfig.objects.select_related('service').filter(referrer_share_rate__gt=0, is_active=True)
+    try:
+        playground = Service.objects.get(project_name_slug='playground')
+        queryset = DarajaConfig.objects.select_related('service').exclude(service=playground)\
+            .filter(referrer_share_rate__gt=0, is_active=True)
+    except Service.DoesNotExist:
+        queryset = DarajaConfig.objects.select_related('service').filter(referrer_share_rate__gt=0, is_active=True)
 
     def get(self, request, *args, **kwargs):
         action = request.GET.get('action')
