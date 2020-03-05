@@ -685,6 +685,6 @@ class SuccessfulDeployment(VerifiedEmailTemplateView):
         if inviter:
             next_url = reverse('daraja:invite_dara', args=(inviter, )) + '?invitation_id=' + invitation_id
         else:
-            next_url = 'http://daraja.ikwen.com/daraja/dashboard/?action=get_in&challenge=' + dara_service.api_signature
+            next_url = 'http://daraja.ikwen.com/daraja/playground'
         context['next_url'] = next_url
         return context

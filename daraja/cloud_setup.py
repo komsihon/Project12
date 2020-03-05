@@ -15,7 +15,7 @@ from ikwen.accesscontrol.models import SUDO, Member
 from ikwen.core.models import Service, SERVICE_DEPLOYED, Application, Config
 from ikwen.core.tools import generate_random_key
 from ikwen.core.utils import add_database_to_settings, add_event, get_mail_content, \
-    get_service_instance, clear_counters
+    get_service_instance, clear_counters, add_database
 from permission_backend_nonrel.models import UserPermissionList
 
 from daraja.models import DARAJA, DARAJA_IKWEN_SHARE_RATE, DarajaConfig, Dara
@@ -39,6 +39,7 @@ CASH_OUT_MIN = 5000  # Default cash out min for Daras
 def deploy(member):
     app = Application.objects.get(slug=DARAJA)
     daraja_service = Service.objects.get(project_name_slug=DARAJA)
+    playground_service = Service.objects.get(project_name_slug='playground')
     project_name_slug = slugify(member.username.split('@')[0])
     ikwen_name = project_name_slug.replace('-', '')
     pname = ikwen_name
@@ -80,8 +81,8 @@ def deploy(member):
     for s in member.get_services():
         db = s.database
         add_database_to_settings(db)
-        collaborates_on_fk_list = member.collaborates_on_fk_list + [daraja_service.id]
-        customer_on_fk_list = member.customer_on_fk_list + [daraja_service.id]
+        collaborates_on_fk_list = member.collaborates_on_fk_list + [daraja_service.id, playground_service.id]
+        customer_on_fk_list = member.customer_on_fk_list + [daraja_service.id, playground_service.id]
         Member.objects.using(db).filter(pk=member.id).update(collaborates_on_fk_list=collaborates_on_fk_list,
                                                              customer_on_fk_list=customer_on_fk_list)
 
@@ -112,6 +113,7 @@ def deploy(member):
 
     service.save(using=database)
 
+    # Add Member as Dara for ikwen
     ikwen_service = get_service_instance()
     daraja_config = DarajaConfig.objects.get(service=ikwen_service)
     dara, change = Dara.objects.get_or_create(member=member)
@@ -121,6 +123,18 @@ def deploy(member):
     ikwen_service.save(using=database)
     ikwen_service_mirror = Service.objects.using(database).get(pk=ikwen_service.id)
     clear_counters(ikwen_service_mirror)
+
+    # Add Member as Dara for Playground
+    playground_db = playground_service.database
+    add_database(playground_db)
+    member.save(using=playground_db)
+    member = Member.objects.using(playground_db).get(pk=member.id)
+    UserPermissionList.objects.using(playground_db).get_or_create(user=member)
+    Dara.objects.using(playground_db).get_or_create(member=member)
+    service.save(using=playground_db)
+    playground_service.save(using=database)
+    playground_service_mirror = Service.objects.using(database).get(pk=playground_service.id)
+    clear_counters(playground_service_mirror)
 
     # Send notification and Invoice to customer
     add_event(ikwen_service, SERVICE_DEPLOYED, member=member, object_id=service.id)
@@ -132,7 +146,7 @@ def deploy(member):
     html_content = get_mail_content(subject, template_name='daraja/mails/service_deployed.html',
                                     extra_context={'registered_company_list_url': registered_company_list_url, 'member': member})
     msg = EmailMessage(subject, html_content, sender, [member.email])
-    bcc = ['contact@ikwen.com']
+    bcc = ['contact@ikwen.com', 'support@ikwen.com']
     msg.bcc = list(set(bcc))
     msg.content_subtype = "html"
     Thread(target=lambda m: m.send(), args=(msg, )).start()

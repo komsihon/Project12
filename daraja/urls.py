@@ -26,7 +26,7 @@ urlpatterns = patterns(
 
     url(r'^login_router$', login_router, name='login_router'),
     url(r'^dashboard/$', Dashboard.as_view(), name='dashboard'),
-    url(r'^playground/$', login_required(HomePlayground.as_view()), name='home_playground'),
+    url(r'^playground/$', HomePlayground.as_view(), name='home_playground'),
     url(r'^profile/$', login_required(ChangeProfile.as_view()), name='change_profile'),
     url(r'^companies/$', login_required(CompanyList.as_view()), name='company_list'),
     url(r'^wallet/$', login_required(Payments.as_view()), name='wallet'),

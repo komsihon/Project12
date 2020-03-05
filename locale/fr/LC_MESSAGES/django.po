@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-03 13:03+0000\n"
-"PO-Revision-Date: 2020-03-03 14:04+0100\n"
+"POT-Creation-Date: 2020-03-05 14:31+0000\n"
+"PO-Revision-Date: 2020-03-05 15:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -34,7 +34,7 @@ msgstr "Général"
 msgid "How to make money with you ?"
 msgstr "Comment gagner de l'argent avec vous ?"
 
-#: daraja/cloud_setup.py:130
+#: daraja/cloud_setup.py:144
 msgid "Welcome to the business network."
 msgstr "Bienvenu(e) dans le réseau business."
 
@@ -122,15 +122,15 @@ msgstr "Je viens de m'inscrire sur %s !"
 msgid "New transaction on %s"
 msgstr "Nouvelle transaction sur %s"
 
-#: daraja/views.py:142
+#: daraja/views.py:147
 msgid "New Dara request"
 msgstr "Nouvelle requête"
 
-#: daraja/views.py:332
+#: daraja/views.py:337
 msgid "Your profile was successfully updated."
 msgstr "Votre profil a été mis à jour avec succès."
 
-#: daraja/views.py:395
+#: daraja/views.py:400
 msgid "Your Dara request was accepted"
 msgstr "Votre requête en tant que Dara a été acceptée"
 
@@ -1103,13 +1103,13 @@ msgstr ""
 #: daraja/templates/daraja/cloud_setup/successful_deployment.html:43
 msgid ""
 "\n"
-"                        <p>Now, you are a Dara ! Discover your control panel to "
-"see how to grow and monitor your business.</p>\n"
+"                        <p>Now, you are a Dara ! Become a Pro and make some money "
+"now by following steps in Playground simulator.</p>\n"
 "                    "
 msgstr ""
 "\n"
-"                    <p>Désormais, vous êtes un Dara ! Découvrez votre panneau de "
-"contrôle d'où vous pourrez suivre et développer votre business.</p>\n"
+"                    <p>Désormais, vous êtes un Dara ! Devenez un Pro et gagnez de "
+"l'argent maintenant en suivant les étapes du simulateur Playground.</p>\n"
 "                "
 
 #: daraja/templates/daraja/snippets/company_list_results.html:13
@@ -1373,6 +1373,17 @@ msgstr "Voirles paiements"
 #: templates/website/snippets/language_switcher.html:6
 msgid "Language"
 msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "                        <p>Now, you are a Dara ! Discover your control panel "
+#~ "to see how to grow and monitor your business.</p>\n"
+#~ "                    "
+#~ msgstr ""
+#~ "\n"
+#~ "                    <p>Désormais, vous êtes un Dara ! Découvrez votre panneau "
+#~ "de contrôle d'où vous pourrez suivre et développer votre business.</p>\n"
+#~ "                "
 
 #~ msgid "There is no product online"
 #~ msgstr "Aucun produit en ligne"
