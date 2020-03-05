@@ -22,7 +22,7 @@
 
 {% block head_style %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'daraja/css/home.css' %}?v=19.11.2">
+    <link rel="stylesheet" type="text/css" href="{% static 'daraja/css/home.css' %}?V=20.03.04.14.31">
 {% endblock %}
 
 {% block header_brand %}
@@ -48,21 +48,21 @@
             </div>
         </div>
     </div>
-    <div id="banniere-top" class="container-fluid">
-        <div class="row section-banniere-top" style="background-image: url({% static 'daraja/img/banner-2.png' %});margin-top: 0!important;">
-            <div class="section-banniere-inner">
-                <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center" style="padding-top: 7vh">
-                    <h1>{% blocktrans %}Download the app<br><span style="font-size: .5em">( Android only <i class="fab fa-android" style="font-size: 1.5em"></i> )</span>{% endblocktrans %}</h1>
-                    <a  href="{% url 'ikwen:logout' %}?next={% url 'home' %}?dl=yes">
-                        <button  type=button class="btn btn-outline-white btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Download" %}</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+{#    <div id="banniere-top" class="container-fluid">#}
+{#        <div class="row section-banniere-top" style="background-image: url({% static 'daraja/img/banner-2.png' %});margin-top: 0!important;">#}
+{#            <div class="section-banniere-inner">#}
+{#                <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center" style="padding-top: 7vh">#}
+{#                    <h1>{% blocktrans %}Download the app<br><span style="font-size: .5em">( Android only <i class="fab fa-android" style="font-size: 1.5em"></i> )</span>{% endblocktrans %}</h1>#}
+{#                    <a  href="{% url 'ikwen:logout' %}?next={% url 'home' %}?dl=yes">#}
+{#                        <button  type=button class="btn btn-outline-white btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Download" %}</button>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 
     <div id="container-general-view" class="features playground">
-        <section class="features site" style="padding-top: 5vh; background-color: #fcf8f5">
+        <section id="buy-online" class="features site" style="padding-top: 5vh; background-color: #fcf8f5">
             <div class="container">
                 <div class="row features">
                     <div class="col-sm-6 img" style="background-image: url({% static 'daraja/img/buy-online2.jpg' %})">
@@ -71,7 +71,7 @@
                             <h2 class="hidden-xs" style="visibility: hidden">{% trans "Step 1: Buy online" %}</h2>
                             <div class="desc hidden-xs" style="visibility: hidden">
                                 <p>{% blocktrans %}
-                                    Go on Playground website, choose your desired products, order and earn instantly <strong>100 CFA bonus cash</strong> for that.{% endblocktrans %}
+                                    Discover the purchase process buy making an online order. It is a simulation, so you won’t be charged. Get <strong>100 CFA Bonus + 1XP</strong> for completing that step.{% endblocktrans %}
                                     <a class="discover-link" href="https://go.ikwen.com/playground">
                                         <i class="fa fa-arrow-circle-right animated infinite slideInLeft"></i>
                                     </a>
@@ -84,7 +84,7 @@
                         <h2>{% trans "Step 1: Buy online" %}</h2>
                         <div class="desc">
                             <p>{% blocktrans %}
-                                Go on Playground website, choose your desired products, order and earn instantly <strong>100 CFA bonus cash</strong> for that.{% endblocktrans %}
+                                Discover the purchase process buy making an online order. It is a simulation, so you won’t be charged. Get <strong>100 CFA Bonus + 1XP</strong> for completing that step.{% endblocktrans %}
                                 <a class="discover-link" href="https://go.ikwen.com/playground">
                                     <i class="fa fa-arrow-circle-right animated infinite slideInLeft"></i>
                                 </a>
@@ -94,7 +94,7 @@
                 </div>
             </div>
         </section>
-        <section class="features site">
+        <section id="invite-smbdy" class="features site">
             <div class="container">
                 <div class="row features">
                     <div class="col-sm-6 visible-xs">
@@ -103,10 +103,14 @@
                     <div class="col-sm-6 description">
                         <h2>{% trans "Step 2: Invite somebody" %}</h2>
                         <div class="desc">
-                            <p>{% blocktrans %}
-                                Send members invitations to join Daraja to discover universe great advantages these companies
-                                have to share with customers.<br><br>{% endblocktrans %}
-                                <a class="discover-link" href="https://www.youtube.com/watch?v=o2VSuOrrttc">
+                            <p>{% blocktrans %}Refer a mate to become your follower on Playground.<br>You will earn some money when he buys online.
+                                <ol>
+                                    <li>Login on Daraja or open the App,</li>
+                                    <li>Go to My companies from the menu and tap playground</li>
+                                    <li>Share the link from the paper-plane icon.</li>
+                                    <li>Make sure your mate registers using that link and get <strong>100 CFA Bonus + 1XP </strong>after he does so.</li>
+                                </ol>{% endblocktrans %}<br><br>
+                                <a class="discover-link" href="https://www.youtube.com/watch?v=o2VSuOrrttc" target="_blank">
                                     {% trans "Watch the video to learn more how to refer a product." %}<i class="fa fa-arrow-circle-right animated infinite slideInLeft"></i>
                                 </a>
                             </p>
@@ -116,10 +120,14 @@
                         {# Force DIV height by putting the same text and set visibility to hidden #}
                         <h2 class="hidden-xs" style="visibility: hidden">{% trans "Step 2: Invite somebody" %}</h2>
                         <div class="desc hidden-xs" style="visibility: hidden">
-                            <p>{% blocktrans %}
-                                Send members invitations to join Daraja to discover universe great advantages these companies
-                                have to share with customers.<br><br>{% endblocktrans %}
-                                <a class="discover-link" href="https://www.youtube.com/watch?v=o2VSuOrrttc" target="_blank  ">
+                            <p>{% blocktrans %}Refer a mate to become your follower on Playground.<br>You will earn some money when he buys online.
+                                <ol>
+                                    <li>Login on Daraja or open the App,</li>
+                                    <li>Go to My companies from the menu and tap playground</li>
+                                    <li>Share the link from the paper-plane icon.</li>
+                                    <li>Make sure your mate registers using that link and get <strong>100 CFA Bonus + 1XP </strong>after he does so.</li>
+                                </ol>{% endblocktrans %}<br><br>
+                                <a class="discover-link" href="https://www.youtube.com/watch?v=o2VSuOrrttc" target="_blank">
                                     {% trans "Watch the video to learn more how to refer a product." %}<i class="fa fa-arrow-circle-right animated infinite slideInLeft"></i>
                                 </a>
                             </p>
@@ -129,17 +137,27 @@
                 </div>
             </div>
         </section>
-        <section class="features site" style="padding-top: 5vh; background-color: #6D87CE; color: #ffffff">
+        <section id="invite-follower-to-buy" class="features site" style="padding-top: 5vh; background-color: #6D87CE; color: #ffffff">
             <div class="container">
                 <div class="row features">
                     <div class="col-sm-6 img" style="background-image: url({% static 'daraja/img/refer-friends.svg' %})">
                         <img class="img-responsive visible-xs" src="{% static 'daraja/img/refer-friends.svg' %}">
                         {# Force DIV height by putting the same text and set visibility to hidden #}
-                        <h2 class="hidden-xs" style="visibility: hidden">{% trans "Step 3: Get a follower to buy online" %}</h2>
+                        <h2 class="hidden-xs" style="visibility: hidden">{% trans "Step 3: Get your follower to buy online" %}</h2>
                         <div class="desc hidden-xs" style="visibility: hidden">
                             <p>{% blocktrans %}
-                                Go on Playground website, choose and share products your followers may like on your social medias
-                                or individually. When you get one who buy online, you will receive a new <strong>100 CFA bonus cash</strong>.{% endblocktrans %}</p>
+                                You just referred a friend and he is now your follower on Playground.
+                                Make sure he did it by doing so:
+                                <ol>
+                                    <li>Login on Daraja or open the App,</li>
+                                    <li>Go to My companies from the menu and tap playground</li>
+                                    <li>See that you have 1 follower or more on Playground</li>
+                                    <li>Tell your mate to buy online on Playground like what you did in step 1.
+                                        It is also a simulation and he won’t be charged.</li>
+                                </ol>
+                                Get <strong>200 CFA Bonus + 1XP</strong> after he does so.
+                            {% endblocktrans %}
+                            </p>
                         </div>
                         {# End Force DIV height #}
                     </div>
@@ -147,14 +165,24 @@
                         <h2>{% trans "Step 3: Get a follower to buy online" %}</h2>
                         <div class="desc">
                             <p>{% blocktrans %}
-                                Go on Playground website, choose and share on your social medias or individually
-                                products your followers may like . When you get one who buy online, you will receive a new <strong>100 CFA bonus cash</strong>.{% endblocktrans %}</p>
+                                You just referred a friend and he is now your follower on Playground.
+                                Make sure he did it by doing so:
+                                <ol>
+                                    <li>Login on Daraja or open the App,</li>
+                                    <li>Go to My companies from the menu and tap playground</li>
+                                    <li>See that you have 1 follower or more on Playground</li>
+                                    <li>Tell your mate to buy online on Playground like what you did in step 1.
+                                        It is also a simulation and he won’t be charged.</li>
+                                </ol>
+                                Get 200 CFA Bonus + 1XP after he does so.
+                            {% endblocktrans %}
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="features site">
+        <section id="like-social-medias" class="features site">
             <div class="container">
                 <div class="row features">
                     <div class="col-sm-6 visible-xs">
@@ -166,13 +194,31 @@
                             <p>{% blocktrans %}
                                 Send likes to our social platforms and invite friends to follow us,
                                 like our pages, share, and subscribe to our social pages to keep up with new activities.{% endblocktrans %}</p>
-                             <p>
-                                 <a href="https://www.facebook.com/Ikwen-kakocase-2025554244382381/?epa=SEARCH_BOX" target="_blank" style="font-size: 40px; margin-left: 12px; text-decoration: none; color: #3b5998;"><i class="animated infinite fab fa-facebook"></i></a>
-                                 <a href="https://www.instagram.com/ikwen_cloud/" target="_blank" style="font-size: 40px; margin-left: 12px; text-decoration: none; color: #c32aa3;"><i class="animated infinite fab fa-instagram"></i></a>
-                                 <a href="" target="_blank" style="font-size: 40px; margin-left: 12px; text-decoration: none; color: #1da1f2;"><i class="animated infinite fab fa-twitter"></i></a>
-                                 <a href="https://www.linkedin.com/company/ikwen/" target="_blank" style="font-size: 40px; margin-left: 12px; text-decoration: none"><i class="animated infinite fab fa-linkedin"></i></a>
-                                 <a href="https://www.youtube.com/channel/UCzhHrosFOA6RC2H9MqR9jxA" target="_blank" style="font-size: 40px; margin-left: 12px; text-decoration: none;color: #c4302b;"><i class="animated infinite fab fa-youtube"></i></a>
-                            </p>
+{#                             <p>#}
+{#                                 <a href="https://www.facebook.com/Ikwen-kakocase-2025554244382381/?epa=SEARCH_BOX" target="_blank" style="font-size: 40px; margin-left: 12px; text-decoration: none; color: #3b5998;"><i class="animated infinite fab fa-facebook"></i></a>#}
+{#                                 <a href="https://www.instagram.com/ikwen_cloud/" target="_blank" style="font-size: 40px; margin-left: 12px; text-decoration: none; color: #c32aa3;"><i class="animated infinite fab fa-instagram"></i></a>#}
+{#                                 <a href="" target="_blank" style="font-size: 40px; margin-left: 12px; text-decoration: none; color: #1da1f2;"><i class="animated infinite fab fa-twitter"></i></a>#}
+{#                                 <a href="https://www.linkedin.com/company/ikwen/" target="_blank" style="font-size: 40px; margin-left: 12px; text-decoration: none"><i class="animated infinite fab fa-linkedin"></i></a>#}
+{#                                 <a href="https://www.youtube.com/channel/UCzhHrosFOA6RC2H9MqR9jxA" target="_blank" style="font-size: 40px; margin-left: 12px; text-decoration: none;color: #c4302b;"><i class="animated infinite fab fa-youtube"></i></a>#}
+{#                            </p>#}
+
+                            <div style="display: block;">
+                                <div id="fb-root"></div>
+                                <div class="fb-like"
+                                     data-href="https://www.facebook.com/Ikwen-kakocase-2025554244382381/?epa=SEARCH_BOX"
+                                     data-layout="standard"
+                                     data-size="large"
+                                     data-action="like"
+                                     data-show-faces="true">
+                                </div>
+                            </div>
+                            <div  style="display: block; margin-top: 10px;">
+                                <div class="g-ytsubscribe"
+                                 data-channelid="UCzhHrosFOA6RC2H9MqR9jxA"
+                                 data-layout="default"
+                                 data-count="shown">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-6 img hidden-xs" style="background-image: url({% static 'daraja/img/like-follow-social-medias.png' %});">
@@ -195,17 +241,29 @@
                 </div>
             </div>
         </section>
-        <div class="container-fluid">
-            <div class="row section-banniere" style=" height: auto">
-                <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center">
-                    <h2 style="font-weight: 800;">{% trans "Go live !" %}</h2>
-                    <h4 style="line-height: 30px; margin: 4vh 0">{% blocktrans %}Request access to a company, invite 3 followers and get one to buy to earn another<br><strong>500 CFA bonus cash</strong>{% endblocktrans %}</h4>
-                    <a  href="https://daraja.ikwen.com">
-                        <button  type=button class="btn btn-outline-primary btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Go now" %}</button>
-                    </a>
+        <div id="banniere-top" class="container-fluid">
+            <div class="row section-banniere-bottom" style="background-image: url({% static 'daraja/img/banner-2.png' %});margin-top: 0!important;">
+                <div class="section-banniere-inner">
+                    <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center" style="padding-top: 7vh">
+                        <h1>{% blocktrans %}Download the app<br><span style="font-size: .5em">( Android only <i class="fab fa-android" style="font-size: 1.5em"></i> )</span>{% endblocktrans %}</h1>
+                        <a  href="{% url 'ikwen:logout' %}?next={% url 'home' %}?dl=yes">
+                            <button  type=button class="btn btn-outline-white btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Download" %}</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+{#        <div class="container-fluid">#}
+{#            <div class="row section-banniere" style=" height: auto">#}
+{#                <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center">#}
+{#                    <h2 style="font-weight: 800;">{% trans "Go live !" %}</h2>#}
+{#                    <h4 style="line-height: 30px; margin: 4vh 0">{% blocktrans %}Request access to a company, invite 3 followers and get one to buy to earn another<br><strong>500 CFA bonus cash</strong>{% endblocktrans %}</h4>#}
+{#                    <a  href="https://daraja.ikwen.com">#}
+{#                        <button  type=button class="btn btn-outline-primary btn-deploy animated pulse " style="margin-top: 20px; height: 45px;">{% trans "Go now" %}</button>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
         <a class="js-scrollTo back-to-top hiding" href="#section-header-general-view" style="text-decoration: none; color: #3F3F3F">
             <i class="fa fa-chevron-circle-up"></i>
         </a>
@@ -218,7 +276,7 @@
             <div class="row" style="margin-bottom: 15px">
                 <div class="col-sm-3 text-center" style="margin-top: 4vh;">
                     <a href="{% url 'daraja:home_playground' %}">
-                        <img class="footer-logo" src="{% static 'daraja/img/logo-daraja_grey.png' %}" style="max-width: 7vw;"/>
+                        <img class="footer-logo" src="{% static 'daraja/img/logo_playground.jpg' %}" style="max-width: 7vw;"/>
                         <h4 style="color: #ffffff; font-size: 1.8vw; text-align: center;" class="logo footer-title">Playground</h4>
                     </a>
                 </div>
@@ -254,6 +312,8 @@
 
 {% block js %}
     {{ block.super }}
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
     <script>
         (() => {
             $('#site-menu a.cta').attr('href', "{% url 'ikwen:sign_in' %}?next={% url 'daraja:home' %}");

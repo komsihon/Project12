@@ -1,8 +1,32 @@
 {% extends 'core/dashboard_base.html' %}
 {% load i18n humanize staticfiles auth_tokens %}
+{% block head_style %}
+    {{ block.super }}
+    <style>
+        #modal-generic-notice .message li {
+            text-align: left;
+        }
+        #modal-generic-notice .message ol {
+            margin: 5px auto 10px;
+        }
+        .social-likes-stage {
+            text-align: left;
+        }
+
+        @media (min-width: 768px) {
+            .social-likes-stage {
+                padding-left: 20px;
+            }
+        }
+    </style>
+{% endblock %}
 
 {% block head_js %}
     {{ block.super }}
+    {% if dara.level == 1 %}
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0"></script>
+        <script src="https://apis.google.com/js/platform.js"></script>
+    {% endif %}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages': ['line', 'corechart']});
@@ -277,6 +301,27 @@
             </div>
         </div>
     </div>
+    <div id="social-likes" class="hidden">
+        <div class="social-likes-stage">
+            <div  style="display: block;">
+                <div id="fb-root"></div>
+                <div class="fb-like"
+                     data-href="https://www.facebook.com/Ikwen-kakocase-2025554244382381/?epa=SEARCH_BOX"
+                     data-layout="standard"
+                     data-size="large"
+                     data-action="like"
+                     data-show-faces="true">
+                </div>
+            </div>
+            <div style="display: block; margin-top: 10px;">
+                <div class="g-ytsubscribe"
+                 data-channelid="UCzhHrosFOA6RC2H9MqR9jxA"
+                 data-layout="default"
+                 data-count="shown">
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block js %}
@@ -284,14 +329,63 @@
     <script src="{% static 'ikwen/js/ikwen-utils.js' %}"></script>
     <script>
         (()=> {
-            let img = "{% static 'daraja/img/banner-2.png' %}",
-                title = "Try Daraja Playground",
-                message = "Get into Playground experience and earn a bunch amount of cash money.",
-                url = "{% url 'daraja:home_playground' %}";
+            let img = "{% static 'daraja/img/banner-modal.png' %}",
+                title = "{% blocktrans %}Become a Pro Dara !{% endblocktrans %}",
+                message = "{% blocktrans %}Discover and test everything about Daraja by following steps on playground. Complete them all and earn <strong>500 CFA</strong>.{% endblocktrans %}",
+                url = "javascript:;",
+                okText = "{% trans 'Get started' %}",
+                wentToPlayground = localStorage.getItem('wentToPlayground');
+                if (!wentToPlayground) {
+                    ikwen.showNoticeDialog(img,title,message,url,okText);
+                }
 
-            {% if is_beginner %}
-                ikwen.showNoticeDialog(img,title,message,url);
+            {% if dara.level == 1 %}
+                {% if dara.xp == 0 %}
+                    img = "{% static 'daraja/img/buy-online2.jpg' %}";
+                    title = "{% blocktrans %}Step 1: Buy online{% endblocktrans %}";
+                    message = "{% blocktrans %}Discover the purchase process buy making an online order. It is a simulation, so you won’t be charged. <br>Get <strong>100 CFA Bonus + 1XP</strong> for completing that step.{% endblocktrans %}";
+                    url = "https://go.ikwen.com/playground/";
+                    okText = "{% trans 'Order now' %}";
+                    if (wentToPlayground) {
+                        ikwen.showNoticeDialog(img,title,message,url,okText);
+                        return;
+                    } else {
+                        $('#modal-generic-notice .btn-ok').click(() => {
+                            $('#modal-generic-notice').modal('hide');
+                            localStorage.setItem('wentToPlayground', 'yes');
+                            setTimeout(function () {
+                                ikwen.showNoticeDialog(img,title,message,url,okText);
+                            }, 400);
+                        });
+                        return;
+                    }
+                {% elif dara.xp == 1 %}
+                    img = "{% static 'daraja/img/invite-friends.png' %}";
+                    title = "{% blocktrans %}Step 2: Invite somebody{% endblocktrans %}";
+                    message = "{% blocktrans %}Refer a mate to become your follower on Playground. You will earn some money when he buys online.<ol><li>Go to My companies</li><li>Share the link from the paper-plane icon.</li><li>Make sure your mate registers using that link and get <strong>100 CFA Bonus + 1XP </strong>after he does so.</li></ol>{% endblocktrans %}";
+                    url = "{% url 'daraja:company_list' %}";
+                    okText = "{% trans 'Invite a friend' %}";
+                {% elif dara.xp == 2 %}
+                    img = "{% static 'daraja/img/refer-friends.svg' %}";
+                    title = "{% blocktrans %}Step 3: Get your follower to buy online{% endblocktrans %}";
+                    message = "{% blocktrans %}You just referred a friend and he is now your follower on Playground. Make sure he did it by doing so:<ol><li>Go to My companies</li><li>See that you have 1 follower or more on Playground</li><li>Tell your mate to buy online on Playground like what you did in step 1. <br>It is also a simulation and he won’t be charged.</li></ol>Get <strong>200 CFA Bonus + 1XP</strong> after he does so.{% endblocktrans %}";
+                    url = "{% url 'daraja:company_list' %}";
+                    okText = "OK";
+                {% elif dara.xp == 3 %}
+                    img = "{% static 'daraja/img/like-follow-social-medias.png' %}";
+                    title = "{% blocktrans %}You're almost done! <strong>Like, follow us on social medias</strong>{% endblocktrans %}";
+                    message = "{% blocktrans %} Send likes to our social platforms and invite friends to follow us,like our pages, share, and subscribe to our social pages to keep up with new activities.{% endblocktrans %}";
+                    url = "javascript:;";
+                    okText = "{% trans 'Like us !' %}";
+                    ikwen.showNoticeDialog(img,title,message,url,okText);
+                    $('#modal-generic-notice .btn-ok').click(() => {
+                        $('#modal-generic-notice .message').html($('#social-likes').html());
+                    });
+                    return;
+                {% endif %}
             {% endif %}
+
+            ikwen.showNoticeDialog(img,title,message,url,okText);
         })()
     </script>
 {% endblock %}

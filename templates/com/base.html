@@ -13,19 +13,19 @@
 		{% block head_style %}
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
             <link rel='stylesheet' href="{% static 'ikwen/css/flatly.bootstrap.min.css' %}" />
-            <link rel='stylesheet' href="{% static 'website/css/com/base_default.css' %}?V=20.01.02.17.26" />
+            <link rel='stylesheet' href="{% static 'website/css/com/base_default.css' %}?V=20.03.03.19.23" />
             <style>
-                .navbar-static-top:not(active) {
-                    background-color: #425B9A!important;
+                .navbar-static-top:not(.active) {
+                    background-color: transparent!important;
                 }
                 .navbar-nav>li>a{
+                    color: #253B82!important;
+                }
+                .navbar-static-top:not(.active) .icon-bar, .navbar-brand {
                     color: #ffffff!important;
                 }
-                .navbar-static-top:not(active) .icon-bar, .navbar-brand {
-                    color: #ffffff!important;
-                }
-                #navbar-search input {
-                    background: rgba(221, 221, 221, 1);
+                #navbar-search {
+                    display: none!important;
                 }
             </style>
 		{% endblock %}
@@ -73,18 +73,6 @@
                                             {% if collaborates_on|length == 1 %}
                                                 <li id="user-apps" class="visible-lg">
                                                     <a href="{{ collaborates_on.0.admin_url }}">{{ collaborates_on.0.project_name }}</a>
-                                                </li>
-                                            {% endif %}
-                                            {% if collaborates_on|length >= 1 %}
-                                                <li id="user-apps" class="dropdown{% if collaborates_on|length == 1 %} hidden-lg{% endif %}">
-                                                    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fas fa-th"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu" aria-labelledby="apps">
-                                                        {% for app in collaborates_on %}
-                                                            <li><a href="{{ app.admin_url }}">{{ app.project_name }}</a></li>
-                                                        {% endfor %}
-                                                    </ul>
                                                 </li>
                                             {% endif %}
                                             <li id="user-home">
