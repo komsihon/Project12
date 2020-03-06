@@ -50,7 +50,10 @@
     <div id="content" class="form container">
         <p class="failure chrome-only" style="display: none; margin: 15px; padding: 9px">
             {% trans "Downloading the App is not possible with your current browser. Please switch to Google Chrome." %}
-            <a class="btn btn-primary btn-sm" href="googlechrome://navigate?url=https://daraja.ikwen.com/daraja/?dl=yes">{% trans 'Open with chrome' %}</a>
+            <a class="btn btn-primary btn-sm" href="googlechrome://navigate?url=https://daraja.ikwen.com/?dl=yes">{% trans 'Open with chrome' %}</a>
+        </p>
+        <p class="failure android-only" style="display: none; margin: 15px; padding: 9px">
+            {% trans "Downloading the App is possible only on Android devices." %}
         </p>
         {% if login_form.errors %}
             <p class="failure" style="font-size: 1em; padding: 9px">{{ error_message }}</p>
@@ -114,9 +117,11 @@
     <script type="text/javascript">
         (function() {
             {% if request.GET.dl %}
-                let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-                if (!isChrome) $('.chrome-only').show();
-                else ikwen.showFloatingNotice("{% trans "Wait a few seconds and click the prompt that appear at the bottom of the screen" %}");
+                if (/Android/.test(navigator.userAgent)) {
+                    let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor) && !(/SamsungBrowser/.test(navigator.userAgent));
+                    if (!isChrome) $('.chrome-only').show();
+                    else ikwen.showFloatingNotice("{% trans "Wait a few seconds and click the prompt that appear at the bottom of the screen" %}");
+                } else $('.android-only').show();
             {% endif %}
             $('#lg-username').keyup(function(e) {
                 if (e.key === ' ') {

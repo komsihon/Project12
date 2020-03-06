@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-06 19:01+0100\n"
-"PO-Revision-Date: 2020-03-06 19:01+0100\n"
+"POT-Creation-Date: 2020-03-06 19:21+0100\n"
+"PO-Revision-Date: 2020-03-06 19:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -1326,40 +1326,46 @@ msgstr ""
 msgid "Open with chrome"
 msgstr "Ouvrez avec Chrome"
 
-#: templates/accesscontrol/sign_in.html:60
+#: templates/accesscontrol/sign_in.html:56
+msgid "Downloading the App is possible only on Android devices."
+msgstr ""
+"Le téléchargement de l'application est une uniquement possible sur les terminaux "
+"Android."
+
+#: templates/accesscontrol/sign_in.html:63
 msgid "Your password was successfully reset, login now."
 msgstr ""
 "Votre mot de passe a été réinitialisé avec succès, connectez-vous maintenant."
 
-#: templates/accesscontrol/sign_in.html:78
+#: templates/accesscontrol/sign_in.html:81
 msgid "Email or phone"
 msgstr "Email ou téléphone"
 
-#: templates/accesscontrol/sign_in.html:83
+#: templates/accesscontrol/sign_in.html:86
 msgid "Password"
 msgstr "Mot de passe"
 
-#: templates/accesscontrol/sign_in.html:90
+#: templates/accesscontrol/sign_in.html:93
 msgid "Submit"
 msgstr "Soumettre"
 
-#: templates/accesscontrol/sign_in.html:95
+#: templates/accesscontrol/sign_in.html:98
 msgid "Login with <strong>ikwen</strong>"
 msgstr "Se connecter avec <strong>ikwen</strong>"
 
-#: templates/accesscontrol/sign_in.html:99
+#: templates/accesscontrol/sign_in.html:102
 msgid "Forgotten password ?"
 msgstr "Mot de passe oublié ?"
 
-#: templates/accesscontrol/sign_in.html:103
+#: templates/accesscontrol/sign_in.html:106
 msgid "No account yet ?"
 msgstr "Pas encore de compte ?"
 
-#: templates/accesscontrol/sign_in.html:105
+#: templates/accesscontrol/sign_in.html:108
 msgid "Register"
 msgstr "Inscrivez-vous"
 
-#: templates/accesscontrol/sign_in.html:119
+#: templates/accesscontrol/sign_in.html:123
 msgid ""
 "Wait a few seconds and click the prompt that appear at the bottom of the screen"
 msgstr ""
