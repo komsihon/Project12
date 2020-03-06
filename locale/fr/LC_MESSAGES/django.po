@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-06 17:04+0100\n"
-"PO-Revision-Date: 2020-03-06 17:06+0100\n"
+"POT-Creation-Date: 2020-03-06 17:06+0000\n"
+"PO-Revision-Date: 2020-03-06 18:06+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -17,18 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.0.6\n"
-
-#: kakocase_operator_follow_up.py:62 publish_product_request.py:42
-msgid "There is no product online"
-msgstr "Aucun produit en ligne"
-
-#: conf/settings.py:160
-msgid "English"
-msgstr "Anglais"
-
-#: conf/settings.py:161
-msgid "French"
-msgstr "Français"
 
 #: daraja/admin.py:8
 msgid "Your social media"
@@ -146,6 +134,11 @@ msgstr "Votre profil a été mis à jour avec succès."
 msgid "Your Dara request was accepted"
 msgstr "Votre requête en tant que Dara a été acceptée"
 
+#: daraja/views.py:680
+msgid "Welcome to Daraja. Now you can accept the invitation below."
+msgstr ""
+"Bienvenue sur Daraja. Vous pouvez maintenant accepter l'invitation ci-dessous."
+
 #: daraja/templates/daraja/change_profile.html:16
 msgid "Subscriptions"
 msgstr "Inscriptions"
@@ -169,19 +162,19 @@ msgstr "Envoyez une invitation"
 
 #: daraja/templates/daraja/company_list.html:43
 #: daraja/templates/daraja/dara_list.html:88
-#: daraja/templates/daraja/invite_dara.html:114
+#: daraja/templates/daraja/invite_dara.html:117
 msgid "Share on WhatsApp"
 msgstr "Partagez sur Whatsapp"
 
 #: daraja/templates/daraja/company_list.html:48
 #: daraja/templates/daraja/dara_list.html:93
-#: daraja/templates/daraja/invite_dara.html:119
+#: daraja/templates/daraja/invite_dara.html:122
 msgid "Message"
 msgstr "Message"
 
 #: daraja/templates/daraja/company_list.html:62
 #: daraja/templates/daraja/dara_list.html:107
-#: daraja/templates/daraja/invite_dara.html:138
+#: daraja/templates/daraja/invite_dara.html:141
 #: daraja/templates/daraja/registered_company_list.html:214
 #: daraja/templates/daraja/registered_company_list.html:237
 #: templates/cashout/payments.html:233 templates/cashout/payments.html:271
@@ -347,7 +340,6 @@ msgstr ""
 #: daraja/templates/daraja/dashboard.html:335 daraja/templates/daraja/home.html:209
 #: daraja/templates/daraja/home_playground.html:286
 #: daraja/templates/daraja/not_yet_dara.html:40 templates/com/base.html:230
-#: templates/com/base_online.html:202
 msgid "Get started"
 msgstr "Lancez-vous"
 
@@ -580,28 +572,24 @@ msgstr ""
 
 #: daraja/templates/daraja/home.html:211
 #: daraja/templates/daraja/home_playground.html:288
-#: templates/com/base_online.html:143 templates/com/base_online.html.py:204
 msgid "Home"
 msgstr "Accueil"
 
 #: daraja/templates/daraja/home.html:212
 #: daraja/templates/daraja/home_playground.html:289 templates/com/base.html:232
-#: templates/com/base_online.html:205
 msgid "Sign In"
 msgstr "Connexion"
 
 #: daraja/templates/daraja/home.html:217 templates/com/base.html:237
-#: templates/com/base_online.html:210
 msgid "About us"
 msgstr "À propos"
 
-#: daraja/templates/daraja/home.html:219 templates/com/base_online.html:212
+#: daraja/templates/daraja/home.html:219
 msgid "Our Company"
 msgstr "Notre entreprise"
 
 #: daraja/templates/daraja/home.html:229
 #: daraja/templates/daraja/home_playground.html:303 templates/com/base.html:246
-#: templates/com/base_online.html:221
 msgid "Help desk"
 msgstr "Aide"
 
@@ -977,15 +965,15 @@ msgstr "%(company_name)s vous invite à devenir partenaires"
 msgid "Let's do business together."
 msgstr "Faisons affaire ensemble."
 
-#: daraja/templates/daraja/invite_dara.html:48
+#: daraja/templates/daraja/invite_dara.html:51
 msgid "thanks you for accepting invitation"
 msgstr "vous remercie d'avoir accepté l'invitation"
 
-#: daraja/templates/daraja/invite_dara.html:50
+#: daraja/templates/daraja/invite_dara.html:53
 msgid "is inviting you to partnership"
 msgstr "vous invite à devenir partenaires"
 
-#: daraja/templates/daraja/invite_dara.html:57
+#: daraja/templates/daraja/invite_dara.html:60
 #, python-format
 msgid ""
 "\n"
@@ -1005,12 +993,12 @@ msgstr ""
 "transaction.\n"
 "                "
 
-#: daraja/templates/daraja/invite_dara.html:67
+#: daraja/templates/daraja/invite_dara.html:70
 #: daraja/templates/daraja/view_profile.html:100
 msgid "Accept"
 msgstr "Accepter"
 
-#: daraja/templates/daraja/invite_dara.html:72
+#: daraja/templates/daraja/invite_dara.html:75
 #, python-format
 msgid ""
 "\n"
@@ -1025,11 +1013,11 @@ msgstr ""
 "                    entrer en partenariat avec %(company_name)s.\n"
 "                "
 
-#: daraja/templates/daraja/invite_dara.html:78
+#: daraja/templates/daraja/invite_dara.html:81
 msgid "Join the program"
 msgstr "Rejoignez le programme"
 
-#: daraja/templates/daraja/invite_dara.html:83
+#: daraja/templates/daraja/invite_dara.html:86
 #, python-format
 msgid ""
 "\n"
@@ -1046,7 +1034,7 @@ msgstr ""
 "en partageant le lien ci-dessous.\n"
 "                "
 
-#: daraja/templates/daraja/invite_dara.html:123
+#: daraja/templates/daraja/invite_dara.html:126
 #: daraja/templates/daraja/snippets/company_list_results.html:41
 msgid ""
 "Hello, I find this interesting for you. You can order online and get delivered "
@@ -1055,7 +1043,7 @@ msgstr ""
 "Salut, Je trouve ceci intéressant pour toi. Tu peux commander en ligne et être "
 "livré où tu veux."
 
-#: daraja/templates/daraja/invite_dara.html:126
+#: daraja/templates/daraja/invite_dara.html:129
 #, python-format
 msgid "Hello! Join %(company_name)s on ikwen and get tons of cool advantages."
 msgstr ""
@@ -1451,21 +1439,18 @@ msgid "Update address"
 msgstr "Changer l'adresse"
 
 #: templates/com/base.html:98 templates/com/base.html.py:204
-#: templates/com/base_online.html:93 templates/com/base_online.html.py:171
 msgid "Account setup"
 msgstr "Infos compte"
 
 #: templates/com/base.html:100 templates/com/base.html.py:206
-#: templates/com/base_online.html:95 templates/com/base_online.html.py:173
 msgid "Logout"
 msgstr "Déconnexion"
 
 #: templates/com/base.html:105 templates/com/base.html.py:211
-#: templates/com/base_online.html:100 templates/com/base_online.html.py:178
 msgid "Login"
 msgstr "Connexion"
 
-#: templates/com/base.html:117 templates/com/base_online.html:112
+#: templates/com/base.html:117
 msgid "Search"
 msgstr "Recherche"
 
@@ -1477,7 +1462,7 @@ msgstr "Communauté"
 msgid "Enterprise"
 msgstr "Entreprise"
 
-#: templates/com/base.html:239 templates/com/base_online.html:214
+#: templates/com/base.html:239
 msgid "Reviews"
 msgstr "Avis"
 
@@ -1529,6 +1514,19 @@ msgstr "Dernier paiement"
 #: templates/core/dashboard_base.html:111
 msgid "View payments"
 msgstr "Voirles paiements"
+
+#: templates/website/snippets/language_switcher.html:6
+msgid "Language"
+msgstr ""
+
+#~ msgid "There is no product online"
+#~ msgstr "Aucun produit en ligne"
+
+#~ msgid "English"
+#~ msgstr "Anglais"
+
+#~ msgid "French"
+#~ msgstr "Français"
 
 #~ msgid "Step 1: Buy online"
 #~ msgstr "Étape 1: Achetez en ligne"
