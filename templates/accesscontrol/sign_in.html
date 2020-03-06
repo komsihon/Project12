@@ -50,6 +50,7 @@
     <div id="content" class="form container">
         <p class="failure chrome-only" style="display: none; margin: 15px; padding: 9px">
             {% trans "Downloading the App is not possible with your current browser. Please switch to Google Chrome." %}
+            <a class="btn btn-primary btn-sm" href="googlechrome://navigate?url=https://daraja.ikwen.com/daraja/?dl=yes">{% trans 'Open with chrome' %}</a>
         </p>
         {% if login_form.errors %}
             <p class="failure" style="font-size: 1em; padding: 9px">{{ error_message }}</p>

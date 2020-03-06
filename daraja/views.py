@@ -79,6 +79,7 @@ def like_social_medias(request, *args, **kwargs):
     if dara.level == 1 and dara.xp == 3:
         dara.xp = 0
         dara.level = 2
+        dara.raise_bonus_cash(200)
         dara.save()
         return HttpResponse(json.dumps({'success': True}), 'content-type: text/json')
 
