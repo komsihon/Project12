@@ -677,6 +677,7 @@ class DeployCloud(VerifiedEmailTemplateView):
                 return render(request, 'daraja/cloud_setup/deploy.html', context)
         next_url = reverse('daraja:successful_deployment', args=(service.ikwen_name,))
         if inviter:
+            messages.success(request, _("Welcome to Daraja. Now you can accept the invitation below."))
             next_url += '?inviter=' + inviter + '&invitation_id=' + invitation_id
         return HttpResponseRedirect(next_url)
 

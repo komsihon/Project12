@@ -39,6 +39,9 @@
 
 {% block content %}
     <div class="container">
+        {% for msg in messages %}
+            <p class="success" style="padding: 9px">{{ msg }}</p>
+        {% endfor %}
         <div class="text-center">
 <!--            style="background: #f7f7f7"-->
             <img class="main-img" src="{% static 'daraja/img/logo-daraja.png' %}" />
