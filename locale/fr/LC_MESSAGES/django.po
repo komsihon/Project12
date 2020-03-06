@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-05 19:28+0100\n"
-"PO-Revision-Date: 2020-03-05 19:41+0100\n"
+"POT-Creation-Date: 2020-03-06 17:04+0100\n"
+"PO-Revision-Date: 2020-03-06 17:06+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -134,15 +134,15 @@ msgstr "Je viens de m'inscrire sur %s !"
 msgid "New transaction on %s"
 msgstr "Nouvelle transaction sur %s"
 
-#: daraja/views.py:147
+#: daraja/views.py:157
 msgid "New Dara request"
 msgstr "Nouvelle requête"
 
-#: daraja/views.py:337
+#: daraja/views.py:346
 msgid "Your profile was successfully updated."
 msgstr "Votre profil a été mis à jour avec succès."
 
-#: daraja/views.py:400
+#: daraja/views.py:409
 msgid "Your Dara request was accepted"
 msgstr "Votre requête en tant que Dara a été acceptée"
 
@@ -332,11 +332,11 @@ msgstr "Top clients"
 msgid "Customer"
 msgstr "Client"
 
-#: daraja/templates/daraja/dashboard.html:333
+#: daraja/templates/daraja/dashboard.html:332
 msgid "Become a Pro Dara !"
 msgstr "Devenez un Pro Dara !"
 
-#: daraja/templates/daraja/dashboard.html:334
+#: daraja/templates/daraja/dashboard.html:333
 msgid ""
 "Discover and test everything about Daraja by following steps on playground. "
 "Complete them all and earn <strong>500 CFA</strong>."
@@ -344,20 +344,20 @@ msgstr ""
 "Découvrez et essayez tout sur Daraja en suivant les étapes suivantes sur "
 "Playground. Complétez-les toutes et gagnez <strong>500 FCFA</strong>."
 
-#: daraja/templates/daraja/dashboard.html:336 daraja/templates/daraja/home.html:209
-#: daraja/templates/daraja/home_playground.html:284
+#: daraja/templates/daraja/dashboard.html:335 daraja/templates/daraja/home.html:209
+#: daraja/templates/daraja/home_playground.html:286
 #: daraja/templates/daraja/not_yet_dara.html:40 templates/com/base.html:230
 #: templates/com/base_online.html:202
 msgid "Get started"
 msgstr "Lancez-vous"
 
-#: daraja/templates/daraja/dashboard.html:345
+#: daraja/templates/daraja/dashboard.html:344
 #: daraja/templates/daraja/home_playground.html:71
 #: daraja/templates/daraja/home_playground.html:84
-msgid "Step 1: Buy online"
-msgstr "Étape 1: Achetez en ligne"
+msgid "Step 1: Order online for free"
+msgstr "Étape 1: Commandez gratuitement en ligne"
 
-#: daraja/templates/daraja/dashboard.html:346
+#: daraja/templates/daraja/dashboard.html:345
 msgid ""
 "Discover the purchase process buy making an online order. It is a simulation, so "
 "you won’t be charged. <br>Get <strong>100 CFA Bonus + 1XP</strong> for completing "
@@ -367,39 +367,38 @@ msgstr ""
 "simulation, donc vous ne payerez rien. <br>Obtenez <strong>100 FCFA de Bonus + "
 "1XP</strong> après avoir réussi cette étape."
 
-#: daraja/templates/daraja/dashboard.html:348
+#: daraja/templates/daraja/dashboard.html:347
 msgid "Order now"
 msgstr "Achetez"
 
-#: daraja/templates/daraja/dashboard.html:364
+#: daraja/templates/daraja/dashboard.html:363
 #: daraja/templates/daraja/home_playground.html:104
-#: daraja/templates/daraja/home_playground.html:121
+#: daraja/templates/daraja/home_playground.html:122
 msgid "Step 2: Invite somebody"
 msgstr "Étape 2: Invitez quelqu'un"
 
-#: daraja/templates/daraja/dashboard.html:365
+#: daraja/templates/daraja/dashboard.html:364
 msgid ""
 "Refer a mate to become your follower on Playground. You will earn some money when "
 "he buys online.<ol><li>Go to My companies</li><li>Share the link from the paper-"
-"plane icon.</li><li>Make sure your mate registers using that link and get "
-"<strong>100 CFA Bonus + 1XP </strong>after he does so.</li></ol>"
+"plane icon.</li><li>Make sure your mate registers using that link.</li></ol>Get "
+"<strong>100 CFA Bonus + 1XP </strong>after he does so."
 msgstr ""
 "Invitez un proche à devenir votre follower sur Playground. Vous gagnerez de "
 "l'argent lorsqu'il achètera en ligne.<ol><li>Allez sur Mes entreprises</"
 "li><li>Partagez le lien par l'icône de l'avion en papier.</li><li>Rassurez-vous "
-"votre ami s'enregistre via ce lien et gagnez <strong>100 FCFA Bonus + 1XP </"
-"strong> lorsqu'il aura terminé.</li></ol>"
+"votre ami s'enregistre via ce lien.</li></ol>Gagnez <strong>100 FCFA Bonus + 1XP "
+"</strong> lorsqu'il aura terminé."
 
-#: daraja/templates/daraja/dashboard.html:367
+#: daraja/templates/daraja/dashboard.html:366
 msgid "Invite a friend"
 msgstr "Invitez un ami"
 
-#: daraja/templates/daraja/dashboard.html:370
-#: daraja/templates/daraja/home_playground.html:146
+#: daraja/templates/daraja/dashboard.html:369
 msgid "Step 3: Get your follower to buy online"
 msgstr "Étape 3: Obtenez un follower qui achète en ligne"
 
-#: daraja/templates/daraja/dashboard.html:371
+#: daraja/templates/daraja/dashboard.html:370
 msgid ""
 "You just referred a friend and he is now your follower on Playground. Make sure "
 "he did it by doing so:<ol><li>Go to My companies</li><li>See that you have 1 "
@@ -414,13 +413,13 @@ msgstr ""
 "une simulation, donc vous ne paierez rien .</li></ol>Obtenez<strong>200 FCFA "
 "Bonus + 1XP</strong> après qu'il est fait."
 
-#: daraja/templates/daraja/dashboard.html:376
+#: daraja/templates/daraja/dashboard.html:375
 msgid "You're almost done! <strong>Like, follow us on social medias</strong>"
 msgstr ""
 "Vous avez presque terminé! <strong>Likez, suivez nous sur les réseaux sociaux</"
 "strong>"
 
-#: daraja/templates/daraja/dashboard.html:377
+#: daraja/templates/daraja/dashboard.html:376
 msgid ""
 " Send likes to our social platforms and invite friends to follow us,like our "
 "pages, share, and subscribe to our social pages to keep up with new activities."
@@ -429,7 +428,7 @@ msgstr ""
 "likez nos postes, partagez-les, et inscrivez vous sur nos pages pour être au "
 "courant de nouvelles activités."
 
-#: daraja/templates/daraja/dashboard.html:379
+#: daraja/templates/daraja/dashboard.html:378
 msgid "Like us !"
 msgstr "Likez-nous !"
 
@@ -580,13 +579,13 @@ msgstr ""
 "                            "
 
 #: daraja/templates/daraja/home.html:211
-#: daraja/templates/daraja/home_playground.html:286
+#: daraja/templates/daraja/home_playground.html:288
 #: templates/com/base_online.html:143 templates/com/base_online.html.py:204
 msgid "Home"
 msgstr "Accueil"
 
 #: daraja/templates/daraja/home.html:212
-#: daraja/templates/daraja/home_playground.html:287 templates/com/base.html:232
+#: daraja/templates/daraja/home_playground.html:289 templates/com/base.html:232
 #: templates/com/base_online.html:205
 msgid "Sign In"
 msgstr "Connexion"
@@ -601,7 +600,7 @@ msgid "Our Company"
 msgstr "Notre entreprise"
 
 #: daraja/templates/daraja/home.html:229
-#: daraja/templates/daraja/home_playground.html:301 templates/com/base.html:246
+#: daraja/templates/daraja/home_playground.html:303 templates/com/base.html:246
 #: templates/com/base_online.html:221
 msgid "Help desk"
 msgstr "Aide"
@@ -646,7 +645,8 @@ msgstr ""
 "uniquement par le pourcentage que VOUS décidez. Pas de flyer, pas de spot radio "
 "ou télé, pas de sponsoring.\n"
 "                            Les commerciaux partagent vos produits à leurs "
-"répertoires et en font de nouveaux clients."
+"répertoires et en font de nouveaux clients.\n"
+"\t\t\t"
 
 #: daraja/templates/daraja/home_for_businesses.html:282
 #: daraja/templates/daraja/home_for_businesses.html:292
@@ -668,7 +668,8 @@ msgstr ""
 "s’inscrivent sur votre plateforme en ligne en donnant leurs noms, emails, \n"
 "\t\t\t   numéros de téléphones. Des données précieuses qui vous permettent de "
 "construire une solide relation client \n"
-"\t\t\t   en vous adressant désormais directement à ceux-ci."
+"\t\t\t   en vous adressant désormais directement à ceux-ci.\n"
+"\t"
 
 #: daraja/templates/daraja/home_for_businesses.html:310
 #: daraja/templates/daraja/home_for_businesses.html:320
@@ -798,7 +799,7 @@ msgstr ""
 "<strong>100 FCFA de Bonus + 1XP</strong> après avoir réussi cette étape."
 
 #: daraja/templates/daraja/home_playground.html:106
-#: daraja/templates/daraja/home_playground.html:123
+#: daraja/templates/daraja/home_playground.html:124
 msgid ""
 "Refer a mate to become your follower on Playground.<br>You will earn some money "
 "when he buys online.\n"
@@ -809,8 +810,10 @@ msgid ""
 "                                    <li>Share the link from the paper-plane icon."
 "</li>\n"
 "                                    <li>Make sure your mate registers using that "
-"link and get <strong>100 CFA Bonus + 1XP </strong>after he does so.</li>\n"
-"                                </ol>"
+"link.</li>\n"
+"                                </ol>\n"
+"                                Get <strong>100 CFA Bonus + 1XP </strong>after he "
+"does so."
 msgstr ""
 "Invitez un ami à devenir votre follower sur Playground.<br>Vous gagnerez de "
 "l'argent lorsqu'il achètera en ligne.\n"
@@ -822,17 +825,21 @@ msgstr ""
 "                                    <li>Partagez le lien par l'icône de l'avion "
 "en papier.</li>\n"
 "                                    <li>Rassurez-vous que votre ami s'est "
-"enregistré en utilisant ce lien et gagnez <strong>100 FCFA de Bonus + 1XP </"
-"strong>après cela.</li>\n"
-"                                </ol>"
+"enregistré en utilisant ce lien.</li>\n"
+"                                </ol>\n"
+"\t\t\t\tGagnez <strong>100 FCFA Bonus + 1XP </strong> lorsqu'il aura terminé."
 
-#: daraja/templates/daraja/home_playground.html:114
-#: daraja/templates/daraja/home_playground.html:131
+#: daraja/templates/daraja/home_playground.html:115
+#: daraja/templates/daraja/home_playground.html:133
 msgid "Watch the video to learn more how to refer a product."
 msgstr ""
 "Regardez la vidéo sur YouTube pour mieux apprendre comment recommender un produit."
 
 #: daraja/templates/daraja/home_playground.html:148
+msgid "Step 3: Get your follower to order online for free"
+msgstr "Étape 3: Obtenez un follower qui commande gratuitement en ligne"
+
+#: daraja/templates/daraja/home_playground.html:150
 msgid ""
 "\n"
 "                                You just referred a friend and he is now your "
@@ -871,11 +878,11 @@ msgstr ""
 "\t\t\t\tObtenez 200 FCFA de Bonus + 1XP après qu'il ait fait.\n"
 "                            "
 
-#: daraja/templates/daraja/home_playground.html:165
-msgid "Step 3: Get a follower to buy online"
-msgstr "Étape 3: Obtenez un follower qui achète en ligne"
-
 #: daraja/templates/daraja/home_playground.html:167
+msgid "Step 3: Get a follower to order online for free"
+msgstr "Étape 3: Obtenez un follower qui commande gratuitement en ligne"
+
+#: daraja/templates/daraja/home_playground.html:169
 msgid ""
 "\n"
 "                                You just referred a friend and he is now your "
@@ -913,12 +920,12 @@ msgstr ""
 "\t\t\t\tObtenez 200 FCFA de Bonus + 1XP après qu'il ait fait.\n"
 "                            "
 
-#: daraja/templates/daraja/home_playground.html:192
-#: daraja/templates/daraja/home_playground.html:226
+#: daraja/templates/daraja/home_playground.html:194
+#: daraja/templates/daraja/home_playground.html:228
 msgid "Step 4: Like, follow us on social medias"
 msgstr "Étape 4: Likez, suivez nous sur les réseaux sociaux"
 
-#: daraja/templates/daraja/home_playground.html:194
+#: daraja/templates/daraja/home_playground.html:196
 msgid ""
 "\n"
 "                                Send likes to our social platforms and invite "
@@ -932,7 +939,7 @@ msgstr ""
 "                                likez nos postes, partagez-les, et inscrivez vous "
 "sur nos pages pour être au courant de nouvelles activités. "
 
-#: daraja/templates/daraja/home_playground.html:228
+#: daraja/templates/daraja/home_playground.html:230
 msgid ""
 "\n"
 "                                Send likes to our social platforms and invite "
@@ -946,7 +953,7 @@ msgstr ""
 "                                likez nos postes, partagez-les, et inscrivez vous "
 "sur nos pages pour être au courant de nouvelles activités."
 
-#: daraja/templates/daraja/home_playground.html:248
+#: daraja/templates/daraja/home_playground.html:250
 msgid ""
 "Download the app<br><span style=\"font-size: .5em\">( Android only <i class=\"fab "
 "fa-android\" style=\"font-size: 1.5em\"></i> )</span>"
@@ -954,7 +961,7 @@ msgstr ""
 "Téléchargez l'application<br><span style=\"font-size: .5em\">( Android uniquement "
 "<i class=\"fab fa-android\" style=\"font-size: 1.5em\"></i> )</span>"
 
-#: daraja/templates/daraja/home_playground.html:250
+#: daraja/templates/daraja/home_playground.html:252
 msgid "Download"
 msgstr "Télécharger"
 
@@ -1064,8 +1071,7 @@ msgid ""
 "You're not yet on Daraja. You must join the program before you can access to App."
 msgstr ""
 "Vous n'êtes pas encore sur Daraja. Vous devez rejoindre le programme pour avoir "
-"accès.\n"
-"                "
+"accès."
 
 #: daraja/templates/daraja/registered_company_list.html:8
 msgid "Registered companies"
@@ -1207,7 +1213,7 @@ msgstr "Refuser"
 
 #: daraja/templates/daraja/view_profile.html:132
 msgid "Dara successfully added"
-msgstr "Dara ajouté avec succès."
+msgstr "Dara ajouté avec succès"
 
 #: daraja/templates/daraja/view_profile.html:142
 msgid "Request declined"
@@ -1523,6 +1529,9 @@ msgstr "Dernier paiement"
 #: templates/core/dashboard_base.html:111
 msgid "View payments"
 msgstr "Voirles paiements"
+
+#~ msgid "Step 1: Buy online"
+#~ msgstr "Étape 1: Achetez en ligne"
 
 #~ msgid ""
 #~ "\n"

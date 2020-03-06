@@ -326,7 +326,6 @@
 
 {% block js %}
     {{ block.super }}
-    <script src="{% static 'ikwen/js/ikwen-utils.js' %}"></script>
     <script>
         (()=> {
             let img = "{% static 'daraja/img/banner-modal.png' %}",
@@ -335,26 +334,26 @@
                 url = "javascript:;",
                 okText = "{% trans 'Get started' %}",
                 wentToPlayground = localStorage.getItem('wentToPlayground');
-                if (!wentToPlayground) {
-                    ikwen.showNoticeDialog(img,title,message,url,okText);
-                }
 
             {% if dara.level == 1 %}
                 {% if dara.xp == 0 %}
+                    if (!wentToPlayground) {
+                        ikwen.showNoticeDialog(img, title, message, url, okText);
+                    }
                     img = "{% static 'daraja/img/buy-online2.jpg' %}";
-                    title = "{% blocktrans %}Step 1: Buy online{% endblocktrans %}";
+                    title = "{% blocktrans %}Step 1: Order online for free{% endblocktrans %}";
                     message = "{% blocktrans %}Discover the purchase process buy making an online order. It is a simulation, so you won’t be charged. <br>Get <strong>100 CFA Bonus + 1XP</strong> for completing that step.{% endblocktrans %}";
                     url = "https://go.ikwen.com/playground/";
                     okText = "{% trans 'Order now' %}";
                     if (wentToPlayground) {
-                        ikwen.showNoticeDialog(img,title,message,url,okText);
+                        ikwen.showNoticeDialog(img, title, message, url, okText);
                         return;
                     } else {
                         $('#modal-generic-notice .btn-ok').click(() => {
                             $('#modal-generic-notice').modal('hide');
                             localStorage.setItem('wentToPlayground', 'yes');
                             setTimeout(function () {
-                                ikwen.showNoticeDialog(img,title,message,url,okText);
+                                ikwen.showNoticeDialog(img, title, message, url, okText);
                             }, 400);
                         });
                         return;
@@ -362,7 +361,7 @@
                 {% elif dara.xp == 1 %}
                     img = "{% static 'daraja/img/invite-friends.png' %}";
                     title = "{% blocktrans %}Step 2: Invite somebody{% endblocktrans %}";
-                    message = "{% blocktrans %}Refer a mate to become your follower on Playground. You will earn some money when he buys online.<ol><li>Go to My companies</li><li>Share the link from the paper-plane icon.</li><li>Make sure your mate registers using that link and get <strong>100 CFA Bonus + 1XP </strong>after he does so.</li></ol>{% endblocktrans %}";
+                    message = "{% blocktrans %}Refer a mate to become your follower on Playground. You will earn some money when he buys online.<ol><li>Go to My companies</li><li>Share the link from the paper-plane icon.</li><li>Make sure your mate registers using that link.</li></ol>Get <strong>100 CFA Bonus + 1XP </strong>after he does so.{% endblocktrans %}";
                     url = "{% url 'daraja:company_list' %}";
                     okText = "{% trans 'Invite a friend' %}";
                 {% elif dara.xp == 2 %}
@@ -377,15 +376,17 @@
                     message = "{% blocktrans %} Send likes to our social platforms and invite friends to follow us,like our pages, share, and subscribe to our social pages to keep up with new activities.{% endblocktrans %}";
                     url = "javascript:;";
                     okText = "{% trans 'Like us !' %}";
-                    ikwen.showNoticeDialog(img,title,message,url,okText);
-                    $('#modal-generic-notice .btn-ok').click(() => {
+                    ikwen.showNoticeDialog(img, title, message, url, okText);
+                    $('#modal-generic-notice .btn-ok:not(.liked)').click((e) => {
+                        $(e.target).addClass('liked');
                         $('#modal-generic-notice .message').html($('#social-likes').html());
+                        $.getJSON("{% url 'daraja:like_social_medias' %}", {'dara_id': "{{ dara.id }}"});
                     });
                     return;
                 {% endif %}
             {% endif %}
 
-            ikwen.showNoticeDialog(img,title,message,url,okText);
+            ikwen.showNoticeDialog(img, title, message, url, okText);
         })()
     </script>
 {% endblock %}

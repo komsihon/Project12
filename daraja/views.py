@@ -73,6 +73,16 @@ def not_yet_dara(request, *args, **kwargs):
     return render(request, 'daraja/not_yet_dara.html')
 
 
+def like_social_medias(request, *args, **kwargs):
+    dara_id = request.GET['dara_id']
+    dara = get_object_or_404(Dara, id=dara_id)
+    if dara.level == 1 and dara.xp == 3:
+        dara.xp = 0
+        dara.level = 2
+        dara.save()
+        return HttpResponse(json.dumps({'success': True}), 'content-type: text/json')
+
+
 class RegisteredCompanyList(HybridListView):
     """
     Companies registered to ikwen Daraja program
@@ -217,8 +227,7 @@ class Dashboard(DashboardBase):
         context['transaction_count_history'] = service.transaction_count_history[-30:]
 
         dara = get_object_or_404(Dara, member=service.member)
-        if dara.level == 1 and dara.xp == 0:
-            context['is_beginner'] = True
+        context['dara'] = dara
         return context
 
     def get(self, request, *args, **kwargs):
