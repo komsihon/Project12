@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-06 19:21+0100\n"
-"PO-Revision-Date: 2020-03-09 15:03+0100\n"
+"PO-Revision-Date: 2020-03-09 15:16+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -889,7 +889,7 @@ msgstr ""
 
 #: daraja/templates/daraja/home_playground.html:167
 msgid "Step 3: Get a follower to order online for free"
-msgstr "Étape 3: Obtenez un follower qui commande gratuitement en ligne"
+msgstr "Étape 3: Amenez un follower à faire une simulation d'achat en ligne"
 
 #: daraja/templates/daraja/home_playground.html:169
 msgid ""
