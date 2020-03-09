@@ -5,7 +5,7 @@
         {% with user=obj.member %}
         <li id="{{ user.id }}" class="ik-li member" data-id="{{ user.id }}" data-status="{{ user.get_status }}">
             {% url 'daraja:view_profile' obj.dara.uname as profile_url %}
-            <a href="{{ profile_url|ikwenize }}?target={{ service.project_name_slug }}" target="_blank">
+            <a href="https://ikwen.com{{ profile_url }}?target={{ service.project_name_slug }}" target="_blank">
                 {% if user.photo and user.photo.name %}
                     <div class="photo" style="background-image: url({{ settings.IKWEN_MEDIA_URL }}{{ user.photo.small_name }})"></div>
                 {% else %}

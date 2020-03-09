@@ -4,13 +4,11 @@ from django.conf import settings
 from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 from djangotoolbox.fields import ListField
-
-from ikwen.core.constants import PENDING
-from ikwen.core.utils import get_service_instance, add_database
-from ikwen.core.models import Model, Service, AbstractWatchModel
-from ikwen.accesscontrol.models import Member
 from ikwen.accesscontrol.backends import UMBRELLA
-
+from ikwen.accesscontrol.models import Member
+from ikwen.core.constants import PENDING
+from ikwen.core.models import Model, Service, AbstractWatchModel
+from ikwen.core.utils import get_service_instance, add_database
 
 DARAJA = "daraja"
 DARA_CASH = "dara-cash"
