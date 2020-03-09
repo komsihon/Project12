@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-06 19:21+0100\n"
-"PO-Revision-Date: 2020-03-09 13:30+0100\n"
+"PO-Revision-Date: 2020-03-09 15:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -765,14 +765,14 @@ msgstr ""
 
 #: daraja/templates/daraja/home_playground.html:20
 msgid "Get into Playground experience and learn how Daraja works ."
-msgstr "Entrez dans l'avanture Playground et apprenez comment Daraja fonctionne."
+msgstr "Testez toutes les fonctionnalités de Daraja grâce au similateur Playground."
 
 #: daraja/templates/daraja/home_playground.html:41
 msgid ""
 "Try yourself on <span style=\"color: #FFEE58;\">Playground</span> and learn how "
 "Daraja works"
 msgstr ""
-"Essayez-vous <span style=\"color: #FFEE58;\">Playground</span> et apprenez "
+"Entraînez-vous sur <span style=\"color: #FFEE58;\">Playground</span> et découvrez "
 "comment Daraja fonctionne"
 
 #: daraja/templates/daraja/home_playground.html:43
@@ -844,7 +844,9 @@ msgstr ""
 
 #: daraja/templates/daraja/home_playground.html:148
 msgid "Step 3: Get your follower to order online for free"
-msgstr "Étape 3: Obtenez un follower qui commande gratuitement en ligne"
+msgstr ""
+"Étape 3: Amenez votre follower à faire une simulation d'achat en ligne "
+"gratuitement"
 
 #: daraja/templates/daraja/home_playground.html:150
 msgid ""
