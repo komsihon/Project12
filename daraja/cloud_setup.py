@@ -125,12 +125,15 @@ def deploy(member):
     clear_counters(ikwen_service_mirror)
 
     # Add Member as Dara for Playground
+    playground_config = DarajaConfig.objects.get(service=playground_service)
     playground_db = playground_service.database
     add_database(playground_db)
     member.save(using=playground_db)
     member = Member.objects.using(playground_db).get(pk=member.id)
     UserPermissionList.objects.using(playground_db).get_or_create(user=member)
-    Dara.objects.using(playground_db).get_or_create(member=member)
+    dara, change = Dara.objects.using(playground_db).get_or_create(member=member)
+    dara.share_rate = playground_config.referrer_share_rate
+    dara.save()
     service.save(using=playground_db)
     playground_service.save(using=database)
     playground_service_mirror = Service.objects.using(database).get(pk=playground_service.id)
