@@ -15,7 +15,7 @@
 
 {% block head_style %}
     {{ block.super }}
-    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}" />
+    <link rel='stylesheet' href="{% static 'daraja/css/daraja.css' %}?v=20.03.16" />
 {% endblock %}
 
 {% block content %}
@@ -27,6 +27,24 @@
             {% url 'ikwen:profile' member.id as member_profile_url %}
             <div class="col-sm-8 col-sm-offset-2 dara-details">
                 <div>
+                   <div class="pull-left">
+                        <span class="label level-{{ dara.level }}" style="font-size: 95%; padding: 0.5em">
+                        {% if dara.level == 1 %}
+                            {% trans "Running playground" %}
+                        {% elif dara.level == 2 %}
+                            {% trans "Live Challenge" %}
+                        {% else %}
+                            {% trans "Kako-master" %}
+                        {% endif %}
+                        ({% trans 'Level ' %}{{ dara.level }})
+                        </span>
+                    </div>
+                    <div class="pull-right">
+                       <span class="label xp-{{ dara.xp }}" style="font-size: 95%; padding: 0.5em">{% blocktrans with xp=dara.xp  %}Experience {{ xp }} {% endblocktrans %}</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div>
                     <div class="text-center">
                         {% if member.photo.name %}
                             <img class="img-circle img-thumbnail" src="{{ settings.IKWEN_MEDIA_URL }}{{ member.photo.small_name }}" style="margin-top: 1vh;width:200px;height:200px">
@@ -34,6 +52,13 @@
                             <img class="img-circle img-thumbnail" src="{% static 'ikwen/img/login-avatar.jpg' %}" style="margin-top: 1vh;">
                         {% endif %}
                         <h4>{{ member.full_name }}</h4>
+                        {% if dara.level == 1 %}
+                            <img class="img-responsive img-thumbnail" src="{% static 'daraja/img/bronze-badge1.jpg' %}" width="50" style="border: none">
+                        {% elif dara.level == 2 %}
+                            <img class="img-responsive img-thumbnail" src="{% static 'daraja/img/silver-badge1.jpg' %}" width="50" style="border: none">
+                        {% else %}
+                            <img class="img-responsive img-thumbnail" src="{% static 'daraja/img/gold-badge1.jpg' %}" width="50" style="border: none">
+                        {% endif %}
                     </div>
                     <div class="clearfix"></div>
                 </div>

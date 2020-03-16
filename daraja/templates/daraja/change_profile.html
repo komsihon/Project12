@@ -8,6 +8,7 @@
 {% block head_style %}
     {{ block.super }}
     <link rel='stylesheet' href="{% static 'ikwen/css/change-form.css' %}" />
+    <link rel='stylesheet' href="{% static 'daraja/css/daraja-admin.css' %}?v=20.03.16" />
     <link rel='stylesheet' href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 {% endblock %}
 
@@ -23,17 +24,42 @@
         <div class="container-fluid">
             <div id="stage" class="row" style="float: none">
                 {% if obj %}
-                {% with member=obj.member %}
+                {% with dara=obj %}
                     {% url 'ikwen:profile' member.id as member_profile_url %}
+                    <div>
+                        <div class="pull-left">
+                            <span class="label level-{{ dara.level }}" style="font-size: 95%; padding: 0.5em">
+                            {% if dara.level == 1 %}
+                                {% trans "Running playground" %}
+                            {% elif dara.level == 2 %}
+                                {% trans "Live Challenge" %}
+                            {% else %}
+                                {% trans "Kako-master" %}
+                            {% endif %}
+                            ({% trans 'Level ' %}{{ dara.level }})
+                            </span>
+                        </div>
+                        <div class="pull-right">
+                           <span class="label xp-{{ dara.xp }}" style="font-size: 95%; padding: 0.5em">{% blocktrans with xp=dara.xp  %}Experience {{ xp }} {% endblocktrans %}</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
                     <div>
                         <div class="text-center">
                             <div class="welcome-title">
-                                {% if member.photo.name %}
-                                    <img class="img-circle img-thumbnail" src="{{ settings.IKWEN_MEDIA_URL }}{{ member.photo.small_name }}" style="margin-top: 1vh;width:100px;height:100px">
+                                {% if dara.member.photo.name %}
+                                    <img class="img-circle img-thumbnail" src="{{ settings.IKWEN_MEDIA_URL }}{{ dara.member.photo.small_name }}" style="margin-top: 1vh;width:100px;height:100px">
                                 {% else %}
                                     <img class="img-circle img-thumbnail" src="{% static 'ikwen/img/login-avatar.jpg' %}" style="margin-top: 1vh;">
                                 {% endif %}
-                                <h4>{{ member.full_name }}</h4>
+                                <h4>{{ dara.member.full_name }}</h4>
+                                {% if dara.level == 1 %}
+                                    <img class="img-responsive img-thumbnail" src="{% static 'daraja/img/bronze-badge1.jpg' %}" width="50" style="border: none">
+                                {% elif dara.level == 2 %}
+                                    <img class="img-responsive img-thumbnail" src="{% static 'daraja/img/silver-badge1.jpg' %}" width="50" style="border: none">
+                                {% else %}
+                                    <img class="img-responsive img-thumbnail" src="{% static 'daraja/img/gold-badge1.jpg' %}" width="50" style="border: none">
+                                {% endif %}
                             </div>
                         </div>
                         <div class="clearfix"></div>

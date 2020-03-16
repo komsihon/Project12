@@ -65,10 +65,15 @@
 .main-title p {font-weight: 300;}
 .get-started {display: none; font-size: .9em; margin-top: 5vh}
 .invitation {line-height: 2}
-.badge-0 {background-color: #e75d44;}
-.badge-5 {background-color: #ee9939;}
-.badge-10 {background-color: #3759fa;}
-.badge-20 {background-color: #11aa08;}
+.badge-0, .xp-0 {background-color: #e75d44;}
+.badge-5, .xp-1 {background-color: #ee9939;}
+.badge-10, .xp-2 {background-color: #3759fa;}
+.badge-20, .xp-3 {background-color: #11aa08;}
+
+.level-1 {background-color: #004f72}
+.level-2 {background-color: #8f4979}
+.level-3 {background-color: #88500d}
+
 /*.share-rate {padding: 0px; border-bottom: none!important; margin-bottom: 5px;}*/
 .share-rate {font-size: 16px; font-weight: 400; line-height: 23px; border-radius: 0}
 .avg-purchase > span {font-size: 17px; color: #4d4d4d;}
