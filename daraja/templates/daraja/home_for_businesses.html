@@ -413,7 +413,7 @@
                     $('#navbar').css("background-color", "transparent");
                 }
             });
-            $('input.dara-count').on('change', function() {
+            $('input.dara-count').on('keyup', function() {
                 let daraCount = $(this).val();
                 let averageRevenue = $('input.average-revenue').val();
                 let expectedRevenue = daraCount * averageRevenue * 30;
@@ -422,7 +422,7 @@
                 setTimeout(() => { $('strong.expected-revenue').text(expectedRevenue.formatMoney(0, '{{ settings.THOUSAND_SEPARATOR }}', '{{ settings.DECIMAL_SEPARATOR }}'))}, 400);
 
             });
-            $('input.average-revenue').on('change', function() {
+            $('input.average-revenue').on('keyup', function() {
                 let averageRevenue = $(this).val();
                 let daraCount = $('input.dara-count').val();
                 let expectedRevenue = daraCount * averageRevenue * 30;
