@@ -373,7 +373,7 @@
                 {% elif dara.xp == 3 %}
                     img = "{% static 'daraja/img/like-follow-social-medias.png' %}";
                     title = "{% blocktrans %}You're almost done! <strong>Like, follow us on social medias</strong>{% endblocktrans %}";
-                    message = "{% blocktrans %} Send likes to our social platforms and invite friends to follow us,like our pages, share, and subscribe to our social pages to keep up with new activities.{% endblocktrans %}";
+                    message = "{% blocktrans %}Send likes to our social platforms and invite friends to follow us,like our pages, share, and subscribe to our social pages to keep up with new activities.{% endblocktrans %}";
                     url = "javascript:;";
                     okText = "{% trans 'Like us !' %}";
                     ikwen.showNoticeDialog(img, title, message, url, okText);
@@ -384,6 +384,51 @@
                     });
                     return;
                 {% endif %}
+            {% elif dara.level == 2 %}
+                {% if dara.xp == 0 %}
+                    img = "{% static 'daraja/img/career-digital-Marketing.png' %}";
+                    title = "{% blocktrans %}Start making real money !{% endblocktrans %}";
+                    message = "{% blocktrans %}Congratulations ! You have successfully completed the Playground steps. Now, you're a Dara <strong>level 2</strong>. Get started with real business now.{% endblocktrans %}";
+                    url = "javascript:;";
+                    okText = "{% trans 'Get started !' %}";
+                    hasWelcomedToLevel2 = localStorage.getItem('hasWelcomedToLevel2');
+
+                    if (!hasWelcomedToLevel2) {
+                        ikwen.showNoticeDialog(img, title, message, url, okText);
+                    }
+                    img = "{% static 'daraja/img/Partnership.jpg' %}";
+                    title = "{% blocktrans %}Step 1: Request access to a company{% endblocktrans %}";
+                    message = "{% blocktrans %}Visit companies list page and click on the <strong>request button</strong> on the top right corner. Earn <strong>2xp</strong> for that.{% endblocktrans %}";
+                    url = "{% url 'daraja:registered_company_list' %}";
+                    okText = "{% trans 'Request now' %}";
+                    if (hasWelcomedToLevel2){
+                       ikwen.showNoticeDialog(img, title, message, url, okText);
+                       return;
+                    } else {
+                        $('#modal-generic-notice .btn-ok').click(() => {
+                            $('#modal-generic-notice').modal('hide');
+                            localStorage.setItem('hasWelcomedToLevel2', 'true');
+                            setTimeout(function () {
+                                ikwen.showNoticeDialog(img, title, message, url, okText);
+                            }, 400);
+                        });
+                        return;
+                    }
+                {% elif 1 <= dara.xp and dara.xp <= 3 %}
+                    img = "{% static 'daraja/img/refer-friends.jpg' %}";
+                    title = "{% blocktrans %}Step 2: Invite 3 followers or more{% endblocktrans %}";
+                    message = "{% blocktrans %}Send referral link of newly joined companies to your friends and get at least 3 of them to register. Earn <strong>3xp</strong> for that.{% endblocktrans %}";
+                    url = "{% url 'daraja:company_list' %}";
+                    okText = "{% trans 'Refer now' %}";
+                {% else %}
+                    img = "{% static 'daraja/img/buy-online3.jpg' %}";
+                    title = "{% blocktrans %}Step 3: Get one of your followers to buy online{% endblocktrans %}";
+                    message = "{% blocktrans %}Congratulations ! You referred at least 3 friends. Now, get one of them to buy from your newly joined companies. Earn <strong>500 CFA</strong> and move to <strong>level 3</strong>.{% endblocktrans %}";
+                    url = "{% url 'daraja:company_list' %}";
+                    okText = "{% trans 'Refer now' %}";
+                {% endif %}
+            {% else %}
+                return;
             {% endif %}
 
             ikwen.showNoticeDialog(img, title, message, url, okText);

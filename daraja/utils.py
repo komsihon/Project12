@@ -5,12 +5,13 @@ from threading import Thread
 from django.conf import settings
 from django.utils.translation import activate, gettext as _
 
+from ikwen.accesscontrol.backends import UMBRELLA
 from ikwen.accesscontrol.models import Member
 from ikwen.core.models import Service, Application
 from ikwen.core.utils import add_database, set_counters, increment_history_field, add_event, get_mail_content, \
     XEmailMessage
 
-from daraja.models import DARAJA, Follower, REFEREE_JOINED_EVENT
+from daraja.models import DARAJA, Follower, REFEREE_JOINED_EVENT, Dara
 
 logger = logging.getLogger('ikwen')
 
@@ -46,6 +47,15 @@ def set_customer_dara(service, referrer, member):
         add_database(dara_db)
         member.save(using=dara_db)
         follower.save(using=dara_db)
+        try:
+            dara_umbrella = Dara.objects.using(UMBRELLA).get(member=referrer)
+            if dara_umbrella.level == 2:
+                if dara_umbrella.xp in [2, 3, 4]:
+                    dara_umbrella.xp += 1
+                    dara_umbrella.save()
+        except:
+            pass
+
         service_mirror = Service.objects.using(dara_db).get(pk=service.id)
         set_counters(service_mirror)
         increment_history_field(service_mirror, 'community_history')
