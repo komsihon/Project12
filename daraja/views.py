@@ -133,6 +133,13 @@ class RegisteredCompanyList(HybridListView):
 
         try:
             Dara.objects.using(db).get(member=request.user)
+            try:
+                dara = Dara.objects.using(UMBRELLA).get(member=request.user)
+                if dara.level == 2 and dara.xp == 0:
+                    dara.xp = 2
+                    dara.save()
+            except:
+                pass
             return HttpResponse(json.dumps({'success': True}), 'content-type: text/json')
         except Dara.DoesNotExist:
             pass
@@ -167,6 +174,30 @@ class RegisteredCompanyList(HybridListView):
                     msg.send()
                 else:
                     Thread(target=lambda m: m.send(), args=(msg,)).start()
+
+                dara = dara_request.dara
+                if dara.level == 2 and dara.xp == 0:
+                    try:
+                        sender = 'ikwen Daraja <no-reply@ikwen.com>'
+                        member = request.user
+                        cta_url = "https://daraja.ikwen.com/"
+                        subject = _("New request sent")
+                        recipient_list = [member.email]
+                        recipient_list = list(set(recipient_list))
+                        html_content = get_mail_content(subject, template_name='daraja/mails/partnership_request.html',
+                                                        extra_context={'dara_name': member.first_name, 'member': member,
+                                                                       'cta_url': cta_url,
+                                                                       'project_name': service.project_name,
+                                                                       'config': service.config})
+                        msg = EmailMessage(subject, html_content, sender, recipient_list)
+                        msg.content_subtype = "html"
+                        if getattr(settings, 'UNIT_TESTING', False):
+                            msg.send()
+                        else:
+                            Thread(target=lambda m: m.send(), args=(msg,)).start()
+                    except:
+                        pass
+
             except:
                 pass
 
