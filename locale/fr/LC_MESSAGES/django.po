@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-20 19:22+0100\n"
-"PO-Revision-Date: 2020-03-21 19:14+0100\n"
+"POT-Creation-Date: 2020-03-26 14:17+0000\n"
+"PO-Revision-Date: 2020-03-26 15:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -17,18 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.0.6\n"
-
-#: kakocase_operator_follow_up.py:62 publish_product_request.py:42
-msgid "There is no product online"
-msgstr "Aucun produit en ligne"
-
-#: conf/settings.py:160
-msgid "English"
-msgstr "Anglais"
-
-#: conf/settings.py:161
-msgid "French"
-msgstr "Français"
 
 #: daraja/admin.py:8
 msgid "Your social media"
@@ -46,7 +34,7 @@ msgstr "Général"
 msgid "How to make money with you ?"
 msgstr "Comment gagner de l'argent avec vous ?"
 
-#: daraja/cloud_setup.py:147
+#: daraja/cloud_setup.py:150
 msgid "Welcome to the business network."
 msgstr "Bienvenu(e) dans le réseau business."
 
@@ -370,7 +358,6 @@ msgstr ""
 #: daraja/templates/daraja/dashboard.html:335 daraja/templates/daraja/home.html:209
 #: daraja/templates/daraja/home_playground.html:286
 #: daraja/templates/daraja/not_yet_dara.html:40 templates/com/base.html:230
-#: templates/com/base_online.html:202
 msgid "Get started"
 msgstr "Lancez-vous"
 
@@ -670,31 +657,28 @@ msgstr ""
 
 #: daraja/templates/daraja/home.html:211
 #: daraja/templates/daraja/home_playground.html:288
-#: templates/com/base_online.html:143 templates/com/base_online.html.py:204
 msgid "Home"
 msgstr "Accueil"
 
 #: daraja/templates/daraja/home.html:212
 #: daraja/templates/daraja/home_playground.html:289 templates/com/base.html:232
-#: templates/com/base_online.html:205
 msgid "Sign In"
 msgstr "Connexion"
 
 #: daraja/templates/daraja/home.html:217 templates/com/base.html:237
-#: templates/com/base_online.html:210
 msgid "About us"
 msgstr "À propos"
 
-#: daraja/templates/daraja/home.html:219 templates/com/base_online.html:212
+#: daraja/templates/daraja/home.html:219
 msgid "Our Company"
 msgstr "Notre entreprise"
 
 #: daraja/templates/daraja/home.html:229
 #: daraja/templates/daraja/home_playground.html:303 templates/com/base.html:246
-#: templates/com/base_online.html:221
 msgid "Help desk"
 msgstr "Aide"
 
+#: daraja/templates/daraja/home_ced.html:16
 #: daraja/templates/daraja/home_for_businesses.html:16
 #: daraja/templates/daraja/home_for_businesses.html:237
 msgid "Hundreds of marketing agents ready to work online for you."
@@ -702,6 +686,7 @@ msgstr ""
 "Des centaines d'agents marketing prêts à travailler pour vous en ligne.\n"
 "                            "
 
+#: daraja/templates/daraja/home_ced.html:17 daraja/templates/daraja/home_ced.html:18
 #: daraja/templates/daraja/home_for_businesses.html:17
 #: daraja/templates/daraja/home_for_businesses.html:18
 #: daraja/templates/daraja/home_for_businesses.html:254
@@ -710,6 +695,10 @@ msgid "Lower total payroll and marketing costs while increasing revenue"
 msgstr ""
 "Réduisez la masse salariale, les coûts marketing, et augmentez le chiffre "
 "d'affaire"
+
+#: daraja/templates/daraja/home_ced.html:243
+msgid "Simuler"
+msgstr ""
 
 #: daraja/templates/daraja/home_for_businesses.html:235
 msgid "Increase your turnover with<br> an army of salespeople."
@@ -1149,10 +1138,12 @@ msgstr ""
 
 #: daraja/templates/daraja/invite_dara.html:129
 #, python-format
-msgid "Hello! Join %(company_name)s on ikwen and get tons of cool advantages."
+msgid ""
+"Do you know %(company_name)s on ikwen ? I found it interesting for you. You "
+"should check it out."
 msgstr ""
-"Bonjour! Rejoignez %(company_name)s sur ikwen et bénéficiez des tonnes "
-"d'avantages."
+"Tu connais %(company_name)s sur ikwen ? J'ai trouvé ça intéressant pour toi. Tu "
+"devrais regarder."
 
 #: daraja/templates/daraja/not_yet_dara.html:9
 msgid "Not yet on Daraja, join first"
@@ -1368,9 +1359,12 @@ msgstr "%(total_earnings)s gagné."
 
 #: daraja/templates/daraja/snippets/company_list_results.html:43
 #, python-format
-msgid "Hello, join me on %(project_name)s. There are tons of good things for you."
+msgid ""
+"Do you know %(project_name)s on ikwen ? I found it interesting for you. You "
+"should check it out."
 msgstr ""
-"Bonjour! Rejoins moi sur %(project_name)s. Il y a plein d'avantages pour toi."
+"Tu connais %(project_name)s sur ikwen ? J'ai trouvé ça intéressant pour toi. Tu "
+"devrais regarder."
 
 #: daraja/templates/daraja/snippets/company_list_results.html:60
 #: daraja/templates/daraja/snippets/dara_list_results.html:42
@@ -1553,21 +1547,18 @@ msgid "Update address"
 msgstr "Changer l'adresse"
 
 #: templates/com/base.html:98 templates/com/base.html.py:204
-#: templates/com/base_online.html:93 templates/com/base_online.html.py:171
 msgid "Account setup"
 msgstr "Infos compte"
 
 #: templates/com/base.html:100 templates/com/base.html.py:206
-#: templates/com/base_online.html:95 templates/com/base_online.html.py:173
 msgid "Logout"
 msgstr "Déconnexion"
 
 #: templates/com/base.html:105 templates/com/base.html.py:211
-#: templates/com/base_online.html:100 templates/com/base_online.html.py:178
 msgid "Login"
 msgstr "Connexion"
 
-#: templates/com/base.html:117 templates/com/base_online.html:112
+#: templates/com/base.html:117
 msgid "Search"
 msgstr "Recherche"
 
@@ -1579,7 +1570,7 @@ msgstr "Communauté"
 msgid "Enterprise"
 msgstr "Entreprise"
 
-#: templates/com/base.html:239 templates/com/base_online.html:214
+#: templates/com/base.html:239
 msgid "Reviews"
 msgstr "Avis"
 
@@ -1631,6 +1622,29 @@ msgstr "Dernier paiement"
 #: templates/core/dashboard_base.html:111
 msgid "View payments"
 msgstr "Voirles paiements"
+
+#: templates/website/snippets/language_switcher.html:6
+msgid "Language"
+msgstr "Langue"
+
+#~ msgid "There is no product online"
+#~ msgstr "Aucun produit en ligne"
+
+#~ msgid "English"
+#~ msgstr "Anglais"
+
+#~ msgid "French"
+#~ msgstr "Français"
+
+#~ msgid "Hello! Join %(company_name)s on ikwen and get tons of cool advantages."
+#~ msgstr ""
+#~ "Bonjour! Rejoignez %(company_name)s sur ikwen et bénéficiez des tonnes "
+#~ "d'avantages."
+
+#~ msgid ""
+#~ "Hello, join me on %(project_name)s. There are tons of good things for you."
+#~ msgstr ""
+#~ "Bonjour! Rejoins moi sur %(project_name)s. Il y a plein d'avantages pour toi."
 
 #~ msgid "Step 1: Buy online"
 #~ msgstr "Étape 1: Achetez en ligne"
