@@ -415,12 +415,13 @@
                         return;
                     }
                 {% elif 1 <= dara.xp and dara.xp <= 4 %}
-                    img = "{% static 'daraja/img/waiting-clock.jpg' %}";
+                    img = "{% static 'daraja/img/refer-friends.jpg' %}";
                     title = "{% blocktrans %}Step 2: Invite 3 followers or more{% endblocktrans %}";
                     message = "{% blocktrans %}Send referral link of newly joined companies to your friends and get at least 3 of them to register. Earn <strong>3xp</strong> for that.{% endblocktrans %}";
                     url = "{% url 'daraja:company_list' %}";
                     okText = "{% trans 'Refer now' %}";
                     {% if companies_count < 1 %}
+                        img = "{% static 'daraja/img/waiting-clock.jpg' %}";
                         message = "{% blocktrans %}Now, wait for the confirmation of your newly requested company, then send referral link to your friends and get at least 3 of them to register. Earn <strong>3xp</strong> for that.{% endblocktrans %}";
                         ikwen.showNoticeDialog(img, title, message);
                         return;
