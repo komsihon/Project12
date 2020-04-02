@@ -81,7 +81,7 @@ def deploy(member):
     for s in member.get_services():
         db = s.database
         add_database_to_settings(db)
-        collaborates_on_fk_list = member.collaborates_on_fk_list + [daraja_service.id, playground_service.id]
+        collaborates_on_fk_list = member.collaborates_on_fk_list + [daraja_service.id]
         customer_on_fk_list = member.customer_on_fk_list + [daraja_service.id, playground_service.id]
         Member.objects.using(db).filter(pk=member.id).update(collaborates_on_fk_list=collaborates_on_fk_list,
                                                              customer_on_fk_list=customer_on_fk_list)
@@ -128,6 +128,9 @@ def deploy(member):
     playground_config = DarajaConfig.objects.get(service=playground_service)
     playground_db = playground_service.database
     add_database(playground_db)
+    member.is_bao = False
+    member.is_staff = False
+    member.is_superuser = False
     member.save(using=playground_db)
     member = Member.objects.using(playground_db).get(pk=member.id)
     UserPermissionList.objects.using(playground_db).get_or_create(user=member)

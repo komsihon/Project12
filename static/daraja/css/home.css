@@ -39,6 +39,11 @@ section.site img {width: 60%;}
 .section-banniere { background: url(../img/ikwen-daraja_banniere.png) center center no-repeat;
 					-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;
 					background-size: cover; color: inherit; height: 251px; margin-top: 5vh; }
+
+.section-banniere-top { background: url(../img/architecture-entreprise.jpg) center center;
+					-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;
+					background-size: cover; color: white; height: 300px; margin-top: 6.5vh !important; }
+
 .section-banniere-bottom { background: url(../img/architecture-entreprise.jpg) center center;
 					-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;
 					background-size: cover; color: white; height: 300px; margin-top: 6.5vh !important; }

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-06 19:21+0100\n"
-"PO-Revision-Date: 2020-03-09 15:16+0100\n"
+"POT-Creation-Date: 2020-03-26 14:17+0000\n"
+"PO-Revision-Date: 2020-03-26 15:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -17,18 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.0.6\n"
-
-#: kakocase_operator_follow_up.py:62 publish_product_request.py:42
-msgid "There is no product online"
-msgstr "Aucun produit en ligne"
-
-#: conf/settings.py:160
-msgid "English"
-msgstr "Anglais"
-
-#: conf/settings.py:161
-msgid "French"
-msgstr "Français"
 
 #: daraja/admin.py:8
 msgid "Your social media"
@@ -46,15 +34,15 @@ msgstr "Général"
 msgid "How to make money with you ?"
 msgstr "Comment gagner de l'argent avec vous ?"
 
-#: daraja/cloud_setup.py:144
+#: daraja/cloud_setup.py:150
 msgid "Welcome to the business network."
 msgstr "Bienvenu(e) dans le réseau business."
 
-#: daraja/models.py:24
+#: daraja/models.py:22
 msgid "Unique invitations ?"
 msgstr "Invitations uniques ?"
 
-#: daraja/models.py:25
+#: daraja/models.py:23
 msgid ""
 "If checked, generated invitation link is usable once within 30mn. Else, the link "
 "is public and can be used without limitation."
@@ -63,11 +51,11 @@ msgstr ""
 "dans un délai de 30mn. Sinon, le lien est public et peut être utilisé sans "
 "limitation."
 
-#: daraja/models.py:28 daraja/templates/daraja/registered_company_list.html:146
+#: daraja/models.py:26 daraja/templates/daraja/registered_company_list.html:146
 msgid "Description and products"
 msgstr "Description et produits"
 
-#: daraja/models.py:29
+#: daraja/models.py:27
 msgid ""
 "Tell Daras about your business and your products are the most easy and profitable "
 "to sell."
@@ -75,11 +63,11 @@ msgstr ""
 "Décrivez votre activité aux Daras. Dites leurs quels sont les produits les plus "
 "faciles à vendre et aussi les plus rentables."
 
-#: daraja/models.py:31 daraja/templates/daraja/registered_company_list.html:154
+#: daraja/models.py:29 daraja/templates/daraja/registered_company_list.html:154
 msgid "Strategy"
 msgstr "Stratégie"
 
-#: daraja/models.py:32
+#: daraja/models.py:30
 msgid ""
 "Give Daras an idea of marketing strategy they might use including market to "
 "target and how to attract customers."
@@ -87,11 +75,11 @@ msgstr ""
 "Donnez aux Daras une idée de la stratégie marketing qu'ils peuvent mettre en "
 "place. Par exemple le public cible et comment l'attirer."
 
-#: daraja/models.py:34
+#: daraja/models.py:32
 msgid "Simulation"
 msgstr "Simulation"
 
-#: daraja/models.py:35
+#: daraja/models.py:33
 msgid ""
 "Help Daras by giving a realistic, yet optmistic simulation of what they might "
 "earn in a month if they work well."
@@ -99,11 +87,11 @@ msgstr ""
 "Aidez les Daras à se projeter en donnant une simulation réaliste, mais optimiste "
 "de ce qu'ils peuvent gagner en vous travaillant correctement."
 
-#: daraja/models.py:40
+#: daraja/models.py:38
 msgid "City where HQ of company is located."
 msgstr "Ville où se trouve la DG de l'entreprise."
 
-#: daraja/models.py:44
+#: daraja/models.py:42
 msgid ""
 "Average amount a customer generally buys from you. This helps the Dara do a "
 "simulation of what he might earn."
@@ -111,51 +99,69 @@ msgstr ""
 "Le ticket moyen qu'un client dépense en général chez vous. Ceci aide le Dara à "
 "faire une estimation de ses gains potentiels."
 
-#: daraja/models.py:46
+#: daraja/models.py:44
 msgid "Estimated daily sales of a dara"
 msgstr "Estimez les ventes journalières d'un dara"
 
-#: daraja/models.py:97
+#: daraja/models.py:95
 msgid "Say something about you"
 msgstr "Dites le meilleur de vous"
 
-#: daraja/utils.py:60
+#: daraja/utils.py:70
 #, python-format
 msgid "I'm back on %s !"
 msgstr "Je suis de retour sur %s !"
 
-#: daraja/utils.py:62
+#: daraja/utils.py:72
 #, python-format
 msgid "I just joined %s !"
 msgstr "Je viens de m'inscrire sur %s !"
 
-#: daraja/utils.py:95
+#: daraja/utils.py:105
 #, python-format
 msgid "New transaction on %s"
 msgstr "Nouvelle transaction sur %s"
 
-#: daraja/views.py:158
+#: daraja/views.py:165
 msgid "New Dara request"
 msgstr "Nouvelle requête"
 
-#: daraja/views.py:347
+#: daraja/views.py:184
+msgid "New request sent"
+msgstr "Nouvelle demande envoyée"
+
+#: daraja/views.py:378
 msgid "Your profile was successfully updated."
 msgstr "Votre profil a été mis à jour avec succès."
 
-#: daraja/views.py:410
+#: daraja/views.py:441
 msgid "Your Dara request was accepted"
 msgstr "Votre requête en tant que Dara a été acceptée"
 
-#: daraja/views.py:681
+#: daraja/views.py:712
 msgid "Welcome to Daraja. Now you can accept the invitation below."
 msgstr ""
 "Bienvenue sur Daraja. Vous pouvez maintenant accepter l'invitation ci-dessous."
 
-#: daraja/templates/daraja/change_profile.html:16
+#: daraja/templates/daraja/change_profile.html:17
 msgid "Subscriptions"
 msgstr "Inscriptions"
 
-#: daraja/templates/daraja/change_profile.html:51
+#: daraja/templates/daraja/change_profile.html:32
+#: daraja/templates/daraja/change_profile.html:46
+#: daraja/templates/daraja/view_profile.html:32
+#: daraja/templates/daraja/view_profile.html:46
+msgid "Level "
+msgstr "Niveau"
+
+#: daraja/templates/daraja/change_profile.html:36
+#: daraja/templates/daraja/change_profile.html:50
+#: daraja/templates/daraja/view_profile.html:36
+#: daraja/templates/daraja/view_profile.html:50
+msgid "Xp "
+msgstr "Xp"
+
+#: daraja/templates/daraja/change_profile.html:87
 #: daraja/templates/daraja/configuration.html:81
 msgid "Save"
 msgstr "Enregistrer"
@@ -352,7 +358,6 @@ msgstr ""
 #: daraja/templates/daraja/dashboard.html:335 daraja/templates/daraja/home.html:209
 #: daraja/templates/daraja/home_playground.html:286
 #: daraja/templates/daraja/not_yet_dara.html:40 templates/com/base.html:230
-#: templates/com/base_online.html:202
 msgid "Get started"
 msgstr "Lancez-vous"
 
@@ -428,7 +433,7 @@ msgstr ""
 
 #: daraja/templates/daraja/dashboard.html:376
 msgid ""
-" Send likes to our social platforms and invite friends to follow us,like our "
+"Send likes to our social platforms and invite friends to follow us,like our "
 "pages, share, and subscribe to our social pages to keep up with new activities."
 msgstr ""
 "Envoyez les likes sur nos réseaux sociaux et invitez vos amis à nous suivre, "
@@ -438,6 +443,71 @@ msgstr ""
 #: daraja/templates/daraja/dashboard.html:378
 msgid "Like us !"
 msgstr "Likez-nous !"
+
+#: daraja/templates/daraja/dashboard.html:390
+msgid "Start making real money !"
+msgstr "Commencez à gagnez de l'argent maintenant !"
+
+#: daraja/templates/daraja/dashboard.html:391
+msgid ""
+"Congratulations ! You have successfully completed the Playground steps. Now, "
+"you're a Dara <strong>level 2</strong>. Get started with real business now."
+msgstr ""
+"Félications ! Vous avez terminé les étapes de Playground. Vous êtes désormais un "
+"Dara <strong>niveau 2</strong>. Commencez dès à présent votre business en ligne."
+
+#: daraja/templates/daraja/dashboard.html:393
+msgid "Get started !"
+msgstr "Allez-y !"
+
+#: daraja/templates/daraja/dashboard.html:400
+msgid "Step 1: Request access to a company"
+msgstr "Étape 1: Envoyez une demande de partenariat à une entreprise"
+
+#: daraja/templates/daraja/dashboard.html:401
+msgid ""
+"Visit companies list page and click on the <strong>request button</strong> on the "
+"top right corner. Earn <strong>2xp</strong> for that."
+msgstr ""
+"Visitez la liste des entreprises enregistrées et cliquez sur le bouton "
+"<strong>demander</strong> situé en haut à l'extrêmité droite. Et, gagnez "
+"<strong>2xp</strong> pour cela."
+
+#: daraja/templates/daraja/dashboard.html:403
+msgid "Request now"
+msgstr "Demandez"
+
+#: daraja/templates/daraja/dashboard.html:419
+msgid "Step 2: Invite 3 followers or more"
+msgstr "Étape 2: Invitez 3 followers ou plus"
+
+#: daraja/templates/daraja/dashboard.html:420
+msgid ""
+"Send referral link of newly joined companies to your friends and get at least 3 "
+"of them to register. Earn <strong>3xp</strong> for that."
+msgstr ""
+"Envoyez votre lien référentiel de vos entreprises nouvellement partenaires à vos "
+"proches et obtenez au moins 3 d'entre eux qui les rejoinds . Et gagnez "
+"<strong>3xp</strong> pour cela."
+
+#: daraja/templates/daraja/dashboard.html:422
+#: daraja/templates/daraja/dashboard.html:428
+msgid "Refer now"
+msgstr "Recommendez"
+
+#: daraja/templates/daraja/dashboard.html:425
+msgid "Step 3: Get one of your followers to buy online"
+msgstr "Étape 3: Amenez un de vos followers à commander en ligne"
+
+#: daraja/templates/daraja/dashboard.html:426
+msgid ""
+"Congratulations ! You referred at least 3 friends. Now, get one of them to buy "
+"from your newly joined companies. Earn <strong>500 CFA</strong> and move to "
+"<strong>level 3</strong>."
+msgstr ""
+"Félicitations ! Vous avez déjà recommendé au moins 3 proches. Maintenant, invitez "
+"un d'entre eux à acheter en ligne dans vos nouvelles entrerprises partenaires. "
+"Puis, gagnez <strong>500 FCFA</strong> et passez à l' <strong>étape 3</strong>."
 
 #: daraja/templates/daraja/home.html:13
 msgid "ikwen Daraja, become a shareholder of major companies"
@@ -587,31 +657,28 @@ msgstr ""
 
 #: daraja/templates/daraja/home.html:211
 #: daraja/templates/daraja/home_playground.html:288
-#: templates/com/base_online.html:143 templates/com/base_online.html.py:204
 msgid "Home"
 msgstr "Accueil"
 
 #: daraja/templates/daraja/home.html:212
 #: daraja/templates/daraja/home_playground.html:289 templates/com/base.html:232
-#: templates/com/base_online.html:205
 msgid "Sign In"
 msgstr "Connexion"
 
 #: daraja/templates/daraja/home.html:217 templates/com/base.html:237
-#: templates/com/base_online.html:210
 msgid "About us"
 msgstr "À propos"
 
-#: daraja/templates/daraja/home.html:219 templates/com/base_online.html:212
+#: daraja/templates/daraja/home.html:219
 msgid "Our Company"
 msgstr "Notre entreprise"
 
 #: daraja/templates/daraja/home.html:229
 #: daraja/templates/daraja/home_playground.html:303 templates/com/base.html:246
-#: templates/com/base_online.html:221
 msgid "Help desk"
 msgstr "Aide"
 
+#: daraja/templates/daraja/home_ced.html:16
 #: daraja/templates/daraja/home_for_businesses.html:16
 #: daraja/templates/daraja/home_for_businesses.html:237
 msgid "Hundreds of marketing agents ready to work online for you."
@@ -619,6 +686,7 @@ msgstr ""
 "Des centaines d'agents marketing prêts à travailler pour vous en ligne.\n"
 "                            "
 
+#: daraja/templates/daraja/home_ced.html:17 daraja/templates/daraja/home_ced.html:18
 #: daraja/templates/daraja/home_for_businesses.html:17
 #: daraja/templates/daraja/home_for_businesses.html:18
 #: daraja/templates/daraja/home_for_businesses.html:254
@@ -627,6 +695,10 @@ msgid "Lower total payroll and marketing costs while increasing revenue"
 msgstr ""
 "Réduisez la masse salariale, les coûts marketing, et augmentez le chiffre "
 "d'affaire"
+
+#: daraja/templates/daraja/home_ced.html:243
+msgid "Simuler"
+msgstr ""
 
 #: daraja/templates/daraja/home_for_businesses.html:235
 msgid "Increase your turnover with<br> an army of salespeople."
@@ -1015,7 +1087,7 @@ msgstr ""
 "                "
 
 #: daraja/templates/daraja/invite_dara.html:70
-#: daraja/templates/daraja/view_profile.html:100
+#: daraja/templates/daraja/view_profile.html:135
 msgid "Accept"
 msgstr "Accepter"
 
@@ -1066,10 +1138,12 @@ msgstr ""
 
 #: daraja/templates/daraja/invite_dara.html:129
 #, python-format
-msgid "Hello! Join %(company_name)s on ikwen and get tons of cool advantages."
+msgid ""
+"Do you know %(company_name)s on ikwen ? I found it interesting for you. You "
+"should check it out."
 msgstr ""
-"Bonjour! Rejoignez %(company_name)s sur ikwen et bénéficiez des tonnes "
-"d'avantages."
+"Tu connais %(company_name)s sur ikwen ? J'ai trouvé ça intéressant pour toi. Tu "
+"devrais regarder."
 
 #: daraja/templates/daraja/not_yet_dara.html:9
 msgid "Not yet on Daraja, join first"
@@ -1196,35 +1270,35 @@ msgstr "SVP! Vous devez être Dara pour poursuivre cette action."
 msgid "Become a Dara"
 msgstr "Devenez un Dara"
 
-#: daraja/templates/daraja/view_profile.html:42
+#: daraja/templates/daraja/view_profile.html:77
 msgid "Email"
 msgstr "Email"
 
-#: daraja/templates/daraja/view_profile.html:48
+#: daraja/templates/daraja/view_profile.html:83
 msgid "Phone"
 msgstr "Téléphone"
 
-#: daraja/templates/daraja/view_profile.html:54
+#: daraja/templates/daraja/view_profile.html:89
 msgid "Not set"
 msgstr "Non renseigné"
 
-#: daraja/templates/daraja/view_profile.html:58
+#: daraja/templates/daraja/view_profile.html:93
 msgid "Suscribed on"
 msgstr "Inscrit le"
 
-#: daraja/templates/daraja/view_profile.html:68
+#: daraja/templates/daraja/view_profile.html:103
 msgid "Social medias"
 msgstr "Réseaux sociaux"
 
-#: daraja/templates/daraja/view_profile.html:106
+#: daraja/templates/daraja/view_profile.html:141
 msgid "Decline"
 msgstr "Refuser"
 
-#: daraja/templates/daraja/view_profile.html:132
+#: daraja/templates/daraja/view_profile.html:167
 msgid "Dara successfully added"
 msgstr "Dara ajouté avec succès"
 
-#: daraja/templates/daraja/view_profile.html:142
+#: daraja/templates/daraja/view_profile.html:177
 msgid "Request declined"
 msgstr "Demande rejetée"
 
@@ -1285,9 +1359,12 @@ msgstr "%(total_earnings)s gagné."
 
 #: daraja/templates/daraja/snippets/company_list_results.html:43
 #, python-format
-msgid "Hello, join me on %(project_name)s. There are tons of good things for you."
+msgid ""
+"Do you know %(project_name)s on ikwen ? I found it interesting for you. You "
+"should check it out."
 msgstr ""
-"Bonjour! Rejoins moi sur %(project_name)s. Il y a plein d'avantages pour toi."
+"Tu connais %(project_name)s sur ikwen ? J'ai trouvé ça intéressant pour toi. Tu "
+"devrais regarder."
 
 #: daraja/templates/daraja/snippets/company_list_results.html:60
 #: daraja/templates/daraja/snippets/dara_list_results.html:42
@@ -1470,21 +1547,18 @@ msgid "Update address"
 msgstr "Changer l'adresse"
 
 #: templates/com/base.html:98 templates/com/base.html.py:204
-#: templates/com/base_online.html:93 templates/com/base_online.html.py:171
 msgid "Account setup"
 msgstr "Infos compte"
 
 #: templates/com/base.html:100 templates/com/base.html.py:206
-#: templates/com/base_online.html:95 templates/com/base_online.html.py:173
 msgid "Logout"
 msgstr "Déconnexion"
 
 #: templates/com/base.html:105 templates/com/base.html.py:211
-#: templates/com/base_online.html:100 templates/com/base_online.html.py:178
 msgid "Login"
 msgstr "Connexion"
 
-#: templates/com/base.html:117 templates/com/base_online.html:112
+#: templates/com/base.html:117
 msgid "Search"
 msgstr "Recherche"
 
@@ -1496,7 +1570,7 @@ msgstr "Communauté"
 msgid "Enterprise"
 msgstr "Entreprise"
 
-#: templates/com/base.html:239 templates/com/base_online.html:214
+#: templates/com/base.html:239
 msgid "Reviews"
 msgstr "Avis"
 
@@ -1548,6 +1622,29 @@ msgstr "Dernier paiement"
 #: templates/core/dashboard_base.html:111
 msgid "View payments"
 msgstr "Voirles paiements"
+
+#: templates/website/snippets/language_switcher.html:6
+msgid "Language"
+msgstr "Langue"
+
+#~ msgid "There is no product online"
+#~ msgstr "Aucun produit en ligne"
+
+#~ msgid "English"
+#~ msgstr "Anglais"
+
+#~ msgid "French"
+#~ msgstr "Français"
+
+#~ msgid "Hello! Join %(company_name)s on ikwen and get tons of cool advantages."
+#~ msgstr ""
+#~ "Bonjour! Rejoignez %(company_name)s sur ikwen et bénéficiez des tonnes "
+#~ "d'avantages."
+
+#~ msgid ""
+#~ "Hello, join me on %(project_name)s. There are tons of good things for you."
+#~ msgstr ""
+#~ "Bonjour! Rejoins moi sur %(project_name)s. Il y a plein d'avantages pour toi."
 
 #~ msgid "Step 1: Buy online"
 #~ msgstr "Étape 1: Achetez en ligne"

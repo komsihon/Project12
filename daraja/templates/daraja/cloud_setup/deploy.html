@@ -43,7 +43,7 @@
             <form id="deploy-cloud" method="post">{% csrf_token %}
                 <div class="form-group">
                     {% if is_dara %}
-                        <a class="btn btn-deep-blue continue" href="{{ next_url }}" style="min-width: 240px">
+                        <a class="btn btn-block btn-deep-blue continue" href="{{ next_url }}" style="min-width: 240px">
                             <strong>{% trans "Continue" %}</strong>
                         </a>
                     {% else %}
