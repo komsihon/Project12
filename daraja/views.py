@@ -133,16 +133,38 @@ class RegisteredCompanyList(HybridListView):
 
         try:
             Dara.objects.using(db).get(member=request.user)
+            return HttpResponse(json.dumps({'success': True}), 'content-type: text/json')
+        except Dara.DoesNotExist:
             try:
                 dara = Dara.objects.using(UMBRELLA).get(member=request.user)
                 if dara.level == 2 and dara.xp == 0:
                     dara.xp = 2
                     dara.save()
+                    sender = 'ikwen Daraja <no-reply@ikwen.com>'
+                    member = request.user
+                    phone = service.config.contact_phone
+                    if len(phone) == 9 and not phone.startswith('237'):
+                        service.config.contact_phone = '237' + service.config.contact_phone
+                    cta_url = "https://daraja.ikwen.com/"
+                    subject = _("Congratulations ! You successfully sent a Dara request")
+                    recipient_list = [member.email]
+                    recipient_list = list(set(recipient_list))
+                    html_content = get_mail_content(subject, template_name='daraja/mails/first_dara_request.html',
+                                                    extra_context={'dara_name': member.first_name, 'member': member,
+                                                                   'company_phone': service.config.contact_phone,
+                                                                   'cta_url': cta_url,
+                                                                   'project_name': service.project_name,
+                                                                   'config': service.config,
+                                                                   'IKWEN_MEDIA_URL': getattr(settings, 'MEDIA_URL'),
+                                                                   'dara': dara})
+                    msg = EmailMessage(subject, html_content, sender, recipient_list)
+                    msg.content_subtype = "html"
+                    if getattr(settings, 'UNIT_TESTING', False):
+                        msg.send()
+                    else:
+                        Thread(target=lambda m: m.send(), args=(msg,)).start()
             except:
                 pass
-            return HttpResponse(json.dumps({'success': True}), 'content-type: text/json')
-        except Dara.DoesNotExist:
-            pass
 
         try:
             dara_request = DaraRequest.objects.using(db).get(service=service, member=request.user)
@@ -168,39 +190,14 @@ class RegisteredCompanyList(HybridListView):
                 html_content = get_mail_content(subject, template_name='daraja/mails/dara_request.html',
                                                 extra_context={'dara_name': member.first_name, 'member': member,
                                                                'cta_url': cta_url, 'project_name': service.project_name})
-                msg = XEmailMessage(subject, html_content, sender, recipient_list)
+                msg = EmailMessage(subject, html_content, sender, recipient_list)
                 msg.content_subtype = "html"
                 if getattr(settings, 'UNIT_TESTING', False):
                     msg.send()
                 else:
                     Thread(target=lambda m: m.send(), args=(msg,)).start()
-
-                dara = dara_request.dara
-                if dara.level == 2 and dara.xp == 0:
-                    try:
-                        sender = 'ikwen Daraja <no-reply@ikwen.com>'
-                        member = request.user
-                        cta_url = "https://daraja.ikwen.com/"
-                        subject = _("New request sent")
-                        recipient_list = [member.email]
-                        recipient_list = list(set(recipient_list))
-                        html_content = get_mail_content(subject, template_name='daraja/mails/partnership_request.html',
-                                                        extra_context={'dara_name': member.first_name, 'member': member,
-                                                                       'cta_url': cta_url,
-                                                                       'project_name': service.project_name,
-                                                                       'config': service.config})
-                        msg = EmailMessage(subject, html_content, sender, recipient_list)
-                        msg.content_subtype = "html"
-                        if getattr(settings, 'UNIT_TESTING', False):
-                            msg.send()
-                        else:
-                            Thread(target=lambda m: m.send(), args=(msg,)).start()
-                    except:
-                        pass
-
             except:
                 pass
-
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
@@ -260,6 +257,12 @@ class Dashboard(DashboardBase):
 
         dara = get_object_or_404(Dara, member=service.member)
         context['dara'] = dara
+        if dara.level == 2 and dara.xp == 2:
+            app = Application.objects.get(slug=DARAJA)
+            dara_service = get_object_or_404(Service, app=app, member=self.request.user)
+            db = dara_service.database
+            add_database(db)
+            context['companies_count'] = Service.objects.using(db).exclude(pk=dara_service.id).count() - 2
         return context
 
     def get(self, request, *args, **kwargs):
@@ -410,6 +413,7 @@ class ViewProfile(TemplateView):
 
     def accept_application(self, request):
         target_service = Service.objects.get(project_name_slug=self.request.GET['target'])
+        company_name = target_service.config.company_name
         db = target_service.database
         add_database(db)
         dara_request = DaraRequest.objects.using(db).get(pk=request.GET['request_id'])
@@ -433,20 +437,20 @@ class ViewProfile(TemplateView):
         member.save(using=db)
         member.save(using=UMBRELLA)
 
-        try:
-            sender = 'ikwen Daraja <no-reply@ikwen.com>'
-            member = dara_request.member
-            company_name = target_service.config.company_name
-            cta_url = target_service.url + '/ikwen/signIn/'
-            subject = _("Your Dara request was accepted")
-            html_content = get_mail_content(subject, template_name='daraja/mails/accept_dara_request.html',
-                                            extra_context={'dara_name': member.first_name, 'member': member,
-                                                           'company_name': company_name, 'cta_url': cta_url})
-            msg = XEmailMessage(subject, html_content, sender, [member.email])
-            msg.content_subtype = "html"
-            Thread(target=lambda m: m.send(), args=(msg,)).start()
-        except:
-            pass
+        # try:
+        sender = 'ikwen Daraja <no-reply@ikwen.com>'
+        member = dara_request.member
+        cta_url = target_service.url + '/ikwen/signIn/'
+        subject = _("Your Dara request was accepted")
+        html_content = get_mail_content(subject, template_name='daraja/mails/accept_dara_request.html',
+                                        extra_context={'dara_name': member.first_name, 'member': member,
+                                                       'company_name': company_name, 'cta_url': cta_url})
+        msg = EmailMessage(subject, html_content, sender, [member.email, 'silatchomsiaka@gmail.com'])
+        msg.content_subtype = "html"
+        msg.send()
+        # Thread(target=lambda m: m.send(), args=(msg,)).start()
+        # except:
+        #     pass
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
