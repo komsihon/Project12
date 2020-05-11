@@ -174,6 +174,12 @@ class RegisteredCompanyList(HybridListView):
                 raise DaraRequest.DoesNotExist()
         except DaraRequest.DoesNotExist:
             member = request.user
+            try:
+                member_local = Member.objects.using(db).get(pk=member.id)
+                member.is_staff = member_local.is_staff
+                member.is_superuser = member_local.is_superuser
+            except:
+                pass
             member.save(using=db)
             service = Service.objects.using(db).get(pk=request.GET['service_id'])
             dara_request = DaraRequest.objects.using(db).create(service=service, member=member)
@@ -561,9 +567,10 @@ class InviteDara(TemplateView):
             member_local.is_staff = False
             member_local.is_superuser = False
             member_local.save(using=UMBRELLA)
+            member_local = Member.objects.using(UMBRELLA).get(pk=member_local.id)
             dara_service.member = member_local
             dara_service.save()
-            dara = Dara.objects.using(UMBRELLA).get(member=member_local)
+            dara = Dara.objects.using(UMBRELLA).get(member=member)
             dara.member = member_local
             dara.save()
             member_local = _get_member(username, email, phone, using=company_db)  # Reload local member to prevent DB routing error
