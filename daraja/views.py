@@ -566,6 +566,8 @@ class InviteDara(TemplateView):
                 member_local.customer_on_fk_list.append(company.id)
             member_local.is_staff = False
             member_local.is_superuser = False
+            member_local.is_iao = False
+            member_local.is_bao = False
             member_local.save(using=UMBRELLA)
             member_local = Member.objects.using(UMBRELLA).get(pk=member_local.id)
             dara_service.member = member_local
