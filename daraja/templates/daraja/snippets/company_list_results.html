@@ -5,7 +5,7 @@
     {% for company in company_list %}
         <li id="{{ company.id }}" class="ik-li list-group-item" data-id="{{ company.id }}">
             {% url 'ikwen:company_profile' company.project_name_slug as company_ikwen_url %}
-            <a href="{{ company.url }}/ikwen/signIn?next={{ company.url }}%3Frefer_now=yes" class="image rounded"
+            <a href="{{ company.url }}/ikwen/signIn/?next={{ company.url }}%3Frefer_now=yes" class="image rounded"
                style="background-image: url({% if company.logo.name %}{{ settings.IKWEN_MEDIA_URL }}{{ company.logo.name }}{% else %}{% static 'ikwen/img/logo-placeholder.jpg' %}{% endif %})"></a>
             <div class="info">
                 <div>{{ company.project_name }}</div>
