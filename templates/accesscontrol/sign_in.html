@@ -19,6 +19,7 @@
 
 {% block head_style %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'ikwen/css/pwa.css' %}">
     <style  type="text/css">
         #navbar {background: #fff}
         #navbar-search, #navbar .navbar-right {display: none}
@@ -34,19 +35,18 @@
 
 {% block head_js %}
     <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then((reg) => {
-              console.log('Service worker registered.', reg);
-            });
-      });
-    }
+        navigator.serviceWorker.getRegistrations().then(
+            function(registrations) {
+                for(let registration of registrations) {
+                    if (registration.active.scriptURL.indexOf('service-worker.js') > 0) registration.unregister();
+                }
+        });
     </script>
     {{ block.super }}
 {% endblock %}
 
 {% block content %}
+    {% include 'core/snippets/pwa_promotion/simple_button.html' %}
     <div id="content" class="form container">
         <p class="failure chrome-only" style="display: none; margin: 15px; padding: 9px">
             {% trans "Downloading the App is not possible with your current browser. Please switch to Google Chrome." %}
@@ -113,14 +113,13 @@
 {% endblock %}
 {% block js %}
     {{ block.super }}
-    <script src="{% static 'foulassi/install.js' %}"></script>
+    <script src="{% static 'ikwen/js/pwa-main.js' %}?v=20.5.29"></script>
     <script type="text/javascript">
         (function() {
             {% if request.GET.dl %}
                 if (/Android/.test(navigator.userAgent)) {
                     let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor) && !(/SamsungBrowser/.test(navigator.userAgent));
                     if (!isChrome) $('.chrome-only').show();
-                    else ikwen.showFloatingNotice("{% trans "Wait a few seconds and click the prompt that appear at the bottom of the screen" %}");
                 } else $('.android-only').show();
             {% endif %}
             $('#lg-username').keyup(function(e) {

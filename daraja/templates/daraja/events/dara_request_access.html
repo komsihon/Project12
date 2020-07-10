@@ -1,0 +1,21 @@
+{% load i18n static url_utils %}
+<div style="padding: 0 15px">
+    {% url 'daraja:view_profile' dara.uname as profile_url %}
+    <h4 class="text-primary">{% trans "New dara request" %}</h4>
+    <div class="member" style="border-bottom: none; padding: 15px 0">
+        {% if member.photo and member.photo.name %}
+            <a href="https://ikwen.com{{ profile_url|strip_base_alias }}?target={{ service.project_name_slug }}" class="photo"
+               style="background-image: url({{ IKWEN_MEDIA_URL }}{{ member.photo.small_name }}); cursor: pointer"></a>
+        {% else %}
+            <a href="https://ikwen.com{{ profile_url|strip_base_alias }}?target={{ service.project_name_slug }}" class="photo"
+               style="background-image: url({% static 'ikwen/img/login-avatar.jpg' %}); cursor: pointer"></a>
+        {% endif %}
+        <div style="margin-left: 80px">
+            <a href="https://ikwen.com{{ profile_url|strip_base_alias }}?target={{ service.project_name_slug }}" class="name"
+               style="cursor: pointer; display: block; margin-bottom: 5px">{{ member.full_name }}</a>
+            <p class="about">
+                {% blocktrans with project_name=service.project_name %}Would like to become a Dara for you on {{ project_name }}.{% endblocktrans %}
+            </p>
+        </div>
+    </div>
+</div>

@@ -10,7 +10,6 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render
 from django.template.defaultfilters import slugify
-from django.utils.http import urlunquote
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -22,14 +21,14 @@ from ikwen.core.constants import PENDING, REJECTED, ACCEPTED
 from ikwen.core.views import HybridListView, DashboardBase, ChangeObjectBase
 from ikwen.core.models import Service, Application, Config
 from ikwen.core.utils import slice_watch_objects, rank_watch_objects, add_database, set_counters, get_service_instance, \
-    get_model_admin_instance, clear_counters, get_mail_content, XEmailMessage
+    get_model_admin_instance, clear_counters, get_mail_content, XEmailMessage, add_event
 from ikwen.accesscontrol.utils import VerifiedEmailTemplateView
 from ikwen.accesscontrol.backends import UMBRELLA
 from ikwen.accesscontrol.models import Member
 
 from ikwen_kakocase.shopping.models import Customer
 
-from daraja.models import DaraRequest, Dara, DarajaConfig, DARAJA, Invitation
+from daraja.models import DaraRequest, Dara, DarajaConfig, DARAJA, Invitation, DARA_REQUESTED_ACCESS
 from daraja.admin import DaraAdmin, DarajaConfigAdmin
 from daraja.cloud_setup import deploy
 
@@ -183,7 +182,9 @@ class RegisteredCompanyList(HybridListView):
             member.save(using=db)
             service = Service.objects.using(db).get(pk=request.GET['service_id'])
             dara_request = DaraRequest.objects.using(db).create(service=service, member=member)
-
+            daraja_service = Service.objects.using(UMBRELLA).get(project_name_slug=DARAJA)
+            add_event(daraja_service, DARA_REQUESTED_ACCESS,
+                      member=member, model='daraja.DaraRequest', object_id=dara_request.id)
             try:
                 sender = 'ikwen Daraja <no-reply@ikwen.com>'
                 member = request.user

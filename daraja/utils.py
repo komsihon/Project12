@@ -3,15 +3,18 @@ from datetime import datetime
 from threading import Thread
 
 from django.conf import settings
+from django.template import Context
+from django.template.loader import get_template
 from django.utils.translation import activate, gettext as _
 
+from ikwen.conf import settings as ikwen_settings
 from ikwen.accesscontrol.backends import UMBRELLA
 from ikwen.accesscontrol.models import Member
 from ikwen.core.models import Service, Application
 from ikwen.core.utils import add_database, set_counters, increment_history_field, add_event, get_mail_content, \
     XEmailMessage
 
-from daraja.models import DARAJA, Follower, REFEREE_JOINED_EVENT, Dara
+from daraja.models import DARAJA, Follower, REFEREE_JOINED_EVENT, Dara, DaraRequest
 
 logger = logging.getLogger('ikwen')
 
@@ -60,7 +63,9 @@ def set_customer_dara(service, referrer, member):
         set_counters(service_mirror)
         increment_history_field(service_mirror, 'community_history')
 
-        add_event(service, REFEREE_JOINED_EVENT, member)
+        daraja_service = Service.objects.using(UMBRELLA).get(project_name_slug=DARAJA)
+        add_event(daraja_service, REFEREE_JOINED_EVENT,
+                  member=referrer, model='accesscontrol.Member', object_id=member.id)
 
         diff = datetime.now() - member.date_joined
 
@@ -117,3 +122,33 @@ def send_dara_notification_email(dara_service, amount, referrer_earnings, tx_on)
         Thread(target=lambda m: m.send(), args=(msg,)).start()
     except:
         logger.error("Failed to notify %s Dara after follower purchase." % service, exc_info=True)
+
+
+def render_referee_joined_event(event, request):
+    """
+    Renders the RefereeJoined Event on ikwen console
+    """
+    try:
+        member = Member.objects.get(pk=event.object_id)
+    except :
+        return ''
+    html_template = get_template('daraja/events/referee_joined.html')
+    context = {'event': event, 'member': member, 'IKWEN_MEDIA_URL': ikwen_settings.MEDIA_URL}
+    c = Context(context)
+    return html_template.render(c)
+
+
+def render_request_access_event(event, request):
+    """
+    Renders the RequestAccess Event on ikwen console
+    """
+    try:
+        dara_request = DaraRequest.objects.select_related('service', 'member').get(pk=event.object_id)
+        dara = Dara.objects.get(member=dara_request.member)
+    except :
+        return ''
+    html_template = get_template('daraja/events/dara_request_access.html')
+    context = {'event': event, 'dara': dara, 'member': dara_request.member,
+               'service': dara_request.service, 'IKWEN_MEDIA_URL': ikwen_settings.MEDIA_URL}
+    c = Context(context)
+    return html_template.render(c)
