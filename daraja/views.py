@@ -372,7 +372,10 @@ class ChangeProfile(ChangeObjectBase):
     def get_object(self, **kwargs):
         app = Application.objects.get(slug=DARAJA)
         dara_service = get_object_or_404(Service, app=app, member=self.request.user)
-        dara, update = Dara.objects.using(UMBRELLA).get_or_create(member=self.request.user, uname=dara_service.ikwen_name)
+        try:
+            dara = Dara.objects.using(UMBRELLA).get(member=self.request.user)
+        except:
+            dara = Dara.objects.using(UMBRELLA).create(member=self.request.user, uname=dara_service.ikwen_name)
         return dara
 
     def post(self, request, *args, **kwargs):
