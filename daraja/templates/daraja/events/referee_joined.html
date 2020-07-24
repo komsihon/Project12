@@ -1,0 +1,23 @@
+{% load i18n staticfiles humanize auth_tokens url_utils %}
+<div style="padding: 0 15px">
+    {% url 'daraja:company_list' as company_list_url %}
+    <h4 class="text-primary">{% trans "You have a new follower" %}</h4>
+    <div class="member" style="border-bottom: none; padding: 15px 0">
+        {% if member.photo and member.photo.name %}
+            <a href="javascript:;" class="photo"
+               style="background-image: url({{ IKWEN_MEDIA_URL }}{{ member.photo.thumb_name }}); cursor: pointer"></a>
+        {% else %}
+            <a href="javascript:;" class="photo"
+               style="background-image: url({% static 'ikwen/img/login-avatar.jpg' %}); cursor: pointer"></a>
+        {% endif %}
+        <div style="margin-left: 80px">
+            <a href="javascript:;" class="name" style="display: block; margin-bottom: 5px">{{ member.full_name }}</a>
+            <p class="about">{% trans "Accepted invitation via your Dara link" %}.</p>
+        </div>
+    </div>
+    <div class="col-sm-8 col-sm-offset-2">
+        <a class="btn btn-block btn-green" href="https://daraja.ikwen.com{{ company_list_url }}">
+            {% trans "View your followers" %}
+        </a>
+    </div>
+</div>

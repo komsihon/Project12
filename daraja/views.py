@@ -10,7 +10,6 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render
 from django.template.defaultfilters import slugify
-from django.utils.http import urlunquote
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -22,14 +21,14 @@ from ikwen.core.constants import PENDING, REJECTED, ACCEPTED
 from ikwen.core.views import HybridListView, DashboardBase, ChangeObjectBase
 from ikwen.core.models import Service, Application, Config
 from ikwen.core.utils import slice_watch_objects, rank_watch_objects, add_database, set_counters, get_service_instance, \
-    get_model_admin_instance, clear_counters, get_mail_content, XEmailMessage
+    get_model_admin_instance, clear_counters, get_mail_content, XEmailMessage, add_event
 from ikwen.accesscontrol.utils import VerifiedEmailTemplateView
 from ikwen.accesscontrol.backends import UMBRELLA
 from ikwen.accesscontrol.models import Member
 
 from ikwen_kakocase.shopping.models import Customer
 
-from daraja.models import DaraRequest, Dara, DarajaConfig, DARAJA, Invitation
+from daraja.models import DaraRequest, Dara, DarajaConfig, DARAJA, Invitation, DARA_REQUESTED_ACCESS
 from daraja.admin import DaraAdmin, DarajaConfigAdmin
 from daraja.cloud_setup import deploy
 
@@ -174,10 +173,18 @@ class RegisteredCompanyList(HybridListView):
                 raise DaraRequest.DoesNotExist()
         except DaraRequest.DoesNotExist:
             member = request.user
+            try:
+                member_local = Member.objects.using(db).get(pk=member.id)
+                member.is_staff = member_local.is_staff
+                member.is_superuser = member_local.is_superuser
+            except:
+                pass
             member.save(using=db)
             service = Service.objects.using(db).get(pk=request.GET['service_id'])
             dara_request = DaraRequest.objects.using(db).create(service=service, member=member)
-
+            daraja_service = Service.objects.using(UMBRELLA).get(project_name_slug=DARAJA)
+            add_event(daraja_service, DARA_REQUESTED_ACCESS,
+                      member=member, model='daraja.DaraRequest', object_id=dara_request.id)
             try:
                 sender = 'ikwen Daraja <no-reply@ikwen.com>'
                 member = request.user
@@ -365,7 +372,10 @@ class ChangeProfile(ChangeObjectBase):
     def get_object(self, **kwargs):
         app = Application.objects.get(slug=DARAJA)
         dara_service = get_object_or_404(Service, app=app, member=self.request.user)
-        dara, update = Dara.objects.using(UMBRELLA).get_or_create(member=self.request.user, uname=dara_service.ikwen_name)
+        try:
+            dara = Dara.objects.using(UMBRELLA).get(member=self.request.user)
+        except:
+            dara = Dara.objects.using(UMBRELLA).create(member=self.request.user, uname=dara_service.ikwen_name)
         return dara
 
     def post(self, request, *args, **kwargs):
@@ -560,10 +570,13 @@ class InviteDara(TemplateView):
                 member_local.customer_on_fk_list.append(company.id)
             member_local.is_staff = False
             member_local.is_superuser = False
+            member_local.is_iao = False
+            member_local.is_bao = False
             member_local.save(using=UMBRELLA)
+            member_local = Member.objects.using(UMBRELLA).get(pk=member_local.id)
             dara_service.member = member_local
             dara_service.save()
-            dara = Dara.objects.using(UMBRELLA).get(member=member_local)
+            dara = Dara.objects.using(UMBRELLA).get(member=member)
             dara.member = member_local
             dara.save()
             member_local = _get_member(username, email, phone, using=company_db)  # Reload local member to prevent DB routing error
