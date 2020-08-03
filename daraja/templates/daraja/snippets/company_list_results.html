@@ -5,7 +5,7 @@
     {% for company in company_list %}
         <li id="{{ company.id }}" class="ik-li list-group-item" data-id="{{ company.id }}">
             {% url 'ikwen:company_profile' company.project_name_slug as company_ikwen_url %}
-            <a href="{{ company.url }}/ikwen/signIn?next={{ company.url }}%3Frefer_now=yes" class="image rounded"
+            <a href="{{ company.url }}{% if company.project_name != 'ikwen' %}/ikwen{% endif %}/signIn?next={{ company.url }}%3Frefer_now=yes" class="image rounded"
                style="background-image: url({% if company.logo.name %}{{ settings.IKWEN_MEDIA_URL }}{{ company.logo.name }}{% else %}{% static 'ikwen/img/logo-placeholder.jpg' %}{% endif %})"></a>
             <div class="info">
                 <div>{{ company.project_name }}</div>
@@ -19,14 +19,14 @@
                     </span>
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="period">
                         <li>
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={% if company.is_standalone %}{{ company.url }}{% else %}{{ company_ikwen_url|ikwenize }}{% endif %}?referrer={{ user.id }}"
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ company.url }}?referrer={{ user.id }}"
                                target="_blank" style="color: #3b5998;">
                                 <i class="fab fa-facebook"></i>
                                 Facebook
                             </a>
                         </li>
                         <li>
-                            <a href="https://twitter.com/intent/tweet?url={% if company.is_standalone %}{{ company.url }}{% else %}{{ company_ikwen_url|ikwenize }}{% endif %}%3Freferrer={{ user.id }}"
+                            <a href="https://twitter.com/intent/tweet?url={{ company.url }}%3Freferrer={{ user.id }}"
                                target="_blank" style="color: #1da1f2;">
                                 <i class="fab fa-twitter"></i>
                                 Twitter
@@ -35,7 +35,7 @@
                         <li class="visible-xs">
                             <a class="whatsapp-share-company" href="javascript:;" style="color: #2cb100"
                                data-toggle="modal" data-target="#whatsapp-share"
-                               data-url="{% if company.is_standalone %}{{ company.url }}{% else %}{{ company_ikwen_url|ikwenize }}{% endif %}?referrer={{ user.id }}">
+                               data-url="{{ company.url }}?referrer={{ user.id }}">
                                 <div class="hidden text">
                                 {% if company.is_standalone %}
                                     {% blocktrans %}Hello, I find this interesting for you. You can order online and get delivered where you want.{% endblocktrans %}
