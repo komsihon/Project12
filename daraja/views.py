@@ -1,6 +1,6 @@
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from threading import Thread
 
 from django.conf import settings
@@ -58,6 +58,16 @@ def _get_member(username, email, phone, using):
 
 class Home(TemplateView):
     template_name = 'daraja/home.html'
+
+    def get(self, request, *args, **kwargs):
+        response = super(Home, self).get(request, *args, **kwargs)
+        if request.GET.get('tokens'):
+            if request.COOKIES.get('is_returning'):
+                next_url = reverse('daraja:deploy_cloud') + '?' + request.GET['tokens']
+                return HttpResponseRedirect(next_url)
+            expires = datetime.now() + timedelta(days=90)
+            response.set_cookie('is_returning', 'yes', expires=expires, path='/daraja')
+        return response
 
 
 class HomeForBusinesses(TemplateView):
@@ -519,9 +529,6 @@ class InviteDara(TemplateView):
             if daraja_config.invitation_is_unique:
                 try:
                     invitation = Invitation.objects.using(company_db).get(pk=invitation_id, status=PENDING)
-                    diff = datetime.now() - invitation.created_on
-                    if diff.total_seconds() > getattr(settings, 'DARAJA_INVITATION_TIMEOUT', 30) * 60:
-                        raise Http404('Invitation is expired')
                 except:
                     raise Http404('Unexisting invitation')
         context['company'] = company
