@@ -116,7 +116,10 @@ def deploy(member):
     # Add Member as Dara for ikwen
     ikwen_service = get_service_instance()
     daraja_config = DarajaConfig.objects.get(service=ikwen_service)
-    dara, change = Dara.objects.get_or_create(member=member)
+    try:
+        dara = Dara.objects.get(member=member)
+    except:
+        dara = Dara(member=member)
     dara.uname = ikwen_name
     dara.share_rate = daraja_config.referrer_share_rate
     dara.save()
@@ -134,9 +137,13 @@ def deploy(member):
     member.save(using=playground_db)
     member = Member.objects.using(playground_db).get(pk=member.id)
     UserPermissionList.objects.using(playground_db).get_or_create(user=member)
-    dara, change = Dara.objects.using(playground_db).get_or_create(member=member)
+    try:
+        dara = Dara.objects.using(playground_db).get(member=member)
+    except:
+        pass
+    dara.uname = ikwen_name
     dara.share_rate = playground_config.referrer_share_rate
-    dara.save()
+    dara.save(using=playground_db)
     service.save(using=playground_db)
     playground_service.save(using=database)
     playground_service_mirror = Service.objects.using(database).get(pk=playground_service.id)
