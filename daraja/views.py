@@ -460,7 +460,7 @@ class ViewProfile(TemplateView):
         # try:
         sender = 'ikwen Daraja <no-reply@ikwen.com>'
         member = dara_request.member
-        cta_url = target_service.url + '/ikwen/signIn/'
+        cta_url = target_service.url + '/ikwen/signIn'
         subject = _("Your Dara request was accepted")
         html_content = get_mail_content(subject, template_name='daraja/mails/accept_dara_request.html',
                                         extra_context={'dara_name': member.first_name, 'member': member,
