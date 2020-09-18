@@ -218,6 +218,20 @@ class RegisteredCompanyList(HybridListView):
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(RegisteredCompanyList, self).get_context_data(**kwargs)
+        daraja_config_list = []
+        for q in self.queryset:
+            try:
+                db = q.service.database
+                add_database(db)
+                Dara.objects.using(db).get(member=self.request.user)
+                q.is_dara = True
+            except Dara.DoesNotExist:
+                q.is_dara = False
+            daraja_config_list.append(q)
+        context['daraja_config_list'] = daraja_config_list
+        return context
 
 @login_required
 def login_router(request, *args, **kwargs):
@@ -751,6 +765,6 @@ class SuccessfulDeployment(VerifiedEmailTemplateView):
         if inviter:
             next_url = reverse('daraja:invite_dara', args=(inviter, )) + '?invitation_id=' + invitation_id
         else:
-            next_url = 'http://daraja.ikwen.com/daraja/playground'
+            next_url = 'http://daraja.ikwen.com/daraja/playground/'
         context['next_url'] = next_url
         return context

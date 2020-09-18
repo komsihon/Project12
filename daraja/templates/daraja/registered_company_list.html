@@ -39,7 +39,7 @@
             {% if object_list %}
                 <div class="company-list">
                     <div class="object-list" style="padding-left: 0">
-                        {% for obj in object_list %}
+                        {% for obj in dara_config_list %}
                             {% with company=obj.service config=obj.service.config %}
                                 <div id="{{ company.id }}" class="ik-li">
                                     {% if config.logo.name %}
@@ -100,9 +100,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="actions">
-                                        <button class="btn btn-sm btn-green apply request" data-id="{{ company.id }}" data-name="{{ config.company_name }}" data-toggle="modal" data-target="error-handler">{% trans "Request" %}</button>
-                                    </div>
+                                    {% if not obj.is_dara %}
+                                        <div class="actions">
+                                            <button class="btn btn-sm btn-green apply request" data-id="{{ company.id }}" data-name="{{ config.company_name }}" data-toggle="modal" data-target="error-handler">{% trans "Request" %}</button>
+                                        </div>
+                                    {% endif %}
                                     <div class="actions simulate-earning-container hidden">
                                         <button class="btn btn-sm btn-primary apply" data-id="{{ company.id }}">{% trans "Simulate earnings" %}</button>
                                     </div>
