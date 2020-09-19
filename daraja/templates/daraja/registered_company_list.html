@@ -39,7 +39,7 @@
             {% if object_list %}
                 <div class="company-list">
                     <div class="object-list" style="padding-left: 0">
-                        {% for obj in dara_config_list %}
+                        {% for obj in daraja_config_list %}
                             {% with company=obj.service config=obj.service.config %}
                                 <div id="{{ company.id }}" class="ik-li">
                                     {% if config.logo.name %}
@@ -100,11 +100,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {% if not obj.is_dara %}
-                                        <div class="actions">
-                                            <button class="btn btn-sm btn-green apply request" data-id="{{ company.id }}" data-name="{{ config.company_name }}" data-toggle="modal" data-target="error-handler">{% trans "Request" %}</button>
-                                        </div>
-                                    {% endif %}
+                                    <div class="actions">
+                                        <button class="btn btn-sm btn-green apply{% if obj.can_request %} can-request{% endif %}{% if user.is_anonymous %} anonymous{% endif %}"
+                                                data-id="{{ company.id }}" data-name="{{ config.company_name }}" data-toggle="modal" data-target="error-handler">{% trans "Request" %}</button>
+                                    </div>
                                     <div class="actions simulate-earning-container hidden">
                                         <button class="btn btn-sm btn-primary apply" data-id="{{ company.id }}">{% trans "Simulate earnings" %}</button>
                                     </div>
@@ -257,8 +256,16 @@
             let val;
             $('.btn.apply:not(.processing)').click(function() {
                 let _$btn = $(this),
-                    companyId = _$btn.data('id');
+                    companyId = _$btn.data('id'),
                     companyName = _$btn.data('name');
+                if (!_$btn.hasClass('anonymous')) {
+                    ikwen.showNoticeDialog("{% trans "You must login to issue a request" %}");
+                    return
+                }
+                if (!_$btn.hasClass('can-request')) {
+                    ikwen.showFloatingNotice("{% trans "You have already issued a request to this company" %}");
+                    return
+                }
                 _$btn.addClass('processing');
                 $.getJSON('', {action: 'apply', service_id: companyId}, function(resp) {
                     _$btn.removeClass('processing');

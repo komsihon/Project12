@@ -5,6 +5,7 @@ from threading import Thread
 
 from django.conf import settings
 from django.contrib.auth import logout, authenticate, login
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
@@ -54,6 +55,33 @@ def _get_member(username, email, phone, using):
                 return member
             except:
                 pass
+
+
+def _sync_member(member, member_local, weblet, dara_service):
+    """
+    :param member: Member from UMBRELLA database
+    :param member_local: Member from the local weblet database
+    :param weblet: The target weblet
+    :param dara_service: The Dara Service of the member
+    :return:
+    """
+    username, email, phone = member.username, member.email, member.phone
+    member.username = '__deleted__' + username
+    member.email = '__deleted__' + email
+    member.phone = '__deleted__' + phone
+    member.save()
+    if weblet.id not in member_local.customer_on_fk_list:
+        member_local.customer_on_fk_list.append(weblet.id)
+    member_local.is_staff = False
+    member_local.is_superuser = False
+    member_local.is_iao = False
+    member_local.is_bao = False
+    member_local.save(using=UMBRELLA)
+    dara_service.member = member_local
+    dara_service.save()
+    dara = Dara.objects.using(UMBRELLA).get(member=member)
+    dara.member = member_local
+    dara.save()
 
 
 class Home(TemplateView):
@@ -183,15 +211,28 @@ class RegisteredCompanyList(HybridListView):
                 raise DaraRequest.DoesNotExist()
         except DaraRequest.DoesNotExist:
             member = request.user
-            try:
-                member_local = Member.objects.using(db).get(pk=member.id)
-                member.is_staff = member_local.is_staff
-                member.is_superuser = member_local.is_superuser
-            except:
-                pass
-            member.save(using=db)
+            username, email, phone = member.username, member.email, member.phone
+            member_local = _get_member(username, email, phone, using=db)
+            if not member_local:
+                member.is_staff = False
+                member.is_superuser = False
+                member.is_bao = False
+                member.is_iao = False
+                if service.id not in member_local.customer_on_fk_list:
+                    member.customer_on_fk_list.append(service.id)
+                member.save(using=db)
+                Member.objects.filter(pk=member.id).update(customer_on_fk_list=member.customer_on_fk_list)
+            elif member_local and member_local.id != member.id:
+                try:
+                    dara_service = Service.objects.using(UMBRELLA).get(app=app, member=member)
+                    _sync_member(member, member_local, service, dara_service)
+                except Service.DoesNotExist:
+                    response = {'error': "not_yet_dara"}
+                    return HttpResponse(json.dumps(response))
+                logout(request)
+            member_local = Member.objects.using(db).get(username=member.username)
             service = Service.objects.using(db).get(pk=request.GET['service_id'])
-            dara_request = DaraRequest.objects.using(db).create(service=service, member=member)
+            dara_request = DaraRequest.objects.using(db).create(service=service, member=member_local)
             daraja_service = Service.objects.using(UMBRELLA).get(project_name_slug=DARAJA)
             add_event(daraja_service, DARA_REQUESTED_ACCESS,
                       member=member, model='daraja.DaraRequest', object_id=dara_request.id)
@@ -220,16 +261,22 @@ class RegisteredCompanyList(HybridListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(RegisteredCompanyList, self).get_context_data(**kwargs)
+        if self.request.user.is_anonymous():
+            daraja_config_list = list(self.get_queryset())
+            context['daraja_config_list'] = daraja_config_list
+            return context
         daraja_config_list = []
-        for q in self.queryset:
+        for obj in self.get_queryset():
             try:
-                db = q.service.database
+                db = obj.service.database
                 add_database(db)
-                Dara.objects.using(db).get(member=self.request.user)
-                q.is_dara = True
-            except Dara.DoesNotExist:
-                q.is_dara = False
-            daraja_config_list.append(q)
+                member = self.request.user
+                Dara.objects.using(db).get(member=member)
+                DaraRequest.objects.using(db).get(member=member, status=PENDING)
+                obj.can_request = False
+            except ObjectDoesNotExist:
+                obj.can_request = True
+            daraja_config_list.append(obj)
         context['daraja_config_list'] = daraja_config_list
         return context
 
@@ -454,7 +501,14 @@ class ViewProfile(TemplateView):
         member = dara_request.member
         member.is_ghost = False
         UserPermissionList.objects.using(db).get_or_create(user=member)
-        Dara.objects.using(db).get_or_create(member=member)
+        dara = Dara.objects.get(member=member)
+        try:
+            daraja_config = DarajaConfig.objects.using(db).get(service=target_service)
+            dara.share_rate = daraja_config.referrer_share_rate
+            dara.save(using=db)
+        except:
+            response = {'success': True}
+            return HttpResponse(json.dumps(response), 'content-type: text/json')
         dara_request.status = ACCEPTED
         dara_request.save()
         app = Application.objects.get(slug=DARAJA)
@@ -471,20 +525,20 @@ class ViewProfile(TemplateView):
         member.save(using=db)
         member.save(using=UMBRELLA)
 
-        # try:
-        sender = 'ikwen Daraja <no-reply@ikwen.com>'
-        member = dara_request.member
-        cta_url = target_service.url + '/ikwen/signIn'
-        subject = _("Your Dara request was accepted")
-        html_content = get_mail_content(subject, template_name='daraja/mails/accept_dara_request.html',
-                                        extra_context={'dara_name': member.first_name, 'member': member,
-                                                       'company_name': company_name, 'cta_url': cta_url})
-        msg = EmailMessage(subject, html_content, sender, [member.email, 'silatchomsiaka@gmail.com'])
-        msg.content_subtype = "html"
-        msg.send()
-        # Thread(target=lambda m: m.send(), args=(msg,)).start()
-        # except:
-        #     pass
+        try:
+            sender = 'ikwen Daraja <no-reply@ikwen.com>'
+            cta_url = target_service.url + '/ikwen/signIn'
+            subject = _("Your Dara request was accepted")
+            html_content = get_mail_content(subject, template_name='daraja/mails/accept_dara_request.html',
+                                            extra_context={'dara_name': member.first_name, 'member': member,
+                                                           'company_name': company_name, 'cta_url': cta_url})
+            msg = EmailMessage(subject, html_content, sender, [member.email])
+            msg.bcc = ['silatchomsiaka@gmail.com']
+            msg.content_subtype = "html"
+            msg.send()
+            Thread(target=lambda m: m.send(), args=(msg,)).start()
+        except:
+            logger.error("Daraja - Failed to send request accepted email to %s" % member.email, exc_info=True)
         response = {'success': True}
         return HttpResponse(json.dumps(response), 'content-type: text/json')
 
@@ -542,7 +596,7 @@ class InviteDara(TemplateView):
         if not invitation_already_accepted:
             if daraja_config.invitation_is_unique:
                 try:
-                    invitation = Invitation.objects.using(company_db).get(pk=invitation_id, status=PENDING)
+                    Invitation.objects.using(company_db).get(pk=invitation_id, status=PENDING)
                 except:
                     raise Http404('Unexisting invitation')
         context['company'] = company
@@ -580,40 +634,25 @@ class InviteDara(TemplateView):
         # Check Member in company_db with either the same username, email or password
         username, email, phone = member.username, member.email, member.phone
         member_local = _get_member(username, email, phone, using=company_db)
-        if member_local and member_local.id != member.id:
-            # If found and different from the one in umbrella. Simulate deletion of the one in umbrella then replace
-            # with the local one to make sure than local and umbrella Member have the same ID
-            member.username = '__deleted__' + username
-            member.email = '__deleted__' + email
-            member.phone = '__deleted__' + phone
-            member.save()
+        if not member_local:
+            member.is_staff = False
+            member.is_superuser = False
+            member.is_bao = False
+            member.is_iao = False
             if company.id not in member_local.customer_on_fk_list:
-                member_local.customer_on_fk_list.append(company.id)
-            member_local.is_staff = False
-            member_local.is_superuser = False
-            member_local.is_iao = False
-            member_local.is_bao = False
-            member_local.save(using=UMBRELLA)
-            member_local = Member.objects.using(UMBRELLA).get(pk=member_local.id)
-            dara_service.member = member_local
-            dara_service.save()
-            dara = Dara.objects.using(UMBRELLA).get(member=member)
-            dara.member = member_local
-            dara.save()
-            member_local = _get_member(username, email, phone, using=company_db)  # Reload local member to prevent DB routing error
-            logout(request)
-        else:
-            if company.id not in member.customer_on_fk_list:
                 member.customer_on_fk_list.append(company.id)
-            member.save()
             member.save(using=company_db)
-            member_local = Member.objects.using(company_db).get(pk=member.id)
-            UserPermissionList.objects.using(company_db).get_or_create(user=member_local)
+            Member.objects.filter(pk=member.id).update(customer_on_fk_list=member.customer_on_fk_list)
+        elif member_local and member_local.id != member.id:
+            _sync_member(member, member_local, company, dara_service)
+
+        member_local = Member.objects.using(company_db).get(username=member.username)
+        daraja_config = DarajaConfig.objects.using(company_db).get(service=company)
         dara_service.save(using=company_db)
-        daraja_config = DarajaConfig.objects.get(service=company)
-        dara, change = Dara.objects.using(company_db).get_or_create(member=member_local)
+        dara = Dara.objects.get(member=member_local)
         dara.share_rate = daraja_config.referrer_share_rate
-        dara.save()
+        dara.save(using=company_db)
+
         db = dara_service.database
         add_database(db)
         company.save(using=db)
@@ -642,14 +681,6 @@ class DaraRequestList(HybridListView):
         except:
             pass
         return context
-
-    def get(self, request, *args, **kwargs):
-        action = request.GET.get('action')
-        if action == 'accept':
-            return self.accept_application(request)
-        elif action == 'reject':
-            return self.reject_application(request)
-        return super(DaraRequestList, self).get(request, *args, **kwargs)
 
 
 class DaraList(HybridListView):
@@ -765,6 +796,6 @@ class SuccessfulDeployment(VerifiedEmailTemplateView):
         if inviter:
             next_url = reverse('daraja:invite_dara', args=(inviter, )) + '?invitation_id=' + invitation_id
         else:
-            next_url = 'http://daraja.ikwen.com/daraja/playground/'
+            next_url = 'http://daraja.ikwen.com/daraja/playground'
         context['next_url'] = next_url
         return context
