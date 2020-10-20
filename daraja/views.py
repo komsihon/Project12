@@ -267,14 +267,19 @@ class RegisteredCompanyList(HybridListView):
             return context
         daraja_config_list = []
         for obj in self.get_queryset():
+            db = obj.service.database
+            add_database(db)
+            member = self.request.user
             try:
-                db = obj.service.database
-                add_database(db)
-                member = self.request.user
                 Dara.objects.using(db).get(member=member)
                 DaraRequest.objects.using(db).get(member=member, status=PENDING)
                 obj.can_request = False
             except ObjectDoesNotExist:
+                try:
+                    Member.objects.using(db).get(pk=member.pk)
+                    obj.is_subscribed = True
+                except:
+                    obj.is_subscribed = False
                 obj.can_request = True
             daraja_config_list.append(obj)
         context['daraja_config_list'] = daraja_config_list
