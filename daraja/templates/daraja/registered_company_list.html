@@ -275,7 +275,7 @@
                     let imageURL = "{% static 'daraja/img/subscribe-daraja.jpg'  %}",
                         title = "{% trans 'Subscribe to ' %}" + companyName + "{% trans ' to proceed' %}",
                         message = "{% trans 'You must subscribe to issue a request' %}",
-                        url = companyURL + "/ikwen" + "{% url 'ikwen:sign_in' %}?next={% url 'daraja:registered_company_list' %}";
+                        url = companyURL + "/ikwen" + "{% url 'ikwen:sign_in' %}?next={{ service.url }}{% url 'daraja:registered_company_list' %}";
                     ikwen.showNoticeDialog(imageURL, title, message, url);
                     return
                 }
