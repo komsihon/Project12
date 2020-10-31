@@ -7,7 +7,7 @@ from threading import Thread
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.mail import EmailMessage
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.template.defaultfilters import slugify
 from django.utils.translation import gettext as _
 from ikwen.accesscontrol.backends import UMBRELLA
@@ -16,7 +16,6 @@ from ikwen.core.models import Service, SERVICE_DEPLOYED, Application, Config
 from ikwen.core.tools import generate_random_key
 from ikwen.core.utils import add_database_to_settings, add_event, get_mail_content, \
     get_service_instance, clear_counters, add_database
-from permission_backend_nonrel.models import UserPermissionList
 
 from daraja.models import DARAJA, DARAJA_IKWEN_SHARE_RATE, DarajaConfig, Dara
 
@@ -100,9 +99,6 @@ def deploy(member):
     member.save(using=database)
     logger.debug("Member %s access rights successfully set for service %s" % (member.username, ikwen_name))
 
-    # Add member to SUDO Group
-    obj_list, created = UserPermissionList.objects.using(database).get_or_create(user=member)
-    obj_list.save(using=database)
     logger.debug("Member %s successfully added to sudo group for service: %s" % (member.username, ikwen_name))
     config = Config(service=service, cash_out_rate=DARAJA_IKWEN_SHARE_RATE,
                     currency_code='XAF', currency_symbol='XAF', decimal_precision=0,
@@ -136,7 +132,6 @@ def deploy(member):
     member.is_superuser = False
     member.save(using=playground_db)
     member = Member.objects.using(playground_db).get(pk=member.id)
-    UserPermissionList.objects.using(playground_db).get_or_create(user=member)
     try:
         dara = Dara.objects.using(playground_db).get(member=member)
     except:

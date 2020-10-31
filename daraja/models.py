@@ -1,9 +1,11 @@
 from datetime import datetime
 
 from django.conf import settings
-from django.db import models, transaction
+from django.db import transaction
 from django.utils.translation import gettext_lazy as _
-from djangotoolbox.fields import ListField
+
+from djongo import models
+
 from ikwen.accesscontrol.backends import UMBRELLA
 from ikwen.accesscontrol.models import Member
 from ikwen.core.constants import PENDING
@@ -18,7 +20,7 @@ REFEREE_JOINED_EVENT = "RefereeJoined"
 
 
 class DarajaConfig(Model):
-    service = models.ForeignKey(Service, unique=True, default=get_service_instance, related_name='+')
+    service = models.ForeignKey(Service, unique=True, default=get_service_instance, related_name='+', on_delete=models.CASCADE)
     invitation_is_unique = models.BooleanField(_("Unique invitations ?"), default=True,
                                                help_text=_("If checked, generated invitation link is usable once "
                                                            "within 30mn. Else, the link is public and can be used "
@@ -43,7 +45,7 @@ class DarajaConfig(Model):
                                                    "Dara do a simulation of what he might earn."))
     daily_sales = models.IntegerField(default=10000, help_text=_('Estimated daily sales of a dara'))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.service.project_name
 
     def save(self, **kwargs):
@@ -64,8 +66,8 @@ class DarajaConfig(Model):
 
 
 class DaraRequest(Model):
-    service = models.ForeignKey(Service, related_name='+')
-    member = models.ForeignKey(Member)
+    service = models.ForeignKey(Service, related_name='+', on_delete=models.CASCADE)
+    member = models.ForeignKey(Member, on_delete=models.CASCADE)
     status = models.CharField(max_length=15, default=PENDING, db_index=True)
 
     class Meta:
@@ -85,7 +87,7 @@ class DaraRequest(Model):
 
 
 class Dara(AbstractWatchModel):
-    member = models.ForeignKey(Member, unique=True)
+    member = models.ForeignKey(Member, unique=True, on_delete=models.CASCADE)
     uname = models.CharField(max_length=100, unique=True)
     facebook_link = models.URLField(blank=True, null=True)
     instagram_link = models.URLField(blank=True, null=True)
@@ -98,10 +100,10 @@ class Dara(AbstractWatchModel):
     xp = models.IntegerField(default=0)
     level = models.IntegerField(default=1)
 
-    orders_count_history = ListField(editable=False)
-    items_traded_history = ListField(editable=False)
-    turnover_history = ListField(editable=False)
-    earnings_history = ListField(editable=False)
+    orders_count_history = models.JSONField(editable=False)
+    items_traded_history = models.JSONField(editable=False)
+    turnover_history = models.JSONField(editable=False)
+    earnings_history = models.JSONField(editable=False)
 
     total_orders_count = models.IntegerField(default=0)
     total_items_traded = models.IntegerField(default=0)
@@ -151,14 +153,14 @@ class Follower(AbstractWatchModel):
     """
     Profile information for a Buyer on whatever retail website
     """
-    member = models.OneToOneField(Member)
-    referrer = models.ForeignKey(Service, blank=True, null=True, related_name='+')
+    member = models.OneToOneField(Member, on_delete=models.CASCADE)
+    referrer = models.ForeignKey(Service, blank=True, null=True, related_name='+', on_delete=models.SET_NULL)
     last_payment_on = models.DateTimeField(blank=True, null=True, db_index=True)
 
-    orders_count_history = ListField()
-    items_purchased_history = ListField()
-    turnover_history = ListField()
-    earnings_history = ListField()
+    orders_count_history = models.JSONField()
+    items_purchased_history = models.JSONField()
+    turnover_history = models.JSONField()
+    earnings_history = models.JSONField()
 
     total_orders_count = models.IntegerField(default=0)
     total_items_purchased = models.IntegerField(default=0)
@@ -167,6 +169,6 @@ class Follower(AbstractWatchModel):
 
 
 class AbuseReport(Model):
-    service = models.ForeignKey(Service, related_name='+')
-    member = models.ForeignKey(Member)
+    service = models.ForeignKey(Service, related_name='+', on_delete=models.CASCADE)
+    member = models.ForeignKey(Member, on_delete=models.CASCADE)
     details = models.TextField()
