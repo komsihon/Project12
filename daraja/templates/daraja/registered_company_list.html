@@ -1,5 +1,5 @@
 {% extends "core/base_bs.html" %}
-{% load i18n humanize staticfiles auth_tokens currency webdesign %}
+{% load i18n humanize staticfiles auth_tokens currency webdesign url_utils %}
 
 {% block meta %}
     {% include 'daraja/snippets/color_and_icons.html' %}
@@ -101,8 +101,8 @@
                                         </div>
                                     </div>
                                     <div class="actions">
-                                        <button class="btn btn-sm btn-green apply{% if obj.can_request %} can-request{% endif %}{% if user.is_anonymous %} anonymous{% endif %}"
-                                                data-id="{{ company.id }}" data-name="{{ config.company_name }}" data-toggle="modal" data-target="error-handler">{% trans "Request" %}</button>
+                                        <button class="btn btn-sm btn-green apply{% if obj.can_request %} can-request{% endif %}{% if user.is_anonymous %} anonymous{% endif %} {% if obj.is_subscribed %} is-subscribed{% endif %}"
+                                                data-id="{{ company.id }}" data-name="{{ config.company_name }}" data-url="{{ company.url }}" data-toggle="modal" data-target="error-handler">{% trans "Request" %}</button>
                                     </div>
                                     <div class="actions simulate-earning-container hidden">
                                         <button class="btn btn-sm btn-primary apply" data-id="{{ company.id }}">{% trans "Simulate earnings" %}</button>
@@ -257,13 +257,26 @@
             $('.btn.apply:not(.processing)').click(function() {
                 let _$btn = $(this),
                     companyId = _$btn.data('id'),
-                    companyName = _$btn.data('name');
-                if (!_$btn.hasClass('anonymous')) {
-                    ikwen.showNoticeDialog("{% trans "You must login to issue a request" %}");
+                    companyName = _$btn.data('name'),
+                    companyURL = _$btn.data('url');
+                if (_$btn.hasClass('anonymous')) {
+                    let imageURL = "{% static 'daraja/img/login-to-proceed.jpg'  %}",
+                        title = "{% trans 'Login to proceed' %}",
+                        message = "{% trans "You must login to issue a request" %}",
+                        url = "{% url 'ikwen:sign_in' %}?next={% url 'daraja:registered_company_list' %}";
+                    ikwen.showNoticeDialog(imageURL, title, message, url);
                     return
                 }
                 if (!_$btn.hasClass('can-request')) {
                     ikwen.showFloatingNotice("{% trans "You have already issued a request to this company" %}");
+                    return
+                }
+                if (!_$btn.hasClass('is-subscribed')) {
+                    let imageURL = "{% static 'daraja/img/subscribe-daraja.jpg'  %}",
+                        title = "{% trans 'Subscribe to ' %}" + companyName + "{% trans ' to proceed' %}",
+                        message = "{% trans 'You must subscribe to issue a request' %}",
+                        url = companyURL + "/ikwen" + "{% url 'ikwen:sign_in' %}?next={{ service.url|strip_base_alias }}{% url 'daraja:registered_company_list' %}";
+                    ikwen.showNoticeDialog(imageURL, title, message, url);
                     return
                 }
                 _$btn.addClass('processing');

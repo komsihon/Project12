@@ -22,7 +22,7 @@ from ikwen.core.constants import PENDING, REJECTED, ACCEPTED
 from ikwen.core.views import HybridListView, DashboardBase, ChangeObjectBase
 from ikwen.core.models import Service, Application, Config
 from ikwen.core.utils import slice_watch_objects, rank_watch_objects, add_database, set_counters, get_service_instance, \
-    get_model_admin_instance, clear_counters, get_mail_content, XEmailMessage, add_event
+    get_model_admin_instance, clear_counters, get_mail_content, add_event
 from ikwen.accesscontrol.utils import VerifiedEmailTemplateView
 from ikwen.accesscontrol.backends import UMBRELLA
 from ikwen.accesscontrol.models import Member
@@ -267,18 +267,24 @@ class RegisteredCompanyList(HybridListView):
             return context
         daraja_config_list = []
         for obj in self.get_queryset():
+            db = obj.service.database
+            add_database(db)
+            member = self.request.user
             try:
-                db = obj.service.database
-                add_database(db)
-                member = self.request.user
                 Dara.objects.using(db).get(member=member)
                 DaraRequest.objects.using(db).get(member=member, status=PENDING)
                 obj.can_request = False
             except ObjectDoesNotExist:
+                try:
+                    Member.objects.using(db).get(pk=member.pk)
+                    obj.is_subscribed = True
+                except:
+                    obj.is_subscribed = False
                 obj.can_request = True
             daraja_config_list.append(obj)
         context['daraja_config_list'] = daraja_config_list
         return context
+
 
 @login_required
 def login_router(request, *args, **kwargs):

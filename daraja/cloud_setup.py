@@ -118,7 +118,7 @@ def deploy(member):
         dara = Dara(member=member)
     dara.uname = ikwen_name
     dara.share_rate = daraja_config.referrer_share_rate
-    dara.save()
+    dara.save(using=UMBRELLA)
     ikwen_service.save(using=database)
     ikwen_service_mirror = Service.objects.using(database).get(pk=ikwen_service.id)
     clear_counters(ikwen_service_mirror)

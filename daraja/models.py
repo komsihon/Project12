@@ -9,7 +9,7 @@ from djongo import models
 from ikwen.accesscontrol.backends import UMBRELLA
 from ikwen.accesscontrol.models import Member
 from ikwen.core.constants import PENDING
-from ikwen.core.models import Model, Service, AbstractWatchModel
+from ikwen.core.models import Model, Service, AbstractWatchModel, Application, OperatorWallet
 from ikwen.core.utils import get_service_instance, add_database
 
 DARAJA = "daraja"
@@ -112,6 +112,15 @@ class Dara(AbstractWatchModel):
 
     last_transaction_on = models.DateTimeField(blank=True, null=True, db_index=True)
 
+    def __unicode__(self):
+        return self.member.username
+
+    def _get_weblet(self):
+        app = Application.objects.get(slug=DARAJA)
+        obj = Service.objects.get(member=self.member, app=app)
+        return obj
+    weblet = property(_get_weblet)
+
     def _get_bonus_wallet(self):
         wallet, update = BonusWallet.objects.using('wallets').get_or_create(dara_id=self.id)
         return wallet
@@ -120,6 +129,20 @@ class Dara(AbstractWatchModel):
         wallet = self._get_bonus_wallet()
         return wallet.cash
     bonus_cash = property(_get_bonus_cash)
+
+    def _get_momo_balance(self):
+        from ikwen.billing.mtnmomo.open_api import MTN_MOMO
+        wallet, update = OperatorWallet.objects.using('wallets')\
+            .get_or_create(nonrel_id=self.weblet.id, provider=MTN_MOMO)
+        return wallet.balance
+    momo_balance = property(_get_momo_balance)
+
+    def _get_om_balance(self):
+        from ikwen.billing.orangemoney.views import ORANGE_MONEY
+        wallet, update = OperatorWallet.objects.using('wallets')\
+            .get_or_create(nonrel_id=self.weblet.id, provider=ORANGE_MONEY)
+        return wallet.balance
+    om_balance = property(_get_om_balance)
 
     def raise_bonus_cash(self, amount):
         wallet = self._get_bonus_wallet()
